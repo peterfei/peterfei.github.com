@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | peterfei 技术博</title>
+  <title>IOS 打包script | peterfei 技术博</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="重拾失失去博客的日子">
+  <meta name="description" content="无签名打包命令
+CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate1if [ &amp;#34;$&amp;#123;PLATFORM_NAME&amp;#125;&amp;#34; == &amp;#34;iphoneos&amp;#34; ] |">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://peterfei.me/2013/02/28/2013-02-28-helloworkd/index.html">
+<meta property="og:title" content="IOS 打包script">
+<meta property="og:url" content="http://peterfei.me/2015/07/03/IOS-打包script/index.html">
 <meta property="og:site_name" content="peterfei 技术博">
-<meta property="og:description" content="重拾失失去博客的日子">
-<meta property="og:image" content="http://i50.tinypic.com/21lmlxj.jpg">
-<meta property="og:image" content="http://i1320.photobucket.com/albums/u526/peterfei/6acbc97djw1e1sx6qtj90j_zps3cdae9d5.jpg">
-<meta property="og:image" content="http://i1320.photobucket.com/albums/u526/peterfei/psu_zpsda9949d5.jpg">
-<meta property="og:updated_time" content="2015-07-03T10:02:20.000Z">
+<meta property="og:description" content="无签名打包命令
+CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate1if [ &amp;#34;$&amp;#123;PLATFORM_NAME&amp;#125;&amp;#34; == &amp;#34;iphoneos&amp;#34; ] |">
+<meta property="og:updated_time" content="2015-07-03T11:51:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="重拾失失去博客的日子">
+<meta name="twitter:title" content="IOS 打包script">
+<meta name="twitter:description" content="无签名打包命令
+CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate1if [ &amp;#34;$&amp;#123;PLATFORM_NAME&amp;#125;&amp;#34; == &amp;#34;iphoneos&amp;#34; ] |">
   
     <link rel="alternative" href="/atom.xml" title="peterfei 技术博" type="application/atom+xml">
   
@@ -67,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-2013-02-28-helloworkd" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-IOS-打包script" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2013/02/28/2013-02-28-helloworkd/" class="article-date">
-  <time datetime="2013-02-28T01:30:00.000Z" itemprop="datePublished">2013-02-28</time>
+    <a href="/2015/07/03/IOS-打包script/" class="article-date">
+  <time datetime="2015-07-03T11:47:03.000Z" itemprop="datePublished">2015-07-03</time>
 </a>
     
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      IOS 打包script
     </h1>
   
 
@@ -89,13 +89,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><em>重拾失失去博客的日子</em> </p>
-<p><img src="http://i50.tinypic.com/21lmlxj.jpg" alt="小家伙一岁半了"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/6acbc97djw1e1sx6qtj90j_zps3cdae9d5.jpg" alt="2013春节"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/psu_zpsda9949d5.jpg" alt="那些年我的她"></p>
-
+        <p><em>无签名打包命令</em></p>
+<figure class="highlight"><figcaption><span>CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if [ &#34;$&#123;PLATFORM_NAME&#125;&#34; == &#34;iphoneos&#34; ] || [ &#34;$&#123;PLATFORM_NAME&#125;&#34; == &#34;ipados&#34; ]; then&#10;/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py &#34;my.company.$&#123;PROJECT_NAME&#125;&#34; &#34;$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;WRAPPER_NAME&#125;/$&#123;PROJECT_NAME&#125;.xcent&#34;;&#10;codesign -f -s &#34;iPhone Developer&#34; --entitlements &#34;$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;WRAPPER_NAME&#125;/$&#123;PROJECT_NAME&#125;.xcent&#34; &#34;$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;WRAPPER_NAME&#125;/&#34;&#10;fi</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2013/02/28/2013-02-28-helloworkd/" data-id="cibnk94mn000b2r6ghcdwcrn7" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/03/IOS-打包script/" data-id="cibnk94le00002r6gjzxgsz6j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -104,15 +103,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          rails 项目中对select2的高级使用
-        
-      </div>
-    </a>
   
+    <a href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ionic学习笔记1</div>
+    </a>
   
 </nav>
 
