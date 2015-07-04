@@ -37,11 +37,11 @@
     <link href="http://peterfei.me/2015/07/03/%E4%BB%8Eoctopress%E6%8A%98%E8%85%BE%E6%9E%9C%E6%96%AD%E5%88%87%E5%88%B0hexo/"/>
     <id>http://peterfei.me/2015/07/03/从octopress折腾果断切到hexo/</id>
     <published>2015-07-03T13:05:40.000Z</published>
-    <updated>2015-07-03T13:15:16.000Z</updated>
-    <content type="html"><![CDATA[<pre><code>上次发博文记得是五月，中间<span class="tag">mac</span>更新了一次，<span class="tag">ruby1</span><span class="class">.9</span><span class="class">.3</span> 用不了，缺少组件，于是<span class="tag">rebuild</span> <span class="tag">and</span> <span class="tag">reintall</span> <span class="tag">ruby</span>, 折腾了一个钟左右，之后<span class="tag">rake</span> 生成文章，<span class="tag">deploy</span> 尽然上传不上去，又一个钟<span class="tag">pass</span>了。在种种不能忍受的情况下，果断切到<span class="tag">hexo</span>.真的是很很力呀！！！
-</code></pre>]]></content>
+    <updated>2015-07-04T06:29:05.000Z</updated>
+    <content type="html"><![CDATA[<p>上次发博文记得是五月，中间mac更新了一次，ruby1.9.3 用不了，缺少组件，于是rebuild and reintall ruby, 折腾了一个钟左右，之后rake 生成文章，deploy 尽然上传不上去，又一个钟pass了。在种种不能忍受的情况下，果断切到hexo.真的是很很力呀！！！</p>
+]]></content>
     <summary type="html">
-    <![CDATA[<pre><code>上次发博文记得是五月，中间<span class="tag">mac</span>更新了一次，<span class="tag">ruby1</span><span class="class">.9</span><span class="class">.3<]]>
+    <![CDATA[<p>上次发博文记得是五月，中间mac更新了一次，ruby1.9.3 用不了，缺少组件，于是rebuild and reintall ruby, 折腾了一个钟左右，之后rake 生成文章，deploy 尽然上传不上去，又一个钟pass了。在种种不能忍受的情况下，果断切到hexo.]]>
     </summary>
     
       <category term="hexo" scheme="http://peterfei.me/tags/hexo/"/>
@@ -55,12 +55,12 @@
     <link href="http://peterfei.me/2015/07/03/IOS-%E6%89%93%E5%8C%85script/"/>
     <id>http://peterfei.me/2015/07/03/IOS-打包script/</id>
     <published>2015-07-03T11:47:03.000Z</published>
-    <updated>2015-07-03T11:51:25.000Z</updated>
+    <updated>2015-07-04T06:30:00.000Z</updated>
     <content type="html"><![CDATA[<p><em>无签名打包命令</em></p>
-<figure class="highlight"><figcaption><span>CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if [ &#34;$&#123;PLATFORM_NAME&#125;&#34; == &#34;iphoneos&#34; ] || [ &#34;$&#123;PLATFORM_NAME&#125;&#34; == &#34;ipados&#34; ]; then&#10;/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py &#34;my.company.$&#123;PROJECT_NAME&#125;&#34; &#34;$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;WRAPPER_NAME&#125;/$&#123;PROJECT_NAME&#125;.xcent&#34;;&#10;codesign -f -s &#34;iPhone Developer&#34; --entitlements &#34;$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;WRAPPER_NAME&#125;/$&#123;PROJECT_NAME&#125;.xcent&#34; &#34;$&#123;BUILT_PRODUCTS_DIR&#125;/$&#123;WRAPPER_NAME&#125;/&#34;&#10;fi</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"iphoneos"</span> ] || [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"ipados"</span> ]; <span class="keyword">then</span></span><br><span class="line">/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py <span class="string">"my.company.<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span>;</span><br><span class="line">codesign <span class="operator">-f</span> <span class="operator">-s</span> <span class="string">"iPhone Developer"</span> --entitlements <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>]]></content>
     <summary type="html">
     <![CDATA[<p><em>无签名打包命令</em></p>
-<figure class="highlight"><figcaption><span>CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/i]]>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">]]>
     </summary>
     
   </entry>
