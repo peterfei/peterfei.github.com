@@ -1,0 +1,159 @@
+---
+layout: post
+title: "ruby api设计"
+date: 2014-09-27 16:09:31 +0800
+comments: true
+tags:
+- ruby
+- 元编程
+categories: 
+---
+#先看一段source code 
+```ruby
+f = File.open("myfile.txt", 'w')
+f.write("Lorem ipsum dolor sit amet")
+f.write("Lorem ipsum dolor sit amet")
+f.close
+                ||
+                \/
+# using block
+File.open("myfile.txt", 'w') do |f|
+  f.write("Lorem ipsum dolor sit amet")
+  f.write("Lorem ipsum dolor sit amet")
+end
+```
+#如上，是使用block后的效果，再来一段
+```ruby
+    # without code block
+    def send_message(msg)
+      socket = TCPSocket.new(@ip, @port) # Pre-
+      socket.puts(msg)
+      response = socket.gets
+      ensure
+        socket.close # Post-
+      end
+    end
+                ||
+                \/
+    # with code block
+    def send_message(msg)
+      connection do |socket|
+        socket.puts("foobar")
+        socket.gets
+      end
+    end
+    def connection
+      socket = TCPSocket.new(@ip, @port) # Pre-
+        yield(socket)
+        ensure
+          socket.close # Post-
+        end
+    end
+```
+#Module 的使用
+```ruby
+module Mixin
+   def foo
+       puts "foo"
+   end
+end
+class A
+    include Mixin
+end
+A.new.foo # foo
+```
+.使用extend(Mod)
+```ruby
+module Mixin
+    def foo
+        puts "foo"
+    end
+￼class A
+  extend Mixin
+end
+￼end
+A.extend(Mixin)
+A.foo # class method
+the same as
+￼class << A
+  include Mixin
+end
+```
+.obj.extend(Mod)
+如下
+```ruby
+module Mixin
+     def foo
+         puts "foo"
+     end
+end
+a = "test"
+a.extend(Mixin)
+a.foo # foo
+the same as
+class << a
+  include Mixin
+end
+b = "demo"
+b.foo # NoMethodError
+```
+.Mixin with class methods 
+```ruby
+module Mixin
+  def foo
+    puts "foo"
+  end
+  module ClassMethods
+    def bar
+      puts "bar"
+    end
+  end 
+end
+class MyClass
+  include Mixin
+  extend Mixin::ClassMethods
+end
+```
+等同于如下代码：
+```ruby
+module Mixin
+  # self.included is a hook method
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+  def foo
+    puts "foo"
+  end
+  module ClassMethods
+    def bar
+      puts "bar"
+    end
+  end 
+end
+class MyClass
+  include Mixin
+end
+```
+等同于：
+```ruby
+module Mixin
+  def self.included(base)
+    base.extend(ClassMethods)
+    base.send(:include, InstanceMethods)
+  end
+  module InstanceMethods
+    def foo
+      puts "foo"
+    end
+  end
+  module ClassMethods
+    def bar
+      puts "bar"
+    end
+  end 
+end
+class MyClass
+  include Mixin
+end
+```
+
