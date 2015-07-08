@@ -3,42 +3,40 @@
 <head>
   <meta charset="utf-8">
   
-  <title>windows ionic 环境配置 | Peterfei</title>
+  <title>ionic socket.io 开发 | Peterfei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装Node.js (这里主要是要用它的npm命令装东西)  进入官网http://www.nodejs.org/ )，下载安装包安装
-安装phonegap和cordova
-安装ionic  npm install -g ionic
+  <meta name="description" content="这两天一直在做ionic开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。
+先叙述下基本的诉求：
 
+Nodejs 做为服务端，主要做服务端消息的监听与发送
+客户端App 为服务端发送消息
+主要协议TCP
 
-
-配置环境变量node的npm命令:
-
-Path : C:\Documents and Settings\Administrator\Application Da">
+服务端代码如下：1234567891011121314151617var http= require(&apos;http&apos;), io= require(&apos;soc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="windows ionic 环境配置">
-<meta property="og:url" content="http://peterfei.me/2015/07/06/windows-ionic-环境配置/index.html">
+<meta property="og:title" content="ionic socket.io 开发">
+<meta property="og:url" content="http://peterfei.me/2015/07/09/ionic-socket-io-开发/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="安装Node.js (这里主要是要用它的npm命令装东西)  进入官网http://www.nodejs.org/ )，下载安装包安装
-安装phonegap和cordova
-安装ionic  npm install -g ionic
+<meta property="og:description" content="这两天一直在做ionic开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。
+先叙述下基本的诉求：
 
+Nodejs 做为服务端，主要做服务端消息的监听与发送
+客户端App 为服务端发送消息
+主要协议TCP
 
-
-配置环境变量node的npm命令:
-
-Path : C:\Documents and Settings\Administrator\Application Da">
-<meta property="og:updated_time" content="2015-07-06T07:53:21.000Z">
+服务端代码如下：1234567891011121314151617var http= require(&apos;http&apos;), io= require(&apos;soc">
+<meta property="og:image" content="http://pic.yupoo.com/peterfei/EMOPKcas/Veffo.png">
+<meta property="og:updated_time" content="2015-07-08T17:29:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="windows ionic 环境配置">
-<meta name="twitter:description" content="安装Node.js (这里主要是要用它的npm命令装东西)  进入官网http://www.nodejs.org/ )，下载安装包安装
-安装phonegap和cordova
-安装ionic  npm install -g ionic
+<meta name="twitter:title" content="ionic socket.io 开发">
+<meta name="twitter:description" content="这两天一直在做ionic开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。
+先叙述下基本的诉求：
 
+Nodejs 做为服务端，主要做服务端消息的监听与发送
+客户端App 为服务端发送消息
+主要协议TCP
 
-
-配置环境变量node的npm命令:
-
-Path : C:\Documents and Settings\Administrator\Application Da">
+服务端代码如下：1234567891011121314151617var http= require(&apos;http&apos;), io= require(&apos;soc">
   
     <link rel="alternative" href="/atom.xml" title="Peterfei" type="application/atom+xml">
   
@@ -88,10 +86,10 @@ Path : C:\Documents and Settings\Administrator\Application Da">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-windows-ionic-环境配置" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ionic-socket-io-开发" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/07/06/windows-ionic-环境配置/" class="article-date">
-  <time datetime="2015-07-06T07:44:36.000Z" itemprop="datePublished">2015-07-06</time>
+    <a href="/2015/07/09/ionic-socket-io-开发/" class="article-date">
+  <time datetime="2015-07-08T16:48:44.000Z" itemprop="datePublished">2015-07-09</time>
 </a>
     
   </div>
@@ -102,7 +100,7 @@ Path : C:\Documents and Settings\Administrator\Application Da">
         
   
     <h1 class="article-title" itemprop="name">
-      windows ionic 环境配置
+      ionic socket.io 开发
     </h1>
   
 
@@ -110,28 +108,35 @@ Path : C:\Documents and Settings\Administrator\Application Da">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>安装Node.js (这里主要是要用它的npm命令装东西)<br>  进入官网<a href="http://" target="_blank" rel="external">http://www.nodejs.org/</a> )，下载安装包安装</li>
-<li>安装phonegap和cordova</li>
-<li>安装ionic<br>  <code>npm install -g ionic</code></li>
+        <p><em>这两天一直在做</em>ionic<em>开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。</em></p>
+<p><em>先叙述下基本的诉求：</em></p>
+<ul>
+<li>Nodejs 做为服务端，主要做服务端消息的监听与发送</li>
+<li>客户端App 为服务端发送消息</li>
+<li>主要协议TCP</li>
 </ul>
-<hr>
-<blockquote>
-<p>配置环境变量node的npm命令:</p>
-</blockquote>
-<p><code>Path : C:\Documents and Settings\Administrator\Application Data\npm</code></p>
-<blockquote>
-<p><a href="http://download.csdn.net/detail/superjunjin/8417723" target="_blank" rel="external">补齐npm文件夹下有关于ionic的文件</a></p>
-<p><a href="http://download.csdn.net/detail/superjunjin/8417731" target="_blank" rel="external">补齐ionic项目下node_modules等文件</a> </p>
-</blockquote>
+<p>服务端代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http= <span class="built_in">require</span>(<span class="string">'http'</span>), io= <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">var</span> app = http.createServer(), io = io.listen(app);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">10010</span>);</span><br><span class="line"></span><br><span class="line">io.sockets.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">  socket.emit(<span class="string">'news'</span>, &#123; hello: <span class="string">'world'</span> &#125;);<span class="comment">//监听，一旦客户端连接上，即发送数据，第一个参数'new'为数据名，第二个参数既为数据</span></span><br><span class="line">  socket.on(<span class="string">'my new event'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获客户端发送名为'my other event'的数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data.my);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  socket.emit(<span class="string">'other'</span>, &#123; hello: <span class="string">'other world'</span> &#125;);<span class="comment">//发送另一个数据</span></span><br><span class="line">  socket.on(<span class="string">'event1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获另外一个数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><em>Ionic 部分：</em></p>
+<ul>
+<li>生成新项目：<code>ionic start chat-app blank</code></li>
+<li>引入angular-socket-io 库:<code>bower install angular-socket-io</code></li>
+<li><img src="http://pic.yupoo.com/peterfei/EMOPKcas/Veffo.png" alt="folder"></li>
+<li>注入socket.io在项目里：<code>var app=angular.module(&#39;ionic-socketio-chat-client&#39;, [&#39;ionic&#39;,&#39;btford.socket-io&#39;])</code></li>
+<li><p>在index.html导入socket.io，<strong>注：socket.io/socket.io.js是服务端动态生成</strong></p>
+<pre><code> <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://192.168.0.101:10010/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"lib/angular-socket-io/socket.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://192.168.0.101:10010'</span>);</span><br><span class="line">      <span class="comment">// io.set('origins', '*:*');</span></span><br><span class="line">      socket.on(<span class="string">'news'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">      &#125;);</span><br><span class="line">      socket.on(<span class="string">'other'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123; <span class="comment">//接收另一个名为'other'数据，  </span></span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">          socket.emit(<span class="string">'event1'</span>, &#123;</span><br><span class="line">              my: <span class="string">'other data'</span></span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如此，客户端调用成功。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/06/windows-ionic-环境配置/" data-id="cibv1cif40008ux6g920bjelj" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/09/ionic-socket-io-开发/" data-id="cibv1cif8000dux6gdwr8mlwy" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic-socket-io/">ionic&socket.io</a></li></ul>
 
     </footer>
   </div>
@@ -139,19 +144,10 @@ Path : C:\Documents and Settings\Administrator\Application Da">
     
 <nav id="article-nav">
   
-    <a href="/2015/07/09/ionic-socket-io-开发/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          ionic socket.io 开发
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/07/04/我的仔/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/07/06/windows-ionic-环境配置/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">我的乖仔</div>
+      <div class="article-nav-title">windows ionic 环境配置</div>
     </a>
   
 </nav>
@@ -162,7 +158,7 @@ Path : C:\Documents and Settings\Administrator\Application Da">
 
   <section id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-windows-ionic-环境配置" data-title="windows ionic 环境配置" data-url="http://peterfei.me/2015/07/06/windows-ionic-环境配置/"></div>
+    <div class="ds-thread" data-thread-key="post-ionic-socket-io-开发" data-title="ionic socket.io 开发" data-url="http://peterfei.me/2015/07/09/ionic-socket-io-开发/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
