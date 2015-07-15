@@ -5,7 +5,7 @@
   <subtitle><![CDATA[上主是我的牧者，我实在一无所缺]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://peterfei.me//"/>
-  <updated>2015-07-14T08:05:15.000Z</updated>
+  <updated>2015-07-15T08:47:40.000Z</updated>
   <id>http://peterfei.me//</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Linux/UNIX的scp命令]]></title>
+    <link href="http://peterfei.me/2015/07/15/Linux-UNIX%E7%9A%84scp%E5%91%BD%E4%BB%A4/"/>
+    <id>http://peterfei.me/2015/07/15/Linux-UNIX的scp命令/</id>
+    <published>2015-07-15T08:45:50.000Z</published>
+    <updated>2015-07-15T08:47:40.000Z</updated>
+    <content type="html"><![CDATA[<hr>
+<p><em>1、复制远程服务器的文件到本地：</em><br><code>scp -P888 root@120.18.50.33:/data/ha97.zip /home/</code><br><em>2、复制远程服务器的目录到本地：</em><br><code>scp -vrp -P888 root@120.18.50.33:/data/ha97/ /home/</code><br><em>3、复制本地的文件到远程服务器：</em><br><code>scp -P888 /home/ha97.zip root@120.18.50.33:/data/</code><br><em>4、复制本地的目录到远程服务器：</em><br><code>scp -vrp -P888 /home/ root@120.18.50.33:/data/</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<hr>
+<p><em>1、复制远程服务器的文件到本地：</em><br><code>scp -P888 root@120.18.50.33:/data/ha97.zip /home/</code><br><em>2、复制远程服务器的目录到本地：</em><br><code>sc]]>
+    </summary>
+    
+      <category term="linux" scheme="http://peterfei.me/tags/linux/"/>
+    
+      <category term="scp" scheme="http://peterfei.me/tags/scp/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ionic android下tab放底部的办法]]></title>
