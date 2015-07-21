@@ -65,6 +65,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ionic-发送POST请求" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/22/ionic-发送POST请求/" class="article-date">
+  <time datetime="2015-07-21T16:40:03.000Z" itemprop="datePublished">2015-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/22/ionic-发送POST请求/">ionic 发送POST请求</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>今天写一个<code>POST</code>请求给远程API，<code>FORM</code>数据一直不能发送，最终用如下factory解决问题：</em></p>
+<hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'LoginService'</span>, [<span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> users = [];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            getUsers: <span class="function"><span class="keyword">function</span>(<span class="params">loginData</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> username = loginData.username,</span><br><span class="line">                    password = loginData.password;</span><br><span class="line">                <span class="keyword">return</span> $http(&#123;</span><br><span class="line">                    method: <span class="string">'POST'</span>,</span><br><span class="line">                    url: <span class="string">'http://172.16.100.222/zf/app/login.php?act=login'</span>,</span><br><span class="line">                    data: $.param(loginData),</span><br><span class="line">                    headers: &#123;</span><br><span class="line">                        <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">// debugger</span></span><br><span class="line">                    users = response;</span><br><span class="line">                    <span class="keyword">return</span> users;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">   &#125;])</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://peterfei.me/2015/07/22/ionic-发送POST请求/" data-id="cicdknova000d0u6glq3g6dgi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angularjs/">angularjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Linux-UNIX的scp命令" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/07/15/Linux-UNIX的scp命令/" class="article-date">
@@ -93,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/15/Linux-UNIX的scp命令/" data-id="cic4iz5fo000tjz6go06xo5lx" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/15/Linux-UNIX的scp命令/" data-id="cicdknovu000x0u6g13nas6u3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scp/">scp</a></li></ul>
@@ -133,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/14/ionic-android下tab放底部的办法/" data-id="cic4iz5fl000pjz6g9vnefkpq" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/14/ionic-android下tab放底部的办法/" data-id="cicdknovr000t0u6gzoncwa1e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
@@ -175,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/13/ionic-发布webserver/" data-id="cic4iz5f8000djz6gssxq4wnz" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/13/ionic-发布webserver/" data-id="cicdknovf000h0u6g2z36vbzv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webserver/">webserver</a></li></ul>
@@ -219,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/09/ionic-modal弹窗/" data-id="cic4iz5fi000ljz6g8jftpp1d" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/09/ionic-modal弹窗/" data-id="cicdknovo000p0u6gqn8eore5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/modal/">modal</a></li></ul>
@@ -278,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/09/ionic-socket-io-开发/" data-id="cic4iz5fd000hjz6gm1sm0eix" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/09/ionic-socket-io-开发/" data-id="cicdknovk000l0u6gilzoll4l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic-socket-io/">ionic&socket.io</a></li></ul>
@@ -330,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/06/windows-ionic-环境配置/" data-id="cic4iz5f50008jz6gpm7an15w" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/06/windows-ionic-环境配置/" data-id="cicdknov700080u6gd7b3sjlw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
@@ -354,27 +394,27 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_cic4iz5ei0000jz6gtqyp36zz">
+      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_cicdknouk00000u6g95t13por">
         <img src="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" itemprop="image">
       </a>
     
-      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_cic4iz5ei0000jz6gtqyp36zz">
+      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_cicdknouk00000u6g95t13por">
         <img src="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" itemprop="image">
       </a>
     
-      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_cic4iz5ei0000jz6gtqyp36zz">
+      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_cicdknouk00000u6g95t13por">
         <img src="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" itemprop="image">
       </a>
     
-      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_cic4iz5ei0000jz6gtqyp36zz">
+      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_cicdknouk00000u6g95t13por">
         <img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" itemprop="image">
       </a>
     
-      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_cic4iz5ei0000jz6gtqyp36zz">
+      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_cicdknouk00000u6g95t13por">
         <img src="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" itemprop="image">
       </a>
     
-      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_cic4iz5ei0000jz6gtqyp36zz">
+      <a class="article-gallery-img fancybox" href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_cicdknouk00000u6g95t13por">
         <img src="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" itemprop="image">
       </a>
     
@@ -399,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/04/我的仔/" data-id="cic4iz5ei0000jz6gtqyp36zz" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/04/我的仔/" data-id="cicdknouk00000u6g95t13por" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/仔仔/">仔仔</a></li></ul>
@@ -438,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/03/从octopress折腾果断切到hexo/" data-id="cic4iz5f10003jz6gebur8z6y" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/03/从octopress折腾果断切到hexo/" data-id="cicdknov300030u6g83l7d5fs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/octopress/">octopress</a></li></ul>
@@ -477,50 +517,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/03/IOS-打包script/" data-id="cic4iz5fs000yjz6g2l7xdaqu" class="article-share-link">Share</a>
+      <a data-url="http://peterfei.me/2015/07/03/IOS-打包script/" data-id="cicdknovy00120u6gj869db18" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2015-07-03-ionicxue-xi-bi-ji-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" class="article-date">
-  <time datetime="2015-07-03T01:24:56.000Z" itemprop="datePublished">2015-07-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/">ionic学习笔记1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Ionic_Add_Platform_EACCES_Error_解决办法">Ionic Add Platform EACCES Error 解决办法</h1><p>*当出现<code>platform add [platformname]</code></p>
-<p>Error: spawn EACCES<br>at exports._errnoException (util.js:746:11)<br>at ChildProcess.spawn (child_process.js:1155:11)<br>at Object.exports.spawn (child_process.js:988:9)<br>at Object.exports.spawn (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/cordova/superspawn.js:100:31)<br>at runScriptViaChildProcessSpawn (/usr/local/lib/node_modules/cordova/node_modules/cordova-<br>lib/src/hooks/HooksRunner.js:188:23)<br>at runScript (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:131:16)<br>at /usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:114:20<br>at _fulfilled (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:787:54)<br>at self.promiseDispatch.done (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:816:30)<br>at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:749:13)<br>*</p>
-<p>加入<code>ionic hooks add</code><br>then<br><code>ionic platform add ios</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://peterfei.me/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" data-id="cic4iz5fv000zjz6g2egeubbn" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EAEEES-ERROR/">EAEEES ERROR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/打包/">打包</a></li></ul>
-
     </footer>
   </div>
   
@@ -530,7 +529,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -543,7 +542,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2013/">2013</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EAEEES-ERROR/">EAEEES ERROR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bible/">bible</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/content-for/">content_for</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic-socket-io/">ionic&socket.io</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac快捷键/">mac快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/magento/">magento</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modal/">modal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octopress/">octopress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ror/">ror</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scp/">scp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webserver/">webserver</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一岁/">一岁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/仔仔/">仔仔</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/元编程/">元编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/圣经金句/">圣经金句</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小家伙/">小家伙</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/打包/">打包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/类方法/">类方法</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2013/">2013</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EAEEES-ERROR/">EAEEES ERROR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/">angularjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bible/">bible</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/content-for/">content_for</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic-socket-io/">ionic&socket.io</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac快捷键/">mac快捷键</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/magento/">magento</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modal/">modal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octopress/">octopress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ror/">ror</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scp/">scp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webserver/">webserver</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一岁/">一岁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/仔仔/">仔仔</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/元编程/">元编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/圣经金句/">圣经金句</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小家伙/">小家伙</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/打包/">打包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/类方法/">类方法</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -552,7 +551,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/2013/" style="font-size: 10px;">2013</a> <a href="/tags/EAEEES-ERROR/" style="font-size: 10px;">EAEEES ERROR</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/bible/" style="font-size: 10px;">bible</a> <a href="/tags/content-for/" style="font-size: 10px;">content_for</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ionic/" style="font-size: 20px;">ionic</a> <a href="/tags/ionic-socket-io/" style="font-size: 10px;">ionic&socket.io</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac快捷键/" style="font-size: 10px;">mac快捷键</a> <a href="/tags/magento/" style="font-size: 10px;">magento</a> <a href="/tags/modal/" style="font-size: 10px;">modal</a> <a href="/tags/octopress/" style="font-size: 10px;">octopress</a> <a href="/tags/ror/" style="font-size: 10px;">ror</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/webserver/" style="font-size: 10px;">webserver</a> <a href="/tags/一岁/" style="font-size: 10px;">一岁</a> <a href="/tags/仔仔/" style="font-size: 10px;">仔仔</a> <a href="/tags/元编程/" style="font-size: 10px;">元编程</a> <a href="/tags/圣经金句/" style="font-size: 10px;">圣经金句</a> <a href="/tags/小家伙/" style="font-size: 10px;">小家伙</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/类方法/" style="font-size: 10px;">类方法</a>
+      <a href="/tags/2013/" style="font-size: 10px;">2013</a> <a href="/tags/EAEEES-ERROR/" style="font-size: 10px;">EAEEES ERROR</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/angularjs/" style="font-size: 10px;">angularjs</a> <a href="/tags/bible/" style="font-size: 10px;">bible</a> <a href="/tags/content-for/" style="font-size: 10px;">content_for</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ionic/" style="font-size: 20px;">ionic</a> <a href="/tags/ionic-socket-io/" style="font-size: 10px;">ionic&socket.io</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac快捷键/" style="font-size: 10px;">mac快捷键</a> <a href="/tags/magento/" style="font-size: 10px;">magento</a> <a href="/tags/modal/" style="font-size: 10px;">modal</a> <a href="/tags/octopress/" style="font-size: 10px;">octopress</a> <a href="/tags/ror/" style="font-size: 10px;">ror</a> <a href="/tags/ruby/" style="font-size: 15px;">ruby</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/webserver/" style="font-size: 10px;">webserver</a> <a href="/tags/一岁/" style="font-size: 10px;">一岁</a> <a href="/tags/仔仔/" style="font-size: 10px;">仔仔</a> <a href="/tags/元编程/" style="font-size: 10px;">元编程</a> <a href="/tags/圣经金句/" style="font-size: 10px;">圣经金句</a> <a href="/tags/小家伙/" style="font-size: 10px;">小家伙</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/类方法/" style="font-size: 10px;">类方法</a>
     </div>
   </div>
 
@@ -561,7 +560,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">存档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">四月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">四月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -571,6 +570,10 @@
     <h3 class="widget-title">最近发表</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/07/22/ionic-发送POST请求/">ionic 发送POST请求</a>
+          </li>
         
           <li>
             <a href="/2015/07/15/Linux-UNIX的scp命令/">Linux/UNIX的scp命令</a>
@@ -586,10 +589,6 @@
         
           <li>
             <a href="/2015/07/09/ionic-modal弹窗/">ionic modal弹窗</a>
-          </li>
-        
-          <li>
-            <a href="/2015/07/09/ionic-socket-io-开发/">ionic socket.io 开发</a>
           </li>
         
       </ul>
