@@ -5,7 +5,7 @@
   <subtitle><![CDATA[上主是我的牧者，我实在一无所缺]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://peterfei.me//"/>
-  <updated>2015-07-21T16:44:49.000Z</updated>
+  <updated>2015-08-05T03:02:30.000Z</updated>
   <id>http://peterfei.me//</id>
   
   <author>
@@ -14,6 +14,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ionic android 打包]]></title>
+    <link href="http://peterfei.me/2015/08/05/ionic-android-%E6%89%93%E5%8C%85/"/>
+    <id>http://peterfei.me/2015/08/05/ionic-android-打包/</id>
+    <published>2015-08-05T02:54:14.000Z</published>
+    <updated>2015-08-05T03:02:30.000Z</updated>
+    <content type="html"><![CDATA[<p><em>生成证书</em></p>
+<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keyword">alias</span><span class="number">_n</span>ame -keyalg RSA -keysize <span class="number">2048</span> -validity <span class="number">10000</span>`
+</code></pre><p><em>生成release 版本:</em></p>
+<pre><code>cordova build <span class="comment">--release android</span>
+</code></pre><p><em>jarsinger:</em></p>
+<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk  alias_name
+</code></pre><p><em>生成apk:</em></p>
+<pre><code><span class="regexp">/Library/</span>Android<span class="regexp">/android-sdk-macosx/</span>build-tools<span class="regexp">/22.0.1/</span>zipalign -v <span class="number">4</span> <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk ezu110.apk
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p><em>生成证书</em></p>
+<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keywo]]>
+    </summary>
+    
+      <category term="android" scheme="http://peterfei.me/tags/android/"/>
+    
+      <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
+    
+      <category term="打包" scheme="http://peterfei.me/tags/%E6%89%93%E5%8C%85/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ionic 发送POST请求]]></title>
@@ -468,21 +496,6 @@
       <category term="ruby" scheme="http://peterfei.me/tags/ruby/"/>
     
       <category term="类方法" scheme="http://peterfei.me/tags/%E7%B1%BB%E6%96%B9%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[rails 项目中对select2的高级使用]]></title>
-    <link href="http://peterfei.me/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/"/>
-    <id>http://peterfei.me/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/</id>
-    <published>2013-04-16T02:19:00.000Z</published>
-    <updated>2015-07-03T10:02:20.000Z</updated>
-    <content type="html"><![CDATA[<p>—</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>—</p>
-]]>
-    </summary>
     
   </entry>
   
