@@ -252,8 +252,8 @@
             
             content_for 一般要这样用才好在view先找个地方声明123&lt;% content_for :head do %&gt;	 &lt;%= stylesheet_link_tag 'projects' %&gt;&lt;% end %&gt;
 之后
-12345&lt;head&gt; 	
-            ...
+12345&lt;head&gt; 	&lt;title&gt;Todo List&lt;/title&gt; 	&lt;%= stylesheet_link_tag 'application' %&gt; 	&lt;%= yield :head %&gt;&lt;/head&gt;
+            
           </span>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/09/18/2014-09-18-layout-plus-content-for/#more" rel="contents">
@@ -339,8 +339,9 @@
         
           <span itemprop="articleBody">
             
-            1234567891011121314First way:class MyClass    class &lt;&lt; self        def my_method; end    endendSecond Way:class MyClass    def self.my_method; e
-            ...
+            1234567891011121314First way:class MyClass    class &lt;&lt; self        def my_method; end    endendSecond Way:class MyClass    def self.my_method; endendThird Way:def MyClass.my_other_method; end
+
+            
           </span>
           <div class="post-more-link text-center">
             <a class="btn" href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/#more" rel="contents">

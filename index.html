@@ -250,7 +250,8 @@
         
           <span itemprop="articleBody">
             
-            新建apiUser表：  1.access_token  2.expires_at  3.user_id  4.activerails g model api_key access_token:string expires_at:datetime user_id:integer active:boo
+            新建apiUser表：  1.access_token  2.expires_at  3.user_id  4.activerails g model api_key access_token:string expires_at:datetime user_id:integer active:boolean
+在建好的migrate 文件中加入索引：1234567891011121314class CreateApiUserKeys &lt; ActiveRecord::Migration  def change    create_table :api_user_keys do |t|    
             ...
           </span>
           <div class="post-more-link text-center">
@@ -339,7 +340,8 @@
             
             出于安全考虑，不要使用 root 帐号运行 web 应用。这里新建一个专门用于部署的用户，例如 deploy 或者其它你喜欢的名字。运行以下命令创建用户：
 # useradd -m -s /bin/bash deploy
-将用户加入 sudo 群组，以便使用 sudo 命令：# adduser de
+将用户加入 sudo 群组，以便使用 sudo 命令：# adduser deploy sudo为 deploy 用户设置密码：# passwd deploy给Linux deploy用户 加入rvm 权限usermod -a -G rvm deploy退出当前 SSH 链接，用 deploy 帐号重新登陆。
+加入gem minamina init, 生成config/dep
             ...
           </span>
           <div class="post-more-link text-center">
@@ -429,7 +431,9 @@
             生成证书
 `keytool -genkey -v -keystore **-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
 生成release 版本:
-cordova build --
+cordova build --release android
+jarsinger:
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore /Users/liufei/ionic/yongche/pl
             ...
           </span>
           <div class="post-more-link text-center">
@@ -518,7 +522,7 @@ cordova build --
             
             今天写一个POST请求给远程API，FORM数据一直不能发送，最终用如下factory解决问题：
 
-12345678910111213141516171819202122.factory('LoginService', ['$http', function($http) &#123;        
+12345678910111213141516171819202122.factory('LoginService', ['$http', function($http) &#123;        var users = [];        return &#123;            getUsers: function(loginData) &#123;                var username = loginData.username,                
             ...
           </span>
           <div class="post-more-link text-center">
@@ -606,8 +610,9 @@ cordova build --
           <span itemprop="articleBody">
             
             
-1、复制远程服务器的文件到本地：scp -P888 root@120.18.50.33:/data/ha97.zip /home/2、复制远程服务器的目录到本地：scp -vrp -P888 root@120.18.50.33:/data/ha97/ /home/3、复制本地的文件到远程服务器：s
-            ...
+1、复制远程服务器的文件到本地：scp -P888 root@120.18.50.33:/data/ha97.zip /home/2、复制远程服务器的目录到本地：scp -vrp -P888 root@120.18.50.33:/data/ha97/ /home/3、复制本地的文件到远程服务器：scp -P888 /home/ha97.zip root@120.18.50.33:/data/4、复制本地的目录到远程服务器：scp -vrp -P888 /home/ root@120.18.50.33:/data/
+
+            
           </span>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/15/Linux-UNIX的scp命令/#more" rel="contents">
@@ -693,7 +698,9 @@ cordova build --
         
           <span itemprop="articleBody">
             
-            在app.js里加：123.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) &#123;    $ionicConfigProvider.tabs.position('bottom');&#125;)
+            在app.js里加：123.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) &#123;    $ionicConfigProvider.tabs.position('bottom');&#125;);
+更详细设置：
+12345678910$ionicConfigProvider.platform.ios.tabs.style('standard');$ionicConfigProvider.platform.ios.tabs.position('bottom');$ionicConfigPro
             ...
           </span>
           <div class="post-more-link text-center">
@@ -782,7 +789,7 @@ cordova build --
             
             公司在做ionic开发时，遇到要发布为webserver:1$ cd [ionic project]&#10;$ ionic platform add browser&#10;$ cd [ionic project]/platforms/browser/
 安装 Install Node.js
-Ins
+Install connect and serve-static$ cd [webapp] $ npm install connect serve-static编写server.js123var connect = require('connect');var serveStatic = require(
             ...
           </span>
           <div class="post-more-link text-center">
@@ -871,7 +878,7 @@ Ins
             
             今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错
 modal.facotry.js 如下：
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596.factory('appModalService', ['$ionicModal', '$rootScope', '$q', 
             ...
           </span>
           <div class="post-more-link text-center">
@@ -965,7 +972,7 @@ Nodejs 做为服务端，主要做服务端消息的监听与发送
 客户端App 为服务端发送消息
 主要协议TCP
 
-服务端代码如下：123456789101112131
+服务端代码如下：1234567891011121314151617var http= require('http'), io= require('socket.io');var app = http.createServer(), io = io.listen(app);app.listen(10010);io.sockets.on('connect
             ...
           </span>
           <div class="post-more-link text-center">
@@ -1061,8 +1068,13 @@ Nodejs 做为服务端，主要做服务端消息的监听与发送
 
 配置环境变量node的npm命令:
 
-Path : C:\
-            ...
+Path : C:\Documents and Settings\Administrator\Application Data\npm
+
+补齐npm文件夹下有关于ionic的文件
+补齐ionic项目下node_modules等文件 
+
+
+            
           </span>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/06/windows-ionic-环境配置/#more" rel="contents">
