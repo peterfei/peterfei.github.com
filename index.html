@@ -61,7 +61,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: 'post'
+    sidebar: 'always'
   };
 </script>
 
@@ -119,7 +119,7 @@
   
 
   
-    <ul id="menu" class="menu ">
+    <ul id="menu" class="menu menu-left">
       
         
         <li class="menu-item menu-item-home">
@@ -157,6 +157,27 @@
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
   
 </nav>
 
@@ -229,19 +250,16 @@
         
           <span itemprop="articleBody">
             
-              <p>出于安全考虑，不要使用 root 帐号运行 web 应用。这里新建一个专门用于部署的用户，例如 deploy 或者其它你喜欢的名字。运行以下命令创建用户：</p>
-<p><code># useradd -m -s /bin/bash deploy</code></p>
-<p>将用户加入 sudo 群组，以便使用 sudo 命令：<br><code># adduser deploy sudo</code><br>为 deploy 用户设置密码：<br><code># passwd deploy</code><br>给Linux deploy用户 加入rvm 权限<br><code>usermod -a -G rvm deploy</code><br>退出当前 SSH 链接，用 deploy 帐号重新登陆。</p>
-<h2 id="加入gem_mina">加入<code>gem mina</code></h2><p><code>mina init</code>, 生成config/deploy.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'mina/rails'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'mina/git'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'mina/bundler'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'mina/rvm'</span></span><br><span class="line"><span class="comment">#服务器地址,是使用ssh的方式登录服务器</span></span><br><span class="line">set <span class="symbol">:domain</span>, <span class="string">'deploy@yourIPServer'</span></span><br><span class="line"><span class="comment">#服务器中项目部署位置</span></span><br><span class="line">set <span class="symbol">:deploy_to</span>, <span class="string">'/home/deploy/api'</span></span><br><span class="line"><span class="comment">#git代码仓库</span></span><br><span class="line">set <span class="symbol">:repository</span>, <span class="string">'git@XXX.git'</span></span><br><span class="line"><span class="comment">#git分支</span></span><br><span class="line">set <span class="symbol">:branch</span>, <span class="string">'master'</span></span><br><span class="line">set <span class="symbol">:rvm_path</span>, <span class="string">'/usr/local/rvm/bin/rvm'</span></span><br><span class="line">set <span class="symbol">:bundle_gemfile</span>, <span class="string">"app/Gemfile"</span></span><br><span class="line"><span class="comment"># 中括号里的文件 会出现在服务器项目附录的shared文件夹中，这里加入了secrets.yml，环境密钥无需跟开发计算机一样</span></span><br><span class="line">set <span class="symbol">:shared_paths</span>, [<span class="string">'config/database.yml'</span>, <span class="string">'log'</span>, <span class="string">'config/secrets.yml'</span>]</span><br><span class="line">set <span class="symbol">:rails_env</span>, <span class="string">'development'</span></span><br><span class="line">task <span class="symbol">:environment</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 如果使用的是rbenv,这么设置,但需确保.rbenv-version(rbenv local 1.9.3-p374)已经存在于你的项目中</span></span><br><span class="line">  invoke <span class="symbol">:<span class="string">'rvm:use[ruby-2.1.2@default]'</span></span></span><br><span class="line">  <span class="comment"># 如果使用rvm，可以这样加载一个RVM version<span class="doctag">@gemset</span></span></span><br><span class="line">  <span class="comment"># invoke :'rvm:use[ruby-1.9.3-p374<span class="doctag">@default</span>]'</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment"># 这个块里面的代码表示运行 mina setup时运行的命令</span></span><br><span class="line">task <span class="symbol">:setup</span> =&gt; <span class="symbol">:environment</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 在服务器项目目录的shared中创建log文件夹</span></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/log"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/log"]</span></span><br><span class="line">  <span class="comment"># 在服务器项目目录的shared中创建config文件夹 下同</span></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config"]</span></span><br><span class="line"></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/database.yml"]</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/secrets.yml"]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># puma.rb 配置puma必须得文件夹及文件</span></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/pids"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/pids"]</span></span><br><span class="line"></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets"]</span></span><br><span class="line"></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/config/puma.rb"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/config/puma.rb'."]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># tmp/sockets/puma.state</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets/puma.state"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/tmp/sockets/puma.state'."]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># log/puma.stdout.log</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/log/puma.stdout.log"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/log/puma.stdout.log'."]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># log/puma.stdout.log</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/log/puma.stderr.log"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/log/puma.stderr.log'."]</span></span><br><span class="line"></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit '<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/database.yml'."]</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#这个代码块表示运行 mina deploy时执行的命令</span></span><br><span class="line">desc <span class="string">"Deploys the current version to the server."</span></span><br><span class="line">task <span class="symbol">:deploy</span> =&gt; <span class="symbol">:environment</span> <span class="keyword">do</span></span><br><span class="line">  to <span class="symbol">:before_hook</span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  deploy <span class="keyword">do</span></span><br><span class="line">    <span class="comment">#重新拉git服务器上的最新版本，即使没有改变</span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'git:clone'</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#重新设定shared_path位置</span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'deploy:link_shared_paths'</span></span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'bundle:install'</span></span></span><br><span class="line">    <span class="comment"># invoke :'rails:db_migrate'</span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'rails:assets_precompile'</span></span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'deploy:cleanup'</span></span></span><br><span class="line"></span><br><span class="line">    to <span class="symbol">:launch</span> <span class="keyword">do</span></span><br><span class="line">      queue <span class="string">"mkdir -p <span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;current_path&#125;</span>/tmp/"</span></span><br><span class="line">      <span class="comment"># queue "chown -R www-data #&#123;deploy_to&#125;"</span></span><br><span class="line">      queue <span class="string">"touch <span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;current_path&#125;</span>/tmp/restart.txt"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>这样一来mina的基本配置就完成，接下来只要将你开发环境的项目上传到git服务器，然后运行下面的命令就完成了</p>
-<p><code>mina deploy</code></p>
-<h2 id="puma配置">puma配置</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env puma</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#rails的运行环境</span></span><br><span class="line"><span class="comment"># environment 'production'</span></span><br><span class="line">environment <span class="string">'development'</span></span><br><span class="line">threads <span class="number">2</span>, <span class="number">64</span></span><br><span class="line">workers <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#项目名</span></span><br><span class="line">app_name = <span class="string">"api"</span></span><br><span class="line"><span class="comment">#项目路径</span></span><br><span class="line">application_path = <span class="string">"/home/deploy/<span class="subst">#&#123;app_name&#125;</span>"</span></span><br><span class="line"><span class="comment">#这里一定要配置为项目路径下地current</span></span><br><span class="line">directory <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/current"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#下面都是 puma的配置项</span></span><br><span class="line">pidfile <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/pids/puma.pid"</span></span><br><span class="line">state_path <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/puma.state"</span></span><br><span class="line">stdout_redirect <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stdout.log"</span>, <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stderr.log"</span></span><br><span class="line">bind <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/<span class="subst">#&#123;app_name&#125;</span>.sock"</span></span><br><span class="line">activate_control_app <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/pumactl.sock"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#后台运行</span></span><br><span class="line">daemonize <span class="keyword">true</span></span><br><span class="line">on_restart <span class="keyword">do</span></span><br><span class="line">  puts <span class="string">'On restart...'</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">preload_app!</span><br></pre></td></tr></table></figure>
-<h2 id="启动puma">启动puma</h2><p>进入/yourprj/current<br><code>bundle exec puma -e development -b unix:///home/deploy/api/shared/tmp/sockets/***.sock</code></p>
-<h2 id="Nginx_配置">Nginx 配置</h2><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">worker_processes  1;</span><br><span class="line">	</span><br><span class="line">    error_log  /var/log/nginx/error.log warn;</span><br><span class="line">    pid        /var/run/nginx.pid;</span><br><span class="line">	</span><br><span class="line">    events </span><span class="expression">&#123;</span><br><span class="line">        <span class="variable">worker</span>_<span class="variable">connections</span>  1024;</span><br><span class="line">    &#125;</span><span class="xml"></span><br><span class="line">	</span><br><span class="line">    http </span><span class="expression">&#123;</span><br><span class="line">        <span class="variable">include</span>       <span class="end-block">/etc</span><span class="end-block">/nginx</span><span class="end-block">/mime.types</span>;</span><br><span class="line">        <span class="variable"><span class="keyword">default</span></span>_<span class="variable">type</span>  <span class="variable">application</span><span class="end-block">/octet-stream</span>;</span><br><span class="line">	</span><br><span class="line">        <span class="variable">log</span>_<span class="variable">format</span>  <span class="variable">main</span>  '$<span class="variable">remote</span>_<span class="variable">addr</span> <span class="variable">-</span> $<span class="variable">remote</span>_<span class="variable">user</span> [$<span class="variable">time</span>_<span class="variable">local</span>] <span class="string">"$request"</span> '</span><br><span class="line">                          '$<span class="variable">status</span> $<span class="variable">body</span>_<span class="variable">bytes</span>_<span class="variable">sent</span> <span class="string">"$http_referer"</span> '</span><br><span class="line">                          '<span class="string">"$http_user_agent"</span> <span class="string">"$http_x_forwarded_for"</span>';</span><br><span class="line">	</span><br><span class="line">        <span class="variable">access</span>_<span class="variable">log</span>  <span class="end-block">/var</span><span class="end-block">/log</span><span class="end-block">/nginx</span><span class="end-block">/access.log  main</span>;</span><br><span class="line">	</span><br><span class="line">        <span class="variable">sendfile</span>        <span class="variable">on</span>;</span><br><span class="line">        <span class="begin-block">#tcp</span>_<span class="variable">nopush</span>     <span class="variable">on</span>;</span><br><span class="line">	</span><br><span class="line">        <span class="variable">keepalive</span>_<span class="variable">timeout</span>  65;</span><br><span class="line">	</span><br><span class="line">        <span class="begin-block">#gzip  on</span>;</span><br><span class="line">	</span><br><span class="line">        <span class="begin-block">#include </span><span class="end-block">/etc</span><span class="end-block">/nginx</span><span class="end-block">/conf.d</span>/*<span class="variable">.conf</span>;</span><br><span class="line">        <span class="variable">upstream</span> <span class="variable">deploy</span> &#123;</span><br><span class="line">                <span class="variable">server</span> <span class="variable">unix</span>://<span class="end-block">/var</span><span class="end-block">/www</span><span class="end-block">/ruby</span>_<span class="variable">sample</span><span class="end-block">/shared</span><span class="end-block">/tmp</span><span class="end-block">/sockets</span><span class="end-block">/ruby</span>_<span class="variable">sample.sock</span>;</span><br><span class="line">        &#125;</span><span class="xml"></span><br><span class="line">	</span><br><span class="line">        server </span><span class="expression">&#123;</span><br><span class="line">            <span class="variable">listen</span> 80;</span><br><span class="line">            <span class="variable">server</span>_<span class="variable">name</span> <span class="variable">your.server.domain.ip</span>; <span class="begin-block"># change to match your URL</span></span><br><span class="line">            <span class="variable">root</span> <span class="end-block">/var</span><span class="end-block">/www</span><span class="end-block">/ruby</span>_<span class="variable">sample</span><span class="end-block">/current</span><span class="end-block">/public</span>; <span class="begin-block"># I assume your app is located at this location</span></span><br><span class="line">	</span><br><span class="line">            <span class="variable">location</span> <span class="end-block">/ </span>&#123;</span><br><span class="line">                <span class="variable">proxy</span>_<span class="variable">pass</span> <span class="variable">http</span>:/<span class="end-block">/deploy</span>; <span class="begin-block"># match the name of upstream directive which is defined above</span></span><br><span class="line">                <span class="variable">proxy</span>_<span class="variable">set</span>_<span class="variable">header</span> <span class="variable">Host</span> $<span class="variable">host</span>;</span><br><span class="line">                <span class="variable">proxy</span>_<span class="variable">set</span>_<span class="variable">header</span> <span class="variable">X-Forwarded-For</span> $<span class="variable">proxy</span>_<span class="variable">add</span>_<span class="variable">x</span>_<span class="variable">forwarded</span>_<span class="variable">for</span>;</span><br><span class="line">            &#125;</span><span class="xml"></span><br><span class="line">	</span><br><span class="line">            location ~* ^/assets/ </span><span class="expression">&#123;</span><br><span class="line">                <span class="begin-block"># Per RFC</span>2616 <span class="variable">-</span> 1 <span class="variable">year</span> <span class="variable">maximum</span> <span class="variable">expiry</span></span><br><span class="line">                <span class="variable">expires</span> 1<span class="variable">y</span>;</span><br><span class="line">                <span class="variable">add</span>_<span class="variable">header</span> <span class="variable">Cache-Control</span> <span class="variable">public</span>;</span><br><span class="line">                        <span class="begin-block"># Some browsers still send conditional-GET requests <span class="keyword">if</span> there</span>'<span class="variable">s</span> <span class="variable">a</span></span><br><span class="line">                <span class="begin-block"># Last-Modified header or an ETag header even <span class="keyword">if</span> they haven</span>'<span class="variable">t</span></span><br><span class="line">                <span class="begin-block"># reached the expiry date sent in the Expires header.</span></span><br><span class="line">                <span class="variable">add</span>_<span class="variable">header</span> <span class="variable">Last-Modified</span> <span class="string">""</span>;</span><br><span class="line">                <span class="variable">add</span>_<span class="variable">header</span> <span class="variable">ETag</span> <span class="string">""</span>;</span><br><span class="line">                <span class="variable">break</span>;</span><br><span class="line">            &#125;</span><span class="xml"></span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span></span><br></pre></td></tr></table></figure>
-<p>接下里只需要重启nginx服务器，整个rails的环境就搭建完成了<br><code>nginx -s reload</code></p>
-
-            
+            出于安全考虑，不要使用 root 帐号运行 web 应用。这里新建一个专门用于部署的用户，例如 deploy 或者其它你喜欢的名字。运行以下命令创建用户：
+# useradd -m -s /bin/bash deploy
+将用户加入 sudo 群组，以便使用 sudo 命令：# adduser de
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/19/rails-mina-puma-部署/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -321,17 +339,17 @@
         
           <span itemprop="articleBody">
             
-              <p><em>生成证书</em></p>
-<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keyword">alias</span><span class="number">_n</span>ame -keyalg RSA -keysize <span class="number">2048</span> -validity <span class="number">10000</span>`
-</code></pre><p><em>生成release 版本:</em></p>
-<pre><code>cordova build <span class="comment">--release android</span>
-</code></pre><p><em>jarsinger:</em></p>
-<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk  alias_name
-</code></pre><p><em>生成apk:</em></p>
-<pre><code><span class="regexp">/Library/</span>Android<span class="regexp">/android-sdk-macosx/</span>build-tools<span class="regexp">/22.0.1/</span>zipalign -v <span class="number">4</span> <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk ezu110.apk
-</code></pre>
-            
+            生成证书
+`keytool -genkey -v -keystore **-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
+生成release 版本:
+cordova build --
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/08/05/ionic-android-打包/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -411,11 +429,16 @@
         
           <span itemprop="articleBody">
             
-              <p><em>今天写一个<code>POST</code>请求给远程API，<code>FORM</code>数据一直不能发送，最终用如下factory解决问题：</em></p>
-<hr>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'LoginService'</span>, [<span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> users = [];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            getUsers: <span class="function"><span class="keyword">function</span>(<span class="params">loginData</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> username = loginData.username,</span><br><span class="line">                    password = loginData.password;</span><br><span class="line">                <span class="keyword">return</span> $http(&#123;</span><br><span class="line">                    method: <span class="string">'POST'</span>,</span><br><span class="line">                    url: <span class="string">'http://172.16.100.222/zf/app/login.php?act=login'</span>,</span><br><span class="line">                    data: $.param(loginData),</span><br><span class="line">                    headers: &#123;</span><br><span class="line">                        <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">// debugger</span></span><br><span class="line">                    users = response;</span><br><span class="line">                    <span class="keyword">return</span> users;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">   &#125;])</span><br></pre></td></tr></table></figure>
-            
+            今天写一个POST请求给远程API，FORM数据一直不能发送，最终用如下factory解决问题：
+
+12345678910111213141516171819202122.factory('LoginService', ['$http', function($http) &#123;        
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/22/ionic-发送POST请求/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -495,11 +518,15 @@
         
           <span itemprop="articleBody">
             
-              <hr>
-<p><em>1、复制远程服务器的文件到本地：</em><br><code>scp -P888 root@120.18.50.33:/data/ha97.zip /home/</code><br><em>2、复制远程服务器的目录到本地：</em><br><code>scp -vrp -P888 root@120.18.50.33:/data/ha97/ /home/</code><br><em>3、复制本地的文件到远程服务器：</em><br><code>scp -P888 /home/ha97.zip root@120.18.50.33:/data/</code><br><em>4、复制本地的目录到远程服务器：</em><br><code>scp -vrp -P888 /home/ root@120.18.50.33:/data/</code></p>
-
             
+1、复制远程服务器的文件到本地：scp -P888 root@120.18.50.33:/data/ha97.zip /home/2、复制远程服务器的目录到本地：scp -vrp -P888 root@120.18.50.33:/data/ha97/ /home/3、复制本地的文件到远程服务器：s
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/15/Linux-UNIX的scp命令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -579,11 +606,14 @@
         
           <span itemprop="articleBody">
             
-              <p><em>在app.js里加：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.config(<span class="function"><span class="keyword">function</span>(<span class="params">$stateProvider, $urlRouterProvider, $ionicConfigProvider</span>) </span>&#123;</span><br><span class="line">    $ionicConfigProvider.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><em>更详细设置：</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ionicConfigProvider.platform.ios.tabs.style(<span class="string">'standard'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.tabs.style(<span class="string">'standard'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.navBar.alignTitle(<span class="string">'center'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.navBar.alignTitle(<span class="string">'center'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.backButton.previousTitleText(<span class="string">''</span>).icon(<span class="string">'ion-ios-arrow-thin-left'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.backButton.previousTitleText(<span class="string">''</span>).icon(<span class="string">'ion-android-arrow-back'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.views.transition(<span class="string">'ios'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.views.transition(<span class="string">'android'</span>);</span><br></pre></td></tr></table></figure>
-            
+            在app.js里加：123.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) &#123;    $ionicConfigProvider.tabs.position('bottom');&#125;)
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/14/ionic-android下tab放底部的办法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -663,13 +693,16 @@
         
           <span itemprop="articleBody">
             
-              <p><em>公司在做ionic开发时，遇到要发布为webserver:</em><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd [ionic project]&#10;$ ionic platform add browser&#10;$ cd [ionic project]/platforms/browser/</span><br></pre></td></tr></table></figure></p>
-<p>安装 <code>Install Node.js</code></p>
-<p><em>Install connect and serve-static</em><br><code>$ cd [webapp] $ npm install connect serve-static</code><br><em>编写server.js</em><br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">connect</span> = <span class="keyword">require</span>(<span class="string">'connect'</span>);</span><br><span class="line">var serveStatic = <span class="keyword">require</span>(<span class="string">'serve-static'</span>);</span><br><span class="line"><span class="keyword">connect</span>().<span class="keyword">use</span>(serveStatic(__dirname)).<span class="keyword">listen</span>(<span class="number">8080</span>)</span><br></pre></td></tr></table></figure></p>
-<p><em>运行：</em><br><code>$ node server.js &amp;</code></p>
-
-            
+            公司在做ionic开发时，遇到要发布为webserver:1$ cd [ionic project]&#10;$ ionic platform add browser&#10;$ cd [ionic project]/platforms/browser/
+安装 Install Node.js
+Ins
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/13/ionic-发布webserver/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -749,15 +782,16 @@
         
           <span itemprop="articleBody">
             
-              <p><em>今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错</em></p>
-<p><em>modal.facotry.js 如下：</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'appModalService'</span>, [<span class="string">'$ionicModal'</span>, <span class="string">'$rootScope'</span>, <span class="string">'$q'</span>, <span class="string">'$injector'</span>, <span class="string">'$controller'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$ionicModal, $rootScope, $q, $injector, $controller</span>) </span>&#123;</span><br><span class="line">	  <span class="keyword">return</span> &#123;</span><br><span class="line">	    show: show</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">templeteUrl, controller, parameters, options</span>) </span>&#123;</span><br><span class="line">	    <span class="comment">// Grab the injector and create a new scope</span></span><br><span class="line">	    <span class="keyword">var</span> deferred = $q.defer(),</span><br><span class="line">	        ctrlInstance,</span><br><span class="line">	        modalScope = $rootScope.$<span class="keyword">new</span>(),</span><br><span class="line">	        thisScopeId = modalScope.$id,</span><br><span class="line">	        defaultOptions = &#123;</span><br><span class="line">	          animation: <span class="string">'slide-in-up'</span>,</span><br><span class="line">	          focusFirstInput: <span class="literal">false</span>,</span><br><span class="line">	          backdropClickToClose: <span class="literal">true</span>,</span><br><span class="line">	          hardwareBackButtonClose: <span class="literal">true</span>,</span><br><span class="line">	          modalCallback: <span class="literal">null</span></span><br><span class="line">	        &#125;;</span><br><span class="line">	   options = angular.extend(&#123;&#125;, defaultOptions, options);</span><br><span class="line">	</span><br><span class="line">	 $ionicModal.fromTemplateUrl(templeteUrl, &#123;</span><br><span class="line">	   scope: modalScope,</span><br><span class="line">	   animation: options.animation,</span><br><span class="line">	   focusFirstInput: options.focusFirstInput,</span><br><span class="line">	   backdropClickToClose: options.backdropClickToClose,</span><br><span class="line">	   hardwareBackButtonClose: options.hardwareBackButtonClose</span><br><span class="line">	 &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">modal</span>) </span>&#123;</span><br><span class="line">	   modalScope.modal = modal;</span><br><span class="line">	</span><br><span class="line">	   modalScope.openModal = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	     modalScope.modal.show();</span><br><span class="line">	   &#125;;</span><br><span class="line">	   modalScope.closeModal = <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">	     deferred.resolve(result);</span><br><span class="line">	     modalScope.modal.hide();</span><br><span class="line">	   &#125;;</span><br><span class="line">	   modalScope.$on(<span class="string">'modal.hidden'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">thisModal</span>) </span>&#123;</span><br><span class="line">	     <span class="keyword">if</span> (thisModal.currentScope) &#123;</span><br><span class="line">	       <span class="keyword">var</span> modalScopeId = thisModal.currentScope.$id;</span><br><span class="line">	       <span class="keyword">if</span> (thisScopeId === modalScopeId) &#123;</span><br><span class="line">	         deferred.resolve(<span class="literal">null</span>);</span><br><span class="line">	         _cleanup(thisModal.currentScope);</span><br><span class="line">	       &#125;</span><br><span class="line">	     &#125;</span><br><span class="line">	   &#125;);</span><br><span class="line">	</span><br><span class="line">	   <span class="comment">// Invoke the controller</span></span><br><span class="line">	   <span class="keyword">var</span> locals = &#123; <span class="string">'$scope'</span>: modalScope, <span class="string">'parameters'</span>: parameters &#125;;</span><br><span class="line">	   <span class="keyword">var</span> ctrlEval = _evalController(controller);</span><br><span class="line">	   ctrlInstance = $controller(controller, locals);</span><br><span class="line">	   <span class="keyword">if</span> (ctrlEval.isControllerAs) &#123;</span><br><span class="line">	     ctrlInstance.openModal = modalScope.openModal;</span><br><span class="line">	     ctrlInstance.closeModal = modalScope.closeModal;</span><br><span class="line">	   &#125;</span><br><span class="line">	</span><br><span class="line">	   modalScope.modal.show()</span><br><span class="line">	     .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	     modalScope.$broadcast(<span class="string">'modal.afterShow'</span>, modalScope.modal);</span><br><span class="line">	   &#125;);</span><br><span class="line">	</span><br><span class="line">	   <span class="keyword">if</span> (angular.isFunction(options.modalCallback)) &#123;</span><br><span class="line">	     options.modalCallback(modal);</span><br><span class="line">	   &#125;</span><br><span class="line">	</span><br><span class="line">	 &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">	   deferred.reject(err);</span><br><span class="line">	 &#125;);</span><br><span class="line">	</span><br><span class="line">	 <span class="keyword">return</span> deferred.promise;</span><br><span class="line">	  &#125;</span><br><span class="line">	</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_cleanup</span>(<span class="params">scope</span>) </span>&#123;</span><br><span class="line">	    scope.$destroy();</span><br><span class="line">	    <span class="keyword">if</span> (scope.modal) &#123;</span><br><span class="line">	      scope.modal.remove();</span><br><span class="line">	    &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_evalController</span>(<span class="params">ctrlName</span>) </span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> result = &#123;</span><br><span class="line">	      isControllerAs: <span class="literal">false</span>,</span><br><span class="line">	      controllerName: <span class="string">''</span>,</span><br><span class="line">	      propName: <span class="string">''</span></span><br><span class="line">	    &#125;;</span><br><span class="line">	    <span class="keyword">var</span> fragments = (ctrlName || <span class="string">''</span>).trim().split(<span class="regexp">/\s+/</span>);</span><br><span class="line">	    result.isControllerAs = fragments.length === <span class="number">3</span> &amp;&amp; (fragments[<span class="number">1</span>] || <span class="string">''</span>).toLowerCase() === <span class="string">'as'</span>;</span><br><span class="line">	    <span class="keyword">if</span> (result.isControllerAs) &#123;</span><br><span class="line">	      result.controllerName = fragments[<span class="number">0</span>];</span><br><span class="line">	      result.propName = fragments[<span class="number">2</span>];</span><br><span class="line">	    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	      result.controllerName = ctrlName;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">	    <span class="keyword">return</span> result;</span><br><span class="line">	  &#125;</span><br><span class="line">	 </span><br><span class="line">	&#125;]);</span><br></pre></td></tr></table></figure>
-<p><em>实现modal方法：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'myModals'</span>, [<span class="string">'appModalService'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">appModalService</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// all app modals here</span></span><br><span class="line">  <span class="keyword">var</span> service = &#123;</span><br><span class="line">    showConfirmContact: showConfirmContact,</span><br><span class="line">    showContacts: showContacts</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> service;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showConfirmContact</span>(<span class="params">contact</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'confirm-contact-modal.html'</span>, <span class="string">'ConfirmContactDialogCtrl as vm'</span>, contact);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showContacts</span>(<span class="params">otherContact</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'contacts-modal.html'</span>, <span class="string">'ContactDialogCtrl as vm'</span>, otherContact);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">&#125;])</span><br></pre></td></tr></table></figure></p>
-<p><em>controller调用：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.controller(<span class="string">'AppCtrl'</span>, [<span class="string">'$scope'</span>, <span class="string">'myModals'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, myModals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">  vm.selectedContact = <span class="string">''</span>;</span><br><span class="line">  vm.openContactDialog = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    myModals.showContacts(&#123; name: <span class="string">'Julian Paulozzi'</span> &#125;)</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(result &amp;&amp; result.name)&#123;</span><br><span class="line">        vm.selectedContact = result;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">       alert(err);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">&#125;])</span><br></pre></td></tr></table></figure></p>
-<p><em>页面view调用：</em><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"vm.openContactDialog()"</span> <span class="attribute">class</span>=<span class="value">"button button-assertive button-block"</span>&gt;</span></span><br><span class="line">          Open contacts to select</span><br><span class="line"><span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-
-            
+            今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错
+modal.facotry.js 如下：
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/09/ionic-modal弹窗/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -837,30 +871,21 @@
         
           <span itemprop="articleBody">
             
-              <p><em>这两天一直在做</em>ionic<em>开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。</em></p>
-<p><em>先叙述下基本的诉求：</em></p>
-<ul>
-<li>Nodejs 做为服务端，主要做服务端消息的监听与发送</li>
-<li>客户端App 为服务端发送消息</li>
-<li>主要协议TCP</li>
-</ul>
-<p>服务端代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http= <span class="built_in">require</span>(<span class="string">'http'</span>), io= <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">var</span> app = http.createServer(), io = io.listen(app);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">10010</span>);</span><br><span class="line"></span><br><span class="line">io.sockets.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">  socket.emit(<span class="string">'news'</span>, &#123; hello: <span class="string">'world'</span> &#125;);<span class="comment">//监听，一旦客户端连接上，即发送数据，第一个参数'new'为数据名，第二个参数既为数据</span></span><br><span class="line">  socket.on(<span class="string">'my new event'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获客户端发送名为'my other event'的数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data.my);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  socket.emit(<span class="string">'other'</span>, &#123; hello: <span class="string">'other world'</span> &#125;);<span class="comment">//发送另一个数据</span></span><br><span class="line">  socket.on(<span class="string">'event1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获另外一个数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><em>Ionic 部分：</em></p>
-<ul>
-<li>生成新项目：<code>ionic start chat-app blank</code></li>
-<li>引入angular-socket-io 库:<code>bower install angular-socket-io</code></li>
-<li><img src="http://pic.yupoo.com/peterfei/EMOPKcas/Veffo.png" alt="folder"></li>
-<li>注入socket.io在项目里：<code>var app=angular.module(&#39;ionic-socketio-chat-client&#39;, [&#39;ionic&#39;,&#39;btford.socket-io&#39;])</code></li>
-<li><p>在index.html导入socket.io，<strong>注：socket.io/socket.io.js是服务端动态生成</strong></p>
-<pre><code> <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://192.168.0.101:10010/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"lib/angular-socket-io/socket.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://192.168.0.101:10010'</span>);</span><br><span class="line">      <span class="comment">// io.set('origins', '*:*');</span></span><br><span class="line">      socket.on(<span class="string">'news'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">      &#125;);</span><br><span class="line">      socket.on(<span class="string">'other'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123; <span class="comment">//接收另一个名为'other'数据，  </span></span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">          socket.emit(<span class="string">'event1'</span>, &#123;</span><br><span class="line">              my: <span class="string">'other data'</span></span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如此，客户端调用成功。</p>
+            这两天一直在做ionic开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。
+先叙述下基本的诉求：
 
-            
+Nodejs 做为服务端，主要做服务端消息的监听与发送
+客户端App 为服务端发送消息
+主要协议TCP
+
+服务端代码如下：123456789101112131
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/09/ionic-socket-io-开发/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -940,23 +965,23 @@
         
           <span itemprop="articleBody">
             
-              <ul>
-<li>安装Node.js (这里主要是要用它的npm命令装东西)<br>  进入官网<a href="http://" target="_blank" rel="external">http://www.nodejs.org/</a> )，下载安装包安装</li>
-<li>安装phonegap和cordova</li>
-<li>安装ionic<br>  <code>npm install -g ionic</code></li>
-</ul>
-<hr>
-<blockquote>
-<p>配置环境变量node的npm命令:</p>
-</blockquote>
-<p><code>Path : C:\Documents and Settings\Administrator\Application Data\npm</code></p>
-<blockquote>
-<p><a href="http://download.csdn.net/detail/superjunjin/8417723" target="_blank" rel="external">补齐npm文件夹下有关于ionic的文件</a></p>
-<p><a href="http://download.csdn.net/detail/superjunjin/8417731" target="_blank" rel="external">补齐ionic项目下node_modules等文件</a> </p>
-</blockquote>
-
             
+安装Node.js (这里主要是要用它的npm命令装东西)  进入官网http://www.nodejs.org/ )，下载安装包安装
+安装phonegap和cordova
+安装ionic  npm install -g ionic
+
+
+
+配置环境变量node的npm命令:
+
+Path : C:\
+            ...
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/06/windows-ionic-环境配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1036,7 +1061,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_cifxmljp70001b36gite230hq"
+                 href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_cifywmrm70001uc6ge04ntr5i"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -1044,7 +1069,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_cifxmljp70001b36gite230hq"
+                 href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_cifywmrm70001uc6ge04ntr5i"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -1052,7 +1077,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_cifxmljp70001b36gite230hq"
+                 href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_cifywmrm70001uc6ge04ntr5i"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -1060,7 +1085,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_cifxmljp70001b36gite230hq"
+                 href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_cifywmrm70001uc6ge04ntr5i"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -1068,7 +1093,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_cifxmljp70001b36gite230hq"
+                 href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_cifywmrm70001uc6ge04ntr5i"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -1076,7 +1101,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_cifxmljp70001b36gite230hq"
+                 href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_cifywmrm70001uc6ge04ntr5i"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -1092,10 +1117,15 @@
         
           <span itemprop="articleBody">
             
-              <p><img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" alt="专职司机"></p>
+            
 
             
           </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/04/我的仔/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
