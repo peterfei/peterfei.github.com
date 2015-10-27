@@ -5,7 +5,7 @@
   <subtitle><![CDATA[上主是我的牧者，我实在一无所缺]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://peterfei.me//"/>
-  <updated>2015-10-21T06:49:40.000Z</updated>
+  <updated>2015-10-27T08:37:28.000Z</updated>
   <id>http://peterfei.me//</id>
   
   <author>
@@ -14,6 +14,21 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[angularjs mobiscroll 日期用例]]></title>
+    <link href="http://peterfei.me/2015/10/27/angularjs-mobiscroll-%E6%97%A5%E6%9C%9F%E7%94%A8%E4%BE%8B/"/>
+    <id>http://peterfei.me/2015/10/27/angularjs-mobiscroll-日期用例/</id>
+    <published>2015-10-27T08:23:20.000Z</published>
+    <updated>2015-10-27T08:37:28.000Z</updated>
+    <content type="html"><![CDATA[<p>Angularjs 写了个mobiscroll directive ：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">.directive(<span class="string">'mobiDateTimePicker'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="string">'A'</span>,</span><br><span class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $(element).mobiscroll().datetime(&#123;</span><br><span class="line">        theme: <span class="string">'default'</span>,</span><br><span class="line">        display: <span class="string">'bottom'</span>,</span><br><span class="line">        lang:<span class="string">'zh'</span>,</span><br><span class="line">        minWidth:<span class="number">40</span>,</span><br><span class="line">        steps:&#123;  minute: <span class="number">15</span>&#125;,</span><br><span class="line">        rows:<span class="number">3</span>,</span><br><span class="line">        <span class="comment">// dayText: '日', monthText: '月', yearText: '年',</span></span><br><span class="line">        dateFormat: <span class="string">'yy-MM-dd'</span>,</span><br><span class="line">        timeFormat: <span class="string">'HH:ii:ss'</span>,</span><br><span class="line">        <span class="comment">// timeWheels: 'HHii',</span></span><br><span class="line">        showNow: <span class="literal">true</span>, </span><br><span class="line">        showLabel:<span class="literal">true</span>,</span><br><span class="line">        dateOrder: <span class="string">'yyyyMMddDD'</span>,</span><br><span class="line">        <span class="comment">// tap:true,</span></span><br><span class="line">        <span class="comment">// invalid:[&#123;'10/27',start:'18:00',end:"19:00"&#125;]</span></span><br><span class="line">        headerText: <span class="function"><span class="keyword">function</span> (<span class="params">valueText</span>) </span>&#123; <span class="comment">//自定义弹出框头部格式</span></span><br><span class="line">            <span class="keyword">return</span> valueText;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// dayNames:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</span></span><br><span class="line"></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>其中：<code>minWidth:40</code>是控件的显示高度，<code>dateOrder: &#39;yyyyMMddDD&#39;,</code>可显示友好的星期+日期：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com /15-10-27/48605780.jpg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Angularjs 写了个mobiscroll directive ：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Angularjs 判断服务器401错误]]></title>
@@ -465,22 +480,6 @@
     </summary>
     
       <category term="magento" scheme="http://peterfei.me/tags/magento/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Rails中的子查询]]></title>
-    <link href="http://peterfei.me/2014/09/22/2014-09-22-rails-subselect/"/>
-    <id>http://peterfei.me/2014/09/22/2014-09-22-rails-subselect/</id>
-    <published>2014-09-22T06:16:16.000Z</published>
-    <updated>2015-07-03T12:13:20.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="大致是这样子的">大致是这样子的</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> </span>favarate_post options=&#123;&#125;</span><br><span class="line">        subselect = <span class="constant">Favarate</span>.send(</span><br><span class="line">                <span class="symbol">:construct_finder_sql</span>,</span><br><span class="line">                    <span class="symbol">:select</span> =&gt;<span class="string">"post_id"</span>,</span><br><span class="line">                    <span class="symbol">:conditions=&gt;</span>&#123;<span class="symbol">:blog_id=&gt;self</span>.id&#125;,</span><br><span class="line">                    <span class="symbol">:order=&gt;<span class="string">"published_at desc"</span></span>,</span><br><span class="line">                    <span class="symbol">:limit</span> =&gt; option[<span class="symbol">:limit</span>]||<span class="number">10</span>,<span class="symbol">:offset=&gt;option</span>[<span class="symbol">:offset</span>]</span><br><span class="line">            )</span><br><span class="line">        <span class="constant">Post</span>.find(<span class="symbol">:all</span>,<span class="symbol">:conditions</span> =&gt;<span class="string">'posts.id in <span class="subst">#&#123;subselect&#125;</span>'</span>,<span class="symbol">:order</span> =&gt;<span class="string">"published_at DESC"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span><br><span class="line">construct_finder_sql 同下句SQL类似：</span><br><span class="line">`</span><span class="string">``</span>sql</span><br><span class="line">    <span class="constant">SELECT</span> * <span class="constant">FROM</span> posts <span class="constant">WHERE</span> posts.id <span class="constant">IN</span> (</span><br><span class="line">    <span class="constant">SELECT</span> post_id <span class="constant">FROM</span> favorites <span class="constant">WHERE</span> blog_id = <span class="number">42</span> <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span> <span class="constant">LIMIT</span> <span class="number">10</span> <span class="constant">OFFSET</span> <span class="number">10</span></span><br><span class="line">  ) <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span></span><br></pre></td></tr></table></figure>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="大致是这样子的">大致是这样子的</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="l]]>
-    </summary>
-    
-      <category term="ruby" scheme="http://peterfei.me/tags/ruby/"/>
     
   </entry>
   
