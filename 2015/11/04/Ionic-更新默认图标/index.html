@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="content_for," />
+  <meta name="keywords" content="peterfei,上主" />
 
 
 
@@ -47,22 +47,29 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
+<meta name="description" content="项目中要替换ionic 默认的icon 图标，Google 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：
+
+e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：123.ion-ios-home-outline:before &amp;#123;    content: &quot;\f447&quot;;   &amp;#125;
+
+在/img/找出要替换的icon图，如car.png在样式表里写">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ROR layout+content_for 配合用法">
-<meta property="og:url" content="http://peterfei.me/2014/09/18/2014-09-18-layout-plus-content-for/index.html">
+<meta property="og:title" content="Ionic 更新默认图标">
+<meta property="og:url" content="http://peterfei.me/2015/11/04/Ionic-更新默认图标/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
-<meta property="og:updated_time" content="2015-07-03T12:13:04.000Z">
+<meta property="og:description" content="项目中要替换ionic 默认的icon 图标，Google 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：
+
+e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：123.ion-ios-home-outline:before &amp;#123;    content: &quot;\f447&quot;;   &amp;#125;
+
+在/img/找出要替换的icon图，如car.png在样式表里写">
+<meta property="og:image" content="http://7xjzsc.com1.z0.glb.clouddn.com/icon-finsih.png">
+<meta property="og:updated_time" content="2015-11-04T06:11:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ROR layout+content_for 配合用法">
-<meta name="twitter:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
+<meta name="twitter:title" content="Ionic 更新默认图标">
+<meta name="twitter:description" content="项目中要替换ionic 默认的icon 图标，Google 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：
+
+e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：123.ion-ios-home-outline:before &amp;#123;    content: &quot;\f447&quot;;   &amp;#125;
+
+在/img/找出要替换的icon图，如car.png在样式表里写">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -74,7 +81,7 @@
 
 
 
-  <title> ROR layout+content_for 配合用法 | Peterfei </title>
+  <title> Ionic 更新默认图标 | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -210,7 +217,7 @@
             
             
               
-                ROR layout+content_for 配合用法
+                Ionic 更新默认图标
               
             
           </h1>
@@ -219,8 +226,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2014-09-18T14:29:09+08:00" content="2014-09-18">
-              2014-09-18
+            <time itemprop="dateCreated" datetime="2015-11-04T13:52:01+08:00" content="2015-11-04">
+              2015-11-04
             </time>
           </span>
 
@@ -230,8 +237,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/09/18/2014-09-18-layout-plus-content-for/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="commentsCount"></span>
+                <a href="/2015/11/04/Ionic-更新默认图标/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/04/Ionic-更新默认图标/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -250,35 +257,29 @@
       
 
       
-        <span itemprop="articleBody"><p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span>&lt;%<span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span>%&gt;<span class="xml"></span><br><span class="line">	 </span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="ruby"> <span class="keyword">end</span> </span>%&gt;<span class="xml"></span></span><br></pre></td></tr></table></figure></p>
-<p>之后</p>
-<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span>%&gt;<span class="xml"></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure></span>
+        <span itemprop="articleBody"><p>项目中要替换ionic 默认的icon 图标，<code>Google</code> 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：</p>
+<blockquote>
+<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">"\f447"</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">.ion-ios-home-outline</span>:<span class="value">before &#123;</span><br><span class="line">    <span class="comment">/*content: "\f447";*/</span></span><br><span class="line">    content: <span class="function">url</span>(<span class="string">'../img/car.png'</span>) <span class="important">!important</span></span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/icon-finsih.png" alt="效果图"></p>
+</span>
       
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/content-for/" rel="tag">#content_for</a>
-          
-        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/09/18/2014-09-18-bible-plus-everyday/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 圣经金句分享
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/" rel="next">
-                建立类方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/10/31/puma-在nginx-启动后报错解决/" rel="next">
+                puma 在nginx 启动后报错解决 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -304,8 +305,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/"
-                   data-title="ROR layout+content_for 配合用法" data-url="http://peterfei.me/2014/09/18/2014-09-18-layout-plus-content-for/">
+              <div class="ds-thread" data-thread-key="2015/11/04/Ionic-更新默认图标/"
+                   data-title="Ionic 更新默认图标" data-url="http://peterfei.me/2015/11/04/Ionic-更新默认图标/">
               </div>
             
           </div>
