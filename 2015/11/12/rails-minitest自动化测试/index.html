@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="Peterfei">
 <meta property="og:description" content="Gemfile加入相关测试驱动：
 123456789101112131415161718   #测试组group :test do    gem &quot;minitest&quot;    gem &apos;minitest-spec-rails&apos;    gem &apos;minitest-reporters&apos;    gem &apos;spring&apos;    gem &apos;guard&apos;    gem &apos;guard-minitest&apos;    #">
-<meta property="og:updated_time" content="2015-11-12T01:45:28.000Z">
+<meta property="og:updated_time" content="2015-11-12T01:56:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rails minitest自动化测试">
 <meta name="twitter:description" content="Gemfile加入相关测试驱动：
@@ -261,6 +261,10 @@
 <p>如果database不用默认的数据库迁移，测试时可以在db下放入<code>structure.sql</code>, 该配置为数据库结构，然后更改配置文件 <code>application.rb</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config<span class="class">.active_record</span><span class="class">.schema_format</span> = :sql</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>运行：<code>rake db:test:prepare</code></p>
+<h2 id="生成集成化测试文件">生成集成化测试文件</h2><blockquote>
+<p><code>rails g test_unit:integration testName</code></p>
+<h2 id="生成model测试文件">生成model测试文件</h2><p><code>rails g test_unit:model</code></p>
+</blockquote>
 </span>
       
     </div>
@@ -402,7 +406,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gemfile加入相关测试驱动："><span class="nav-number">1.</span> <span class="nav-text">Gemfile加入相关测试驱动：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化guard:"><span class="nav-number">2.</span> <span class="nav-text">初始化guard:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置guard:"><span class="nav-number">3.</span> <span class="nav-text">配置guard:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行Guard:"><span class="nav-number">4.</span> <span class="nav-text">运行Guard:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例外"><span class="nav-number">5.</span> <span class="nav-text">例外</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gemfile加入相关测试驱动："><span class="nav-number">1.</span> <span class="nav-text">Gemfile加入相关测试驱动：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化guard:"><span class="nav-number">2.</span> <span class="nav-text">初始化guard:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置guard:"><span class="nav-number">3.</span> <span class="nav-text">配置guard:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行Guard:"><span class="nav-number">4.</span> <span class="nav-text">运行Guard:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例外"><span class="nav-number">5.</span> <span class="nav-text">例外</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成集成化测试文件"><span class="nav-number">6.</span> <span class="nav-text">生成集成化测试文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成model测试文件"><span class="nav-number">7.</span> <span class="nav-text">生成model测试文件</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

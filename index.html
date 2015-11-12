@@ -264,6 +264,10 @@
 <p>如果database不用默认的数据库迁移，测试时可以在db下放入<code>structure.sql</code>, 该配置为数据库结构，然后更改配置文件 <code>application.rb</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config<span class="class">.active_record</span><span class="class">.schema_format</span> = :sql</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>运行：<code>rake db:test:prepare</code></p>
+<h2 id="生成集成化测试文件">生成集成化测试文件</h2><blockquote>
+<p><code>rails g test_unit:integration testName</code></p>
+<h2 id="生成model测试文件">生成model测试文件</h2><p><code>rails g test_unit:model</code></p>
+</blockquote>
 
             
           </span>
