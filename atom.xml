@@ -5,7 +5,7 @@
   <subtitle><![CDATA[上主是我的牧者，我实在一无所缺]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://peterfei.me//"/>
-  <updated>2015-11-12T01:56:41.000Z</updated>
+  <updated>2015-11-13T05:34:30.000Z</updated>
   <id>http://peterfei.me//</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[mac 下dash 资源]]></title>
+    <link href="http://peterfei.me/2015/11/13/mac-%E4%B8%8Bdash-%E8%B5%84%E6%BA%90/"/>
+    <id>http://peterfei.me/2015/11/13/mac-下dash-资源/</id>
+    <published>2015-11-13T05:23:56.000Z</published>
+    <updated>2015-11-13T05:34:30.000Z</updated>
+    <content type="html"><![CDATA[<p>最近一直在用，挺好用的，分享下v3.0.1的下载链接</p>
+<blockquote>
+<p>内置破解机<a href="http://pan.baidu.com/s/1nt8dwHb" target="_blank" rel="external">Dash下载</a></p>
+<p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/15-11-13/48910895.jpg" alt=""></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近一直在用，挺好用的，分享下v3.0.1的下载链接</p>
+<blockquote>
+<p>内置破解机<a href="http://pan.baidu.com/s/1nt8dwHb" target="_blank" rel="external">Dash下载</a></]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[rails minitest自动化测试]]></title>
@@ -469,29 +489,6 @@
     <![CDATA[<p><em>无签名打包命令</em></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">]]>
     </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[ionic学习笔记1]]></title>
-    <link href="http://peterfei.me/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/"/>
-    <id>http://peterfei.me/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/</id>
-    <published>2015-07-03T01:24:56.000Z</published>
-    <updated>2015-07-03T12:15:47.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="Ionic_Add_Platform_EACCES_Error_解决办法">Ionic Add Platform EACCES Error 解决办法</h1><p>*当出现<code>platform add [platformname]</code></p>
-<p>Error: spawn EACCES<br>at exports._errnoException (util.js:746:11)<br>at ChildProcess.spawn (child_process.js:1155:11)<br>at Object.exports.spawn (child_process.js:988:9)<br>at Object.exports.spawn (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/cordova/superspawn.js:100:31)<br>at runScriptViaChildProcessSpawn (/usr/local/lib/node_modules/cordova/node_modules/cordova-<br>lib/src/hooks/HooksRunner.js:188:23)<br>at runScript (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:131:16)<br>at /usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:114:20<br>at _fulfilled (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:787:54)<br>at self.promiseDispatch.done (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:816:30)<br>at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:749:13)<br>*</p>
-<p>加入<code>ionic hooks add</code><br>then<br><code>ionic platform add ios</code></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="Ionic_Add_Platform_EACCES_Error_解决办法">Ionic Add Platform EACCES Error 解决办法</h1><p>*当出现<code>platform add [platformname]</code></p>
-<]]>
-    </summary>
-    
-      <category term="EAEEES ERROR" scheme="http://peterfei.me/tags/EAEEES-ERROR/"/>
-    
-      <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
-    
-      <category term="打包" scheme="http://peterfei.me/tags/%E6%89%93%E5%8C%85/"/>
     
   </entry>
   
