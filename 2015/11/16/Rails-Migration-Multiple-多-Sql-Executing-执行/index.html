@@ -47,31 +47,16 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="在Centos上部署时遇到如下错误：
-puma nginx connect() Permission denied
-
-解决方法：在nginx.conf 配置文件中加入了puma 用户：user deploy 
-
-puma 启动时的用户，如此启动正常。">
+<meta name="description" content="在migration 里生成的文件写下如下要批量执行的sql:1234execute &amp;lt;&amp;lt;-SQL    ALTER TABLE distributors ADD CONSTRAINT zipchk CHECK (char_length(zipcode) = 5) NO INHERIT;    ALTER TABLE zipchk ADD COLUMN board_time int(1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="puma 在nginx 启动后报错解决">
-<meta property="og:url" content="http://peterfei.me/2015/10/31/puma-在nginx-启动后报错解决/index.html">
+<meta property="og:title" content="Rails Migration Multiple(多) Sql Executing(执行) ">
+<meta property="og:url" content="http://peterfei.me/2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="在Centos上部署时遇到如下错误：
-puma nginx connect() Permission denied
-
-解决方法：在nginx.conf 配置文件中加入了puma 用户：user deploy 
-
-puma 启动时的用户，如此启动正常。">
-<meta property="og:updated_time" content="2015-10-31T03:57:31.000Z">
+<meta property="og:description" content="在migration 里生成的文件写下如下要批量执行的sql:1234execute &amp;lt;&amp;lt;-SQL    ALTER TABLE distributors ADD CONSTRAINT zipchk CHECK (char_length(zipcode) = 5) NO INHERIT;    ALTER TABLE zipchk ADD COLUMN board_time int(1">
+<meta property="og:updated_time" content="2015-11-16T05:59:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="puma 在nginx 启动后报错解决">
-<meta name="twitter:description" content="在Centos上部署时遇到如下错误：
-puma nginx connect() Permission denied
-
-解决方法：在nginx.conf 配置文件中加入了puma 用户：user deploy 
-
-puma 启动时的用户，如此启动正常。">
+<meta name="twitter:title" content="Rails Migration Multiple(多) Sql Executing(执行) ">
+<meta name="twitter:description" content="在migration 里生成的文件写下如下要批量执行的sql:1234execute &amp;lt;&amp;lt;-SQL    ALTER TABLE distributors ADD CONSTRAINT zipchk CHECK (char_length(zipcode) = 5) NO INHERIT;    ALTER TABLE zipchk ADD COLUMN board_time int(1">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -83,7 +68,7 @@ puma 启动时的用户，如此启动正常。">
 
 
 
-  <title> puma 在nginx 启动后报错解决 | Peterfei </title>
+  <title> Rails Migration Multiple(多) Sql Executing(执行)  | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -219,7 +204,7 @@ puma 启动时的用户，如此启动正常。">
             
             
               
-                puma 在nginx 启动后报错解决
+                Rails Migration Multiple(多) Sql Executing(执行) 
               
             
           </h1>
@@ -228,8 +213,8 @@ puma 启动时的用户，如此启动正常。">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-10-31T11:46:44+08:00" content="2015-10-31">
-              2015-10-31
+            <time itemprop="dateCreated" datetime="2015-11-16T13:46:17+08:00" content="2015-11-16">
+              2015-11-16
             </time>
           </span>
 
@@ -239,8 +224,8 @@ puma 启动时的用户，如此启动正常。">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/10/31/puma-在nginx-启动后报错解决/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/31/puma-在nginx-启动后报错解决/" itemprop="commentsCount"></span>
+                <a href="/2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -259,12 +244,9 @@ puma 启动时的用户，如此启动正常。">
       
 
       
-        <span itemprop="articleBody"><h2 id="在Centos上部署时遇到如下错误：">在Centos上部署时遇到如下错误：</h2><blockquote>
-<p>puma nginx connect() Permission denied</p>
-</blockquote>
-<p>解决方法：在nginx.conf 配置文件中加入了puma 用户：<br><code>user deploy</code> </p>
-<blockquote>
-<p>puma 启动时的用户，如此启动正常。</p>
+        <span itemprop="articleBody"><blockquote>
+<p>在migration 里生成的文件写下如下要批量执行的sql:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">execute</span> &lt;&lt;-<span class="keyword">SQL</span></span><br><span class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> distributors <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> zipchk <span class="keyword">CHECK</span> (<span class="keyword">char_length</span>(zipcode) = <span class="number">5</span>) <span class="keyword">NO</span> INHERIT;</span></span><br><span class="line">    <span class="operator"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> zipchk <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> board_time <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">COLLATE</span> utf8_unicode_ci <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> COMMENT <span class="string">'时间'</span>;</span>      </span><br><span class="line">   SQL</span><br></pre></td></tr></table></figure></p>
+<p>执行一直报sql错误，下面是Google Group 社区给出的解决方案：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sql = &lt;&lt;-SQL </span><br><span class="line"> &lt;statement_1&gt;<span class="comment">; </span></span><br><span class="line"> &lt;statement_2&gt;<span class="comment">; </span></span><br><span class="line"> &lt;statement_3&gt;<span class="comment">; </span></span><br><span class="line">SQL </span><br><span class="line"></span><br><span class="line">sql.strip.split('<span class="comment">;').each do |s| </span></span><br><span class="line">  ActiveRecor<span class="number">d::Ba</span>se.connection.execute(s) </span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 </span>
       
@@ -277,16 +259,12 @@ puma 启动时的用户，如此启动正常。">
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/04/Ionic-更新默认图标/" rel="prev">
-                <i class="fa fa-chevron-left"></i> Ionic 更新默认图标
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/29/Sublime-中自定义snippets/" rel="next">
-                Sublime 中自定义snippets <i class="fa fa-chevron-right"></i>
+              <a href="/2015/11/13/mac-下dash-资源/" rel="next">
+                mac 下dash 资源 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -312,8 +290,8 @@ puma 启动时的用户，如此启动正常。">
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/31/puma-在nginx-启动后报错解决/"
-                   data-title="puma 在nginx 启动后报错解决" data-url="http://peterfei.me/2015/10/31/puma-在nginx-启动后报错解决/">
+              <div class="ds-thread" data-thread-key="2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/"
+                   data-title="Rails Migration Multiple(多) Sql Executing(执行) " data-url="http://peterfei.me/2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/">
               </div>
             
           </div>
@@ -411,7 +389,7 @@ puma 启动时的用户，如此启动正常。">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Centos上部署时遇到如下错误："><span class="nav-number">1.</span> <span class="nav-text">在Centos上部署时遇到如下错误：</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
