@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="content_for," />
+  <meta name="keywords" content="angularjs,directive,ionic," />
 
 
 
@@ -47,22 +47,31 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
+<meta name="description" content="隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
+
+html
+
+1&amp;lt;mobi edit-click=&quot;selectMobiFlag(1)&quot; item=&quot;item&quot;&amp;gt;&amp;lt;/mobi&amp;gt;
+html 端定义了mobi的指令， 具体点击事件方法如selec">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ROR layout+content_for 配合用法">
-<meta property="og:url" content="http://peterfei.me/2014/09/18/2014-09-18-layout-plus-content-for/index.html">
+<meta property="og:title" content="angular directive ng-click not work">
+<meta property="og:url" content="http://peterfei.me/2015/12/07/angular-directive-ng-click-not-work/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
-<meta property="og:updated_time" content="2015-07-03T12:13:04.000Z">
+<meta property="og:description" content="隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
+
+html
+
+1&amp;lt;mobi edit-click=&quot;selectMobiFlag(1)&quot; item=&quot;item&quot;&amp;gt;&amp;lt;/mobi&amp;gt;
+html 端定义了mobi的指令， 具体点击事件方法如selec">
+<meta property="og:updated_time" content="2015-12-07T07:50:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ROR layout+content_for 配合用法">
-<meta name="twitter:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
+<meta name="twitter:title" content="angular directive ng-click not work">
+<meta name="twitter:description" content="隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
+
+html
+
+1&amp;lt;mobi edit-click=&quot;selectMobiFlag(1)&quot; item=&quot;item&quot;&amp;gt;&amp;lt;/mobi&amp;gt;
+html 端定义了mobi的指令， 具体点击事件方法如selec">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -74,7 +83,7 @@
 
 
 
-  <title> ROR layout+content_for 配合用法 | Peterfei </title>
+  <title> angular directive ng-click not work | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -220,7 +229,7 @@
             
             
               
-                ROR layout+content_for 配合用法
+                angular directive ng-click not work
               
             
           </h1>
@@ -229,8 +238,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2014-09-18T14:29:09+08:00" content="2014-09-18">
-              2014-09-18
+            <time itemprop="dateCreated" datetime="2015-12-07T15:32:14+08:00" content="2015-12-07">
+              2015-12-07
             </time>
           </span>
 
@@ -240,8 +249,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/09/18/2014-09-18-layout-plus-content-for/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="commentsCount"></span>
+                <a href="/2015/12/07/angular-directive-ng-click-not-work/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/07/angular-directive-ng-click-not-work/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -260,9 +269,19 @@
       
 
       
-        <span itemprop="articleBody"><p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span>&lt;%<span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span>%&gt;<span class="xml"></span><br><span class="line">	 </span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="ruby"> <span class="keyword">end</span> </span>%&gt;<span class="xml"></span></span><br></pre></td></tr></table></figure></p>
-<p>之后</p>
-<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span>%&gt;<span class="xml"></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure></span>
+        <span itemprop="articleBody"><h3 id="隔离事件">隔离事件</h3><p>中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：</p>
+<blockquote>
+<p>html</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">mobi</span> <span class="attribute">edit-click</span>=<span class="value">"selectMobiFlag(1)"</span> <span class="attribute">item</span>=<span class="value">"item"</span>&gt;</span><span class="tag">&lt;/<span class="title">mobi</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>html 端定义了<code>mobi</code>的指令， 具体点击事件方法如<code>selectMobileFlat</code>,</p>
+<blockquote>
+<p>指令（Directive）</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.directive(<span class="string">'mobi'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		restrict: <span class="string">'EA'</span>,</span><br><span class="line">		scope: &#123;</span><br><span class="line">			<span class="string">'item'</span>:<span class="string">'='</span>,</span><br><span class="line">			<span class="string">'editClick'</span>: <span class="string">'&amp;'</span></span><br><span class="line">		&#125;,</span><br><span class="line">		template: <span class="string">'&lt;div ng-click="toggleState(item)" &gt;111&lt;/div&gt;'</span>,</span><br><span class="line">		link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</span><br><span class="line">			$scope.toggleState = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">				<span class="built_in">console</span>.log(item);</span><br><span class="line">				$scope.editClick(item);</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>指令里绑定了item,传入的是点击 <code>HTML</code>片段本身，在<code>directive</code>里渲染了<code>template</code> 模板，主要负责点击的声明，在隔离作用域里，应用<code>editClick:&quot;&amp;&quot;</code> 和 <code>$scope.toggleState</code> 实现关联。</p>
+<h3 id="最后">最后</h3><p>实现<code>selectMobiFlag</code>的具体实现:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.selectMobiFlag = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">	</span><br><span class="line">	$scope.mobiFlag = item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</span>
       
     </div>
 
@@ -270,7 +289,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/content-for/" rel="tag">#content_for</a>
+            <a href="/tags/angularjs/" rel="tag">#angularjs</a>
+          
+            <a href="/tags/directive/" rel="tag">#directive</a>
+          
+            <a href="/tags/ionic/" rel="tag">#ionic</a>
           
         </div>
       
@@ -279,16 +302,12 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/09/18/2014-09-18-bible-plus-everyday/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 圣经金句分享
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/" rel="next">
-                建立类方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/04/ionic-jpush-IOS-配置/" rel="next">
+                ionic jpush  IOS 配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -314,8 +333,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/"
-                   data-title="ROR layout+content_for 配合用法" data-url="http://peterfei.me/2014/09/18/2014-09-18-layout-plus-content-for/">
+              <div class="ds-thread" data-thread-key="2015/12/07/angular-directive-ng-click-not-work/"
+                   data-title="angular directive ng-click not work" data-url="http://peterfei.me/2015/12/07/angular-directive-ng-click-not-work/">
               </div>
             
           </div>
@@ -413,7 +432,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#隔离事件"><span class="nav-number">1.</span> <span class="nav-text">隔离事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">2.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
