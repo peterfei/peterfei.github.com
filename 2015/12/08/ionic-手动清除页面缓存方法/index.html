@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="php,ruby,ror,岐山,ionic,混合编程,敏捷开发" />
+  <meta name="keywords" content="angular,ionic," />
 
 
 
@@ -47,31 +47,19 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="在Centos上部署时遇到如下错误：
-puma nginx connect() Permission denied
-
-解决方法：在nginx.conf 配置文件中加入了puma 用户：user deploy 
-
-puma 启动时的用户，如此启动正常。">
+<meta name="description" content="ionic手动清除页面方法：
+1234$scope.$on(&quot;$ionicView.beforeEnter&quot;, function () &amp;#123;  $ionicHistory.clearCache();  $ionicHistory.clearHistory();&amp;#125;);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="puma 在nginx 启动后报错解决">
-<meta property="og:url" content="http://peterfei.me/2015/10/31/puma-在nginx-启动后报错解决/index.html">
+<meta property="og:title" content="ionic 手动清除页面缓存方法">
+<meta property="og:url" content="http://peterfei.me/2015/12/08/ionic-手动清除页面缓存方法/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="在Centos上部署时遇到如下错误：
-puma nginx connect() Permission denied
-
-解决方法：在nginx.conf 配置文件中加入了puma 用户：user deploy 
-
-puma 启动时的用户，如此启动正常。">
-<meta property="og:updated_time" content="2015-10-31T03:57:31.000Z">
+<meta property="og:description" content="ionic手动清除页面方法：
+1234$scope.$on(&quot;$ionicView.beforeEnter&quot;, function () &amp;#123;  $ionicHistory.clearCache();  $ionicHistory.clearHistory();&amp;#125;);">
+<meta property="og:updated_time" content="2015-12-08T08:26:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="puma 在nginx 启动后报错解决">
-<meta name="twitter:description" content="在Centos上部署时遇到如下错误：
-puma nginx connect() Permission denied
-
-解决方法：在nginx.conf 配置文件中加入了puma 用户：user deploy 
-
-puma 启动时的用户，如此启动正常。">
+<meta name="twitter:title" content="ionic 手动清除页面缓存方法">
+<meta name="twitter:description" content="ionic手动清除页面方法：
+1234$scope.$on(&quot;$ionicView.beforeEnter&quot;, function () &amp;#123;  $ionicHistory.clearCache();  $ionicHistory.clearHistory();&amp;#125;);">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -83,7 +71,7 @@ puma 启动时的用户，如此启动正常。">
 
 
 
-  <title> puma 在nginx 启动后报错解决 | Peterfei </title>
+  <title> ionic 手动清除页面缓存方法 | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +217,7 @@ puma 启动时的用户，如此启动正常。">
             
             
               
-                puma 在nginx 启动后报错解决
+                ionic 手动清除页面缓存方法
               
             
           </h1>
@@ -238,8 +226,8 @@ puma 启动时的用户，如此启动正常。">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-10-31T11:46:44+08:00" content="2015-10-31">
-              2015-10-31
+            <time itemprop="dateCreated" datetime="2015-12-08T16:23:31+08:00" content="2015-12-08">
+              2015-12-08
             </time>
           </span>
 
@@ -249,8 +237,8 @@ puma 启动时的用户，如此启动正常。">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/10/31/puma-在nginx-启动后报错解决/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/31/puma-在nginx-启动后报错解决/" itemprop="commentsCount"></span>
+                <a href="/2015/12/08/ionic-手动清除页面缓存方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/ionic-手动清除页面缓存方法/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -269,34 +257,32 @@ puma 启动时的用户，如此启动正常。">
       
 
       
-        <span itemprop="articleBody"><h2 id="在Centos上部署时遇到如下错误：">在Centos上部署时遇到如下错误：</h2><blockquote>
-<p>puma nginx connect() Permission denied</p>
-</blockquote>
-<p>解决方法：在nginx.conf 配置文件中加入了puma 用户：<br><code>user deploy</code> </p>
-<blockquote>
-<p>puma 启动时的用户，如此启动正常。</p>
-</blockquote>
-</span>
+        <span itemprop="articleBody"><p>ionic手动清除页面方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">"$ionicView.beforeEnter"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  $ionicHistory.clearCache();</span><br><span class="line">  $ionicHistory.clearHistory();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></span>
       
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/angular/" rel="tag">#angular</a>
+          
+            <a href="/tags/ionic/" rel="tag">#ionic</a>
+          
+        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/04/Ionic-更新默认图标/" rel="prev">
-                <i class="fa fa-chevron-left"></i> Ionic 更新默认图标
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/29/Sublime-中自定义snippets/" rel="next">
-                Sublime 中自定义snippets <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/07/angular-directive-ng-click-not-work/" rel="next">
+                angular directive ng-click not work <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -322,8 +308,8 @@ puma 启动时的用户，如此启动正常。">
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/31/puma-在nginx-启动后报错解决/"
-                   data-title="puma 在nginx 启动后报错解决" data-url="http://peterfei.me/2015/10/31/puma-在nginx-启动后报错解决/">
+              <div class="ds-thread" data-thread-key="2015/12/08/ionic-手动清除页面缓存方法/"
+                   data-title="ionic 手动清除页面缓存方法" data-url="http://peterfei.me/2015/12/08/ionic-手动清除页面缓存方法/">
               </div>
             
           </div>
@@ -421,7 +407,7 @@ puma 启动时的用户，如此启动正常。">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Centos上部署时遇到如下错误："><span class="nav-number">1.</span> <span class="nav-text">在Centos上部署时遇到如下错误：</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

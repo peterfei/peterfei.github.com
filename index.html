@@ -215,6 +215,89 @@
             
             
               
+                <a class="post-title-link" href="/2015/12/08/ionic-手动清除页面缓存方法/" itemprop="url">
+                  ionic 手动清除页面缓存方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-08T16:23:31+08:00" content="2015-12-08">
+              2015-12-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/08/ionic-手动清除页面缓存方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/ionic-手动清除页面缓存方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>ionic手动清除页面方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">"$ionicView.beforeEnter"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  $ionicHistory.clearCache();</span><br><span class="line">  $ionicHistory.clearHistory();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2015/12/07/angular-directive-ng-click-not-work/" itemprop="url">
                   angular directive ng-click not work
                 </a>
@@ -1033,90 +1116,6 @@
 
 
     
-      
-
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                <a class="post-title-link" href="/2015/10/27/angularjs-mobiscroll-日期用例/" itemprop="url">
-                  angularjs mobiscroll 日期用例
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-10-27T16:23:20+08:00" content="2015-10-27">
-              2015-10-27
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/10/27/angularjs-mobiscroll-日期用例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/27/angularjs-mobiscroll-日期用例/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>Angularjs 写了个mobiscroll directive ：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">.directive(<span class="string">'mobiDateTimePicker'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="string">'A'</span>,</span><br><span class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $(element).mobiscroll().datetime(&#123;</span><br><span class="line">        theme: <span class="string">'default'</span>,</span><br><span class="line">        display: <span class="string">'bottom'</span>,</span><br><span class="line">        lang:<span class="string">'zh'</span>,</span><br><span class="line">        minWidth:<span class="number">40</span>,</span><br><span class="line">        steps:&#123;  minute: <span class="number">15</span>&#125;,</span><br><span class="line">        rows:<span class="number">3</span>,</span><br><span class="line">        <span class="comment">// dayText: '日', monthText: '月', yearText: '年',</span></span><br><span class="line">        dateFormat: <span class="string">'yy-MM-dd'</span>,</span><br><span class="line">        timeFormat: <span class="string">'HH:ii:ss'</span>,</span><br><span class="line">        <span class="comment">// timeWheels: 'HHii',</span></span><br><span class="line">        showNow: <span class="literal">true</span>, </span><br><span class="line">        showLabel:<span class="literal">true</span>,</span><br><span class="line">        dateOrder: <span class="string">'yyyyMMddDD'</span>,</span><br><span class="line">        <span class="comment">// tap:true,</span></span><br><span class="line">        <span class="comment">// invalid:[&#123;'10/27',start:'18:00',end:"19:00"&#125;]</span></span><br><span class="line">        headerText: <span class="function"><span class="keyword">function</span> (<span class="params">valueText</span>) </span>&#123; <span class="comment">//自定义弹出框头部格式</span></span><br><span class="line">            <span class="keyword">return</span> valueText;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// dayNames:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</span></span><br><span class="line"></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>其中：<code>minWidth:40</code>是控件的显示高度，<code>dateOrder: &#39;yyyyMMddDD&#39;,</code>可显示友好的星期+日期：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/15-10-27/48605780.jpg" alt=""></p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1157,7 +1156,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

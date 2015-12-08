@@ -5,7 +5,7 @@
   <subtitle><![CDATA[上主是我的牧者，我实在一无所缺]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://peterfei.me//"/>
-  <updated>2015-12-07T07:50:34.000Z</updated>
+  <updated>2015-12-08T08:26:49.000Z</updated>
   <id>http://peterfei.me//</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ionic 手动清除页面缓存方法]]></title>
+    <link href="http://peterfei.me/2015/12/08/ionic-%E6%89%8B%E5%8A%A8%E6%B8%85%E9%99%A4%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98%E6%96%B9%E6%B3%95/"/>
+    <id>http://peterfei.me/2015/12/08/ionic-手动清除页面缓存方法/</id>
+    <published>2015-12-08T08:23:31.000Z</published>
+    <updated>2015-12-08T08:26:49.000Z</updated>
+    <content type="html"><![CDATA[<p>ionic手动清除页面方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">"$ionicView.beforeEnter"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  $ionicHistory.clearCache();</span><br><span class="line">  $ionicHistory.clearHistory();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>ionic手动清除页面方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="li]]>
+    </summary>
+    
+      <category term="angular" scheme="http://peterfei.me/tags/angular/"/>
+    
+      <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[angular directive ng-click not work]]></title>
@@ -464,47 +483,6 @@
       <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
     
       <category term="modal" scheme="http://peterfei.me/tags/modal/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[ionic socket.io 开发]]></title>
-    <link href="http://peterfei.me/2015/07/09/ionic-socket-io-%E5%BC%80%E5%8F%91/"/>
-    <id>http://peterfei.me/2015/07/09/ionic-socket-io-开发/</id>
-    <published>2015-07-08T16:48:44.000Z</published>
-    <updated>2015-07-08T17:29:17.000Z</updated>
-    <content type="html"><![CDATA[<p><em>这两天一直在做</em>ionic<em>开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。</em></p>
-<p><em>先叙述下基本的诉求：</em></p>
-<ul>
-<li>Nodejs 做为服务端，主要做服务端消息的监听与发送</li>
-<li>客户端App 为服务端发送消息</li>
-<li>主要协议TCP</li>
-</ul>
-<p>服务端代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http= <span class="built_in">require</span>(<span class="string">'http'</span>), io= <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">var</span> app = http.createServer(), io = io.listen(app);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">10010</span>);</span><br><span class="line"></span><br><span class="line">io.sockets.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">  socket.emit(<span class="string">'news'</span>, &#123; hello: <span class="string">'world'</span> &#125;);<span class="comment">//监听，一旦客户端连接上，即发送数据，第一个参数'new'为数据名，第二个参数既为数据</span></span><br><span class="line">  socket.on(<span class="string">'my new event'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获客户端发送名为'my other event'的数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data.my);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  socket.emit(<span class="string">'other'</span>, &#123; hello: <span class="string">'other world'</span> &#125;);<span class="comment">//发送另一个数据</span></span><br><span class="line">  socket.on(<span class="string">'event1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获另外一个数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><em>Ionic 部分：</em></p>
-<ul>
-<li>生成新项目：<code>ionic start chat-app blank</code></li>
-<li>引入angular-socket-io 库:<code>bower install angular-socket-io</code></li>
-<li><img src="http://pic.yupoo.com/peterfei/EMOPKcas/Veffo.png" alt="folder"></li>
-<li>注入socket.io在项目里：<code>var app=angular.module(&#39;ionic-socketio-chat-client&#39;, [&#39;ionic&#39;,&#39;btford.socket-io&#39;])</code></li>
-<li><p>在index.html导入socket.io，<strong>注：socket.io/socket.io.js是服务端动态生成</strong></p>
-<pre><code> <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://192.168.0.101:10010/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"lib/angular-socket-io/socket.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://192.168.0.101:10010'</span>);</span><br><span class="line">      <span class="comment">// io.set('origins', '*:*');</span></span><br><span class="line">      socket.on(<span class="string">'news'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">      &#125;);</span><br><span class="line">      socket.on(<span class="string">'other'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123; <span class="comment">//接收另一个名为'other'数据，  </span></span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">          socket.emit(<span class="string">'event1'</span>, &#123;</span><br><span class="line">              my: <span class="string">'other data'</span></span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如此，客户端调用成功。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><em>这两天一直在做</em>ionic<em>开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。</em></p>
-<p><em>先叙述下基本的诉求：</em></p>
-<ul>
-<li>Nodejs 做为服务端，主要做服务端消]]>
-    </summary>
-    
-      <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
-    
-      <category term="ionic&amp;socket.io" scheme="http://peterfei.me/tags/ionic-socket-io/"/>
     
   </entry>
   
