@@ -69,10 +69,10 @@
   
   <entry>
     <title><![CDATA[ionic jpush  IOS 配置]]></title>
-    <link href="http://peterfei.me/2015/12/04/ionic-jpush-IOS-%E9%85%8D%E7%BD%AE/"/>
-    <id>http://peterfei.me/2015/12/04/ionic-jpush-IOS-配置/</id>
+    <link href="http://peterfei.me/2015/12/04/ionic-Jpush-IOS-%E9%85%8D%E7%BD%AE/"/>
+    <id>http://peterfei.me/2015/12/04/ionic-Jpush-IOS-配置/</id>
     <published>2015-12-04T05:24:17.000Z</published>
-    <updated>2015-12-07T08:01:53.000Z</updated>
+    <updated>2015-12-09T03:39:50.000Z</updated>
     <content type="html"><![CDATA[<h3 id="添加_IOS_平台">添加 IOS 平台</h3><p><code>$ ionic platform add ios</code></p>
 <h3 id="安装插件">安装插件</h3><p><code>ionic plugin add https://github.com/DongHongfei/jpush-phonegap-plugin.git</code></p>
 <h3 id="修改配置">修改配置</h3><p>修改: ionic_jpush\plugins\cn.jpush.phonegap.JPushPlugin\src\ios\PushConfig.plist 修改对应的APP_KEY和CHANNEL<br>确保有如下代码，不然后面 Xcode 运行会警告：</p>
