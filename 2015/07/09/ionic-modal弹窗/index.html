@@ -1,5 +1,11 @@
 <!doctype html>
-<html class="theme-next   use-motion ">
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -32,7 +38,7 @@
 
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="ionic,modal," />
@@ -46,7 +52,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
 
 
 
@@ -73,10 +79,16 @@ modal.facotry.js 如下：
 
 
 <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: '',
-    sidebar: 'hide',
-    motion: true
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
   };
 </script>
 
@@ -85,33 +97,19 @@ modal.facotry.js 如下：
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-  <!--[if lte IE 8]>
-  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
-    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
-           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
-           style='margin-left:auto;margin-right:auto;display: block;'/>
-    </a>
-  </div>
-<![endif]-->
   
 
 
 
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?42f9fc473ba4ecdce2964bf8932314b4";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
+  
+  
+    
+  
 
-  <div class="container one-column page-post-detail">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -172,17 +170,8 @@ modal.facotry.js 如下：
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-book">
-          <a href="/ruby源编程2" rel="section">
-            
-              <i class="menu-item-icon fa fa-question-circle fa-fw"></i> <br />
-            
-            Ruby元编程
-          </a>
-        </li>
-      
 
+      
       
       
         <li class="menu-item menu-item-search">
@@ -200,7 +189,9 @@ modal.facotry.js 如下：
   
     <div class="site-search">
       
-  
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
 
 <script type="text/javascript">
   (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
@@ -222,8 +213,9 @@ modal.facotry.js 如下：
 
     <main id="main" class="main">
       <div class="main-inner">
-        <div id="content" class="content">
-          
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
     
@@ -254,7 +246,10 @@ modal.facotry.js 如下：
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2015-07-09T14:03:00+08:00" content="2015-07-09">
               2015-07-09
             </time>
@@ -275,24 +270,26 @@ modal.facotry.js 如下：
 
           
 
+          
+          
         </div>
       </header>
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-        <span itemprop="articleBody"><p><em>今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错</em></p>
+        <p><em>今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错</em></p>
 <p><em>modal.facotry.js 如下：</em></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'appModalService'</span>, [<span class="string">'$ionicModal'</span>, <span class="string">'$rootScope'</span>, <span class="string">'$q'</span>, <span class="string">'$injector'</span>, <span class="string">'$controller'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$ionicModal, $rootScope, $q, $injector, $controller</span>) </span>&#123;</span><br><span class="line">	  <span class="keyword">return</span> &#123;</span><br><span class="line">	    show: show</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">templeteUrl, controller, parameters, options</span>) </span>&#123;</span><br><span class="line">	    <span class="comment">// Grab the injector and create a new scope</span></span><br><span class="line">	    <span class="keyword">var</span> deferred = $q.defer(),</span><br><span class="line">	        ctrlInstance,</span><br><span class="line">	        modalScope = $rootScope.$<span class="keyword">new</span>(),</span><br><span class="line">	        thisScopeId = modalScope.$id,</span><br><span class="line">	        defaultOptions = &#123;</span><br><span class="line">	          animation: <span class="string">'slide-in-up'</span>,</span><br><span class="line">	          focusFirstInput: <span class="literal">false</span>,</span><br><span class="line">	          backdropClickToClose: <span class="literal">true</span>,</span><br><span class="line">	          hardwareBackButtonClose: <span class="literal">true</span>,</span><br><span class="line">	          modalCallback: <span class="literal">null</span></span><br><span class="line">	        &#125;;</span><br><span class="line">	   options = angular.extend(&#123;&#125;, defaultOptions, options);</span><br><span class="line">	</span><br><span class="line">	 $ionicModal.fromTemplateUrl(templeteUrl, &#123;</span><br><span class="line">	   scope: modalScope,</span><br><span class="line">	   animation: options.animation,</span><br><span class="line">	   focusFirstInput: options.focusFirstInput,</span><br><span class="line">	   backdropClickToClose: options.backdropClickToClose,</span><br><span class="line">	   hardwareBackButtonClose: options.hardwareBackButtonClose</span><br><span class="line">	 &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">modal</span>) </span>&#123;</span><br><span class="line">	   modalScope.modal = modal;</span><br><span class="line">	</span><br><span class="line">	   modalScope.openModal = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	     modalScope.modal.show();</span><br><span class="line">	   &#125;;</span><br><span class="line">	   modalScope.closeModal = <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">	     deferred.resolve(result);</span><br><span class="line">	     modalScope.modal.hide();</span><br><span class="line">	   &#125;;</span><br><span class="line">	   modalScope.$on(<span class="string">'modal.hidden'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">thisModal</span>) </span>&#123;</span><br><span class="line">	     <span class="keyword">if</span> (thisModal.currentScope) &#123;</span><br><span class="line">	       <span class="keyword">var</span> modalScopeId = thisModal.currentScope.$id;</span><br><span class="line">	       <span class="keyword">if</span> (thisScopeId === modalScopeId) &#123;</span><br><span class="line">	         deferred.resolve(<span class="literal">null</span>);</span><br><span class="line">	         _cleanup(thisModal.currentScope);</span><br><span class="line">	       &#125;</span><br><span class="line">	     &#125;</span><br><span class="line">	   &#125;);</span><br><span class="line">	</span><br><span class="line">	   <span class="comment">// Invoke the controller</span></span><br><span class="line">	   <span class="keyword">var</span> locals = &#123; <span class="string">'$scope'</span>: modalScope, <span class="string">'parameters'</span>: parameters &#125;;</span><br><span class="line">	   <span class="keyword">var</span> ctrlEval = _evalController(controller);</span><br><span class="line">	   ctrlInstance = $controller(controller, locals);</span><br><span class="line">	   <span class="keyword">if</span> (ctrlEval.isControllerAs) &#123;</span><br><span class="line">	     ctrlInstance.openModal = modalScope.openModal;</span><br><span class="line">	     ctrlInstance.closeModal = modalScope.closeModal;</span><br><span class="line">	   &#125;</span><br><span class="line">	</span><br><span class="line">	   modalScope.modal.show()</span><br><span class="line">	     .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	     modalScope.$broadcast(<span class="string">'modal.afterShow'</span>, modalScope.modal);</span><br><span class="line">	   &#125;);</span><br><span class="line">	</span><br><span class="line">	   <span class="keyword">if</span> (angular.isFunction(options.modalCallback)) &#123;</span><br><span class="line">	     options.modalCallback(modal);</span><br><span class="line">	   &#125;</span><br><span class="line">	</span><br><span class="line">	 &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">	   deferred.reject(err);</span><br><span class="line">	 &#125;);</span><br><span class="line">	</span><br><span class="line">	 <span class="keyword">return</span> deferred.promise;</span><br><span class="line">	  &#125;</span><br><span class="line">	</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_cleanup</span>(<span class="params">scope</span>) </span>&#123;</span><br><span class="line">	    scope.$destroy();</span><br><span class="line">	    <span class="keyword">if</span> (scope.modal) &#123;</span><br><span class="line">	      scope.modal.remove();</span><br><span class="line">	    &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_evalController</span>(<span class="params">ctrlName</span>) </span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> result = &#123;</span><br><span class="line">	      isControllerAs: <span class="literal">false</span>,</span><br><span class="line">	      controllerName: <span class="string">''</span>,</span><br><span class="line">	      propName: <span class="string">''</span></span><br><span class="line">	    &#125;;</span><br><span class="line">	    <span class="keyword">var</span> fragments = (ctrlName || <span class="string">''</span>).trim().split(<span class="regexp">/\s+/</span>);</span><br><span class="line">	    result.isControllerAs = fragments.length === <span class="number">3</span> &amp;&amp; (fragments[<span class="number">1</span>] || <span class="string">''</span>).toLowerCase() === <span class="string">'as'</span>;</span><br><span class="line">	    <span class="keyword">if</span> (result.isControllerAs) &#123;</span><br><span class="line">	      result.controllerName = fragments[<span class="number">0</span>];</span><br><span class="line">	      result.propName = fragments[<span class="number">2</span>];</span><br><span class="line">	    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	      result.controllerName = ctrlName;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">	    <span class="keyword">return</span> result;</span><br><span class="line">	  &#125;</span><br><span class="line">	 </span><br><span class="line">	&#125;]);</span><br></pre></td></tr></table></figure>
 <p><em>实现modal方法：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'myModals'</span>, [<span class="string">'appModalService'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">appModalService</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// all app modals here</span></span><br><span class="line">  <span class="keyword">var</span> service = &#123;</span><br><span class="line">    showConfirmContact: showConfirmContact,</span><br><span class="line">    showContacts: showContacts</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> service;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showConfirmContact</span>(<span class="params">contact</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'confirm-contact-modal.html'</span>, <span class="string">'ConfirmContactDialogCtrl as vm'</span>, contact);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showContacts</span>(<span class="params">otherContact</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'contacts-modal.html'</span>, <span class="string">'ContactDialogCtrl as vm'</span>, otherContact);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">&#125;])</span><br></pre></td></tr></table></figure></p>
 <p><em>controller调用：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.controller(<span class="string">'AppCtrl'</span>, [<span class="string">'$scope'</span>, <span class="string">'myModals'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, myModals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">  vm.selectedContact = <span class="string">''</span>;</span><br><span class="line">  vm.openContactDialog = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    myModals.showContacts(&#123; name: <span class="string">'Julian Paulozzi'</span> &#125;)</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(result &amp;&amp; result.name)&#123;</span><br><span class="line">        vm.selectedContact = result;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">       alert(err);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">&#125;])</span><br></pre></td></tr></table></figure></p>
 <p><em>页面view调用：</em><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"vm.openContactDialog()"</span> <span class="attribute">class</span>=<span class="value">"button button-assertive button-block"</span>&gt;</span></span><br><span class="line">          Open contacts to select</span><br><span class="line"><span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-</span>
+
       
     </div>
 
@@ -340,12 +337,11 @@ modal.facotry.js 如下：
   </div>
 
 
-        </div>
+          </div>
+          
 
-        
 
-
-        
+          
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2015/07/09/ionic-modal弹窗/"
@@ -355,10 +351,9 @@ modal.facotry.js 如下：
   </div>
 
 
-      </div>
-
-      
+        </div>
         
+          
   
   <div class="sidebar-toggle">
     <div class="sidebar-toggle-line-wrap">
@@ -386,10 +381,12 @@ modal.facotry.js 如下：
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg" alt="peterfei" itemprop="image"/>
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
           <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
@@ -469,14 +466,15 @@ modal.facotry.js 如下：
   </aside>
 
 
-      
+        
+      </div>
     </main>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy;  2014 - 
+  &copy; 
   <span itemprop="copyrightYear">2015</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
@@ -491,7 +489,7 @@ modal.facotry.js 如下：
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
+    NexT.Pisces
   </a>
 </div>
 
@@ -503,56 +501,48 @@ modal.facotry.js 如下：
     <div class="back-to-top"></div>
   </div>
 
+  
+
+
+  
+
+
+
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
 
-  
-  
-
-  
-    
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"peterfei"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
-     
-
-
-    
-  
-
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
-
-
-  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
-
-<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
-
-
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
-  
-  
-<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
 
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
 
 <script type="text/javascript" id="sidebar.toc.highlight">
   $(document).ready(function () {
@@ -686,7 +676,7 @@ modal.facotry.js 如下：
 
     $('.post-toc a').on('click', function (e) {
       e.preventDefault();
-      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
       var offset = $(targetSelector).offset().top;
       hasVelocity ?
         html.velocity('stop').velocity('scroll', {
@@ -699,11 +689,12 @@ modal.facotry.js 如下：
     });
 
     // Expand sidebar on post detail page by default, when post has a toc.
-    motionMiddleWares.sidebar = function () {
+    NexT.motion.middleWares.sidebar = function () {
       var $tocContent = $('.post-toc-content');
+
       if (CONFIG.sidebar === 'post') {
         if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
-          displaySidebar();
+          NexT.utils.displaySidebar();
         }
       }
     };
@@ -712,13 +703,46 @@ modal.facotry.js 如下：
 
 
 
-  <script type="text/javascript" src="/js/bootstrap.js"></script>
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
 
   
   
 
   
   
+
 
 </body>
 </html>
