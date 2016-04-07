@@ -217,6 +217,117 @@
 
     
     
+      
+      
+        
+        
+        
+      
+
+      
+    
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/07/rails-angularjs-kaminari-分页/" itemprop="url">
+                  rails 使用angularjs 中完成分页
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-07T13:09:48+08:00" content="2016-04-07">
+              2016-04-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/07/rails-angularjs-kaminari-分页/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/rails-angularjs-kaminari-分页/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>rails 使用angularjs 中完成分页:<br>Base 插件：<code>kaminari</code> ,<code>angular-paginate-anything</code></p>
+<blockquote>
+<p><bgf-pagination collection="users" url="users_url" per-page="50"></bgf-pagination></p>
+</blockquote>
+<p>使用angular resource 请求列表，如：<br><code>User = $resource($scope.users_url)
+      User.query((results)-&gt;
+          $scope.users = results
+        )</code></p>
+<p>实现一个完成分页controller方法,如base_controller.rb：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Api::BaseController</span> <span class="inheritance">&lt; <span class="parent">ApplicationController</span></span></span></span><br><span class="line">    <span class="comment"># respond_to :json</span></span><br><span class="line"></span><br><span class="line">    private</span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.paginated_action(options = &#123;&#125;)</span><br><span class="line">        before_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            <span class="keyword">if</span> request.headers[<span class="string">'Range-Unit'</span>] == <span class="string">'items'</span> &amp;&amp;</span><br><span class="line">                    request.headers[<span class="string">'Range'</span>].present?</span><br><span class="line"></span><br><span class="line">                requested_from = <span class="keyword">nil</span></span><br><span class="line">                requested_to = <span class="keyword">nil</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> request.headers[<span class="string">'Range'</span>] =~ <span class="regexp">/(\d+)-(\d*)/</span></span><br><span class="line">                    requested_from, requested_to = <span class="variable">$1</span>.to_i, (<span class="variable">$2</span>.present? ? <span class="variable">$2</span>.to_i <span class="symbol">:</span> <span class="constant">Float::INFINITY</span>)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (requested_from &gt; requested_to)</span><br><span class="line">                  response.status = <span class="number">416</span></span><br><span class="line">                  headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/<span class="subst">#&#123;total_items&#125;</span>"</span></span><br><span class="line">                  render <span class="symbol">text:</span> <span class="string">'invalid pagination range'</span></span><br><span class="line">                  <span class="keyword">return</span> <span class="keyword">false</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="variable">@kp_per_page</span> = requested_to - requested_from + <span class="number">1</span></span><br><span class="line">                <span class="variable">@kp_page</span> = requested_to / <span class="variable">@kp_per_page</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        after_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            results = instance_variable_get(<span class="string">"@<span class="subst">#&#123;controller_name&#125;</span>"</span>) <span class="comment"># ex <span class="doctag">@users</span></span></span><br><span class="line">            <span class="keyword">if</span>(results.length &gt; <span class="number">0</span>)</span><br><span class="line">                response.status = <span class="number">206</span></span><br><span class="line">                headers[<span class="string">'Accept-Ranges'</span>] = <span class="string">'items'</span></span><br><span class="line">                headers[<span class="string">'Range-Unit'</span>] = <span class="string">'items'</span></span><br><span class="line"></span><br><span class="line">                total_items = results.total_count</span><br><span class="line">                current_page = results.current_page</span><br><span class="line">                per = <span class="variable">@kp_per_page</span></span><br><span class="line">                <span class="keyword">unless</span> per.present?</span><br><span class="line">                    per = <span class="number">25</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="comment"># binding.pry</span></span><br><span class="line">                requested_from = (results.current_page - <span class="number">1</span>) * per</span><br><span class="line">                available_to = (results.length - <span class="number">1</span>) + requested_from</span><br><span class="line"></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"<span class="subst">#&#123;requested_from&#125;</span>-<span class="subst">#&#123;available_to&#125;</span>/<span class="subst">#&#123;total_items &lt; <span class="constant">Float::INFINITY</span> ? total_items <span class="symbol">:</span> <span class="string">'*'</span>&#125;</span>"</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                response.status = <span class="number">204</span></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/0"</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>同时让UserController 继承BaseController:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="inheritance">&lt; <span class="parent">Api::BaseController</span></span></span></span><br><span class="line">    paginated_action <span class="symbol">only:</span> [<span class="symbol">:user_data</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>index</span><br><span class="line"></span><br><span class="line">     <span class="comment"># render json:<span class="doctag">@area</span>_user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>user_data</span><br><span class="line">      <span class="variable">@user</span> =  <span class="constant">User</span>.page(<span class="variable">@kp_page</span>).per(<span class="variable">@kp_per_page</span>)</span><br><span class="line">      render <span class="symbol">json:</span> <span class="variable">@user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>create</span><br><span class="line"></span><br><span class="line">        <span class="constant">L</span>.debug <span class="string">"提交上来的数据是<span class="subst">#&#123;area_user_param&#125;</span>"</span></span><br><span class="line">        <span class="variable">@user</span> = <span class="constant">User</span>.new area_user_param</span><br><span class="line">        <span class="keyword">if</span> <span class="variable">@user</span>.save</span><br><span class="line">          render <span class="symbol">json:</span> <span class="variable">@user</span>,<span class="symbol">status:</span> <span class="symbol">:created</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          render <span class="symbol">json:</span><span class="variable">@user</span>.errors,<span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">private</span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span>area_user_param</span><br><span class="line">    <span class="comment"># binding.pry</span></span><br><span class="line">    params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:email</span>,<span class="symbol">:mobile_phone</span>,<span class="symbol">:password</span>,<span class="symbol">:password_confirmation</span>,<span class="symbol">:truename</span>,<span class="symbol">:card_number</span>) <span class="keyword">rescue</span> <span class="keyword">nil</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -1070,114 +1181,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/12/rails-minitest自动化测试/" itemprop="url">
-                  rails minitest自动化测试
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-12T09:32:09+08:00" content="2015-11-12">
-              2015-11-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/12/rails-minitest自动化测试/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/12/rails-minitest自动化测试/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Gemfile加入相关测试驱动：">Gemfile加入相关测试驱动：</h2><blockquote>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">#测试组</span></span><br><span class="line">group <span class="symbol">:test</span> <span class="keyword">do</span></span><br><span class="line">    gem <span class="string">"minitest"</span></span><br><span class="line">    gem <span class="string">'minitest-spec-rails'</span></span><br><span class="line">    gem <span class="string">'minitest-reporters'</span></span><br><span class="line">    gem <span class="string">'spring'</span></span><br><span class="line">    gem <span class="string">'guard'</span></span><br><span class="line">    gem <span class="string">'guard-minitest'</span></span><br><span class="line">    <span class="comment"># 添加调用跟踪静默程序</span></span><br><span class="line">    <span class="comment"># gem 'mini_backtrace'</span></span><br><span class="line">    gem <span class="string">'ruby-prof'</span></span><br><span class="line">    gem <span class="string">'minitest-rails-capybara'</span></span><br><span class="line">    gem <span class="string">'autotest-standalone'</span> <span class="comment"># The file '.autotest' makes sure the tests are run via test server (spork).</span></span><br><span class="line">    gem <span class="string">'autotest-rails-pure'</span> <span class="comment"># -pure gives us autotest without ZenTest gem.</span></span><br><span class="line">    gem <span class="string">'autotest-growl'</span>      <span class="comment"># growl notifications, complains a little bit if growl isn't installed</span></span><br><span class="line">    gem <span class="string">'autotest-fsevent'</span>    <span class="comment"># react to filesystem events, save your CPU</span></span><br><span class="line">    gem <span class="string">'spork-minitest'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="初始化guard:">初始化guard:</h2><blockquote>
-<p><code>guard init minitest</code></p>
-</blockquote>
-<h2 id="配置guard:">配置guard:</h2><pre><code><span class="comment"><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># A sample Guardfile</span></span><br><span class="line"><span class="comment"># More info at https://github.com/guard/guard#readme</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Uncomment and set this to only include directories you want to watch</span></span><br><span class="line"><span class="comment"># directories %w(app lib config test spec features) \</span></span><br><span class="line"><span class="comment">#  .select&#123;|d| Dir.exists?(d) ? d : UI.warning("Directory #&#123;d&#125; does not exist")&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## <span class="doctag">Note</span>: if you are using the `directories` clause above and you are not</span></span><br><span class="line"><span class="comment">## watching the project directory ('.'), then you will want to move</span></span><br><span class="line"><span class="comment">## the Guardfile to a watched dir and symlink it back, e.g.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  $ mkdir config</span></span><br><span class="line"><span class="comment">#  $ mv Guardfile config/</span></span><br><span class="line"><span class="comment">#  $ ln -s config/Guardfile .</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># and, you'll have to watch "config/Guardfile" instead of "Guardfile"</span></span><br><span class="line"></span><br><span class="line">guard <span class="symbol">:minitest</span>, <span class="symbol">spring:</span> <span class="keyword">true</span>, <span class="symbol">all_on_start:</span> <span class="keyword">false</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># with Minitest::Unit</span></span><br><span class="line">  watch(%r&#123;^test/(.*)\/?test<span class="constant">_</span>(.*)\.rb<span class="variable">$&#125;</span>)</span><br><span class="line">  watch(%r&#123;^lib/(.*<span class="regexp">/)?([^/</span>]+)\.rb<span class="variable">$&#125;</span>)     &#123; |m| <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>test_<span class="subst">#&#123;m[<span class="number">2</span>]&#125;</span>.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^test/test_helper\.rb<span class="variable">$&#125;</span>)      &#123; <span class="string">'test'</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># with Minitest::Spec</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^spec/(.*)_spec\.rb$&#125;)</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^lib/(.+)\.rb$&#125;)         &#123; |m| "spec/#&#123;m[1]&#125;_spec.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^spec/spec_helper\.rb$&#125;) &#123; 'spec' &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Rails 4</span></span><br><span class="line">  watch(%r&#123;^app/(.+)\.rb<span class="variable">$&#125;</span>)                               &#123; |m| <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/controllers/application_controller\.rb<span class="variable">$&#125;</span>) &#123; <span class="string">'test/controllers'</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/controllers/(.+)<span class="constant">_controller\</span>.rb<span class="variable">$&#125;</span>)        &#123; |m| <span class="string">"test/integration/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/views/(.+)<span class="constant">_mailer/</span>.+&#125;)                   &#123; |m| <span class="string">"test/mailers/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_mailer_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^lib/(.+)\.rb<span class="variable">$&#125;</span>)                               &#123; |m| <span class="string">"test/lib/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^test/.+<span class="constant">_test\</span>.rb<span class="variable">$&#125;</span>)</span><br><span class="line">  watch(%r&#123;^test/test_helper\.rb<span class="variable">$&#125;</span>) &#123; <span class="string">'test'</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Rails &lt; 4</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/controllers/(.*)\.rb$&#125;) &#123; |m| "test/functional/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/helpers/(.*)\.rb$&#125;)     &#123; |m| "test/helpers/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/models/(.*)\.rb$&#125;)      &#123; |m| "test/unit/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></span>
-</code></pre><h2 id="运行Guard:">运行Guard:</h2><blockquote>
-<p>输入 <code>guard</code> 命令运行测试</p>
-</blockquote>
-<h2 id="例外">例外</h2><blockquote>
-<p>如果database不用默认的数据库迁移，测试时可以在db下放入<code>structure.sql</code>, 该配置为数据库结构，然后更改配置文件 <code>application.rb</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config<span class="class">.active_record</span><span class="class">.schema_format</span> = :sql</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>运行：<code>rake db:test:prepare</code></p>
-<h2 id="生成集成化测试文件">生成集成化测试文件</h2><blockquote>
-<p><code>rails g test_unit:integration testName</code></p>
-<h2 id="生成model测试文件">生成model测试文件</h2><p><code>rails g test_unit:model</code></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1224,7 +1227,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1292,7 +1295,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
