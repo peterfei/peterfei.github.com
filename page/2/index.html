@@ -245,6 +245,101 @@
             
               
                 
+                <a class="post-title-link" href="/2015/11/13/mac-下dash-资源/" itemprop="url">
+                  mac 下dash 资源
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-13T13:23:56+08:00" content="2015-11-13">
+              2015-11-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/13/mac-下dash-资源/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/13/mac-下dash-资源/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近一直在用，挺好用的，分享下v3.0.1的下载链接</p>
+<blockquote>
+<p>内置破解机<a href="http://pan.baidu.com/s/1nt8dwHb" target="_blank" rel="external">Dash下载</a></p>
+<p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/15-11-13/48910895.jpg" alt=""></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/11/12/rails-minitest自动化测试/" itemprop="url">
                   rails minitest自动化测试
                 </a>
@@ -1129,104 +1224,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/22/ionic-发送POST请求/" itemprop="url">
-                  ionic 发送POST请求
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-22T00:40:03+08:00" content="2015-07-22">
-              2015-07-22
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/22/ionic-发送POST请求/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/ionic-发送POST请求/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>今天写一个<code>POST</code>请求给远程API，<code>FORM</code>数据一直不能发送，最终用如下factory解决问题：</em></p>
-<hr>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'LoginService'</span>, [<span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> users = [];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            getUsers: <span class="function"><span class="keyword">function</span>(<span class="params">loginData</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> username = loginData.username,</span><br><span class="line">                    password = loginData.password;</span><br><span class="line">                <span class="keyword">return</span> $http(&#123;</span><br><span class="line">                    method: <span class="string">'POST'</span>,</span><br><span class="line">                    url: <span class="string">'http://172.16.100.222/zf/app/login.php?act=login'</span>,</span><br><span class="line">                    data: $.param(loginData),</span><br><span class="line">                    headers: &#123;</span><br><span class="line">                        <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">// debugger</span></span><br><span class="line">                    users = response;</span><br><span class="line">                    <span class="keyword">return</span> users;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">   &#125;])</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1267,7 +1270,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
