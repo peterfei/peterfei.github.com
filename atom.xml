@@ -5,7 +5,7 @@
   <subtitle><![CDATA[上主是我的牧者，我实在一无所缺]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://peterfei.me//"/>
-  <updated>2016-04-19T14:40:19.000Z</updated>
+  <updated>2016-05-04T07:18:03.000Z</updated>
   <id>http://peterfei.me//</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[rails minitest 写mocha]]></title>
+    <link href="http://peterfei.me/2016/05/04/rails-minitest-%E5%86%99mocha/"/>
+    <id>http://peterfei.me/2016/05/04/rails-minitest-写mocha/</id>
+    <published>2016-05-04T07:10:48.000Z</published>
+    <updated>2016-05-04T07:18:03.000Z</updated>
+    <content type="html"><![CDATA[<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe <span class="string">"订单号测试"</span> <span class="keyword">do</span></span><br><span class="line">      it <span class="string">"规则测试"</span> <span class="keyword">do</span></span><br><span class="line">        time = <span class="constant">Time</span>.now</span><br><span class="line">        <span class="constant">Time</span>.expects(<span class="symbol">:now</span>).at_least_once.returns(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</span><br><span class="line">        order = <span class="constant">OrderInfo</span>.new</span><br><span class="line">        order.serial_number.must_equal <span class="string">"<span class="subst">#&#123;(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>).strftime(<span class="string">'%Y%m%d'</span>)&#125;</span>000001"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><code>expects(:now)</code>是期望返回now的值是一天后的值非当天的值。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class=]]>
+    </summary>
+    
+      <category term="minitest" scheme="http://peterfei.me/tags/minitest/"/>
+    
+      <category term="mocha" scheme="http://peterfei.me/tags/mocha/"/>
+    
+      <category term="rails" scheme="http://peterfei.me/tags/rails/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[AngularJS 指令的 Scope (作用域)]]></title>
@@ -471,34 +492,6 @@
 <p><code># useradd -m -s /bin/bash deploy</code></p>
 <p]]>
     </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[ionic android 打包]]></title>
-    <link href="http://peterfei.me/2015/08/05/ionic-android-%E6%89%93%E5%8C%85/"/>
-    <id>http://peterfei.me/2015/08/05/ionic-android-打包/</id>
-    <published>2015-08-05T02:54:14.000Z</published>
-    <updated>2015-08-05T03:02:30.000Z</updated>
-    <content type="html"><![CDATA[<p><em>生成证书</em></p>
-<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keyword">alias</span><span class="number">_n</span>ame -keyalg RSA -keysize <span class="number">2048</span> -validity <span class="number">10000</span>`
-</code></pre><p><em>生成release 版本:</em></p>
-<pre><code>cordova build <span class="comment">--release android</span>
-</code></pre><p><em>jarsinger:</em></p>
-<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk  alias_name
-</code></pre><p><em>生成apk:</em></p>
-<pre><code><span class="regexp">/Library/</span>Android<span class="regexp">/android-sdk-macosx/</span>build-tools<span class="regexp">/22.0.1/</span>zipalign -v <span class="number">4</span> <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk ezu110.apk
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<p><em>生成证书</em></p>
-<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keywo]]>
-    </summary>
-    
-      <category term="android" scheme="http://peterfei.me/tags/android/"/>
-    
-      <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
-    
-      <category term="打包" scheme="http://peterfei.me/tags/%E6%89%93%E5%8C%85/"/>
     
   </entry>
   
