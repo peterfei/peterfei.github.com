@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="peterfei.me,peterfei" />
+  <meta name="keywords" content="ionic,splash," />
 
 
 
@@ -59,34 +59,16 @@
 
 
 
-<meta name="description" content="rails 使用angularjs 中完成分页:Base 插件：kaminari ,angular-paginate-anything
-
-
-
-使用angular resource 请求列表，如：User = $resource($scope.users_url)
-      User.query((results)-&amp;gt;
-          $scope.users = results">
+<meta name="description" content="给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了cordova.splashscreen.SplashScreen,但问题依然存在。Google之后得到如下解决方案：123456789&amp;lt;preference name=&quot;AutoHideSplashScreen&quot; value=&quot;false&quot;/&amp;gt;&amp;lt;preference name=&quot;ShowSplashScreenSpi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rails 使用angularjs 中完成分页">
-<meta property="og:url" content="http://peterfei.me/2016/04/07/rails-angularjs-kaminari-分页/index.html">
+<meta property="og:title" content="ionic 加载app,页面空白解决方案">
+<meta property="og:url" content="http://peterfei.me/2016/05/21/ionic-加载app-页面空白解决方案/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="rails 使用angularjs 中完成分页:Base 插件：kaminari ,angular-paginate-anything
-
-
-
-使用angular resource 请求列表，如：User = $resource($scope.users_url)
-      User.query((results)-&amp;gt;
-          $scope.users = results">
-<meta property="og:updated_time" content="2016-04-07T05:16:58.000Z">
+<meta property="og:description" content="给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了cordova.splashscreen.SplashScreen,但问题依然存在。Google之后得到如下解决方案：123456789&amp;lt;preference name=&quot;AutoHideSplashScreen&quot; value=&quot;false&quot;/&amp;gt;&amp;lt;preference name=&quot;ShowSplashScreenSpi">
+<meta property="og:updated_time" content="2016-05-21T03:04:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rails 使用angularjs 中完成分页">
-<meta name="twitter:description" content="rails 使用angularjs 中完成分页:Base 插件：kaminari ,angular-paginate-anything
-
-
-
-使用angular resource 请求列表，如：User = $resource($scope.users_url)
-      User.query((results)-&amp;gt;
-          $scope.users = results">
+<meta name="twitter:title" content="ionic 加载app,页面空白解决方案">
+<meta name="twitter:description" content="给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了cordova.splashscreen.SplashScreen,但问题依然存在。Google之后得到如下解决方案：123456789&amp;lt;preference name=&quot;AutoHideSplashScreen&quot; value=&quot;false&quot;/&amp;gt;&amp;lt;preference name=&quot;ShowSplashScreenSpi">
 
 
 
@@ -104,7 +86,7 @@
   };
 </script>
 
-  <title> rails 使用angularjs 中完成分页 | Peterfei </title>
+  <title> ionic 加载app,页面空白解决方案 | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +232,7 @@
             
             
               
-                rails 使用angularjs 中完成分页
+                ionic 加载app,页面空白解决方案
               
             
           </h1>
@@ -262,8 +244,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-07T13:09:48+08:00" content="2016-04-07">
-              2016-04-07
+            <time itemprop="dateCreated" datetime="2016-05-21T10:55:25+08:00" content="2016-05-21">
+              2016-05-21
             </time>
           </span>
 
@@ -273,8 +255,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/07/rails-angularjs-kaminari-分页/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/rails-angularjs-kaminari-分页/" itemprop="commentsCount"></span>
+                <a href="/2016/05/21/ionic-加载app-页面空白解决方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -295,40 +277,34 @@
       
 
       
-        <p>rails 使用angularjs 中完成分页:<br>Base 插件：<code>kaminari</code> ,<code>angular-paginate-anything</code></p>
-<blockquote>
-<p><bgf-pagination collection="users" url="users_url" per-page="50"></bgf-pagination></p>
-</blockquote>
-<p>使用angular resource 请求列表，如：<br><code>User = $resource($scope.users_url)
-      User.query((results)-&gt;
-          $scope.users = results
-        )</code></p>
-<p>实现一个完成分页controller方法,如base_controller.rb：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Api::BaseController</span> <span class="inheritance">&lt; <span class="parent">ApplicationController</span></span></span></span><br><span class="line">    <span class="comment"># respond_to :json</span></span><br><span class="line"></span><br><span class="line">    private</span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.paginated_action(options = &#123;&#125;)</span><br><span class="line">        before_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            <span class="keyword">if</span> request.headers[<span class="string">'Range-Unit'</span>] == <span class="string">'items'</span> &amp;&amp;</span><br><span class="line">                    request.headers[<span class="string">'Range'</span>].present?</span><br><span class="line"></span><br><span class="line">                requested_from = <span class="keyword">nil</span></span><br><span class="line">                requested_to = <span class="keyword">nil</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> request.headers[<span class="string">'Range'</span>] =~ <span class="regexp">/(\d+)-(\d*)/</span></span><br><span class="line">                    requested_from, requested_to = <span class="variable">$1</span>.to_i, (<span class="variable">$2</span>.present? ? <span class="variable">$2</span>.to_i <span class="symbol">:</span> <span class="constant">Float::INFINITY</span>)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (requested_from &gt; requested_to)</span><br><span class="line">                  response.status = <span class="number">416</span></span><br><span class="line">                  headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/<span class="subst">#&#123;total_items&#125;</span>"</span></span><br><span class="line">                  render <span class="symbol">text:</span> <span class="string">'invalid pagination range'</span></span><br><span class="line">                  <span class="keyword">return</span> <span class="keyword">false</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="variable">@kp_per_page</span> = requested_to - requested_from + <span class="number">1</span></span><br><span class="line">                <span class="variable">@kp_page</span> = requested_to / <span class="variable">@kp_per_page</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        after_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            results = instance_variable_get(<span class="string">"@<span class="subst">#&#123;controller_name&#125;</span>"</span>) <span class="comment"># ex <span class="doctag">@users</span></span></span><br><span class="line">            <span class="keyword">if</span>(results.length &gt; <span class="number">0</span>)</span><br><span class="line">                response.status = <span class="number">206</span></span><br><span class="line">                headers[<span class="string">'Accept-Ranges'</span>] = <span class="string">'items'</span></span><br><span class="line">                headers[<span class="string">'Range-Unit'</span>] = <span class="string">'items'</span></span><br><span class="line"></span><br><span class="line">                total_items = results.total_count</span><br><span class="line">                current_page = results.current_page</span><br><span class="line">                per = <span class="variable">@kp_per_page</span></span><br><span class="line">                <span class="keyword">unless</span> per.present?</span><br><span class="line">                    per = <span class="number">25</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="comment"># binding.pry</span></span><br><span class="line">                requested_from = (results.current_page - <span class="number">1</span>) * per</span><br><span class="line">                available_to = (results.length - <span class="number">1</span>) + requested_from</span><br><span class="line"></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"<span class="subst">#&#123;requested_from&#125;</span>-<span class="subst">#&#123;available_to&#125;</span>/<span class="subst">#&#123;total_items &lt; <span class="constant">Float::INFINITY</span> ? total_items <span class="symbol">:</span> <span class="string">'*'</span>&#125;</span>"</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                response.status = <span class="number">204</span></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/0"</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>同时让UserController 继承BaseController:</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="inheritance">&lt; <span class="parent">Api::BaseController</span></span></span></span><br><span class="line">    paginated_action <span class="symbol">only:</span> [<span class="symbol">:user_data</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>index</span><br><span class="line"></span><br><span class="line">     <span class="comment"># render json:<span class="doctag">@area</span>_user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>user_data</span><br><span class="line">      <span class="variable">@user</span> =  <span class="constant">User</span>.page(<span class="variable">@kp_page</span>).per(<span class="variable">@kp_per_page</span>)</span><br><span class="line">      render <span class="symbol">json:</span> <span class="variable">@user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> </span>create</span><br><span class="line"></span><br><span class="line">        <span class="constant">L</span>.debug <span class="string">"提交上来的数据是<span class="subst">#&#123;area_user_param&#125;</span>"</span></span><br><span class="line">        <span class="variable">@user</span> = <span class="constant">User</span>.new area_user_param</span><br><span class="line">        <span class="keyword">if</span> <span class="variable">@user</span>.save</span><br><span class="line">          render <span class="symbol">json:</span> <span class="variable">@user</span>,<span class="symbol">status:</span> <span class="symbol">:created</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          render <span class="symbol">json:</span><span class="variable">@user</span>.errors,<span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">private</span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span>area_user_param</span><br><span class="line">    <span class="comment"># binding.pry</span></span><br><span class="line">    params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:email</span>,<span class="symbol">:mobile_phone</span>,<span class="symbol">:password</span>,<span class="symbol">:password_confirmation</span>,<span class="symbol">:truename</span>,<span class="symbol">:card_number</span>) <span class="keyword">rescue</span> <span class="keyword">nil</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+        <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"AutoHideSplashScreen"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"ShowSplashScreenSpinner"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"SplashMaintainAspectRatio"</span> <span class="variable">value=</span><span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"SplashShowOnlyFirstTime"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"SplashScreenDelay"</span> <span class="variable">value=</span><span class="string">"10000"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"FadeSplashScreen"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;feature <span class="variable">name=</span><span class="string">"SplashScreen"</span>&gt;</span><br><span class="line">  &lt;param <span class="variable">name=</span><span class="string">"android-package"</span> <span class="variable">value=</span><span class="string">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span><br><span class="line">&lt;/feature&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在app.js里加入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.cordova &amp;&amp; <span class="built_in">window</span>.cordova.plugins &amp;&amp; <span class="built_in">window</span>.cordova.plugins.Keyboard) &#123;</span><br><span class="line">            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(<span class="literal">true</span>);</span><br><span class="line">            cordova.plugins.Keyboard.disableScroll(<span class="literal">true</span>);</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                navigator.splashscreen.hide();</span><br><span class="line">            &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/ionic/" rel="tag">#ionic</a>
+          
+            <a href="/tags/splash/" rel="tag">#splash</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/30/ionic-生成动态生成右拉城市菜单/" rel="next" title="ionic 生成动态生成右拉城市菜单">
-                <i class="fa fa-chevron-left"></i> ionic 生成动态生成右拉城市菜单
+              <a href="/2016/05/13/Ruby-编程风格指南/" rel="next" title="Ruby 编程风格指南">
+                <i class="fa fa-chevron-left"></i> Ruby 编程风格指南
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/19/AngularJS-指令的-Scope-作用域/" rel="prev" title="AngularJS 指令的 Scope (作用域)">
-                AngularJS 指令的 Scope (作用域) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -354,8 +330,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/07/rails-angularjs-kaminari-分页/"
-           data-title="rails 使用angularjs 中完成分页" data-url="http://peterfei.me/2016/04/07/rails-angularjs-kaminari-分页/">
+      <div class="ds-thread" data-thread-key="2016/05/21/ionic-加载app-页面空白解决方案/"
+           data-title="ionic 加载app,页面空白解决方案" data-url="http://peterfei.me/2016/05/21/ionic-加载app-页面空白解决方案/">
       </div>
     
   </div>
