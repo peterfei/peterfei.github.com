@@ -277,7 +277,7 @@
       
 
       
-        <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"AutoHideSplashScreen"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"ShowSplashScreenSpinner"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"SplashMaintainAspectRatio"</span> <span class="variable">value=</span><span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"SplashShowOnlyFirstTime"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"SplashScreenDelay"</span> <span class="variable">value=</span><span class="string">"10000"</span>/&gt;</span><br><span class="line">&lt;preference <span class="variable">name=</span><span class="string">"FadeSplashScreen"</span> <span class="variable">value=</span><span class="string">"false"</span>/&gt;</span><br><span class="line">&lt;feature <span class="variable">name=</span><span class="string">"SplashScreen"</span>&gt;</span><br><span class="line">  &lt;param <span class="variable">name=</span><span class="string">"android-package"</span> <span class="variable">value=</span><span class="string">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span><br><span class="line">&lt;/feature&gt;</span><br></pre></td></tr></table></figure></p>
+        <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"AutoHideSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"ShowSplashScreenSpinner"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashMaintainAspectRatio"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashShowOnlyFirstTime"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashScreenDelay"</span> <span class="attribute">value</span>=<span class="value">"10000"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"FadeSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">feature</span> <span class="attribute">name</span>=<span class="value">"SplashScreen"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">param</span> <span class="attribute">name</span>=<span class="value">"android-package"</span> <span class="attribute">value</span>=<span class="value">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">feature</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>在app.js里加入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.cordova &amp;&amp; <span class="built_in">window</span>.cordova.plugins &amp;&amp; <span class="built_in">window</span>.cordova.plugins.Keyboard) &#123;</span><br><span class="line">            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(<span class="literal">true</span>);</span><br><span class="line">            cordova.plugins.Keyboard.disableScroll(<span class="literal">true</span>);</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                navigator.splashscreen.hide();</span><br><span class="line">            &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
@@ -305,6 +305,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/16/rails-page-no-cache/" rel="prev" title="rails page no cache">
+                rails page no cache <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -376,7 +380,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -390,7 +394,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

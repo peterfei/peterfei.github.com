@@ -292,9 +292,9 @@ e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代
       
         <p>项目中要替换ionic 默认的icon 图标，<code>Google</code> 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：</p>
 <blockquote>
-<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">"\f447"</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">"\f447"</span></span></span>;</span><br><span class="line">   &#125;</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">.ion-ios-home-outline</span>:<span class="value">before &#123;</span><br><span class="line">    <span class="comment">/*content: "\f447";*/</span></span><br><span class="line">    content: <span class="function">url</span>(<span class="string">'../img/car.png'</span>) <span class="important">!important</span></span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="comment">/*content: "\f447";*/</span></span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="function">url</span>(<span class="string">'../img/car.png'</span>) <span class="important">!important</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/icon-finsih.png" alt="效果图"></p>
 
       
@@ -389,7 +389,7 @@ e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -403,7 +403,7 @@ e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
