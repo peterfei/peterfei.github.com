@@ -5,7 +5,7 @@
   <subtitle><![CDATA[上主是我的牧者，我实在一无所缺]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://peterfei.me//"/>
-  <updated>2016-08-20T07:27:03.000Z</updated>
+  <updated>2016-09-04T15:28:44.000Z</updated>
   <id>http://peterfei.me//</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[swift中闭包使用]]></title>
+    <link href="http://peterfei.me/2016/09/04/swift%E4%B8%AD%E9%97%AD%E5%8C%85%E4%BD%BF%E7%94%A8/"/>
+    <id>http://peterfei.me/2016/09/04/swift中闭包使用/</id>
+    <published>2016-09-04T15:02:24.000Z</published>
+    <updated>2016-09-04T15:28:44.000Z</updated>
+    <content type="html"><![CDATA[<pre><code>闭包是自包含的函数代码块,可以在代码中被传递和使用。
+闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。<span class="keyword">Swift </span>会为您管理在捕获过程中涉及到的所有内存操作。
+</code></pre><p>Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行语法优化,主要优化如下:</p>
+<ol>
+<li>利用上下文推断参数和返回值类型</li>
+<li>隐式返回单表达式闭包,即单表达式闭包可以省略 return 关键字</li>
+<li>参数名称缩写</li>
+<li>尾随(Trailing)闭包语法</li>
+</ol>
+<h2 id="闭包表达式语法(Closure_Expression_Syntax)">闭包表达式语法(Closure Expression Syntax)</h2><p>闭包表达式语法有如下一般形式:<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="function"><span class="params">(parameters)</span> -&gt;</span> returnType <span class="keyword">in</span></span><br><span class="line">    statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>demo:<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@IBAction func operate(sender: UIButton) &#123;</span><br><span class="line">        let operate = sender.currentTitle!</span><br><span class="line">        print(<span class="string">"current operate is \(operate)"</span>)</span><br><span class="line">        switch operate &#123;</span><br><span class="line">        case <span class="string">"+"</span>: performOperation(&#123;<span class="variable">$0</span>+<span class="variable">$1</span>&#125;)</span><br><span class="line">            </span><br><span class="line">        case <span class="string">"−"</span>: performOperation(&#123;<span class="variable">$1-</span><span class="variable">$0</span>&#125;)</span><br><span class="line">        case <span class="string">"×"</span>: performOperation(&#123;<span class="variable">$0</span>*<span class="variable">$1</span>&#125;)</span><br><span class="line">        case <span class="string">"÷"</span>: performOperation(&#123;<span class="variable">$1</span>/<span class="variable">$0</span>&#125;)</span><br><span class="line">        default:</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func performOperation(operation:(Double, Double) -&gt; Double) &#123;</span><br><span class="line">        if operandStack.count&gt;=<span class="number">2</span> &#123;</span><br><span class="line">                displayValue = operation(operandStack.removeLast(),operandStack.removeLast())</span><br><span class="line">                print(<span class="string">"displayValue is \(displayValue)"</span>)</span><br><span class="line">                enter()</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<pre><code>闭包是自包含的函数代码块,可以在代码中被传递和使用。
+闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。<span class="keyword">Swift </span>会为您管理在捕获过程中涉及到]]>
+    </summary>
+    
+      <category term="swift" scheme="http://peterfei.me/tags/swift/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Swift 基础语法]]></title>
@@ -1200,54 +1227,6 @@
 <p>puma nginx connect() Permission denied</p>
 </blockquote>
 <p>解决方法：在nginx.c]]>
-    </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Sublime 中自定义snippets]]></title>
-    <link href="http://peterfei.me/2015/10/29/Sublime-%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89snippets/"/>
-    <id>http://peterfei.me/2015/10/29/Sublime-中自定义snippets/</id>
-    <published>2015-10-29T02:00:20.000Z</published>
-    <updated>2015-10-29T02:57:16.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="选择tool-&gt;new_snippet">选择<code>tool</code>-&gt;<code>new snippet</code></h2><p>内容如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line">Hello, $&#123;1:this&#125; is a $&#123;2:snippet&#125;.</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>Hello, ${1:this} is a ${2:snippet} 这正是你要插入到文档中的文本。在此节放入的任何片段都会被插入到你的文档中。</li>
-<li>tabTrigger 此节是可选的配置，默认是被注释掉的。默认 hello 的意思是：如果你在某个文档里输入了单词 hello ，然后按下 Tab 键，接着 hello 就会被替换为1中定义的代码片段。再次按下Tab键，接着snippet会被替换为2中定义的代码片段</li>
-<li>scope 此节也是可选配置，默认是被注释掉的。默认 source.php 的意思是：只有在编辑 php 源码的时候，才能用此代码片段</li>
-</ol>
-<h2 id="保存代码片段文件">保存代码片段文件</h2><p>在能自定义代码片段之前，应该首先保存。在保存文件对话框里，需要明确的指定文件的扩展名为.sublime-snippet，然后把文件保存到默认目录（当前用户主目录下的\Sublime Text 3\Packages\User目录中）。</p>
-<p>保存文件之后，就可以测试上面提到的tabTrigger功能了。如果不再使用此功能，可以在此注释掉.</p>
-<h2 id="修改代码片段文件">修改代码片段文件</h2><p>在创建新代码片段中提到过 Hello, ${1:this} is a ${2:snippet} ，其中 ${1:this} 和 ${2:snippet} 是占位符。在插入代码片段后，单词 this 被选中，如果键入内容，this 将会被替换掉，接着按下 Tab 键，将会选中单词 snippet，如果键入内容，snippet 将会被替换掉。</p>
-<h2 id="绑定快捷键">绑定快捷键</h2><p>可以将上述的操作绑定到一个快捷键，在不键入任何文本的情况下，直接按快捷键插入代码片段。</p>
-<p>点击菜单栏的 Preferences 的子菜单 Key Binding – User，在打开的文件的方括号内部粘贴如下配置：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; “keys”: <span class="collection">[“ctrl+1″]</span>, “command”: “insert_snippet”, “args”: <span class="collection">&#123;“name”: “Packages/User/example.sublime-snippet”&#125;</span> &#125;</span></span><br></pre></td></tr></table></figure>
-<p>现在简单介绍一下这段配置：</p>
-<ol>
-<li><p>“keys”: [“ctrl+1″] 这个定义了触发此命令的快捷键。</p>
-</li>
-<li><p>“command”: “insert_snippet” 这个是需要触发的命令的名字。</p>
-</li>
-<li><p>“args”: {“name”: “Packages/User/example.sublime-snippet”} 这个是需要传入到上述命令的参数。这里把代码片段文件的相对路径传递过去。</p>
-</li>
-</ol>
-<p>保存配置文件，现在就可以用快捷键插入代码片段了。</p>
-<blockquote>
-<p>以下是我Ruby的注释代码：</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line"># ########################################################</span><br><span class="line"># | Software: $&#123;1&#125;</span><br><span class="line"># | Version: 2015.10</span><br><span class="line"># | Site: http://peterfei.me</span><br><span class="line"># |--------------------------------------------------------</span><br><span class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span><br><span class="line"># | Copyright (c) 2012-2015, http://peterfei.me. All Rights</span><br><span class="line">#Reserved.</span><br><span class="line"># | Time:  $&#123;2&#125; </span><br><span class="line"># ########################################################</span><br><span class="line">$&#123;3&#125;</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>因为上例中有写Time 获取当前时间的，于是写个获取当前时间的：</p>
-<blockquote>
-<p>创建插件：<code>Tools → New Plugin:</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCurrentTimeCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.run_command(<span class="string">"insert_snippet"</span>, </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"contents"</span>: <span class="string">"%s"</span> % datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>) </span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>保存为Sublime Text 2\Packages\User\addCurrentTime.py</p>
-<blockquote>
-<p>创建快捷键：<code>Preference → Key Bindings - User:</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "<span class="attribute">command</span>": <span class="value"><span class="string">"add_current_time"</span></span>,</span><br><span class="line">        "<span class="attribute">keys</span>": <span class="value">[</span><br><span class="line">            <span class="string">"ctrl+shift+."</span></span><br><span class="line">        ]</span><br><span class="line">    </span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>此时使用快捷键ctrl+shift+.即可在当前光标处插入当前时间，如下:</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># ########################################################</span></span><br><span class="line"><span class="preprocessor"># | Software: test</span></span><br><span class="line"><span class="preprocessor"># | Version: <span class="number">2015.10</span></span></span><br><span class="line"><span class="preprocessor"># | Site: http:<span class="comment">//peterfei.me</span></span></span><br><span class="line"><span class="preprocessor"># |--------------------------------------------------------</span></span><br><span class="line"><span class="preprocessor"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span></span><br><span class="line"><span class="preprocessor"># | Copyright (c) <span class="number">2012</span>-<span class="number">2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></span></span><br><span class="line"><span class="preprocessor">#Reserved.</span></span><br><span class="line"><span class="preprocessor"># | Time:  <span class="number">2015</span>-<span class="number">10</span>-<span class="number">29</span> <span class="number">09</span>:<span class="number">58</span>:<span class="number">53</span> </span></span><br><span class="line"><span class="preprocessor"># ########################################################</span></span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="选择tool-&gt;new_snippet">选择<code>tool</code>-&gt;<code>new snippet</code></h2><p>内容如下：<br><figure class="highlight xml"><table><tr><t]]>
     </summary>
     
   </entry>

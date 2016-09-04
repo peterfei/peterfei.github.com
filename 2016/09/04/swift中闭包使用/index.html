@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="content_for," />
+  <meta name="keywords" content="swift," />
 
 
 
@@ -59,22 +59,31 @@
 
 
 
-<meta name="description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
+<meta name="description" content="闭包是自包含的函数代码块,可以在代码中被传递和使用。
+闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。Swift 会为您管理在捕获过程中涉及到的所有内存操作。
+Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行语法优化,主要优化如下:
+
+利用上下文推断参数和返回值类型
+隐式返回单表达式闭包,即单表达式闭包可以省略 return">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ROR layout+content_for 配合用法">
-<meta property="og:url" content="http://peterfei.me/2014/09/18/2014-09-18-layout-plus-content-for/index.html">
+<meta property="og:title" content="swift中闭包使用">
+<meta property="og:url" content="http://peterfei.me/2016/09/04/swift中闭包使用/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
-<meta property="og:updated_time" content="2015-07-03T12:13:04.000Z">
+<meta property="og:description" content="闭包是自包含的函数代码块,可以在代码中被传递和使用。
+闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。Swift 会为您管理在捕获过程中涉及到的所有内存操作。
+Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行语法优化,主要优化如下:
+
+利用上下文推断参数和返回值类型
+隐式返回单表达式闭包,即单表达式闭包可以省略 return">
+<meta property="og:updated_time" content="2016-09-04T15:28:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ROR layout+content_for 配合用法">
-<meta name="twitter:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
-之后
-12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
+<meta name="twitter:title" content="swift中闭包使用">
+<meta name="twitter:description" content="闭包是自包含的函数代码块,可以在代码中被传递和使用。
+闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。Swift 会为您管理在捕获过程中涉及到的所有内存操作。
+Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行语法优化,主要优化如下:
+
+利用上下文推断参数和返回值类型
+隐式返回单表达式闭包,即单表达式闭包可以省略 return">
 
 
 
@@ -92,7 +101,7 @@
   };
 </script>
 
-  <title> ROR layout+content_for 配合用法 | Peterfei </title>
+  <title> swift中闭包使用 | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +247,7 @@
             
             
               
-                ROR layout+content_for 配合用法
+                swift中闭包使用
               
             
           </h1>
@@ -250,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-18T14:29:09+08:00" content="2014-09-18">
-              2014-09-18
+            <time itemprop="dateCreated" datetime="2016-09-04T23:02:24+08:00" content="2016-09-04">
+              2016-09-04
             </time>
           </span>
 
@@ -261,8 +270,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/09/18/2014-09-18-layout-plus-content-for/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="commentsCount"></span>
+                <a href="/2016/09/04/swift中闭包使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/04/swift中闭包使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -283,9 +292,18 @@
       
 
       
-        <p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span>&lt;%<span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span>%&gt;<span class="xml"></span><br><span class="line">	 </span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="ruby"> <span class="keyword">end</span> </span>%&gt;<span class="xml"></span></span><br></pre></td></tr></table></figure></p>
-<p>之后</p>
-<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span>%&gt;<span class="xml"></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+        <pre><code>闭包是自包含的函数代码块,可以在代码中被传递和使用。
+闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。<span class="keyword">Swift </span>会为您管理在捕获过程中涉及到的所有内存操作。
+</code></pre><p>Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行语法优化,主要优化如下:</p>
+<ol>
+<li>利用上下文推断参数和返回值类型</li>
+<li>隐式返回单表达式闭包,即单表达式闭包可以省略 return 关键字</li>
+<li>参数名称缩写</li>
+<li>尾随(Trailing)闭包语法</li>
+</ol>
+<h2 id="闭包表达式语法(Closure_Expression_Syntax)">闭包表达式语法(Closure Expression Syntax)</h2><p>闭包表达式语法有如下一般形式:<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="function"><span class="params">(parameters)</span> -&gt;</span> returnType <span class="keyword">in</span></span><br><span class="line">    statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>demo:<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@IBAction func operate(sender: UIButton) &#123;</span><br><span class="line">        let operate = sender.currentTitle!</span><br><span class="line">        print(<span class="string">"current operate is \(operate)"</span>)</span><br><span class="line">        switch operate &#123;</span><br><span class="line">        case <span class="string">"+"</span>: performOperation(&#123;<span class="variable">$0</span>+<span class="variable">$1</span>&#125;)</span><br><span class="line">            </span><br><span class="line">        case <span class="string">"−"</span>: performOperation(&#123;<span class="variable">$1-</span><span class="variable">$0</span>&#125;)</span><br><span class="line">        case <span class="string">"×"</span>: performOperation(&#123;<span class="variable">$0</span>*<span class="variable">$1</span>&#125;)</span><br><span class="line">        case <span class="string">"÷"</span>: performOperation(&#123;<span class="variable">$1</span>/<span class="variable">$0</span>&#125;)</span><br><span class="line">        default:</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func performOperation(operation:(Double, Double) -&gt; Double) &#123;</span><br><span class="line">        if operandStack.count&gt;=<span class="number">2</span> &#123;</span><br><span class="line">                displayValue = operation(operandStack.removeLast(),operandStack.removeLast())</span><br><span class="line">                print(<span class="string">"displayValue is \(displayValue)"</span>)</span><br><span class="line">                enter()</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
@@ -293,7 +311,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/content-for/" rel="tag">#content_for</a>
+            <a href="/tags/swift/" rel="tag">#swift</a>
           
         </div>
       
@@ -302,17 +320,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/" rel="next" title="建立类方法">
-                <i class="fa fa-chevron-left"></i> 建立类方法
+              <a href="/2016/08/20/Swift-基础语法/" rel="next" title="Swift 基础语法">
+                <i class="fa fa-chevron-left"></i> Swift 基础语法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2014/09/18/2014-09-18-bible-plus-everyday/" rel="prev" title="圣经金句分享">
-                圣经金句分享 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -339,8 +353,8 @@
   <div class="comments" id="comments">
   <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
     
-      <div class="ds-thread" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/"
-           data-title="ROR layout+content_for 配合用法" data-url="http://peterfei.me/2014/09/18/2014-09-18-layout-plus-content-for/">
+      <div class="ds-thread" data-thread-key="2016/09/04/swift中闭包使用/"
+           data-title="swift中闭包使用" data-url="http://peterfei.me/2016/09/04/swift中闭包使用/">
       </div>
     
   </div>
@@ -448,7 +462,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包表达式语法(Closure_Expression_Syntax)"><span class="nav-number">1.</span> <span class="nav-text">闭包表达式语法(Closure Expression Syntax)</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
