@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/" itemprop="url">
-                  rails 项目中对select2的高级使用
+                <a class="post-title-link" href="/2015/10/21/Angularjs-判断服务器401错误/" itemprop="url">
+                  Angularjs 判断服务器401错误
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-04-16T10:19:00+08:00" content="2013-04-16">
-              2013-04-16
+            <time itemprop="dateCreated" datetime="2015-10-21T14:42:53+08:00" content="2015-10-21">
+              2015-10-21
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/" itemprop="commentsCount"></span>
+                <a href="/2015/10/21/Angularjs-判断服务器401错误/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/21/Angularjs-判断服务器401错误/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,99 +289,9 @@
       
         
           
-            <p>—</p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/02/28/2013-02-28-helloworkd/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-28T09:30:00+08:00" content="2013-02-28">
-              2013-02-28
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/02/28/2013-02-28-helloworkd/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/28/2013-02-28-helloworkd/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>重拾失失去博客的日子</em> </p>
-<p><img src="http://i50.tinypic.com/21lmlxj.jpg" alt="小家伙一岁半了"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/6acbc97djw1e1sx6qtj90j_zps3cdae9d5.jpg" alt="2013春节"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/psu_zpsda9949d5.jpg" alt="那些年我的她"></p>
+            <p>之前在<code>github</code>上有篇判断<code>augularjs</code>401状态码的:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> logsOutUserOn401 = <span class="function"><span class="keyword">function</span>(<span class="params">$location, $q, SessionService, FlashService</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> success = <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> error = <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(response.status === <span class="number">401</span>) &#123;</span><br><span class="line">        SessionService.unset(<span class="string">'authenticated'</span>);</span><br><span class="line">        $location.path(<span class="string">'/login'</span>);</span><br><span class="line">        FlashService.show(response.data.flash);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(response);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">promise</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> promise.then(success, error);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  $httpProvider.responseInterceptors.push(logsOutUserOn401);</span><br></pre></td></tr></table></figure></p>
+<p>今天用时才发现<code>$httpProvider.responseInterceptors</code>方法已经被官方弃用了。<br>改写了方案如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">app.factory(<span class="string">'errorInterceptor'</span>, [<span class="string">'$q'</span>, <span class="string">'$rootScope'</span>,  <span class="string">'$location'</span>,<span class="string">'FlashService'</span>,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">$q, $rootScope, $location,FlashService</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            request: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> config || $q.when(config);</span><br><span class="line">            &#125;,</span><br><span class="line">            requestError: <span class="function"><span class="keyword">function</span>(<span class="params">request</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> $q.reject(request);</span><br><span class="line">            &#125;,</span><br><span class="line">            response: <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> response || $q.when(response);</span><br><span class="line">            &#125;,</span><br><span class="line">            responseError: <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(response.status === <span class="number">401</span>) &#123;</span><br><span class="line">                  </span><br><span class="line">                  <span class="comment">// SessionService.unset('authenticated');</span></span><br><span class="line">                  FlashService.show(response.data.error);</span><br><span class="line">                  $location.path(<span class="string">'/login'</span>);</span><br><span class="line">                 </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (response &amp;&amp; response.status === <span class="number">404</span>) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (response &amp;&amp; response.status &gt;= <span class="number">500</span>) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> $q.reject(response);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;]);</span><br></pre></td></tr></table></figure></p>
+<p>在app.js config 方法调用时：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$httpProvider.interceptors.push(<span class="string">'errorInterceptor'</span>);</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -407,7 +317,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span>
+    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/25/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

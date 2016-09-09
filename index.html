@@ -318,113 +318,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/04/swift中闭包使用/" itemprop="url">
-                  swift中闭包使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-04T23:02:24+08:00" content="2016-09-04">
-              2016-09-04
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/04/swift中闭包使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/04/swift中闭包使用/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>闭包是自包含的函数代码块,可以在代码中被传递和使用。
-闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。<span class="keyword">Swift </span>会为您管理在捕获过程中涉及到的所有内存操作。
-</code></pre><p>Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行语法优化,主要优化如下:</p>
-<ol>
-<li>利用上下文推断参数和返回值类型</li>
-<li>隐式返回单表达式闭包,即单表达式闭包可以省略 return 关键字</li>
-<li>参数名称缩写</li>
-<li>尾随(Trailing)闭包语法</li>
-</ol>
-<h2 id="闭包表达式语法(Closure_Expression_Syntax)">闭包表达式语法(Closure Expression Syntax)</h2><p>闭包表达式语法有如下一般形式:<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="function"><span class="params">(parameters)</span> -&gt;</span> returnType <span class="keyword">in</span></span><br><span class="line">    statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>demo:<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@IBAction func operate(sender: UIButton) &#123;</span><br><span class="line">        let operate = sender.currentTitle!</span><br><span class="line">        print(<span class="string">"current operate is \(operate)"</span>)</span><br><span class="line">        switch operate &#123;</span><br><span class="line">        case <span class="string">"+"</span>: performOperation(&#123;<span class="variable">$0</span>+<span class="variable">$1</span>&#125;)</span><br><span class="line">            </span><br><span class="line">        case <span class="string">"−"</span>: performOperation(&#123;<span class="variable">$1-</span><span class="variable">$0</span>&#125;)</span><br><span class="line">        case <span class="string">"×"</span>: performOperation(&#123;<span class="variable">$0</span>*<span class="variable">$1</span>&#125;)</span><br><span class="line">        case <span class="string">"÷"</span>: performOperation(&#123;<span class="variable">$1</span>/<span class="variable">$0</span>&#125;)</span><br><span class="line">        default:</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func performOperation(operation:(Double, Double) -&gt; Double) &#123;</span><br><span class="line">        if operandStack.count&gt;=<span class="number">2</span> &#123;</span><br><span class="line">                displayValue = operation(operandStack.removeLast(),operandStack.removeLast())</span><br><span class="line">                print(<span class="string">"displayValue is \(displayValue)"</span>)</span><br><span class="line">                enter()</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

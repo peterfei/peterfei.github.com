@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/09/27/2014-09-27-ruby-meta/" itemprop="url">
-                  ruby api设计
+                <a class="post-title-link" href="/2015/10/31/puma-在nginx-启动后报错解决/" itemprop="url">
+                  puma 在nginx 启动后报错解决
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-27T16:09:31+08:00" content="2014-09-27">
-              2014-09-27
+            <time itemprop="dateCreated" datetime="2015-10-31T11:46:44+08:00" content="2015-10-31">
+              2015-10-31
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/09/27/2014-09-27-ruby-meta/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/27/2014-09-27-ruby-meta/" itemprop="commentsCount"></span>
+                <a href="/2015/10/31/puma-在nginx-启动后报错解决/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/31/puma-在nginx-启动后报错解决/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,106 +289,13 @@
       
         
           
-            <h1 id="先看一段source_code">先看一段source code</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="constant">File</span>.open(<span class="string">"myfile.txt"</span>, <span class="string">'w'</span>)</span><br><span class="line">f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line">f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line">f.close</span><br><span class="line">                ||</span><br><span class="line">                \/</span><br><span class="line"><span class="comment"># using block</span></span><br><span class="line"><span class="constant">File</span>.open(<span class="string">"myfile.txt"</span>, <span class="string">'w'</span>) <span class="keyword">do</span> |f|</span><br><span class="line">  f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line">  f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h1 id="如上，是使用block后的效果，再来一段">如上，是使用block后的效果，再来一段</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># without code block</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(msg)</span></span></span><br><span class="line">  socket = <span class="constant">TCPSocket</span>.new(<span class="variable">@ip</span>, <span class="variable">@port</span>) <span class="comment"># Pre-</span></span><br><span class="line">  socket.puts(msg)</span><br><span class="line">  response = socket.gets</span><br><span class="line">  <span class="keyword">ensure</span></span><br><span class="line">    socket.close <span class="comment"># Post-</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">            ||</span><br><span class="line">            \/</span><br><span class="line"><span class="comment"># with code block</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(msg)</span></span></span><br><span class="line">  connection <span class="keyword">do</span> |socket|</span><br><span class="line">    socket.puts(<span class="string">"foobar"</span>)</span><br><span class="line">    socket.gets</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">connection</span></span></span><br><span class="line">  socket = <span class="constant">TCPSocket</span>.new(<span class="variable">@ip</span>, <span class="variable">@port</span>) <span class="comment"># Pre-</span></span><br><span class="line">    <span class="keyword">yield</span>(socket)</span><br><span class="line">    <span class="keyword">ensure</span></span><br><span class="line">      socket.close <span class="comment"># Post-</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h1 id="Module_的使用">Module 的使用</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">       puts <span class="string">"foo"</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line">    <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="constant">A</span>.new.foo <span class="comment"># foo</span></span><br></pre></td></tr></table></figure>
-<p>.使用extend(Mod)<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">        puts <span class="string">"foo"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">￼<span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line">  extend <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">￼<span class="keyword">end</span></span><br><span class="line"><span class="constant">A</span>.extend(<span class="constant">Mixin</span>)</span><br><span class="line"><span class="constant">A</span>.foo <span class="comment"># class method</span></span><br><span class="line">the same as</span><br><span class="line">￼<span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">A</span></span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>.obj.extend(Mod)<br>如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">         puts <span class="string">"foo"</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">a = <span class="string">"test"</span></span><br><span class="line">a.extend(<span class="constant">Mixin</span>)</span><br><span class="line">a.foo <span class="comment"># foo</span></span><br><span class="line">the same as</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">a</span></span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">b = <span class="string">"demo"</span></span><br><span class="line">b.foo <span class="comment"># NoMethodError</span></span><br></pre></td></tr></table></figure></p>
-<p>.Mixin with class methods<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">    puts <span class="string">"foo"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></span><br><span class="line">      puts <span class="string">"bar"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line">  extend <span class="constant">Mixin::ClassMethods</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>等同于如下代码：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">  <span class="comment"># self.included is a hook method</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">included</span><span class="params">(base)</span></span></span><br><span class="line">    base.extend(<span class="constant">ClassMethods</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">    puts <span class="string">"foo"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></span><br><span class="line">      puts <span class="string">"bar"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>等同于：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">included</span><span class="params">(base)</span></span></span><br><span class="line">    base.extend(<span class="constant">ClassMethods</span>)</span><br><span class="line">    base.send(<span class="symbol">:include</span>, <span class="constant">InstanceMethods</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">InstanceMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">      puts <span class="string">"foo"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></span><br><span class="line">      puts <span class="string">"bar"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/09/25/2014-09-25-php-magento-productions/" itemprop="url">
-                  Magento 该如何多语言翻译
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-25T20:09:54+08:00" content="2014-09-25">
-              2014-09-25
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/09/25/2014-09-25-php-magento-productions/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/25/2014-09-25-php-magento-productions/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一般的，登陆后台，e.g.选择[目录]-&gt;[管理产品]-&gt;[choose store view],如图示：<br><img src="http://pic.yupoo.com/peterfei/E5hJuyQ6/wTouJ.jpg" alt="choose store view"></p>
-<p>就可以编辑中文内容，同理，选择[目录]-&gt;[管理产品]-&gt;[choose store view]，选择英文，就可以编辑英文产品。<br>编辑’CMS’,如[页面]，选择一静态页面，如[About Us],点编辑后，按”ctrl”健，在商店界面，点’英文’，界面会着色，之后选内容项，就可以编辑英文内容，同理，再新建一页面，复制’About Us’的页面信息，如标题，网址等，按”ctrl”健，在商店界面，点’中文’，界面会着色，之后选内容项，就可以编辑中文内容，前台就已经对应生成中英文双语的关于我们了，是不是很Cool。<br><img src="http://pic.yupoo.com/peterfei/E5hOg1K0/D2nZQ.jpg" alt="choose store view"></p>
+            <h2 id="在Centos上部署时遇到如下错误：">在Centos上部署时遇到如下错误：</h2><blockquote>
+<p>puma nginx connect() Permission denied</p>
+</blockquote>
+<p>解决方法：在nginx.conf 配置文件中加入了puma 用户：<br><code>user deploy</code> </p>
+<blockquote>
+<p>puma 启动时的用户，如此启动正常。</p>
+</blockquote>
 
           
         
@@ -414,7 +321,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

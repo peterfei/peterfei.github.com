@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/09/22/2014-09-22-rails-subselect/" itemprop="url">
-                  Rails中的子查询
+                <a class="post-title-link" href="/2015/10/29/Sublime-中自定义snippets/" itemprop="url">
+                  Sublime 中自定义snippets
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-22T14:16:16+08:00" content="2014-09-22">
-              2014-09-22
+            <time itemprop="dateCreated" datetime="2015-10-29T10:00:20+08:00" content="2015-10-29">
+              2015-10-29
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/09/22/2014-09-22-rails-subselect/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/22/2014-09-22-rails-subselect/" itemprop="commentsCount"></span>
+                <a href="/2015/10/29/Sublime-中自定义snippets/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/29/Sublime-中自定义snippets/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,116 +289,42 @@
       
         
           
-            <h3 id="大致是这样子的">大致是这样子的</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">favarate_post</span> <span class="title">options=</span>&#123;&#125;</span></span><br><span class="line">        subselect = <span class="constant">Favarate</span>.send(</span><br><span class="line">                <span class="symbol">:construct_finder_sql</span>,</span><br><span class="line">                    <span class="symbol">:select</span> =&gt;<span class="string">"post_id"</span>,</span><br><span class="line">                    <span class="symbol">:conditions=&gt;</span>&#123;<span class="symbol">:blog_id=&gt;self</span>.id&#125;,</span><br><span class="line">                    <span class="symbol">:order=&gt;<span class="string">"published_at desc"</span></span>,</span><br><span class="line">                    <span class="symbol">:limit</span> =&gt; option[<span class="symbol">:limit</span>]||<span class="number">10</span>,<span class="symbol">:offset=&gt;option</span>[<span class="symbol">:offset</span>]</span><br><span class="line">            )</span><br><span class="line">        <span class="constant">Post</span>.find(<span class="symbol">:all</span>,<span class="symbol">:conditions</span> =&gt;<span class="string">'posts.id in <span class="subst">#&#123;subselect&#125;</span>'</span>,<span class="symbol">:order</span> =&gt;<span class="string">"published_at DESC"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span><br><span class="line">construct_finder_sql 同下句SQL类似：</span><br><span class="line">`</span><span class="string">``</span>sql</span><br><span class="line">    <span class="constant">SELECT</span> * <span class="constant">FROM</span> posts <span class="constant">WHERE</span> posts.id <span class="constant">IN</span> (</span><br><span class="line">    <span class="constant">SELECT</span> post_id <span class="constant">FROM</span> favorites <span class="constant">WHERE</span> blog_id = <span class="number">42</span> <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span> <span class="constant">LIMIT</span> <span class="number">10</span> <span class="constant">OFFSET</span> <span class="number">10</span></span><br><span class="line">  ) <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/09/18/2014-09-18-bible-plus-everyday/" itemprop="url">
-                  圣经金句分享
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-18T15:08:55+08:00" content="2014-09-18">
-              2014-09-18
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/09/18/2014-09-18-bible-plus-everyday/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-bible-plus-everyday/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>爱是含忍的，爱是慈祥的，爱不嫉妒，不夸张，不自大，不作无礼的事，不求己益，不动怒，不图谋恶事，不以不义为乐，却与真理同乐：凡事包容，凡事相信，凡事盼望，凡事忍耐。(格前13：4-7)</li>
-<li>你们的身体是圣神的宫殿。(格前6：19)</li>
-<li>天主为爱他的人所准备的，是眼所未见，耳所未闻，人心所未想到的。(格前2：9)</li>
-<li>我是葡萄树，你们是枝条，那住在我内，我也住在他内的，就结许多的果实，因为离了我，你们什么也不能作！</li>
-<li>那含泪播种的，必含笑获享收成。（咏126：5）</li>
-<li>凡高举自己的，必被贬抑；凡贬抑自己的，必被高举。（玛23：12)</li>
-<li>天主使太阳上升，光照恶人，也光照善人；降雨给义人，也给不义的人，你们若只爱那些爱你们的人，你们还有什么赏报呢?（玛5：45-46)</li>
-<li>凡是求的，就必得到；找的，就必找到；敲的，就必给他开。（玛7：8)</li>
-<li>人纵然赚得了全世界，却赔上了自己的灵魂，为他有什么益处？（玛16：26）</li>
-<li>不要论断人，以免被论断。（玛7：1）</li>
-<li>你用什么尺度量人，也要被什么尺度量。（玛7：2）</li>
-<li>你当机警如蛇，纯良似鸽。（玛10：16）</li>
-<li>你们白白得来的，也要白白分施。(玛10：8)</li>
-<li>天主是神，应当以心神以真理去朝拜祂。(若4：24)</li>
-<li>知识只会使人傲慢自大，爱德才能立人。(格前8：1)</li>
-<li>小量播种的，也要小量收获；大量播种的，也要大量收获。(格后9：6)<br><img src="http://pic.yupoo.com/peterfei/E4bNfEFu/aIW8d.jpg" alt="主是我的牧者"></li>
-</ul>
-
+            <h2 id="选择tool-&gt;new_snippet">选择<code>tool</code>-&gt;<code>new snippet</code></h2><p>内容如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line">Hello, $&#123;1:this&#125; is a $&#123;2:snippet&#125;.</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Hello, ${1:this} is a ${2:snippet} 这正是你要插入到文档中的文本。在此节放入的任何片段都会被插入到你的文档中。</li>
+<li>tabTrigger 此节是可选的配置，默认是被注释掉的。默认 hello 的意思是：如果你在某个文档里输入了单词 hello ，然后按下 Tab 键，接着 hello 就会被替换为1中定义的代码片段。再次按下Tab键，接着snippet会被替换为2中定义的代码片段</li>
+<li>scope 此节也是可选配置，默认是被注释掉的。默认 source.php 的意思是：只有在编辑 php 源码的时候，才能用此代码片段</li>
+</ol>
+<h2 id="保存代码片段文件">保存代码片段文件</h2><p>在能自定义代码片段之前，应该首先保存。在保存文件对话框里，需要明确的指定文件的扩展名为.sublime-snippet，然后把文件保存到默认目录（当前用户主目录下的\Sublime Text 3\Packages\User目录中）。</p>
+<p>保存文件之后，就可以测试上面提到的tabTrigger功能了。如果不再使用此功能，可以在此注释掉.</p>
+<h2 id="修改代码片段文件">修改代码片段文件</h2><p>在创建新代码片段中提到过 Hello, ${1:this} is a ${2:snippet} ，其中 ${1:this} 和 ${2:snippet} 是占位符。在插入代码片段后，单词 this 被选中，如果键入内容，this 将会被替换掉，接着按下 Tab 键，将会选中单词 snippet，如果键入内容，snippet 将会被替换掉。</p>
+<h2 id="绑定快捷键">绑定快捷键</h2><p>可以将上述的操作绑定到一个快捷键，在不键入任何文本的情况下，直接按快捷键插入代码片段。</p>
+<p>点击菜单栏的 Preferences 的子菜单 Key Binding – User，在打开的文件的方括号内部粘贴如下配置：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; “keys”: <span class="collection">[“ctrl+1″]</span>, “command”: “insert_snippet”, “args”: <span class="collection">&#123;“name”: “Packages/User/example.sublime-snippet”&#125;</span> &#125;</span></span><br></pre></td></tr></table></figure>
+<p>现在简单介绍一下这段配置：</p>
+<ol>
+<li><p>“keys”: [“ctrl+1″] 这个定义了触发此命令的快捷键。</p>
+</li>
+<li><p>“command”: “insert_snippet” 这个是需要触发的命令的名字。</p>
+</li>
+<li><p>“args”: {“name”: “Packages/User/example.sublime-snippet”} 这个是需要传入到上述命令的参数。这里把代码片段文件的相对路径传递过去。</p>
+</li>
+</ol>
+<p>保存配置文件，现在就可以用快捷键插入代码片段了。</p>
+<blockquote>
+<p>以下是我Ruby的注释代码：</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line"># ########################################################</span><br><span class="line"># | Software: $&#123;1&#125;</span><br><span class="line"># | Version: 2015.10</span><br><span class="line"># | Site: http://peterfei.me</span><br><span class="line"># |--------------------------------------------------------</span><br><span class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span><br><span class="line"># | Copyright (c) 2012-2015, http://peterfei.me. All Rights</span><br><span class="line">#Reserved.</span><br><span class="line"># | Time:  $&#123;2&#125; </span><br><span class="line"># ########################################################</span><br><span class="line">$&#123;3&#125;</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为上例中有写Time 获取当前时间的，于是写个获取当前时间的：</p>
+<blockquote>
+<p>创建插件：<code>Tools → New Plugin:</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCurrentTimeCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.run_command(<span class="string">"insert_snippet"</span>, </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"contents"</span>: <span class="string">"%s"</span> % datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>) </span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>保存为Sublime Text 2\Packages\User\addCurrentTime.py</p>
+<blockquote>
+<p>创建快捷键：<code>Preference → Key Bindings - User:</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "<span class="attribute">command</span>": <span class="value"><span class="string">"add_current_time"</span></span>,</span><br><span class="line">        "<span class="attribute">keys</span>": <span class="value">[</span><br><span class="line">            <span class="string">"ctrl+shift+."</span></span><br><span class="line">        ]</span><br><span class="line">    </span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>此时使用快捷键ctrl+shift+.即可在当前光标处插入当前时间，如下:</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># ########################################################</span></span><br><span class="line"><span class="preprocessor"># | Software: test</span></span><br><span class="line"><span class="preprocessor"># | Version: <span class="number">2015.10</span></span></span><br><span class="line"><span class="preprocessor"># | Site: http:<span class="comment">//peterfei.me</span></span></span><br><span class="line"><span class="preprocessor"># |--------------------------------------------------------</span></span><br><span class="line"><span class="preprocessor"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span></span><br><span class="line"><span class="preprocessor"># | Copyright (c) <span class="number">2012</span>-<span class="number">2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></span></span><br><span class="line"><span class="preprocessor">#Reserved.</span></span><br><span class="line"><span class="preprocessor"># | Time:  <span class="number">2015</span>-<span class="number">10</span>-<span class="number">29</span> <span class="number">09</span>:<span class="number">58</span>:<span class="number">53</span> </span></span><br><span class="line"><span class="preprocessor"># ########################################################</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -423,7 +349,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
