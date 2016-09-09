@@ -217,11 +217,6 @@
 
     
     
-      
-      
-
-      
-    
 
     
       
@@ -245,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="url">
-                  ionic 加载app,页面空白解决方案
+                <a class="post-title-link" href="/2016/08/16/rails-page-no-cache/" itemprop="url">
+                  rails page no cache
                 </a>
               
             
@@ -259,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-21T10:55:25+08:00" content="2016-05-21">
-              2016-05-21
+            <time itemprop="dateCreated" datetime="2016-08-16T15:21:21+08:00" content="2016-08-16">
+              2016-08-16
             </time>
           </span>
 
@@ -270,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/21/ionic-加载app-页面空白解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="commentsCount"></span>
+                <a href="/2016/08/16/rails-page-no-cache/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/rails-page-no-cache/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,8 +289,7 @@
       
         
           
-            <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"AutoHideSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"ShowSplashScreenSpinner"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashMaintainAspectRatio"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashShowOnlyFirstTime"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashScreenDelay"</span> <span class="attribute">value</span>=<span class="value">"10000"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"FadeSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">feature</span> <span class="attribute">name</span>=<span class="value">"SplashScreen"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">param</span> <span class="attribute">name</span>=<span class="value">"android-package"</span> <span class="attribute">value</span>=<span class="value">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">feature</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在app.js里加入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.cordova &amp;&amp; <span class="built_in">window</span>.cordova.plugins &amp;&amp; <span class="built_in">window</span>.cordova.plugins.Keyboard) &#123;</span><br><span class="line">            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(<span class="literal">true</span>);</span><br><span class="line">            cordova.plugins.Keyboard.disableScroll(<span class="literal">true</span>);</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                navigator.splashscreen.hide();</span><br><span class="line">            &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <p>Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">before_filter :set_cache_headers</span><br><span class="line"></span><br><span class="line">def set_cache_headers</span><br><span class="line">  response.headers["<span class="operator"><span class="keyword">Cache</span>-Control<span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span>, <span class="keyword">no</span>-<span class="keyword">store</span><span class="string">"</span><br><span class="line">  response.headers["</span><span class="keyword">Pragma</span><span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span><span class="string">"</span><br><span class="line">  response.headers["</span>Expires<span class="string">"] = "</span>Fri, <span class="number">01</span> Jan <span class="number">2016</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> GMT<span class="string">"</span><br><span class="line">end</span></span></span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -321,7 +315,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -362,7 +356,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -376,7 +370,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
