@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/13/ionic-发布webserver/" itemprop="url">
-                  ionic 发布为webserver
+                <a class="post-title-link" href="/2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="url">
+                  ionic 生成动态生成右拉城市菜单
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-13T17:41:38+08:00" content="2015-07-13">
-              2015-07-13
+            <time itemprop="dateCreated" datetime="2015-12-30T09:59:35+08:00" content="2015-12-30">
+              2015-12-30
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/07/13/ionic-发布webserver/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/13/ionic-发布webserver/" itemprop="commentsCount"></span>
+                <a href="/2015/12/30/ionic-生成动态生成右拉城市菜单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,10 +289,12 @@
       
         
           
-            <p><em>公司在做ionic开发时，遇到要发布为webserver:</em><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd [ionic project]&#10;$ ionic platform add browser&#10;$ cd [ionic project]/platforms/browser/</span><br></pre></td></tr></table></figure></p>
-<p>安装 <code>Install Node.js</code></p>
-<p><em>Install connect and serve-static</em><br><code>$ cd [webapp] $ npm install connect serve-static</code><br><em>编写server.js</em><br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">connect</span> = <span class="keyword">require</span>(<span class="string">'connect'</span>);</span><br><span class="line">var serveStatic = <span class="keyword">require</span>(<span class="string">'serve-static'</span>);</span><br><span class="line"><span class="keyword">connect</span>().<span class="keyword">use</span>(serveStatic(__dirname)).<span class="keyword">listen</span>(<span class="number">8080</span>)</span><br></pre></td></tr></table></figure></p>
-<p><em>运行：</em><br><code>$ node server.js &amp;</code></p>
+            <p>昨天有时间想重写下之前技术部小黄写的城市右拉， 主要用的功能是<code>ionic</code> 自带的 <code>ion-side-menus</code> 和 <code>ionicSideMenuDelegate</code>。<br>配置路由：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">.</span>state(<span class="string">'choosePovince'</span>,&#123;</span><br><span class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</span><br><span class="line">  url:<span class="string">'/choose_port'</span>,</span><br><span class="line">  abstract:<span class="literal">true</span>,</span><br><span class="line">  templateUrl:<span class="string">'templates/jiesongji/choose_porvince_main.html'</span>,</span><br><span class="line">  controller:<span class="string">'JiejiCtrl'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 右侧滑动</span><br><span class="line"> * @type &#123;应用框架自带的滑动更好解决&#125;</span><br><span class="line"> */</span></span><br><span class="line"><span class="built_in">.</span>state(<span class="string">'choosePovince.city'</span>,&#123;</span><br><span class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</span><br><span class="line">  url:<span class="string">'/city'</span>,</span><br><span class="line">  views:&#123;</span><br><span class="line">    <span class="string">'menuContent'</span> :</span><br><span class="line">    &#123;</span><br><span class="line">      templateUrl: <span class="string">"templates/jiesongji/porvince_main.html"</span>,</span><br><span class="line">      controller:<span class="string">'JiejiCtrl'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'right-menu'</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      templateUrl : <span class="string">"templates/jiesongji/city_right.html"</span>,</span><br><span class="line">      controller:<span class="string">'JiejiCtrl'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">params</span>: &#123;</span><br><span class="line">    p_obj: <span class="built_in">null</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>第一层路由是声明右拉的父级关联模板。<br><code>Html</code>模板<code>choose_porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ion-side-menus</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ion-pane</span> <span class="attribute">ion-side-menu-content</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">ion-nav-bar</span> <span class="attribute">class</span>=<span class="value">"bar bar-header top-header"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">              <span class="tag">&lt;<span class="title">ion-nav-buttons</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"button button-clear"</span> <span class="attribute">ng-click</span>=<span class="value">"goBack()"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="title">ion-nav-buttons</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="title">ion-nav-back-button</span> <span class="attribute">class</span>=<span class="value">"button-clear"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span> Back<span class="tag">&lt;/<span class="title">ion-nav-back-button</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">ion-nav-bar</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">ion-nav-view</span> <span class="attribute">name</span>=<span class="value">"menuContent"</span> <span class="attribute">animation</span>=<span class="value">"slide-left-right"</span>&gt;</span><span class="tag">&lt;/<span class="title">ion-nav-view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ion-pane</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ion-side-menu</span> <span class="attribute">side</span>=<span class="value">"right"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="title">header</span> <span class="attribute">class</span>=<span class="value">"bar bar-header top-header"</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="title">h1</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span>选择城市<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="title">header</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="title">ion-content</span> <span class="attribute">class</span>=<span class="value">"has-header"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">ion-nav-view</span> <span class="attribute">name</span>=<span class="value">"right-menu"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">ion-nav-view</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="title">ion-content</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ion-side-menu</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">ion-side-menus</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>第二层路由声明右拉的模板与主模板。<br><code>Html</code> 模板 <code>porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ion-view</span> <span class="attribute">title</span>=<span class="value">"选择城市"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">ion-content</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">ion-list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ion-item</span> <span class="attribute">ng-click</span>=<span class="value">"right_menu(province.pro_id);"</span> <span class="attribute">ng-repeat</span>=<span class="value">"province in ProvinceList"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;ion-item ng-click="show_province();"&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line">             <span class="tag">&lt;<span class="title">span</span>&gt;</span>&#123;&#123;province.province&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ion-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">ion-list</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">ion-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ion-view</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Html</code> 模板 <code>city_right.html</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ion-item</span> <span class="attribute">ng-repeat</span>=<span class="value">"city in citys"</span> <span class="attribute">style</span>=<span class="value">"height:50px;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span>&gt;</span>&#123;&#123;city.city_name&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ion-item</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Javascript</code>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * [show_province 加载省份]</span><br><span class="line"> * @return &#123;[type]&#125; [description]</span><br><span class="line"> */</span></span><br><span class="line">$scope.show_province = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> param = &#123;</span><br><span class="line">        code: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span></span><br><span class="line">    &#125;;</span><br><span class="line">    chaXunProvinceFactory.getChaXunProvince(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="comment">// debugger</span></span><br><span class="line">            $state.go(<span class="string">'choosePovince.city'</span>,&#123;p_obj:callback.data.content&#125;);</span><br><span class="line">            <span class="comment">// $scope.ProvinceList = callback.data.content;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 通过路由的对象传值，渲染ProvinceList显示数据</span><br><span class="line"> * @param  &#123;[type]&#125; angular.isObject($stateParams.p_obj) [description]</span><br><span class="line"> * @return &#123;[type]&#125;                                      [description]</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">if</span> (angular.isObject($stateParams.p_obj)) &#123;</span><br><span class="line">    $scope.ProvinceList=$stateParams.p_obj;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 这里是重点，当点击事件发生时，向父级scope对象发送监听对象请求，传值。</span><br><span class="line"> * @param  &#123;[type]&#125; obj [description]</span><br><span class="line"> * @return &#123;[type]&#125;     [description]</span><br><span class="line"> */</span></span><br><span class="line">$scope.right_menu = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    $ionicSideMenuDelegate.toggleRight();</span><br><span class="line">    $scope.$emit(<span class="string">'cities'</span>,obj);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 父页面监听，如果接收到点击请求，则通过接口获取动态数据，同时赋值给$scope对象。</span><br><span class="line"> * @param  &#123;[type]&#125; e    [description]</span><br><span class="line"> * @param  &#123;Object&#125; d)&#123;                var param [description]</span><br><span class="line"> * @return &#123;[type]&#125;      [description]</span><br><span class="line"> */</span></span><br><span class="line">$scope.$on(<span class="string">'cities'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e,d</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">var</span> param = &#123;</span><br><span class="line">        code: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span>,</span><br><span class="line">        pro_id: d</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    chaXunProvinceFactory.getChaXunCity(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</span><br><span class="line">            $scope.citys = callback.data.content;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>最终效果：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.47.50.png" alt="效果图"><br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.48.15.png" alt="效果图"></p>
 
           
         
@@ -334,8 +336,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/09/ionic-modal弹窗/" itemprop="url">
-                  ionic modal弹窗
+                <a class="post-title-link" href="/2015/12/28/ionic-页面对象传值/" itemprop="url">
+                  ionic 页面对象传值
                 </a>
               
             
@@ -348,8 +350,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-09T14:03:00+08:00" content="2015-07-09">
-              2015-07-09
+            <time itemprop="dateCreated" datetime="2015-12-28T16:13:15+08:00" content="2015-12-28">
+              2015-12-28
             </time>
           </span>
 
@@ -359,8 +361,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/07/09/ionic-modal弹窗/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/09/ionic-modal弹窗/" itemprop="commentsCount"></span>
+                <a href="/2015/12/28/ionic-页面对象传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/28/ionic-页面对象传值/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -383,13 +385,10 @@
       
         
           
-            <p><em>今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错</em></p>
-<p><em>modal.facotry.js 如下：</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'appModalService'</span>, [<span class="string">'$ionicModal'</span>, <span class="string">'$rootScope'</span>, <span class="string">'$q'</span>, <span class="string">'$injector'</span>, <span class="string">'$controller'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$ionicModal, $rootScope, $q, $injector, $controller</span>) </span>&#123;</span><br><span class="line">	  <span class="keyword">return</span> &#123;</span><br><span class="line">	    show: show</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">templeteUrl, controller, parameters, options</span>) </span>&#123;</span><br><span class="line">	    <span class="comment">// Grab the injector and create a new scope</span></span><br><span class="line">	    <span class="keyword">var</span> deferred = $q.defer(),</span><br><span class="line">	        ctrlInstance,</span><br><span class="line">	        modalScope = $rootScope.$<span class="keyword">new</span>(),</span><br><span class="line">	        thisScopeId = modalScope.$id,</span><br><span class="line">	        defaultOptions = &#123;</span><br><span class="line">	          animation: <span class="string">'slide-in-up'</span>,</span><br><span class="line">	          focusFirstInput: <span class="literal">false</span>,</span><br><span class="line">	          backdropClickToClose: <span class="literal">true</span>,</span><br><span class="line">	          hardwareBackButtonClose: <span class="literal">true</span>,</span><br><span class="line">	          modalCallback: <span class="literal">null</span></span><br><span class="line">	        &#125;;</span><br><span class="line">	   options = angular.extend(&#123;&#125;, defaultOptions, options);</span><br><span class="line">	</span><br><span class="line">	 $ionicModal.fromTemplateUrl(templeteUrl, &#123;</span><br><span class="line">	   scope: modalScope,</span><br><span class="line">	   animation: options.animation,</span><br><span class="line">	   focusFirstInput: options.focusFirstInput,</span><br><span class="line">	   backdropClickToClose: options.backdropClickToClose,</span><br><span class="line">	   hardwareBackButtonClose: options.hardwareBackButtonClose</span><br><span class="line">	 &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">modal</span>) </span>&#123;</span><br><span class="line">	   modalScope.modal = modal;</span><br><span class="line">	</span><br><span class="line">	   modalScope.openModal = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	     modalScope.modal.show();</span><br><span class="line">	   &#125;;</span><br><span class="line">	   modalScope.closeModal = <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">	     deferred.resolve(result);</span><br><span class="line">	     modalScope.modal.hide();</span><br><span class="line">	   &#125;;</span><br><span class="line">	   modalScope.$on(<span class="string">'modal.hidden'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">thisModal</span>) </span>&#123;</span><br><span class="line">	     <span class="keyword">if</span> (thisModal.currentScope) &#123;</span><br><span class="line">	       <span class="keyword">var</span> modalScopeId = thisModal.currentScope.$id;</span><br><span class="line">	       <span class="keyword">if</span> (thisScopeId === modalScopeId) &#123;</span><br><span class="line">	         deferred.resolve(<span class="literal">null</span>);</span><br><span class="line">	         _cleanup(thisModal.currentScope);</span><br><span class="line">	       &#125;</span><br><span class="line">	     &#125;</span><br><span class="line">	   &#125;);</span><br><span class="line">	</span><br><span class="line">	   <span class="comment">// Invoke the controller</span></span><br><span class="line">	   <span class="keyword">var</span> locals = &#123; <span class="string">'$scope'</span>: modalScope, <span class="string">'parameters'</span>: parameters &#125;;</span><br><span class="line">	   <span class="keyword">var</span> ctrlEval = _evalController(controller);</span><br><span class="line">	   ctrlInstance = $controller(controller, locals);</span><br><span class="line">	   <span class="keyword">if</span> (ctrlEval.isControllerAs) &#123;</span><br><span class="line">	     ctrlInstance.openModal = modalScope.openModal;</span><br><span class="line">	     ctrlInstance.closeModal = modalScope.closeModal;</span><br><span class="line">	   &#125;</span><br><span class="line">	</span><br><span class="line">	   modalScope.modal.show()</span><br><span class="line">	     .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	     modalScope.$broadcast(<span class="string">'modal.afterShow'</span>, modalScope.modal);</span><br><span class="line">	   &#125;);</span><br><span class="line">	</span><br><span class="line">	   <span class="keyword">if</span> (angular.isFunction(options.modalCallback)) &#123;</span><br><span class="line">	     options.modalCallback(modal);</span><br><span class="line">	   &#125;</span><br><span class="line">	</span><br><span class="line">	 &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">	   deferred.reject(err);</span><br><span class="line">	 &#125;);</span><br><span class="line">	</span><br><span class="line">	 <span class="keyword">return</span> deferred.promise;</span><br><span class="line">	  &#125;</span><br><span class="line">	</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_cleanup</span>(<span class="params">scope</span>) </span>&#123;</span><br><span class="line">	    scope.$destroy();</span><br><span class="line">	    <span class="keyword">if</span> (scope.modal) &#123;</span><br><span class="line">	      scope.modal.remove();</span><br><span class="line">	    &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	</span><br><span class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_evalController</span>(<span class="params">ctrlName</span>) </span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> result = &#123;</span><br><span class="line">	      isControllerAs: <span class="literal">false</span>,</span><br><span class="line">	      controllerName: <span class="string">''</span>,</span><br><span class="line">	      propName: <span class="string">''</span></span><br><span class="line">	    &#125;;</span><br><span class="line">	    <span class="keyword">var</span> fragments = (ctrlName || <span class="string">''</span>).trim().split(<span class="regexp">/\s+/</span>);</span><br><span class="line">	    result.isControllerAs = fragments.length === <span class="number">3</span> &amp;&amp; (fragments[<span class="number">1</span>] || <span class="string">''</span>).toLowerCase() === <span class="string">'as'</span>;</span><br><span class="line">	    <span class="keyword">if</span> (result.isControllerAs) &#123;</span><br><span class="line">	      result.controllerName = fragments[<span class="number">0</span>];</span><br><span class="line">	      result.propName = fragments[<span class="number">2</span>];</span><br><span class="line">	    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	      result.controllerName = ctrlName;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">	    <span class="keyword">return</span> result;</span><br><span class="line">	  &#125;</span><br><span class="line">	 </span><br><span class="line">	&#125;]);</span><br></pre></td></tr></table></figure>
-<p><em>实现modal方法：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'myModals'</span>, [<span class="string">'appModalService'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">appModalService</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// all app modals here</span></span><br><span class="line">  <span class="keyword">var</span> service = &#123;</span><br><span class="line">    showConfirmContact: showConfirmContact,</span><br><span class="line">    showContacts: showContacts</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> service;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showConfirmContact</span>(<span class="params">contact</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'confirm-contact-modal.html'</span>, <span class="string">'ConfirmContactDialogCtrl as vm'</span>, contact);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showContacts</span>(<span class="params">otherContact</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'contacts-modal.html'</span>, <span class="string">'ContactDialogCtrl as vm'</span>, otherContact);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">&#125;])</span><br></pre></td></tr></table></figure></p>
-<p><em>controller调用：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.controller(<span class="string">'AppCtrl'</span>, [<span class="string">'$scope'</span>, <span class="string">'myModals'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, myModals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">this</span>;</span><br><span class="line">  vm.selectedContact = <span class="string">''</span>;</span><br><span class="line">  vm.openContactDialog = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    myModals.showContacts(&#123; name: <span class="string">'Julian Paulozzi'</span> &#125;)</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(result &amp;&amp; result.name)&#123;</span><br><span class="line">        vm.selectedContact = result;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">       alert(err);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">&#125;])</span><br></pre></td></tr></table></figure></p>
-<p><em>页面view调用：</em><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">"vm.openContactDialog()"</span> <span class="attribute">class</span>=<span class="value">"button button-assertive button-block"</span>&gt;</span></span><br><span class="line">          Open contacts to select</span><br><span class="line"><span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-
+            <p>ionic 项目里常常遇到页面间传值的情况，一般是这样的：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.state(<span class="string">'tab.chat-detail'</span>, &#123;</span><br><span class="line">				url: <span class="string">'/chats/:chatId'</span>,</span><br><span class="line">				views: &#123;</span><br><span class="line">					<span class="string">'tab-chats'</span>: &#123;</span><br><span class="line">						templateUrl: <span class="string">'templates/chat-detail.html'</span>,</span><br><span class="line">						controller: <span class="string">'ChatDetailCtrl'</span></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>但遇到对象时,应做如下处理:<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$stateProvider</span>.state(<span class="string">'users'</span>, &#123;</span><br><span class="line">    url: <span class="string">'/users'</span>,</span><br><span class="line">    controller: <span class="string">'UsersCtrl'</span>,</span><br><span class="line">    params: &#123;</span><br><span class="line">        obj: null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> UserCtrl(<span class="variable">$stateParams</span>) &#123;</span><br><span class="line">    conrole.log(<span class="variable">$stateParams</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$state</span>.go(<span class="string">'users'</span>, &#123;obj:yourObj&#125;);</span><br></pre></td></tr></table></figure>
           
         
       
@@ -430,8 +429,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/09/ionic-socket-io-开发/" itemprop="url">
-                  ionic socket.io 开发
+                <a class="post-title-link" href="/2015/12/15/mac-跳过App-Store-更新系统/" itemprop="url">
+                  mac 跳过App Store 更新系统
                 </a>
               
             
@@ -444,8 +443,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-09T00:48:44+08:00" content="2015-07-09">
-              2015-07-09
+            <time itemprop="dateCreated" datetime="2015-12-15T10:55:34+08:00" content="2015-12-15">
+              2015-12-15
             </time>
           </span>
 
@@ -455,8 +454,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/07/09/ionic-socket-io-开发/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/09/ionic-socket-io-开发/" itemprop="commentsCount"></span>
+                <a href="/2015/12/15/mac-跳过App-Store-更新系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/mac-跳过App-Store-更新系统/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -479,770 +478,7 @@
       
         
           
-            <p><em>这两天一直在做</em>ionic<em>开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。</em></p>
-<p><em>先叙述下基本的诉求：</em></p>
-<ul>
-<li>Nodejs 做为服务端，主要做服务端消息的监听与发送</li>
-<li>客户端App 为服务端发送消息</li>
-<li>主要协议TCP</li>
-</ul>
-<p>服务端代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http= <span class="built_in">require</span>(<span class="string">'http'</span>), io= <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">var</span> app = http.createServer(), io = io.listen(app);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">10010</span>);</span><br><span class="line"></span><br><span class="line">io.sockets.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">  socket.emit(<span class="string">'news'</span>, &#123; hello: <span class="string">'world'</span> &#125;);<span class="comment">//监听，一旦客户端连接上，即发送数据，第一个参数'new'为数据名，第二个参数既为数据</span></span><br><span class="line">  socket.on(<span class="string">'my new event'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获客户端发送名为'my other event'的数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data.my);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  socket.emit(<span class="string">'other'</span>, &#123; hello: <span class="string">'other world'</span> &#125;);<span class="comment">//发送另一个数据</span></span><br><span class="line">  socket.on(<span class="string">'event1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获另外一个数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><em>Ionic 部分：</em></p>
-<ul>
-<li>生成新项目：<code>ionic start chat-app blank</code></li>
-<li>引入angular-socket-io 库:<code>bower install angular-socket-io</code></li>
-<li><img src="http://pic.yupoo.com/peterfei/EMOPKcas/Veffo.png" alt="folder"></li>
-<li>注入socket.io在项目里：<code>var app=angular.module(&#39;ionic-socketio-chat-client&#39;, [&#39;ionic&#39;,&#39;btford.socket-io&#39;])</code></li>
-<li><p>在index.html导入socket.io，<strong>注：socket.io/socket.io.js是服务端动态生成</strong></p>
-<pre><code> <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://192.168.0.101:10010/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"lib/angular-socket-io/socket.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://192.168.0.101:10010'</span>);</span><br><span class="line">      <span class="comment">// io.set('origins', '*:*');</span></span><br><span class="line">      socket.on(<span class="string">'news'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">      &#125;);</span><br><span class="line">      socket.on(<span class="string">'other'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123; <span class="comment">//接收另一个名为'other'数据，  </span></span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">          socket.emit(<span class="string">'event1'</span>, &#123;</span><br><span class="line">              my: <span class="string">'other data'</span></span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如此，客户端调用成功。</p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/06/windows-ionic-环境配置/" itemprop="url">
-                  windows ionic 环境配置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-06T15:44:36+08:00" content="2015-07-06">
-              2015-07-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/06/windows-ionic-环境配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/06/windows-ionic-环境配置/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>安装Node.js (这里主要是要用它的npm命令装东西)<br>  进入官网<a href="http://" target="_blank" rel="external">http://www.nodejs.org/</a> )，下载安装包安装</li>
-<li>安装phonegap和cordova</li>
-<li>安装ionic<br>  <code>npm install -g ionic</code></li>
-</ul>
-<hr>
-<blockquote>
-<p>配置环境变量node的npm命令:</p>
-</blockquote>
-<p><code>Path : C:\Documents and Settings\Administrator\Application Data\npm</code></p>
-<blockquote>
-<p><a href="http://download.csdn.net/detail/superjunjin/8417723" target="_blank" rel="external">补齐npm文件夹下有关于ionic的文件</a></p>
-<p><a href="http://download.csdn.net/detail/superjunjin/8417731" target="_blank" rel="external">补齐ionic项目下node_modules等文件</a> </p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/04/我的仔/" itemprop="url">
-                  我的乖仔
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-04T11:23:30+08:00" content="2015-07-04">
-              2015-07-04
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/04/我的仔/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/04/我的仔/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_cisvj0io30003sm4vyrdbwxz0"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-            
-              <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_cisvj0io30003sm4vyrdbwxz0"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-            
-              <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_cisvj0io30003sm4vyrdbwxz0"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" itemprop="contentUrl"/>
-              </a>
-            </div>
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_cisvj0io30003sm4vyrdbwxz0"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-            
-              <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_cisvj0io30003sm4vyrdbwxz0"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-            
-              <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_cisvj0io30003sm4vyrdbwxz0"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" itemprop="contentUrl"/>
-              </a>
-            </div>
-          
-
-          
-          
-        </div>
-      
-
-      
-        
-          
-            <p><img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" alt="专职司机"></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/03/从octopress折腾果断切到hexo/" itemprop="url">
-                  从octopress折腾果断切到hexo
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-03T21:05:40+08:00" content="2015-07-03">
-              2015-07-03
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/03/从octopress折腾果断切到hexo/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/从octopress折腾果断切到hexo/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>上次发博文记得是五月，中间mac更新了一次，ruby1.9.3 用不了，缺少组件，于是rebuild and reintall ruby, 折腾了一个钟左右，之后rake 生成文章，deploy 尽然上传不上去，又一个钟pass了。在种种不能忍受的情况下，果断切到hexo.真的是很很力呀！！！</p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/03/IOS-打包script/" itemprop="url">
-                  IOS 打包script
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-03T19:47:03+08:00" content="2015-07-03">
-              2015-07-03
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/03/IOS-打包script/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/IOS-打包script/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>无签名打包命令</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"iphoneos"</span> ] || [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"ipados"</span> ]; <span class="keyword">then</span></span><br><span class="line">/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py <span class="string">"my.company.<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span>;</span><br><span class="line">codesign <span class="operator">-f</span> <span class="operator">-s</span> <span class="string">"iPhone Developer"</span> --entitlements <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" itemprop="url">
-                  ionic学习笔记1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-03T09:24:56+08:00" content="2015-07-03">
-              2015-07-03
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Ionic_Add_Platform_EACCES_Error_解决办法">Ionic Add Platform EACCES Error 解决办法</h1><p>*当出现<code>platform add [platformname]</code></p>
-<p>Error: spawn EACCES<br>at exports._errnoException (util.js:746:11)<br>at ChildProcess.spawn (child_process.js:1155:11)<br>at Object.exports.spawn (child_process.js:988:9)<br>at Object.exports.spawn (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/cordova/superspawn.js:100:31)<br>at runScriptViaChildProcessSpawn (/usr/local/lib/node_modules/cordova/node_modules/cordova-<br>lib/src/hooks/HooksRunner.js:188:23)<br>at runScript (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:131:16)<br>at /usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:114:20<br>at _fulfilled (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:787:54)<br>at self.promiseDispatch.done (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:816:30)<br>at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:749:13)<br>*</p>
-<p>加入<code>ionic hooks add</code><br>then<br><code>ionic platform add ios</code></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/10/09/2014-10-09-ruby-mixin/" itemprop="url">
-                  ruby类扩展混入
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-10-09T14:14:02+08:00" content="2014-10-09">
-              2014-10-09
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/10/09/2014-10-09-ruby-mixin/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/09/2014-10-09-ruby-mixin/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/09/27/2014-09-27-mac-sublime3/" itemprop="url">
-                  Mac下sublime3快捷键备忘
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-27T21:48:40+08:00" content="2014-09-27">
-              2014-09-27
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/09/27/2014-09-27-mac-sublime3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/27/2014-09-27-mac-sublime3/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="打开/前往">打开/前往</h3><ul>
-<li>⌘^A (对齐)</li>
-<li>Alt鼠标单击 [多行选择]</li>
-<li>⌘T [前往文件]  </li>
-<li>⌘⌃P | 前往项目 |</li>
-<li>⌘R | 前往 method |</li>
-<li>⌘⇧P | 命令提示 |</li>
-<li>⌃G | 前往行 |</li>
-<li><p>⌃ ` | python 控制台 |</p>
-<h3 id="编辑">编辑</h3></li>
-<li><p>⌘L | 选择行 (重复按下将下一行加入选择) |</p>
-</li>
-<li>⌘D | 选择词 (重复按下时多重选择相同的词进行多重编辑) |</li>
-<li>⌃⇧M | 选择括号内的内容 |</li>
-<li>⌘⇧↩ | 在当前行前插入新行 |</li>
-<li>⌘↩ | 在当前行后插入新行 |</li>
-<li>⌃⇧K | 删除行 |</li>
-<li>⌘KK | 从光标处删除至行尾 |</li>
-<li>⌘K⌫ | 从光标处删除至行首 |</li>
-<li>⌘⇧D | 复制(多)行 |</li>
-<li>⌘J | 合并(多)行 |</li>
-<li>⌘KU | 改为大写 |</li>
-<li>⌘KL | 改为小写 |</li>
-<li>⌘ / | 注释 |</li>
-<li>⌘⌥ / | 块注释 |</li>
-<li>⌘Y | 恢复或重复 |</li>
-<li>⌘⇧V | 粘贴并自动缩进 |</li>
-<li>⌃ space | 自动完成(重复按下选择下一个提示) |</li>
-<li>⌃M | 跳转至对应的括号 |</li>
-</ul>
-<h3 id="查找/替换">查找/替换</h3><ul>
-<li>⌘F | 查找 |</li>
-<li>⌘⌥F | 替换 |</li>
-<li>⌘⌥G | 查找下一个符合当前所选的内容 |</li>
-<li>⌘⌃G | 查找所有符合当前所选的内容进行多重编辑 |</li>
-<li>⌘⇧F | 在所有打开的文件中进行查找 |</li>
-</ul>
+            <p><code>sudo softwareupdate -i -a</code><br>应用它就可以跳过臃肿的app store 进行系统更新了。</p>
 
           
         
@@ -1268,7 +504,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/10/31/puma-在nginx-启动后报错解决/" itemprop="url">
-                  puma 在nginx 启动后报错解决
+                <a class="post-title-link" href="/2016/05/04/rails-minitest-写mocha/" itemprop="url">
+                  rails minitest 写mocha
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-31T11:46:44+08:00" content="2015-10-31">
-              2015-10-31
+            <time itemprop="dateCreated" datetime="2016-05-04T15:10:48+08:00" content="2016-05-04">
+              2016-05-04
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/10/31/puma-在nginx-启动后报错解决/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/31/puma-在nginx-启动后报错解决/" itemprop="commentsCount"></span>
+                <a href="/2016/05/04/rails-minitest-写mocha/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/rails-minitest-写mocha/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,13 +289,8 @@
       
         
           
-            <h2 id="在Centos上部署时遇到如下错误：">在Centos上部署时遇到如下错误：</h2><blockquote>
-<p>puma nginx connect() Permission denied</p>
-</blockquote>
-<p>解决方法：在nginx.conf 配置文件中加入了puma 用户：<br><code>user deploy</code> </p>
-<blockquote>
-<p>puma 启动时的用户，如此启动正常。</p>
-</blockquote>
+            <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe <span class="string">"订单号测试"</span> <span class="keyword">do</span></span><br><span class="line">      it <span class="string">"规则测试"</span> <span class="keyword">do</span></span><br><span class="line">        time = <span class="constant">Time</span>.now</span><br><span class="line">        <span class="constant">Time</span>.expects(<span class="symbol">:now</span>).at_least_once.returns(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</span><br><span class="line">        order = <span class="constant">OrderInfo</span>.new</span><br><span class="line">        order.serial_number.must_equal <span class="string">"<span class="subst">#&#123;(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>).strftime(<span class="string">'%Y%m%d'</span>)&#125;</span>000001"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><code>expects(:now)</code>是期望返回now的值是一天后的值非当天的值。</p>
 
           
         
@@ -337,8 +332,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/10/29/Sublime-中自定义snippets/" itemprop="url">
-                  Sublime 中自定义snippets
+                <a class="post-title-link" href="/2016/04/19/AngularJS-指令的-Scope-作用域/" itemprop="url">
+                  AngularJS 指令的 Scope (作用域)
                 </a>
               
             
@@ -351,8 +346,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-29T10:00:20+08:00" content="2015-10-29">
-              2015-10-29
+            <time itemprop="dateCreated" datetime="2016-04-19T21:58:37+08:00" content="2016-04-19">
+              2016-04-19
             </time>
           </span>
 
@@ -362,8 +357,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/10/29/Sublime-中自定义snippets/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/29/Sublime-中自定义snippets/" itemprop="commentsCount"></span>
+                <a href="/2016/04/19/AngularJS-指令的-Scope-作用域/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/19/AngularJS-指令的-Scope-作用域/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -386,797 +381,125 @@
       
         
           
-            <h2 id="选择tool-&gt;new_snippet">选择<code>tool</code>-&gt;<code>new snippet</code></h2><p>内容如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line">Hello, $&#123;1:this&#125; is a $&#123;2:snippet&#125;.</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+            <p>当一个指令被创建的时候，都会有这样一个选择，是继承自己的父作用域（一般是外部的Controller提供的作用域或者根作用域（$rootScope）），还是创建一个新的自己的作用域，当然AngularJS为我们指令的scope参数提供了三种选择，分别是：<code>false</code>,<code>true</code>,<code>{}</code>；默认情况下是false。<br>JS:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">"MyApp"</span>, [])</span><br><span class="line">    .controller(<span class="string">"MyController"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.name = <span class="string">"dreamapple"</span>;</span><br><span class="line">    $scope.age = <span class="number">20</span>;</span><br><span class="line">    $scope.changeAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $scope.age = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .directive(<span class="string">"myDirective"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;</span><br><span class="line">        restrict: <span class="string">"AE"</span>,</span><br><span class="line">        scope: &#123;</span><br><span class="line">            name: <span class="string">'@myName'</span>,</span><br><span class="line">            age: <span class="string">'='</span>,</span><br><span class="line">            changeAge: <span class="string">'&amp;changeMyAge'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        replace: <span class="literal">true</span>,</span><br><span class="line">        template: <span class="string">"&lt;div class='my-directive'&gt;"</span> +</span><br><span class="line">            <span class="string">"&lt;h3&gt;下面部分是我们创建的指令生成的&lt;/h3&gt;"</span> +</span><br><span class="line">            <span class="string">"我的名字是：&lt;span ng-bind='name'&gt;&lt;/span&gt;&lt;br/&gt;"</span> +</span><br><span class="line">            <span class="string">"我的年龄是：&lt;span ng-bind='age'&gt;&lt;/span&gt;&lt;br/&gt;"</span> +</span><br><span class="line">            <span class="string">"在这里修改名字：&lt;input type='text' ng-model='name'&gt;&lt;br/&gt;"</span> +</span><br><span class="line">            <span class="string">"&lt;button ng-click='changeAge()'&gt;修改年龄&lt;/button&gt;"</span> +</span><br><span class="line">            <span class="string">" &lt;/div&gt;"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>HTML:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-app</span>=<span class="value">"MyApp"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span> <span class="attribute">ng-controller</span>=<span class="value">"MyController"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-info"</span>&gt;</span>我的名字是：<span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"name"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">br</span>/&gt;</span>我的年龄是：<span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"age"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">br</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-directive"</span> <span class="attribute">my-directive</span> <span class="attribute">my-name</span>=<span class="value">"&#123;&#123;name&#125;&#125;"</span> <span class="attribute">age</span>=<span class="value">"age"</span>  <span class="attribute">change-my-age</span>=<span class="value">"changeAge()"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>@</code><br>这是一个单项绑定的前缀标识符<br>使用方法：在元素中使用属性，好比这样<code>&lt;div my-directive my-name=&quot;&quot;&gt;&lt;/div&gt;</code></p>
+<p>注意，属性的名字要用-将两个单词连接，因为是数据的单项绑定所以要通过使用<code>｛｛｝｝</code>来绑定数据。</p>
+<p><code>=</code></p>
+<p>这是一个双向数据绑定前缀标识符<br>使用方法：在元素中使用属性，好比这样<code>&lt;div my-directive age=&quot;age&quot;&gt;&lt;/div&gt;</code>,注意，数据的双向绑定要通过=前缀标识符实现，所以不可以使用<em>｛｛｝｝</em>。</p>
+<p><code>&amp;</code></p>
+<p>这是一个绑定函数方法的前缀标识符<br>使用方法：在元素中使用属性，好比这样<strong><code>&lt;div my-directive change-my-age=&quot;changeAge()&quot;&gt;&lt;/div&gt;</code></strong>，注意，属性的名字要用-将多个个单词连接。</p>
+<blockquote>
+<p>注意：在新创建指令的作用域对象中，使用属性的名字进行绑定时，要使用驼峰命名标准，比如下面的代码。</p>
+</blockquote>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">scope</span>: &#123;</span><br><span class="line">            <span class="comment">// `myName` 就是原来元素中的`my-name`属性</span></span><br><span class="line">            <span class="attribute">name</span>: <span class="string">'@myName'</span>, </span><br><span class="line">            <span class="attribute">age</span>: <span class="string">'='</span>,</span><br><span class="line">            <span class="comment">// `changeMyAge`就是原来元素中的`change-my-age`属性</span></span><br><span class="line">            <span class="attribute">changeAge</span>: <span class="string">'&amp;changeMyAge'</span> </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 <ol>
-<li>Hello, ${1:this} is a ${2:snippet} 这正是你要插入到文档中的文本。在此节放入的任何片段都会被插入到你的文档中。</li>
-<li>tabTrigger 此节是可选的配置，默认是被注释掉的。默认 hello 的意思是：如果你在某个文档里输入了单词 hello ，然后按下 Tab 键，接着 hello 就会被替换为1中定义的代码片段。再次按下Tab键，接着snippet会被替换为2中定义的代码片段</li>
-<li>scope 此节也是可选配置，默认是被注释掉的。默认 source.php 的意思是：只有在编辑 php 源码的时候，才能用此代码片段</li>
+<li>@ 当指令编译到模板的name时，就会到scope中寻找是否含有name的键值对，如果存在，就像上面那样，看到@就知道这是一个单向的数据绑定，然后寻找原来的那个使用指令的元素上（或者是指令元素本身）含有这个值的属性即my-name=，然后在父作用域查找的值，得到之后传递给模板中的name。</li>
+<li>=和&amp;与@差不多，只不过=进行的是双向的数据绑定，不论模板还是父作用域上的属性的值发生改变都会使另一个值发生改变，而&amp;是绑定函数而已。</li>
 </ol>
-<h2 id="保存代码片段文件">保存代码片段文件</h2><p>在能自定义代码片段之前，应该首先保存。在保存文件对话框里，需要明确的指定文件的扩展名为.sublime-snippet，然后把文件保存到默认目录（当前用户主目录下的\Sublime Text 3\Packages\User目录中）。</p>
-<p>保存文件之后，就可以测试上面提到的tabTrigger功能了。如果不再使用此功能，可以在此注释掉.</p>
-<h2 id="修改代码片段文件">修改代码片段文件</h2><p>在创建新代码片段中提到过 Hello, ${1:this} is a ${2:snippet} ，其中 ${1:this} 和 ${2:snippet} 是占位符。在插入代码片段后，单词 this 被选中，如果键入内容，this 将会被替换掉，接着按下 Tab 键，将会选中单词 snippet，如果键入内容，snippet 将会被替换掉。</p>
-<h2 id="绑定快捷键">绑定快捷键</h2><p>可以将上述的操作绑定到一个快捷键，在不键入任何文本的情况下，直接按快捷键插入代码片段。</p>
-<p>点击菜单栏的 Preferences 的子菜单 Key Binding – User，在打开的文件的方括号内部粘贴如下配置：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; “keys”: <span class="collection">[“ctrl+1″]</span>, “command”: “insert_snippet”, “args”: <span class="collection">&#123;“name”: “Packages/User/example.sublime-snippet”&#125;</span> &#125;</span></span><br></pre></td></tr></table></figure>
-<p>现在简单介绍一下这段配置：</p>
-<ol>
-<li><p>“keys”: [“ctrl+1″] 这个定义了触发此命令的快捷键。</p>
-</li>
-<li><p>“command”: “insert_snippet” 这个是需要触发的命令的名字。</p>
-</li>
-<li><p>“args”: {“name”: “Packages/User/example.sublime-snippet”} 这个是需要传入到上述命令的参数。这里把代码片段文件的相对路径传递过去。</p>
-</li>
-</ol>
-<p>保存配置文件，现在就可以用快捷键插入代码片段了。</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/07/rails-angularjs-kaminari-分页/" itemprop="url">
+                  rails 使用angularjs 中完成分页
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-07T13:09:48+08:00" content="2016-04-07">
+              2016-04-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/07/rails-angularjs-kaminari-分页/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/rails-angularjs-kaminari-分页/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>rails 使用angularjs 中完成分页:<br>Base 插件：<code>kaminari</code> ,<code>angular-paginate-anything</code></p>
 <blockquote>
-<p>以下是我Ruby的注释代码：</p>
+<p><bgf-pagination collection="users" url="users_url" per-page="50"></bgf-pagination></p>
 </blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line"># ########################################################</span><br><span class="line"># | Software: $&#123;1&#125;</span><br><span class="line"># | Version: 2015.10</span><br><span class="line"># | Site: http://peterfei.me</span><br><span class="line"># |--------------------------------------------------------</span><br><span class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span><br><span class="line"># | Copyright (c) 2012-2015, http://peterfei.me. All Rights</span><br><span class="line">#Reserved.</span><br><span class="line"># | Time:  $&#123;2&#125; </span><br><span class="line"># ########################################################</span><br><span class="line">$&#123;3&#125;</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>因为上例中有写Time 获取当前时间的，于是写个获取当前时间的：</p>
-<blockquote>
-<p>创建插件：<code>Tools → New Plugin:</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCurrentTimeCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.run_command(<span class="string">"insert_snippet"</span>, </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"contents"</span>: <span class="string">"%s"</span> % datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>) </span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>保存为Sublime Text 2\Packages\User\addCurrentTime.py</p>
-<blockquote>
-<p>创建快捷键：<code>Preference → Key Bindings - User:</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "<span class="attribute">command</span>": <span class="value"><span class="string">"add_current_time"</span></span>,</span><br><span class="line">        "<span class="attribute">keys</span>": <span class="value">[</span><br><span class="line">            <span class="string">"ctrl+shift+."</span></span><br><span class="line">        ]</span><br><span class="line">    </span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>此时使用快捷键ctrl+shift+.即可在当前光标处插入当前时间，如下:</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># ########################################################</span></span><br><span class="line"><span class="preprocessor"># | Software: test</span></span><br><span class="line"><span class="preprocessor"># | Version: <span class="number">2015.10</span></span></span><br><span class="line"><span class="preprocessor"># | Site: http:<span class="comment">//peterfei.me</span></span></span><br><span class="line"><span class="preprocessor"># |--------------------------------------------------------</span></span><br><span class="line"><span class="preprocessor"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span></span><br><span class="line"><span class="preprocessor"># | Copyright (c) <span class="number">2012</span>-<span class="number">2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></span></span><br><span class="line"><span class="preprocessor">#Reserved.</span></span><br><span class="line"><span class="preprocessor"># | Time:  <span class="number">2015</span>-<span class="number">10</span>-<span class="number">29</span> <span class="number">09</span>:<span class="number">58</span>:<span class="number">53</span> </span></span><br><span class="line"><span class="preprocessor"># ########################################################</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
+<p>使用angular resource 请求列表，如：<br><code>User = $resource($scope.users_url)
+      User.query((results)-&gt;
+          $scope.users = results
+        )</code></p>
+<p>实现一个完成分页controller方法,如base_controller.rb：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Api::BaseController</span> <span class="inheritance">&lt; <span class="parent">ApplicationController</span></span></span></span><br><span class="line">    <span class="comment"># respond_to :json</span></span><br><span class="line"></span><br><span class="line">    private</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">paginated_action</span><span class="params">(options = &#123;&#125;)</span></span></span><br><span class="line">        before_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            <span class="keyword">if</span> request.headers[<span class="string">'Range-Unit'</span>] == <span class="string">'items'</span> &amp;&amp;</span><br><span class="line">                    request.headers[<span class="string">'Range'</span>].present?</span><br><span class="line"></span><br><span class="line">                requested_from = <span class="keyword">nil</span></span><br><span class="line">                requested_to = <span class="keyword">nil</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> request.headers[<span class="string">'Range'</span>] =~ <span class="regexp">/(\d+)-(\d*)/</span></span><br><span class="line">                    requested_from, requested_to = <span class="variable">$1</span>.to_i, (<span class="variable">$2</span>.present? ? <span class="variable">$2</span>.to_i <span class="symbol">:</span> <span class="constant">Float::INFINITY</span>)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (requested_from &gt; requested_to)</span><br><span class="line">                  response.status = <span class="number">416</span></span><br><span class="line">                  headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/<span class="subst">#&#123;total_items&#125;</span>"</span></span><br><span class="line">                  render <span class="symbol">text:</span> <span class="string">'invalid pagination range'</span></span><br><span class="line">                  <span class="keyword">return</span> <span class="keyword">false</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="variable">@kp_per_page</span> = requested_to - requested_from + <span class="number">1</span></span><br><span class="line">                <span class="variable">@kp_page</span> = requested_to / <span class="variable">@kp_per_page</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        after_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            results = instance_variable_get(<span class="string">"@<span class="subst">#&#123;controller_name&#125;</span>"</span>) <span class="comment"># ex <span class="doctag">@users</span></span></span><br><span class="line">            <span class="keyword">if</span>(results.length &gt; <span class="number">0</span>)</span><br><span class="line">                response.status = <span class="number">206</span></span><br><span class="line">                headers[<span class="string">'Accept-Ranges'</span>] = <span class="string">'items'</span></span><br><span class="line">                headers[<span class="string">'Range-Unit'</span>] = <span class="string">'items'</span></span><br><span class="line"></span><br><span class="line">                total_items = results.total_count</span><br><span class="line">                current_page = results.current_page</span><br><span class="line">                per = <span class="variable">@kp_per_page</span></span><br><span class="line">                <span class="keyword">unless</span> per.present?</span><br><span class="line">                    per = <span class="number">25</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="comment"># binding.pry</span></span><br><span class="line">                requested_from = (results.current_page - <span class="number">1</span>) * per</span><br><span class="line">                available_to = (results.length - <span class="number">1</span>) + requested_from</span><br><span class="line"></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"<span class="subst">#&#123;requested_from&#125;</span>-<span class="subst">#&#123;available_to&#125;</span>/<span class="subst">#&#123;total_items &lt; <span class="constant">Float::INFINITY</span> ? total_items <span class="symbol">:</span> <span class="string">'*'</span>&#125;</span>"</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                response.status = <span class="number">204</span></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/0"</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>同时让UserController 继承BaseController:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="inheritance">&lt; <span class="parent">Api::BaseController</span></span></span></span><br><span class="line">    paginated_action <span class="symbol">only:</span> [<span class="symbol">:user_data</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span></span></span><br><span class="line"></span><br><span class="line">     <span class="comment"># render json:<span class="doctag">@area</span>_user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">user_data</span></span></span><br><span class="line">      <span class="variable">@user</span> =  <span class="constant">User</span>.page(<span class="variable">@kp_page</span>).per(<span class="variable">@kp_per_page</span>)</span><br><span class="line">      render <span class="symbol">json:</span> <span class="variable">@user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line"></span><br><span class="line">        <span class="constant">L</span>.debug <span class="string">"提交上来的数据是<span class="subst">#&#123;area_user_param&#125;</span>"</span></span><br><span class="line">        <span class="variable">@user</span> = <span class="constant">User</span>.new area_user_param</span><br><span class="line">        <span class="keyword">if</span> <span class="variable">@user</span>.save</span><br><span class="line">          render <span class="symbol">json:</span> <span class="variable">@user</span>,<span class="symbol">status:</span> <span class="symbol">:created</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          render <span class="symbol">json:</span><span class="variable">@user</span>.errors,<span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">private</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">area_user_param</span></span></span><br><span class="line">    <span class="comment"># binding.pry</span></span><br><span class="line">    params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:email</span>,<span class="symbol">:mobile_phone</span>,<span class="symbol">:password</span>,<span class="symbol">:password_confirmation</span>,<span class="symbol">:truename</span>,<span class="symbol">:card_number</span>) <span class="keyword">rescue</span> <span class="keyword">nil</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/27/angularjs-mobiscroll-日期用例/" itemprop="url">
-                  angularjs mobiscroll 日期用例
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-27T16:23:20+08:00" content="2015-10-27">
-              2015-10-27
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/10/27/angularjs-mobiscroll-日期用例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/27/angularjs-mobiscroll-日期用例/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Angularjs 写了个mobiscroll directive ：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">.directive(<span class="string">'mobiDateTimePicker'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="string">'A'</span>,</span><br><span class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $(element).mobiscroll().datetime(&#123;</span><br><span class="line">        theme: <span class="string">'default'</span>,</span><br><span class="line">        display: <span class="string">'bottom'</span>,</span><br><span class="line">        lang:<span class="string">'zh'</span>,</span><br><span class="line">        minWidth:<span class="number">40</span>,</span><br><span class="line">        steps:&#123;  minute: <span class="number">15</span>&#125;,</span><br><span class="line">        rows:<span class="number">3</span>,</span><br><span class="line">        <span class="comment">// dayText: '日', monthText: '月', yearText: '年',</span></span><br><span class="line">        dateFormat: <span class="string">'yy-MM-dd'</span>,</span><br><span class="line">        timeFormat: <span class="string">'HH:ii:ss'</span>,</span><br><span class="line">        <span class="comment">// timeWheels: 'HHii',</span></span><br><span class="line">        showNow: <span class="literal">true</span>, </span><br><span class="line">        showLabel:<span class="literal">true</span>,</span><br><span class="line">        dateOrder: <span class="string">'yyyyMMddDD'</span>,</span><br><span class="line">        <span class="comment">// tap:true,</span></span><br><span class="line">        <span class="comment">// invalid:[&#123;'10/27',start:'18:00',end:"19:00"&#125;]</span></span><br><span class="line">        headerText: <span class="function"><span class="keyword">function</span> (<span class="params">valueText</span>) </span>&#123; <span class="comment">//自定义弹出框头部格式</span></span><br><span class="line">            <span class="keyword">return</span> valueText;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// dayNames:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</span></span><br><span class="line"></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>其中：<code>minWidth:40</code>是控件的显示高度，<code>dateOrder: &#39;yyyyMMddDD&#39;,</code>可显示友好的星期+日期：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/15-10-27/48605780.jpg" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/21/Angularjs-判断服务器401错误/" itemprop="url">
-                  Angularjs 判断服务器401错误
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-21T14:42:53+08:00" content="2015-10-21">
-              2015-10-21
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/10/21/Angularjs-判断服务器401错误/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/21/Angularjs-判断服务器401错误/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前在<code>github</code>上有篇判断<code>augularjs</code>401状态码的:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> logsOutUserOn401 = <span class="function"><span class="keyword">function</span>(<span class="params">$location, $q, SessionService, FlashService</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> success = <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> error = <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(response.status === <span class="number">401</span>) &#123;</span><br><span class="line">        SessionService.unset(<span class="string">'authenticated'</span>);</span><br><span class="line">        $location.path(<span class="string">'/login'</span>);</span><br><span class="line">        FlashService.show(response.data.flash);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> $q.reject(response);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">promise</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> promise.then(success, error);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  $httpProvider.responseInterceptors.push(logsOutUserOn401);</span><br></pre></td></tr></table></figure></p>
-<p>今天用时才发现<code>$httpProvider.responseInterceptors</code>方法已经被官方弃用了。<br>改写了方案如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">app.factory(<span class="string">'errorInterceptor'</span>, [<span class="string">'$q'</span>, <span class="string">'$rootScope'</span>,  <span class="string">'$location'</span>,<span class="string">'FlashService'</span>,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">$q, $rootScope, $location,FlashService</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            request: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> config || $q.when(config);</span><br><span class="line">            &#125;,</span><br><span class="line">            requestError: <span class="function"><span class="keyword">function</span>(<span class="params">request</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> $q.reject(request);</span><br><span class="line">            &#125;,</span><br><span class="line">            response: <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> response || $q.when(response);</span><br><span class="line">            &#125;,</span><br><span class="line">            responseError: <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(response.status === <span class="number">401</span>) &#123;</span><br><span class="line">                  </span><br><span class="line">                  <span class="comment">// SessionService.unset('authenticated');</span></span><br><span class="line">                  FlashService.show(response.data.error);</span><br><span class="line">                  $location.path(<span class="string">'/login'</span>);</span><br><span class="line">                 </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (response &amp;&amp; response.status === <span class="number">404</span>) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (response &amp;&amp; response.status &gt;= <span class="number">500</span>) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> $q.reject(response);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;]);</span><br></pre></td></tr></table></figure></p>
-<p>在app.js config 方法调用时：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$httpProvider.interceptors.push(<span class="string">'errorInterceptor'</span>);</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/20/rails-grape-用户登陆API/" itemprop="url">
-                  rails grape 用户登陆API
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-20T23:27:37+08:00" content="2015-10-20">
-              2015-10-20
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/10/20/rails-grape-用户登陆API/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/20/rails-grape-用户登陆API/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="新建apiUser表：">新建apiUser表：</h2><p>  1.access_token<br>  2.expires_at<br>  3.user_id<br>  4.active<br><code>rails g model api_key access_token:string expires_at:datetime user_id:integer active:boolean</code></p>
-<h2 id="在建好的migrate_文件中加入索引：">在建好的migrate 文件中加入索引：</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CreateApiUserKeys</span> <span class="inheritance">&lt; <span class="parent">ActiveRecord::Migration</span></span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">change</span></span></span><br><span class="line">    create_table <span class="symbol">:api_user_keys</span> <span class="keyword">do</span> |t|</span><br><span class="line">      t.string <span class="symbol">:access_token</span></span><br><span class="line">      t.datetime <span class="symbol">:expires_at</span></span><br><span class="line">      t.integer <span class="symbol">:user_id</span></span><br><span class="line">      t.boolean <span class="symbol">:active</span></span><br><span class="line"></span><br><span class="line">      t.timestamps <span class="symbol">null:</span> <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    add_index <span class="symbol">:api_user_keys</span>, [<span class="string">"user_id"</span>], <span class="symbol">name:</span> <span class="string">"index_api_keys_on_user_id"</span>, <span class="symbol">unique:</span> <span class="keyword">false</span></span><br><span class="line">    add_index <span class="symbol">:api_user_keys</span>, [<span class="string">"access_token"</span>], <span class="symbol">name:</span> <span class="string">"index_api_keys_on_access_token"</span>, <span class="symbol">unique:</span> <span class="keyword">true</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>执行db:migrate <code>rake db:migrate</code></p>
-<h2 id="在model中生成token">在model中生成token</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApiUserKey</span> <span class="inheritance">&lt; <span class="parent">ActiveRecord::Base</span></span>  </span></span><br><span class="line">  attr_accessible <span class="symbol">:access_token</span>, <span class="symbol">:expires_at</span>, <span class="symbol">:user_id</span>, <span class="symbol">:active</span>, <span class="symbol">:application</span></span><br><span class="line">  before_create <span class="symbol">:generate_access_token</span></span><br><span class="line">  before_create <span class="symbol">:set_expiration</span></span><br><span class="line">  belongs_to <span class="symbol">:user</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">expired?</span></span></span><br><span class="line">    <span class="constant">DateTime</span>.now &gt;= <span class="keyword">self</span>.expires_at</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  private</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">generate_access_token</span></span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">      <span class="keyword">self</span>.access_token = <span class="constant">SecureRandom</span>.hex</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">while</span> <span class="keyword">self</span>.<span class="keyword">class</span>.exists?(<span class="symbol">access_token:</span> access_token)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">set_expiration</span></span></span><br><span class="line">    <span class="keyword">self</span>.expires_at = <span class="constant">DateTime</span>.now+<span class="number">30</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h2 id="在Grape中加入:">在Grape中加入:</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">helpers <span class="keyword">do</span>  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate!</span></span></span><br><span class="line">      error!(<span class="string">'Unauthorized. Invalid or expired token.'</span>, <span class="number">401</span>) <span class="keyword">unless</span> current_user</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">current_user</span></span></span><br><span class="line">      <span class="comment"># find token. Check if valid.</span></span><br><span class="line">      token = <span class="constant">ApiUserKey</span>.where(<span class="symbol">access_token:</span> params[<span class="symbol">:token</span>]).first</span><br><span class="line">      <span class="keyword">if</span> token &amp;&amp; !token.expired?</span><br><span class="line">        <span class="variable">@current_user</span> = <span class="constant">User</span>.find(token.user_id)</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">false</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h2 id="Post_和Get_:">Post 和Get :</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">resource <span class="symbol">:auth</span> <span class="keyword">do</span> </span><br><span class="line">    desc <span class="string">"Creates and returns access_token if valid login"</span></span><br><span class="line">    params <span class="keyword">do</span></span><br><span class="line">      requires <span class="symbol">:login</span>, <span class="symbol">type:</span> <span class="constant">String</span>, <span class="symbol">desc:</span> <span class="string">"Username or email address"</span></span><br><span class="line">      requires <span class="symbol">:password</span>, <span class="symbol">type:</span> <span class="constant">String</span>, <span class="symbol">desc:</span> <span class="string">"Password"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    post <span class="symbol">:login</span> <span class="keyword">do</span> </span><br><span class="line">      <span class="keyword">if</span> params[<span class="symbol">:login</span>]</span><br><span class="line">        user = <span class="constant">User</span>.find_by_col_user_phone params[<span class="symbol">:login</span>].downcase</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">if</span> user &amp;&amp; user.authenticate(params[<span class="symbol">:password</span>])</span><br><span class="line">        key = <span class="constant">ApiUserKey</span>.create(<span class="symbol">user_id:</span> user.id)</span><br><span class="line">        &#123;<span class="symbol">token:</span> key.access_token&#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        error!(<span class="string">'用户名或密码错误'</span>, <span class="number">401</span>)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    desc <span class="string">"Returns pong if logged in correctly"</span></span><br><span class="line">    params <span class="keyword">do</span></span><br><span class="line">      requires <span class="symbol">:token</span>, <span class="symbol">type:</span> <span class="constant">String</span>, <span class="symbol">desc:</span> <span class="string">"Access token."</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    get <span class="symbol">:ping</span> <span class="keyword">do</span></span><br><span class="line">      authenticate!</span><br><span class="line">      &#123; <span class="symbol">message:</span> <span class="string">"pong"</span> &#125;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/19/rails-mina-puma-部署/" itemprop="url">
-                  rails mina+puma 部署
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-19T14:26:47+08:00" content="2015-10-19">
-              2015-10-19
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/10/19/rails-mina-puma-部署/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/19/rails-mina-puma-部署/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>出于安全考虑，不要使用 root 帐号运行 web 应用。这里新建一个专门用于部署的用户，例如 deploy 或者其它你喜欢的名字。运行以下命令创建用户：</p>
-<p><code># useradd -m -s /bin/bash deploy</code></p>
-<p>将用户加入 sudo 群组，以便使用 sudo 命令：<br><code># adduser deploy sudo</code><br>为 deploy 用户设置密码：<br><code># passwd deploy</code><br>给Linux deploy用户 加入rvm 权限<br><code>usermod -a -G rvm deploy</code><br>退出当前 SSH 链接，用 deploy 帐号重新登陆。</p>
-<h2 id="加入gem_mina">加入<code>gem mina</code></h2><p><code>mina init</code>, 生成config/deploy.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'mina/rails'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'mina/git'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'mina/bundler'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'mina/rvm'</span></span><br><span class="line"><span class="comment">#服务器地址,是使用ssh的方式登录服务器</span></span><br><span class="line">set <span class="symbol">:domain</span>, <span class="string">'deploy@yourIPServer'</span></span><br><span class="line"><span class="comment">#服务器中项目部署位置</span></span><br><span class="line">set <span class="symbol">:deploy_to</span>, <span class="string">'/home/deploy/api'</span></span><br><span class="line"><span class="comment">#git代码仓库</span></span><br><span class="line">set <span class="symbol">:repository</span>, <span class="string">'git@XXX.git'</span></span><br><span class="line"><span class="comment">#git分支</span></span><br><span class="line">set <span class="symbol">:branch</span>, <span class="string">'master'</span></span><br><span class="line">set <span class="symbol">:rvm_path</span>, <span class="string">'/usr/local/rvm/bin/rvm'</span></span><br><span class="line">set <span class="symbol">:bundle_gemfile</span>, <span class="string">"app/Gemfile"</span></span><br><span class="line"><span class="comment"># 中括号里的文件 会出现在服务器项目附录的shared文件夹中，这里加入了secrets.yml，环境密钥无需跟开发计算机一样</span></span><br><span class="line">set <span class="symbol">:shared_paths</span>, [<span class="string">'config/database.yml'</span>, <span class="string">'log'</span>, <span class="string">'config/secrets.yml'</span>]</span><br><span class="line">set <span class="symbol">:rails_env</span>, <span class="string">'development'</span></span><br><span class="line">task <span class="symbol">:environment</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 如果使用的是rbenv,这么设置,但需确保.rbenv-version(rbenv local 1.9.3-p374)已经存在于你的项目中</span></span><br><span class="line">  invoke <span class="symbol">:<span class="string">'rvm:use[ruby-2.1.2@default]'</span></span></span><br><span class="line">  <span class="comment"># 如果使用rvm，可以这样加载一个RVM version<span class="doctag">@gemset</span></span></span><br><span class="line">  <span class="comment"># invoke :'rvm:use[ruby-1.9.3-p374<span class="doctag">@default</span>]'</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment"># 这个块里面的代码表示运行 mina setup时运行的命令</span></span><br><span class="line">task <span class="symbol">:setup</span> =&gt; <span class="symbol">:environment</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># 在服务器项目目录的shared中创建log文件夹</span></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/log"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/log"]</span></span><br><span class="line">  <span class="comment"># 在服务器项目目录的shared中创建config文件夹 下同</span></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config"]</span></span><br><span class="line"></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/database.yml"]</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/secrets.yml"]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># puma.rb 配置puma必须得文件夹及文件</span></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/pids"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/pids"]</span></span><br><span class="line"></span><br><span class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets"]</span></span><br><span class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets"]</span></span><br><span class="line"></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/config/puma.rb"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/config/puma.rb'."]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># tmp/sockets/puma.state</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets/puma.state"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/tmp/sockets/puma.state'."]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># log/puma.stdout.log</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/log/puma.stdout.log"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/log/puma.stdout.log'."]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># log/puma.stdout.log</span></span><br><span class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/log/puma.stderr.log"]</span></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/log/puma.stderr.log'."]</span></span><br><span class="line"></span><br><span class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit '<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/database.yml'."]</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#这个代码块表示运行 mina deploy时执行的命令</span></span><br><span class="line">desc <span class="string">"Deploys the current version to the server."</span></span><br><span class="line">task <span class="symbol">:deploy</span> =&gt; <span class="symbol">:environment</span> <span class="keyword">do</span></span><br><span class="line">  to <span class="symbol">:before_hook</span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  deploy <span class="keyword">do</span></span><br><span class="line">    <span class="comment">#重新拉git服务器上的最新版本，即使没有改变</span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'git:clone'</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#重新设定shared_path位置</span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'deploy:link_shared_paths'</span></span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'bundle:install'</span></span></span><br><span class="line">    <span class="comment"># invoke :'rails:db_migrate'</span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'rails:assets_precompile'</span></span></span><br><span class="line">    invoke <span class="symbol">:<span class="string">'deploy:cleanup'</span></span></span><br><span class="line"></span><br><span class="line">    to <span class="symbol">:launch</span> <span class="keyword">do</span></span><br><span class="line">      queue <span class="string">"mkdir -p <span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;current_path&#125;</span>/tmp/"</span></span><br><span class="line">      <span class="comment"># queue "chown -R www-data #&#123;deploy_to&#125;"</span></span><br><span class="line">      queue <span class="string">"touch <span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;current_path&#125;</span>/tmp/restart.txt"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>这样一来mina的基本配置就完成，接下来只要将你开发环境的项目上传到git服务器，然后运行下面的命令就完成了</p>
-<p><code>mina deploy</code></p>
-<h2 id="puma配置">puma配置</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env puma</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#rails的运行环境</span></span><br><span class="line"><span class="comment"># environment 'production'</span></span><br><span class="line">environment <span class="string">'development'</span></span><br><span class="line">threads <span class="number">2</span>, <span class="number">64</span></span><br><span class="line">workers <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#项目名</span></span><br><span class="line">app_name = <span class="string">"api"</span></span><br><span class="line"><span class="comment">#项目路径</span></span><br><span class="line">application_path = <span class="string">"/home/deploy/<span class="subst">#&#123;app_name&#125;</span>"</span></span><br><span class="line"><span class="comment">#这里一定要配置为项目路径下地current</span></span><br><span class="line">directory <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/current"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#下面都是 puma的配置项</span></span><br><span class="line">pidfile <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/pids/puma.pid"</span></span><br><span class="line">state_path <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/puma.state"</span></span><br><span class="line">stdout_redirect <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stdout.log"</span>, <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stderr.log"</span></span><br><span class="line">bind <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/<span class="subst">#&#123;app_name&#125;</span>.sock"</span></span><br><span class="line">activate_control_app <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/pumactl.sock"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#后台运行</span></span><br><span class="line">daemonize <span class="keyword">true</span></span><br><span class="line">on_restart <span class="keyword">do</span></span><br><span class="line">  puts <span class="string">'On restart...'</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">preload_app!</span><br></pre></td></tr></table></figure>
-<h2 id="启动puma">启动puma</h2><p>进入/yourprj/config<br><code>pumactl -F puma.rb start</code></p>
-<h2 id="Nginx_配置">Nginx 配置</h2><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line">	</span><br><span class="line">    error_log  /var/log/nginx/error.log warn;</span><br><span class="line">    pid        /var/run/nginx.pid;</span><br><span class="line">	</span><br><span class="line">    <span class="name">events</span> &#123;</span><br><span class="line">        worker_connections  <span class="number">1024</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="name">http</span> &#123;</span><br><span class="line">        <span class="literal">include</span>       /etc/nginx/mime.types;</span><br><span class="line">        default_type  application/octet-stream;</span><br><span class="line">	</span><br><span class="line">        log_format  <span class="keyword">main</span>  <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] "<span class="variable">$request</span>" '</span></span><br><span class="line">                          <span class="string">'<span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> "<span class="variable">$http_referer</span>" '</span></span><br><span class="line">                          <span class="string">'"<span class="variable">$http_user_agent</span>" "<span class="variable">$http_x_forwarded_for</span>"'</span>;</span><br><span class="line">	</span><br><span class="line">        access_log  /var/log/nginx/access.log  <span class="keyword">main</span>;</span><br><span class="line">	</span><br><span class="line">        sendfile        on;</span><br><span class="line">        <span class="comment">#tcp_nopush     on;</span></span><br><span class="line">	</span><br><span class="line">        keepalive_timeout  <span class="number">65</span>;</span><br><span class="line">	</span><br><span class="line">        <span class="comment">#gzip  on;</span></span><br><span class="line">	</span><br><span class="line">        <span class="comment">#include /etc/nginx/conf.d/*.conf;</span></span><br><span class="line">        upstream deploy &#123;</span><br><span class="line">                server unix:///var/www/ruby_sample/<span class="literal">shared</span>/tmp/sockets/ruby_sample.sock;</span><br><span class="line">        &#125;</span><br><span class="line">	</span><br><span class="line">        <span class="name">server</span> &#123;</span><br><span class="line">            listen <span class="number">80</span>;</span><br><span class="line">            server_name your.server.<span class="built_in">domain</span>.<span class="literal">ip</span>; <span class="comment"># change to match your URL</span></span><br><span class="line">            <span class="literal">root</span> /var/www/ruby_sample/current/public; <span class="comment"># I assume your app is located at this location</span></span><br><span class="line">	</span><br><span class="line">            location / &#123;</span><br><span class="line">                proxy_pass http://deploy; <span class="comment"># match the name of upstream directive which is defined above</span></span><br><span class="line">                proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">                proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">            &#125;</span><br><span class="line">	</span><br><span class="line">            <span class="name">location</span> ~* ^/assets/ &#123;</span><br><span class="line">                <span class="comment"># Per RFC2616 - 1 year maximum expiry</span></span><br><span class="line">                expires 1y;</span><br><span class="line">                add_header Cache-Control public;</span><br><span class="line">                        <span class="comment"># Some browsers still send conditional-GET requests if there's a</span></span><br><span class="line">                <span class="comment"># Last-Modified header or an ETag header even if they haven't</span></span><br><span class="line">                <span class="comment"># reached the expiry date sent in the Expires header.</span></span><br><span class="line">                add_header Last-Modified <span class="string">""</span>;</span><br><span class="line">                add_header ETag <span class="string">""</span>;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>接下里只需要重启nginx服务器，整个rails的环境就搭建完成了<br><code>nginx -s reload</code></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/08/05/ionic-android-打包/" itemprop="url">
-                  ionic android 打包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-05T10:54:14+08:00" content="2015-08-05">
-              2015-08-05
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/08/05/ionic-android-打包/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/05/ionic-android-打包/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>生成证书</em></p>
-<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keyword">alias</span><span class="number">_n</span>ame -keyalg RSA -keysize <span class="number">2048</span> -validity <span class="number">10000</span>`
-</code></pre><p><em>生成release 版本:</em></p>
-<pre><code>cordova build <span class="comment">--release android</span>
-</code></pre><p><em>jarsinger:</em></p>
-<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk  alias_name
-</code></pre><p><em>生成apk:</em></p>
-<pre><code><span class="regexp">/Library/</span>Android<span class="regexp">/android-sdk-macosx/</span>build-tools<span class="regexp">/22.0.1/</span>zipalign -v <span class="number">4</span> <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk ezu110.apk
-</code></pre>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/22/ionic-发送POST请求/" itemprop="url">
-                  ionic 发送POST请求
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-22T00:40:03+08:00" content="2015-07-22">
-              2015-07-22
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/22/ionic-发送POST请求/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/ionic-发送POST请求/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>今天写一个<code>POST</code>请求给远程API，<code>FORM</code>数据一直不能发送，最终用如下factory解决问题：</em></p>
-<hr>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'LoginService'</span>, [<span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> users = [];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            getUsers: <span class="function"><span class="keyword">function</span>(<span class="params">loginData</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> username = loginData.username,</span><br><span class="line">                    password = loginData.password;</span><br><span class="line">                <span class="keyword">return</span> $http(&#123;</span><br><span class="line">                    method: <span class="string">'POST'</span>,</span><br><span class="line">                    url: <span class="string">'http://172.16.100.222/zf/app/login.php?act=login'</span>,</span><br><span class="line">                    data: $.param(loginData),</span><br><span class="line">                    headers: &#123;</span><br><span class="line">                        <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">// debugger</span></span><br><span class="line">                    users = response;</span><br><span class="line">                    <span class="keyword">return</span> users;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">   &#125;])</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/15/Linux-UNIX的scp命令/" itemprop="url">
-                  Linux/UNIX的scp命令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-15T16:45:50+08:00" content="2015-07-15">
-              2015-07-15
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/15/Linux-UNIX的scp命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/15/Linux-UNIX的scp命令/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<p><em>1、复制远程服务器的文件到本地：</em><br><code>scp -P888 root@120.18.50.33:/data/ha97.zip /home/</code><br><em>2、复制远程服务器的目录到本地：</em><br><code>scp -vrp -P888 root@120.18.50.33:/data/ha97/ /home/</code><br><em>3、复制本地的文件到远程服务器：</em><br><code>scp -P888 /home/ha97.zip root@120.18.50.33:/data/</code><br><em>4、复制本地的目录到远程服务器：</em><br><code>scp -vrp -P888 /home/ root@120.18.50.33:/data/</code></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/14/ionic-android下tab放底部的办法/" itemprop="url">
-                  ionic android下tab放底部的办法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-14T11:47:25+08:00" content="2015-07-14">
-              2015-07-14
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/14/ionic-android下tab放底部的办法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/14/ionic-android下tab放底部的办法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>在app.js里加：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.config(<span class="function"><span class="keyword">function</span>(<span class="params">$stateProvider, $urlRouterProvider, $ionicConfigProvider</span>) </span>&#123;</span><br><span class="line">    $ionicConfigProvider.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><em>更详细设置：</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ionicConfigProvider.platform.ios.tabs.style(<span class="string">'standard'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.tabs.style(<span class="string">'standard'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.navBar.alignTitle(<span class="string">'center'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.navBar.alignTitle(<span class="string">'center'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.backButton.previousTitleText(<span class="string">''</span>).icon(<span class="string">'ion-ios-arrow-thin-left'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.backButton.previousTitleText(<span class="string">''</span>).icon(<span class="string">'ion-android-arrow-back'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.views.transition(<span class="string">'ios'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.views.transition(<span class="string">'android'</span>);</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1201,7 +524,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
