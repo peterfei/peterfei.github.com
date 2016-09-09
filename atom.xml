@@ -145,7 +145,7 @@
     <link href="http://peterfei.me/2016/05/13/Ruby-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/"/>
     <id>http://peterfei.me/2016/05/13/Ruby-编程风格指南/</id>
     <published>2016-05-13T02:39:16.000Z</published>
-    <updated>2016-05-13T02:42:37.000Z</updated>
+    <updated>2016-09-09T09:03:54.000Z</updated>
     <content type="html"><![CDATA[<h2 id="目录">目录</h2><ul>
 <li><a href="#源代码排版">源代码排版</a></li>
 <li><a href="#语法">语法</a></li>
@@ -165,6 +165,7 @@
 <li><a href="#其他">其他</a></li>
 <li><a href="#工具">工具</a></li>
 </ul>
+<a id="more"></a>
 <h2 id="源代码排版">源代码排版</h2><blockquote>
 <p>所有风格都又丑又难读，自己的除外。几乎人人都这样想。把“自己的除外”拿掉，他们或许是对的…<br><br>——Jerry Coffin（论缩排）</p>
 </blockquote>
@@ -894,7 +895,22 @@
 <li><a href="#源代码排版">源代码排版</a></li>
 <li><a href="#语法">语法</a></li>
 <li><a href="#命名">命名</a></li>
-<li><a href="#注释">注释]]>
+<li><a href="#注释">注释</a><ul>
+<li><a href="#注解">注解</a></li>
+</ul>
+</li>
+<li><a href="#类与模块">类与模块</a></li>
+<li><a href="#异常">异常</a></li>
+<li><a href="#集合">集合</a></li>
+<li><a href="#数值">数值</a></li>
+<li><a href="#字符串">字符串</a></li>
+<li><a href="#正则表达式">正则表达式</a></li>
+<li><a href="#百分号字面量">百分号字面量</a></li>
+<li><a href="#元编程">元编程</a></li>
+<li><a href="#其他">其他</a></li>
+<li><a href="#工具">工具</a></li>
+</ul>]]>
+    
     </summary>
     
       <category term="ruby" scheme="http://peterfei.me/tags/ruby/"/>

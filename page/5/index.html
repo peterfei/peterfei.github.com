@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/12/08/ionic-手动清除页面缓存方法/" itemprop="url">
-                  ionic 手动清除页面缓存方法
+                <a class="post-title-link" href="/2014/09/27/2014-09-27-ruby-meta/" itemprop="url">
+                  ruby api设计
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-08T16:23:31+08:00" content="2015-12-08">
-              2015-12-08
+            <time itemprop="dateCreated" datetime="2014-09-27T16:09:31+08:00" content="2014-09-27">
+              2014-09-27
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/08/ionic-手动清除页面缓存方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/ionic-手动清除页面缓存方法/" itemprop="commentsCount"></span>
+                <a href="/2014/09/27/2014-09-27-ruby-meta/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/27/2014-09-27-ruby-meta/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,109 +289,14 @@
       
         
           
-            <p>ionic手动清除页面方法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.$on(<span class="string">"$ionicView.beforeEnter"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  $ionicHistory.clearCache();</span><br><span class="line">  $ionicHistory.clearHistory();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/07/angular-directive-ng-click-not-work/" itemprop="url">
-                  angular directive ng-click not work
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-07T15:32:14+08:00" content="2015-12-07">
-              2015-12-07
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/07/angular-directive-ng-click-not-work/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/07/angular-directive-ng-click-not-work/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="隔离事件">隔离事件</h3><p>中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：</p>
-<blockquote>
-<p>html</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">mobi</span> <span class="attribute">edit-click</span>=<span class="value">"selectMobiFlag(1)"</span> <span class="attribute">item</span>=<span class="value">"item"</span>&gt;</span><span class="tag">&lt;/<span class="title">mobi</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>html 端定义了<code>mobi</code>的指令， 具体点击事件方法如<code>selectMobileFlat</code>,</p>
-<blockquote>
-<p>指令（Directive）</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.directive(<span class="string">'mobi'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		restrict: <span class="string">'EA'</span>,</span><br><span class="line">		scope: &#123;</span><br><span class="line">			<span class="string">'item'</span>:<span class="string">'='</span>,</span><br><span class="line">			<span class="string">'editClick'</span>: <span class="string">'&amp;'</span></span><br><span class="line">		&#125;,</span><br><span class="line">		template: <span class="string">'&lt;div ng-click="toggleState(item)" &gt;111&lt;/div&gt;'</span>,</span><br><span class="line">		link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</span><br><span class="line">			$scope.toggleState = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">				<span class="built_in">console</span>.log(item);</span><br><span class="line">				$scope.editClick(item);</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>指令里绑定了item,传入的是点击 <code>HTML</code>片段本身，在<code>directive</code>里渲染了<code>template</code> 模板，主要负责点击的声明，在隔离作用域里，应用<code>editClick:&quot;&amp;&quot;</code> 和 <code>$scope.toggleState</code> 实现关联。</p>
-<h3 id="最后">最后</h3><p>实现<code>selectMobiFlag</code>的具体实现:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.selectMobiFlag = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">	</span><br><span class="line">	$scope.mobiFlag = item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <h1 id="先看一段source_code">先看一段source code</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="constant">File</span>.open(<span class="string">"myfile.txt"</span>, <span class="string">'w'</span>)</span><br><span class="line">f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line">f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line">f.close</span><br><span class="line">                ||</span><br><span class="line">                \/</span><br><span class="line"><span class="comment"># using block</span></span><br><span class="line"><span class="constant">File</span>.open(<span class="string">"myfile.txt"</span>, <span class="string">'w'</span>) <span class="keyword">do</span> |f|</span><br><span class="line">  f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line">  f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="如上，是使用block后的效果，再来一段">如上，是使用block后的效果，再来一段</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># without code block</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(msg)</span></span></span><br><span class="line">  socket = <span class="constant">TCPSocket</span>.new(<span class="variable">@ip</span>, <span class="variable">@port</span>) <span class="comment"># Pre-</span></span><br><span class="line">  socket.puts(msg)</span><br><span class="line">  response = socket.gets</span><br><span class="line">  <span class="keyword">ensure</span></span><br><span class="line">    socket.close <span class="comment"># Post-</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">            ||</span><br><span class="line">            \/</span><br><span class="line"><span class="comment"># with code block</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(msg)</span></span></span><br><span class="line">  connection <span class="keyword">do</span> |socket|</span><br><span class="line">    socket.puts(<span class="string">"foobar"</span>)</span><br><span class="line">    socket.gets</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">connection</span></span></span><br><span class="line">  socket = <span class="constant">TCPSocket</span>.new(<span class="variable">@ip</span>, <span class="variable">@port</span>) <span class="comment"># Pre-</span></span><br><span class="line">    <span class="keyword">yield</span>(socket)</span><br><span class="line">    <span class="keyword">ensure</span></span><br><span class="line">      socket.close <span class="comment"># Post-</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="Module_的使用">Module 的使用</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">       puts <span class="string">"foo"</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line">    <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="constant">A</span>.new.foo <span class="comment"># foo</span></span><br></pre></td></tr></table></figure>
+<p>.使用extend(Mod)<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">        puts <span class="string">"foo"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">￼<span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line">  extend <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">￼<span class="keyword">end</span></span><br><span class="line"><span class="constant">A</span>.extend(<span class="constant">Mixin</span>)</span><br><span class="line"><span class="constant">A</span>.foo <span class="comment"># class method</span></span><br><span class="line">the same as</span><br><span class="line">￼<span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">A</span></span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>.obj.extend(Mod)<br>如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">         puts <span class="string">"foo"</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">a = <span class="string">"test"</span></span><br><span class="line">a.extend(<span class="constant">Mixin</span>)</span><br><span class="line">a.foo <span class="comment"># foo</span></span><br><span class="line">the same as</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">a</span></span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">b = <span class="string">"demo"</span></span><br><span class="line">b.foo <span class="comment"># NoMethodError</span></span><br></pre></td></tr></table></figure></p>
+<p>.Mixin with class methods<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">    puts <span class="string">"foo"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></span><br><span class="line">      puts <span class="string">"bar"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line">  extend <span class="constant">Mixin::ClassMethods</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>等同于如下代码：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">  <span class="comment"># self.included is a hook method</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">included</span><span class="params">(base)</span></span></span><br><span class="line">    base.extend(<span class="constant">ClassMethods</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">    puts <span class="string">"foo"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></span><br><span class="line">      puts <span class="string">"bar"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>等同于：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">included</span><span class="params">(base)</span></span></span><br><span class="line">    base.extend(<span class="constant">ClassMethods</span>)</span><br><span class="line">    base.send(<span class="symbol">:include</span>, <span class="constant">InstanceMethods</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">InstanceMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></span><br><span class="line">      puts <span class="string">"foo"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></span><br><span class="line">      puts <span class="string">"bar"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">  <span class="keyword">include</span> <span class="constant">Mixin</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -433,8 +338,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/12/04/ionic-Jpush-IOS-配置/" itemprop="url">
-                  ionic jpush  IOS 配置
+                <a class="post-title-link" href="/2014/09/25/2014-09-25-php-magento-productions/" itemprop="url">
+                  Magento 该如何多语言翻译
                 </a>
               
             
@@ -447,8 +352,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-04T13:24:17+08:00" content="2015-12-04">
-              2015-12-04
+            <time itemprop="dateCreated" datetime="2014-09-25T20:09:54+08:00" content="2014-09-25">
+              2014-09-25
             </time>
           </span>
 
@@ -458,8 +363,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/04/ionic-Jpush-IOS-配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/ionic-Jpush-IOS-配置/" itemprop="commentsCount"></span>
+                <a href="/2014/09/25/2014-09-25-php-magento-productions/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/25/2014-09-25-php-magento-productions/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -482,13 +387,573 @@
       
         
           
-            <h3 id="添加_IOS_平台">添加 IOS 平台</h3><p><code>$ ionic platform add ios</code></p>
-<h3 id="安装插件">安装插件</h3><p><code>ionic plugin add https://github.com/DongHongfei/jpush-phonegap-plugin.git</code></p>
-<h3 id="修改配置">修改配置</h3><p>修改: ionic_jpush\plugins\cn.jpush.phonegap.JPushPlugin\src\ios\PushConfig.plist 修改对应的APP_KEY和CHANNEL<br>确保有如下代码，不然后面 Xcode 运行会警告：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">key</span>&gt;</span>APS_FOR_PRODUCTION<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">string</span>&gt;</span>0<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="编译_IOS_项目">编译 IOS 项目</h3><p><code>$ ionic build ios</code></p>
-<h3 id="修改配置_IOS_项目">修改配置 IOS 项目</h3><p>修改 AppDelegate.m</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> Licensed to the Apache Software Foundation (ASF) under one</span><br><span class="line"> or more contributor license agreements.  See the NOTICE file</span><br><span class="line"> distributed with this work for additional information</span><br><span class="line"> regarding copyright ownership.  The ASF licenses this file</span><br><span class="line"> to you under the Apache License, Version 2.0 (the</span><br><span class="line"> "License"); you may not use this file except in compliance</span><br><span class="line"> with the License.  You may obtain a copy of the License at</span><br><span class="line"> </span><br><span class="line"> http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"> </span><br><span class="line"> Unless required by applicable law or agreed to in writing,</span><br><span class="line"> software distributed under the License is distributed on an</span><br><span class="line"> "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span><br><span class="line"> KIND, either express or implied.  See the License for the</span><br><span class="line"> specific language governing permissions and limitations</span><br><span class="line"> under the License.</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  AppDelegate.m</span></span><br><span class="line"><span class="comment">//  ionic_jpush</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></span><br><span class="line"><span class="comment">//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"AppDelegate.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"MainViewController.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"APService.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"JPushPlugin.h"</span>  //viper</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">&lt;Cordova/CDVPlugin.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AppDelegate</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@synthesize</span> window, viewController;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/** If you need to do any extra app-specific initialization, you can do it here</span><br><span class="line">     *  -jm</span><br><span class="line">     **/</span></span><br><span class="line">    <span class="built_in">NSHTTPCookieStorage</span>* cookieStorage = [<span class="built_in">NSHTTPCookieStorage</span> sharedHTTPCookieStorage];</span><br><span class="line">    </span><br><span class="line">    [cookieStorage setCookieAcceptPolicy:<span class="built_in">NSHTTPCookieAcceptPolicyAlways</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> cacheSizeMemory = <span class="number">8</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 8MB</span></span><br><span class="line">    <span class="keyword">int</span> cacheSizeDisk = <span class="number">32</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 32MB</span></span><br><span class="line"><span class="preprocessor">#if __has_feature(objc_arc)</span></span><br><span class="line">    <span class="built_in">NSURLCache</span>* sharedCache = [[<span class="built_in">NSURLCache</span> alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:<span class="string">@"nsurlcache"</span>];</span><br><span class="line"><span class="preprocessor">#else</span></span><br><span class="line">    <span class="built_in">NSURLCache</span>* sharedCache = [[[<span class="built_in">NSURLCache</span> alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:<span class="string">@"nsurlcache"</span>] autorelease];</span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line">    [<span class="built_in">NSURLCache</span> setSharedURLCache:sharedCache];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#pragma mark UIApplicationDelegate implementation</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * This is main kick off after the app inits, the views and Settings are setup here. (preferred - iOS4 and up)</span><br><span class="line"> */</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span>*)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span>*)launchOptions</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGRect</span> screenBounds = [[<span class="built_in">UIScreen</span> mainScreen] bounds];</span><br><span class="line">    </span><br><span class="line"><span class="preprocessor">#if __has_feature(objc_arc)</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.window</span> = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:screenBounds];</span><br><span class="line"><span class="preprocessor">#else</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.window</span> = [[[<span class="built_in">UIWindow</span> alloc] initWithFrame:screenBounds] autorelease];</span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.autoresizesSubviews</span> = <span class="literal">YES</span>;</span><br><span class="line">    </span><br><span class="line"><span class="preprocessor">#if __has_feature(objc_arc)</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.viewController</span> = [[MainViewController alloc] init];</span><br><span class="line"><span class="preprocessor">#else</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.viewController</span> = [[[MainViewController alloc] init] autorelease];</span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Set your app's start page by setting the &lt;content src='foo.html' /&gt; tag in config.xml.</span></span><br><span class="line">    <span class="comment">// If necessary, uncomment the line below to override it.</span></span><br><span class="line">    <span class="comment">// self.viewController.startPage = @"index.html";</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// <span class="doctag">NOTE:</span> To customize the view's frame size (which defaults to full screen), override</span></span><br><span class="line">    <span class="comment">// [self.viewController viewWillAppear:] in your view controller.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.rootViewController</span> = <span class="keyword">self</span><span class="variable">.viewController</span>;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.window</span> makeKeyAndVisible];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Required</span></span><br><span class="line"><span class="preprocessor">#if __IPHONE_OS_VERSION_MAX_ALLOWED &gt; __IPHONE_7_1</span></span><br><span class="line">    <span class="keyword">if</span> ([[<span class="built_in">UIDevice</span> currentDevice]<span class="variable">.systemVersion</span> floatValue] &gt;= <span class="number">8.0</span>) &#123;</span><br><span class="line">        <span class="comment">//可以添加自定义categories</span></span><br><span class="line">        [APService registerForRemoteNotificationTypes:(<span class="built_in">UIUserNotificationTypeBadge</span> |</span><br><span class="line">                                                       <span class="built_in">UIUserNotificationTypeSound</span> |</span><br><span class="line">                                                       <span class="built_in">UIUserNotificationTypeAlert</span>)</span><br><span class="line">                                           categories:<span class="literal">nil</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//categories 必须为nil</span></span><br><span class="line">        [APService registerForRemoteNotificationTypes:(<span class="built_in">UIRemoteNotificationTypeBadge</span> |</span><br><span class="line">                                                       <span class="built_in">UIRemoteNotificationTypeSound</span> |</span><br><span class="line">                                                       <span class="built_in">UIRemoteNotificationTypeAlert</span>)</span><br><span class="line">                                           categories:<span class="literal">nil</span>];</span><br><span class="line">    &#125;</span><br><span class="line"><span class="preprocessor">#else</span></span><br><span class="line">    <span class="comment">//categories 必须为nil</span></span><br><span class="line">    [APService registerForRemoteNotificationTypes:(<span class="built_in">UIRemoteNotificationTypeBadge</span> |</span><br><span class="line">                                                   <span class="built_in">UIRemoteNotificationTypeSound</span> |</span><br><span class="line">                                                   <span class="built_in">UIRemoteNotificationTypeAlert</span>)</span><br><span class="line">                                       categories:<span class="literal">nil</span>];</span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line">    <span class="comment">// Required</span></span><br><span class="line">    [APService setupWithOption:launchOptions];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// this happens while we are running ( in the background, or from within our own app )</span></span><br><span class="line"><span class="comment">// only valid if ionic_jpush-Info.plist specifies a protocol to handle</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span>*)application openURL:(<span class="built_in">NSURL</span>*)url sourceApplication:(<span class="built_in">NSString</span>*)sourceApplication annotation:(<span class="keyword">id</span>)annotation</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!url) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// all plugins will get the notification, and their handlers will be called</span></span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotification:[<span class="built_in">NSNotification</span> notificationWithName:CDVPluginHandleOpenURLNotification object:url]];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// repost all remote and local notification using the default NSNotificationCenter so multiple plugins may respond</span></span><br><span class="line">- (<span class="keyword">void</span>)            application:(<span class="built_in">UIApplication</span>*)application</span><br><span class="line">    didReceiveLocalNotification:(<span class="built_in">UILocalNotification</span>*)notification</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// re-post ( broadcast )</span></span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVLocalNotification object:notification];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#ifndef DISABLE_PUSH_NOTIFICATIONS</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)                                 application:(<span class="built_in">UIApplication</span>*)application</span><br><span class="line">    didRegisterForRemoteNotificationsWithDeviceToken:(<span class="built_in">NSData</span>*)deviceToken</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// re-post ( broadcast )</span></span><br><span class="line">    <span class="built_in">NSString</span>* token = [[[[deviceToken description]</span><br><span class="line">                         stringByReplacingOccurrencesOfString:<span class="string">@"&lt;"</span> withString:<span class="string">@""</span>]</span><br><span class="line">                        stringByReplacingOccurrencesOfString:<span class="string">@"&gt;"</span> withString:<span class="string">@""</span>]</span><br><span class="line">                       stringByReplacingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</span><br><span class="line">    </span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVRemoteNotification object:token];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Required</span></span><br><span class="line">    [APService registerDeviceToken:deviceToken];</span><br><span class="line">    [APService setDebugMode];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)                                 application:(<span class="built_in">UIApplication</span>*)application</span><br><span class="line">    didFailToRegisterForRemoteNotificationsWithError:(<span class="built_in">NSError</span>*)error</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// re-post ( broadcast )</span></span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVRemoteNotificationError object:error];</span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSUInteger</span>)application:(<span class="built_in">UIApplication</span>*)application supportedInterfaceOrientationsForWindow:(<span class="built_in">UIWindow</span>*)window</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// iPhone doesn't support upside down by default, while the iPad does.  Override to allow all orientations always, and let the root view controller decide what's allowed (the supported orientations mask gets intersected).</span></span><br><span class="line">    <span class="built_in">NSUInteger</span> supportedInterfaceOrientations = (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationPortrait</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationLandscapeLeft</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationLandscapeRight</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationPortraitUpsideDown</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> supportedInterfaceOrientations;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)applicationDidReceiveMemoryWarning:(<span class="built_in">UIApplication</span>*)application</span><br><span class="line">&#123;</span><br><span class="line">    [[<span class="built_in">NSURLCache</span> sharedURLCache] removeAllCachedResponses];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)application:(<span class="built_in">UIApplication</span> *)application didReceiveRemoteNotification:(<span class="built_in">NSDictionary</span> *)userInfo &#123;</span><br><span class="line">    <span class="comment">// Required</span></span><br><span class="line">    [APService handleRemoteNotification:userInfo];</span><br><span class="line">    <span class="built_in">BOOL</span> isActive;</span><br><span class="line">    <span class="keyword">if</span> (application<span class="variable">.applicationState</span> == <span class="built_in">UIApplicationStateActive</span>) &#123;</span><br><span class="line">        isActive = <span class="literal">TRUE</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        isActive = <span class="literal">FALSE</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSDictionary</span> *dict=[[<span class="built_in">NSMutableDictionary</span> alloc] initWithDictionary:userInfo];</span><br><span class="line">    </span><br><span class="line">    [dict setValue: [[<span class="built_in">NSNumber</span> alloc] initWithBool:isActive] forKey:<span class="string">@"isActive"</span> ];</span><br><span class="line">    </span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:kJPushPluginReceiveNotification</span><br><span class="line">                                                        object:dict] ;<span class="comment">//viper</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+            <p>一般的，登陆后台，e.g.选择[目录]-&gt;[管理产品]-&gt;[choose store view],如图示：<br><img src="http://pic.yupoo.com/peterfei/E5hJuyQ6/wTouJ.jpg" alt="choose store view"></p>
+<p>就可以编辑中文内容，同理，选择[目录]-&gt;[管理产品]-&gt;[choose store view]，选择英文，就可以编辑英文产品。<br>编辑’CMS’,如[页面]，选择一静态页面，如[About Us],点编辑后，按”ctrl”健，在商店界面，点’英文’，界面会着色，之后选内容项，就可以编辑英文内容，同理，再新建一页面，复制’About Us’的页面信息，如标题，网址等，按”ctrl”健，在商店界面，点’中文’，界面会着色，之后选内容项，就可以编辑中文内容，前台就已经对应生成中英文双语的关于我们了，是不是很Cool。<br><img src="http://pic.yupoo.com/peterfei/E5hOg1K0/D2nZQ.jpg" alt="choose store view"></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/09/22/2014-09-22-rails-subselect/" itemprop="url">
+                  Rails中的子查询
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-22T14:16:16+08:00" content="2014-09-22">
+              2014-09-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/22/2014-09-22-rails-subselect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/22/2014-09-22-rails-subselect/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="大致是这样子的">大致是这样子的</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">favarate_post</span> <span class="title">options=</span>&#123;&#125;</span></span><br><span class="line">        subselect = <span class="constant">Favarate</span>.send(</span><br><span class="line">                <span class="symbol">:construct_finder_sql</span>,</span><br><span class="line">                    <span class="symbol">:select</span> =&gt;<span class="string">"post_id"</span>,</span><br><span class="line">                    <span class="symbol">:conditions=&gt;</span>&#123;<span class="symbol">:blog_id=&gt;self</span>.id&#125;,</span><br><span class="line">                    <span class="symbol">:order=&gt;<span class="string">"published_at desc"</span></span>,</span><br><span class="line">                    <span class="symbol">:limit</span> =&gt; option[<span class="symbol">:limit</span>]||<span class="number">10</span>,<span class="symbol">:offset=&gt;option</span>[<span class="symbol">:offset</span>]</span><br><span class="line">            )</span><br><span class="line">        <span class="constant">Post</span>.find(<span class="symbol">:all</span>,<span class="symbol">:conditions</span> =&gt;<span class="string">'posts.id in <span class="subst">#&#123;subselect&#125;</span>'</span>,<span class="symbol">:order</span> =&gt;<span class="string">"published_at DESC"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span><br><span class="line">construct_finder_sql 同下句SQL类似：</span><br><span class="line">`</span><span class="string">``</span>sql</span><br><span class="line">    <span class="constant">SELECT</span> * <span class="constant">FROM</span> posts <span class="constant">WHERE</span> posts.id <span class="constant">IN</span> (</span><br><span class="line">    <span class="constant">SELECT</span> post_id <span class="constant">FROM</span> favorites <span class="constant">WHERE</span> blog_id = <span class="number">42</span> <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span> <span class="constant">LIMIT</span> <span class="number">10</span> <span class="constant">OFFSET</span> <span class="number">10</span></span><br><span class="line">  ) <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/09/18/2014-09-18-bible-plus-everyday/" itemprop="url">
+                  圣经金句分享
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-18T15:08:55+08:00" content="2014-09-18">
+              2014-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/18/2014-09-18-bible-plus-everyday/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-bible-plus-everyday/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>爱是含忍的，爱是慈祥的，爱不嫉妒，不夸张，不自大，不作无礼的事，不求己益，不动怒，不图谋恶事，不以不义为乐，却与真理同乐：凡事包容，凡事相信，凡事盼望，凡事忍耐。(格前13：4-7)</li>
+<li>你们的身体是圣神的宫殿。(格前6：19)</li>
+<li>天主为爱他的人所准备的，是眼所未见，耳所未闻，人心所未想到的。(格前2：9)</li>
+<li>我是葡萄树，你们是枝条，那住在我内，我也住在他内的，就结许多的果实，因为离了我，你们什么也不能作！</li>
+<li>那含泪播种的，必含笑获享收成。（咏126：5）</li>
+<li>凡高举自己的，必被贬抑；凡贬抑自己的，必被高举。（玛23：12)</li>
+<li>天主使太阳上升，光照恶人，也光照善人；降雨给义人，也给不义的人，你们若只爱那些爱你们的人，你们还有什么赏报呢?（玛5：45-46)</li>
+<li>凡是求的，就必得到；找的，就必找到；敲的，就必给他开。（玛7：8)</li>
+<li>人纵然赚得了全世界，却赔上了自己的灵魂，为他有什么益处？（玛16：26）</li>
+<li>不要论断人，以免被论断。（玛7：1）</li>
+<li>你用什么尺度量人，也要被什么尺度量。（玛7：2）</li>
+<li>你当机警如蛇，纯良似鸽。（玛10：16）</li>
+<li>你们白白得来的，也要白白分施。(玛10：8)</li>
+<li>天主是神，应当以心神以真理去朝拜祂。(若4：24)</li>
+<li>知识只会使人傲慢自大，爱德才能立人。(格前8：1)</li>
+<li>小量播种的，也要小量收获；大量播种的，也要大量收获。(格后9：6)<br><img src="http://pic.yupoo.com/peterfei/E4bNfEFu/aIW8d.jpg" alt="主是我的牧者"></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="url">
+                  ROR layout+content_for 配合用法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-18T14:29:09+08:00" content="2014-09-18">
+              2014-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/18/2014-09-18-layout-plus-content-for/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span>&lt;%<span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span>%&gt;<span class="xml"></span><br><span class="line">	 </span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="ruby"> <span class="keyword">end</span> </span>%&gt;<span class="xml"></span></span><br></pre></td></tr></table></figure></p>
+<p>之后</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span>%&gt;<span class="xml"></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/" itemprop="url">
+                  建立类方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-06-14T19:15:00+08:00" content="2013-06-14">
+              2013-06-14
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/06/14/2013-06-14-jian-li-lei-fang-fa/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">First</span> <span class="symbol">way:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">self</span></span></span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">my_method</span>;</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="constant">Second</span> <span class="constant">Way</span><span class="symbol">:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">my_method</span>;</span> <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="constant">Third</span> <span class="constant">Way</span><span class="symbol">:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MyClass</span>.<span class="title">my_other_method</span>;</span> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/" itemprop="url">
+                  rails 项目中对select2的高级使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-04-16T10:19:00+08:00" content="2013-04-16">
+              2013-04-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>—</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/02/28/2013-02-28-helloworkd/" itemprop="url">
+                  Hello World
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-02-28T09:30:00+08:00" content="2013-02-28">
+              2013-02-28
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/02/28/2013-02-28-helloworkd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/28/2013-02-28-helloworkd/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>重拾失失去博客的日子</em> </p>
+<p><img src="http://i50.tinypic.com/21lmlxj.jpg" alt="小家伙一岁半了"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/6acbc97djw1e1sx6qtj90j_zps3cdae9d5.jpg" alt="2013春节"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/psu_zpsda9949d5.jpg" alt="那些年我的她"></p>
 
           
         
@@ -514,7 +979,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
   </nav>
 
 

@@ -528,12 +528,702 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/16/rails-page-no-cache/" itemprop="url">
+                  rails page no cache
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T15:21:21+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/rails-page-no-cache/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/rails-page-no-cache/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">before_filter :set_cache_headers</span><br><span class="line"></span><br><span class="line">def set_cache_headers</span><br><span class="line">  response.headers["<span class="operator"><span class="keyword">Cache</span>-Control<span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span>, <span class="keyword">no</span>-<span class="keyword">store</span><span class="string">"</span><br><span class="line">  response.headers["</span><span class="keyword">Pragma</span><span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span><span class="string">"</span><br><span class="line">  response.headers["</span>Expires<span class="string">"] = "</span>Fri, <span class="number">01</span> Jan <span class="number">2016</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> GMT<span class="string">"</span><br><span class="line">end</span></span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="url">
+                  ionic 加载app,页面空白解决方案
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-21T10:55:25+08:00" content="2016-05-21">
+              2016-05-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/21/ionic-加载app-页面空白解决方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"AutoHideSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"ShowSplashScreenSpinner"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashMaintainAspectRatio"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashShowOnlyFirstTime"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashScreenDelay"</span> <span class="attribute">value</span>=<span class="value">"10000"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"FadeSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">feature</span> <span class="attribute">name</span>=<span class="value">"SplashScreen"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">param</span> <span class="attribute">name</span>=<span class="value">"android-package"</span> <span class="attribute">value</span>=<span class="value">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">feature</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在app.js里加入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.cordova &amp;&amp; <span class="built_in">window</span>.cordova.plugins &amp;&amp; <span class="built_in">window</span>.cordova.plugins.Keyboard) &#123;</span><br><span class="line">            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(<span class="literal">true</span>);</span><br><span class="line">            cordova.plugins.Keyboard.disableScroll(<span class="literal">true</span>);</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                navigator.splashscreen.hide();</span><br><span class="line">            &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/13/Ruby-编程风格指南/" itemprop="url">
+                  Ruby 编程风格指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-13T10:39:16+08:00" content="2016-05-13">
+              2016-05-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/13/Ruby-编程风格指南/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/13/Ruby-编程风格指南/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="目录">目录</h2><ul>
+<li><a href="#源代码排版">源代码排版</a></li>
+<li><a href="#语法">语法</a></li>
+<li><a href="#命名">命名</a></li>
+<li><a href="#注释">注释</a><ul>
+<li><a href="#注解">注解</a></li>
+</ul>
+</li>
+<li><a href="#类与模块">类与模块</a></li>
+<li><a href="#异常">异常</a></li>
+<li><a href="#集合">集合</a></li>
+<li><a href="#数值">数值</a></li>
+<li><a href="#字符串">字符串</a></li>
+<li><a href="#正则表达式">正则表达式</a></li>
+<li><a href="#百分号字面量">百分号字面量</a></li>
+<li><a href="#元编程">元编程</a></li>
+<li><a href="#其他">其他</a></li>
+<li><a href="#工具">工具</a></li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/13/Ruby-编程风格指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/04/rails-minitest-写mocha/" itemprop="url">
+                  rails minitest 写mocha
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-04T15:10:48+08:00" content="2016-05-04">
+              2016-05-04
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/04/rails-minitest-写mocha/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/rails-minitest-写mocha/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe <span class="string">"订单号测试"</span> <span class="keyword">do</span></span><br><span class="line">      it <span class="string">"规则测试"</span> <span class="keyword">do</span></span><br><span class="line">        time = <span class="constant">Time</span>.now</span><br><span class="line">        <span class="constant">Time</span>.expects(<span class="symbol">:now</span>).at_least_once.returns(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</span><br><span class="line">        order = <span class="constant">OrderInfo</span>.new</span><br><span class="line">        order.serial_number.must_equal <span class="string">"<span class="subst">#&#123;(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>).strftime(<span class="string">'%Y%m%d'</span>)&#125;</span>000001"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><code>expects(:now)</code>是期望返回now的值是一天后的值非当天的值。</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/19/AngularJS-指令的-Scope-作用域/" itemprop="url">
+                  AngularJS 指令的 Scope (作用域)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-19T21:58:37+08:00" content="2016-04-19">
+              2016-04-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/19/AngularJS-指令的-Scope-作用域/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/19/AngularJS-指令的-Scope-作用域/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当一个指令被创建的时候，都会有这样一个选择，是继承自己的父作用域（一般是外部的Controller提供的作用域或者根作用域（$rootScope）），还是创建一个新的自己的作用域，当然AngularJS为我们指令的scope参数提供了三种选择，分别是：<code>false</code>,<code>true</code>,<code>{}</code>；默认情况下是false。<br>JS:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">angular.module(<span class="string">"MyApp"</span>, [])</span><br><span class="line">    .controller(<span class="string">"MyController"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">    $scope.name = <span class="string">"dreamapple"</span>;</span><br><span class="line">    $scope.age = <span class="number">20</span>;</span><br><span class="line">    $scope.changeAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $scope.age = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .directive(<span class="string">"myDirective"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;</span><br><span class="line">        restrict: <span class="string">"AE"</span>,</span><br><span class="line">        scope: &#123;</span><br><span class="line">            name: <span class="string">'@myName'</span>,</span><br><span class="line">            age: <span class="string">'='</span>,</span><br><span class="line">            changeAge: <span class="string">'&amp;changeMyAge'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        replace: <span class="literal">true</span>,</span><br><span class="line">        template: <span class="string">"&lt;div class='my-directive'&gt;"</span> +</span><br><span class="line">            <span class="string">"&lt;h3&gt;下面部分是我们创建的指令生成的&lt;/h3&gt;"</span> +</span><br><span class="line">            <span class="string">"我的名字是：&lt;span ng-bind='name'&gt;&lt;/span&gt;&lt;br/&gt;"</span> +</span><br><span class="line">            <span class="string">"我的年龄是：&lt;span ng-bind='age'&gt;&lt;/span&gt;&lt;br/&gt;"</span> +</span><br><span class="line">            <span class="string">"在这里修改名字：&lt;input type='text' ng-model='name'&gt;&lt;br/&gt;"</span> +</span><br><span class="line">            <span class="string">"&lt;button ng-click='changeAge()'&gt;修改年龄&lt;/button&gt;"</span> +</span><br><span class="line">            <span class="string">" &lt;/div&gt;"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>HTML:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-app</span>=<span class="value">"MyApp"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span> <span class="attribute">ng-controller</span>=<span class="value">"MyController"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-info"</span>&gt;</span>我的名字是：<span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"name"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">br</span>/&gt;</span>我的年龄是：<span class="tag">&lt;<span class="title">span</span> <span class="attribute">ng-bind</span>=<span class="value">"age"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">br</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"my-directive"</span> <span class="attribute">my-directive</span> <span class="attribute">my-name</span>=<span class="value">"&#123;&#123;name&#125;&#125;"</span> <span class="attribute">age</span>=<span class="value">"age"</span>  <span class="attribute">change-my-age</span>=<span class="value">"changeAge()"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>@</code><br>这是一个单项绑定的前缀标识符<br>使用方法：在元素中使用属性，好比这样<code>&lt;div my-directive my-name=&quot;&quot;&gt;&lt;/div&gt;</code></p>
+<p>注意，属性的名字要用-将两个单词连接，因为是数据的单项绑定所以要通过使用<code>｛｛｝｝</code>来绑定数据。</p>
+<p><code>=</code></p>
+<p>这是一个双向数据绑定前缀标识符<br>使用方法：在元素中使用属性，好比这样<code>&lt;div my-directive age=&quot;age&quot;&gt;&lt;/div&gt;</code>,注意，数据的双向绑定要通过=前缀标识符实现，所以不可以使用<em>｛｛｝｝</em>。</p>
+<p><code>&amp;</code></p>
+<p>这是一个绑定函数方法的前缀标识符<br>使用方法：在元素中使用属性，好比这样<strong><code>&lt;div my-directive change-my-age=&quot;changeAge()&quot;&gt;&lt;/div&gt;</code></strong>，注意，属性的名字要用-将多个个单词连接。</p>
+<blockquote>
+<p>注意：在新创建指令的作用域对象中，使用属性的名字进行绑定时，要使用驼峰命名标准，比如下面的代码。</p>
+</blockquote>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">scope</span>: &#123;</span><br><span class="line">            <span class="comment">// `myName` 就是原来元素中的`my-name`属性</span></span><br><span class="line">            <span class="attribute">name</span>: <span class="string">'@myName'</span>, </span><br><span class="line">            <span class="attribute">age</span>: <span class="string">'='</span>,</span><br><span class="line">            <span class="comment">// `changeMyAge`就是原来元素中的`change-my-age`属性</span></span><br><span class="line">            <span class="attribute">changeAge</span>: <span class="string">'&amp;changeMyAge'</span> </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>@ 当指令编译到模板的name时，就会到scope中寻找是否含有name的键值对，如果存在，就像上面那样，看到@就知道这是一个单向的数据绑定，然后寻找原来的那个使用指令的元素上（或者是指令元素本身）含有这个值的属性即my-name=，然后在父作用域查找的值，得到之后传递给模板中的name。</li>
+<li>=和&amp;与@差不多，只不过=进行的是双向的数据绑定，不论模板还是父作用域上的属性的值发生改变都会使另一个值发生改变，而&amp;是绑定函数而已。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/07/rails-angularjs-kaminari-分页/" itemprop="url">
+                  rails 使用angularjs 中完成分页
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-07T13:09:48+08:00" content="2016-04-07">
+              2016-04-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/07/rails-angularjs-kaminari-分页/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/rails-angularjs-kaminari-分页/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>rails 使用angularjs 中完成分页:<br>Base 插件：<code>kaminari</code> ,<code>angular-paginate-anything</code></p>
+<blockquote>
+<p><bgf-pagination collection="users" url="users_url" per-page="50"></bgf-pagination></p>
+</blockquote>
+<p>使用angular resource 请求列表，如：<br><code>User = $resource($scope.users_url)
+      User.query((results)-&gt;
+          $scope.users = results
+        )</code></p>
+<p>实现一个完成分页controller方法,如base_controller.rb：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Api::BaseController</span> <span class="inheritance">&lt; <span class="parent">ApplicationController</span></span></span></span><br><span class="line">    <span class="comment"># respond_to :json</span></span><br><span class="line"></span><br><span class="line">    private</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">paginated_action</span><span class="params">(options = &#123;&#125;)</span></span></span><br><span class="line">        before_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            <span class="keyword">if</span> request.headers[<span class="string">'Range-Unit'</span>] == <span class="string">'items'</span> &amp;&amp;</span><br><span class="line">                    request.headers[<span class="string">'Range'</span>].present?</span><br><span class="line"></span><br><span class="line">                requested_from = <span class="keyword">nil</span></span><br><span class="line">                requested_to = <span class="keyword">nil</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> request.headers[<span class="string">'Range'</span>] =~ <span class="regexp">/(\d+)-(\d*)/</span></span><br><span class="line">                    requested_from, requested_to = <span class="variable">$1</span>.to_i, (<span class="variable">$2</span>.present? ? <span class="variable">$2</span>.to_i <span class="symbol">:</span> <span class="constant">Float::INFINITY</span>)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (requested_from &gt; requested_to)</span><br><span class="line">                  response.status = <span class="number">416</span></span><br><span class="line">                  headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/<span class="subst">#&#123;total_items&#125;</span>"</span></span><br><span class="line">                  render <span class="symbol">text:</span> <span class="string">'invalid pagination range'</span></span><br><span class="line">                  <span class="keyword">return</span> <span class="keyword">false</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">                <span class="variable">@kp_per_page</span> = requested_to - requested_from + <span class="number">1</span></span><br><span class="line">                <span class="variable">@kp_page</span> = requested_to / <span class="variable">@kp_per_page</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        after_filter(options) <span class="keyword">do</span> |controller|</span><br><span class="line">            results = instance_variable_get(<span class="string">"@<span class="subst">#&#123;controller_name&#125;</span>"</span>) <span class="comment"># ex <span class="doctag">@users</span></span></span><br><span class="line">            <span class="keyword">if</span>(results.length &gt; <span class="number">0</span>)</span><br><span class="line">                response.status = <span class="number">206</span></span><br><span class="line">                headers[<span class="string">'Accept-Ranges'</span>] = <span class="string">'items'</span></span><br><span class="line">                headers[<span class="string">'Range-Unit'</span>] = <span class="string">'items'</span></span><br><span class="line"></span><br><span class="line">                total_items = results.total_count</span><br><span class="line">                current_page = results.current_page</span><br><span class="line">                per = <span class="variable">@kp_per_page</span></span><br><span class="line">                <span class="keyword">unless</span> per.present?</span><br><span class="line">                    per = <span class="number">25</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                <span class="comment"># binding.pry</span></span><br><span class="line">                requested_from = (results.current_page - <span class="number">1</span>) * per</span><br><span class="line">                available_to = (results.length - <span class="number">1</span>) + requested_from</span><br><span class="line"></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"<span class="subst">#&#123;requested_from&#125;</span>-<span class="subst">#&#123;available_to&#125;</span>/<span class="subst">#&#123;total_items &lt; <span class="constant">Float::INFINITY</span> ? total_items <span class="symbol">:</span> <span class="string">'*'</span>&#125;</span>"</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                response.status = <span class="number">204</span></span><br><span class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/0"</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>同时让UserController 继承BaseController:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="inheritance">&lt; <span class="parent">Api::BaseController</span></span></span></span><br><span class="line">    paginated_action <span class="symbol">only:</span> [<span class="symbol">:user_data</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span></span></span><br><span class="line"></span><br><span class="line">     <span class="comment"># render json:<span class="doctag">@area</span>_user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">user_data</span></span></span><br><span class="line">      <span class="variable">@user</span> =  <span class="constant">User</span>.page(<span class="variable">@kp_page</span>).per(<span class="variable">@kp_per_page</span>)</span><br><span class="line">      render <span class="symbol">json:</span> <span class="variable">@user</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line"></span><br><span class="line">        <span class="constant">L</span>.debug <span class="string">"提交上来的数据是<span class="subst">#&#123;area_user_param&#125;</span>"</span></span><br><span class="line">        <span class="variable">@user</span> = <span class="constant">User</span>.new area_user_param</span><br><span class="line">        <span class="keyword">if</span> <span class="variable">@user</span>.save</span><br><span class="line">          render <span class="symbol">json:</span> <span class="variable">@user</span>,<span class="symbol">status:</span> <span class="symbol">:created</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          render <span class="symbol">json:</span><span class="variable">@user</span>.errors,<span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">private</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">area_user_param</span></span></span><br><span class="line">    <span class="comment"># binding.pry</span></span><br><span class="line">    params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:email</span>,<span class="symbol">:mobile_phone</span>,<span class="symbol">:password</span>,<span class="symbol">:password_confirmation</span>,<span class="symbol">:truename</span>,<span class="symbol">:card_number</span>) <span class="keyword">rescue</span> <span class="keyword">nil</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="url">
+                  ionic 生成动态生成右拉城市菜单
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-30T09:59:35+08:00" content="2015-12-30">
+              2015-12-30
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/30/ionic-生成动态生成右拉城市菜单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>昨天有时间想重写下之前技术部小黄写的城市右拉， 主要用的功能是<code>ionic</code> 自带的 <code>ion-side-menus</code> 和 <code>ionicSideMenuDelegate</code>。<br>配置路由：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">.</span>state(<span class="string">'choosePovince'</span>,&#123;</span><br><span class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</span><br><span class="line">  url:<span class="string">'/choose_port'</span>,</span><br><span class="line">  abstract:<span class="literal">true</span>,</span><br><span class="line">  templateUrl:<span class="string">'templates/jiesongji/choose_porvince_main.html'</span>,</span><br><span class="line">  controller:<span class="string">'JiejiCtrl'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 右侧滑动</span><br><span class="line"> * @type &#123;应用框架自带的滑动更好解决&#125;</span><br><span class="line"> */</span></span><br><span class="line"><span class="built_in">.</span>state(<span class="string">'choosePovince.city'</span>,&#123;</span><br><span class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</span><br><span class="line">  url:<span class="string">'/city'</span>,</span><br><span class="line">  views:&#123;</span><br><span class="line">    <span class="string">'menuContent'</span> :</span><br><span class="line">    &#123;</span><br><span class="line">      templateUrl: <span class="string">"templates/jiesongji/porvince_main.html"</span>,</span><br><span class="line">      controller:<span class="string">'JiejiCtrl'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'right-menu'</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      templateUrl : <span class="string">"templates/jiesongji/city_right.html"</span>,</span><br><span class="line">      controller:<span class="string">'JiejiCtrl'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">params</span>: &#123;</span><br><span class="line">    p_obj: <span class="built_in">null</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>第一层路由是声明右拉的父级关联模板。<br><code>Html</code>模板<code>choose_porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ion-side-menus</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ion-pane</span> <span class="attribute">ion-side-menu-content</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">ion-nav-bar</span> <span class="attribute">class</span>=<span class="value">"bar bar-header top-header"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">              <span class="tag">&lt;<span class="title">ion-nav-buttons</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"button button-clear"</span> <span class="attribute">ng-click</span>=<span class="value">"goBack()"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="title">ion-nav-buttons</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="title">ion-nav-back-button</span> <span class="attribute">class</span>=<span class="value">"button-clear"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span> Back<span class="tag">&lt;/<span class="title">ion-nav-back-button</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">ion-nav-bar</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">ion-nav-view</span> <span class="attribute">name</span>=<span class="value">"menuContent"</span> <span class="attribute">animation</span>=<span class="value">"slide-left-right"</span>&gt;</span><span class="tag">&lt;/<span class="title">ion-nav-view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ion-pane</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ion-side-menu</span> <span class="attribute">side</span>=<span class="value">"right"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="title">header</span> <span class="attribute">class</span>=<span class="value">"bar bar-header top-header"</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="title">h1</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span>选择城市<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="title">header</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="title">ion-content</span> <span class="attribute">class</span>=<span class="value">"has-header"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">ion-nav-view</span> <span class="attribute">name</span>=<span class="value">"right-menu"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">ion-nav-view</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="title">ion-content</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ion-side-menu</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">ion-side-menus</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>第二层路由声明右拉的模板与主模板。<br><code>Html</code> 模板 <code>porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ion-view</span> <span class="attribute">title</span>=<span class="value">"选择城市"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">ion-content</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">ion-list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ion-item</span> <span class="attribute">ng-click</span>=<span class="value">"right_menu(province.pro_id);"</span> <span class="attribute">ng-repeat</span>=<span class="value">"province in ProvinceList"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;ion-item ng-click="show_province();"&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line">             <span class="tag">&lt;<span class="title">span</span>&gt;</span>&#123;&#123;province.province&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ion-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">ion-list</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">ion-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ion-view</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Html</code> 模板 <code>city_right.html</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ion-item</span> <span class="attribute">ng-repeat</span>=<span class="value">"city in citys"</span> <span class="attribute">style</span>=<span class="value">"height:50px;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span>&gt;</span>&#123;&#123;city.city_name&#125;&#125;<span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ion-item</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Javascript</code>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * [show_province 加载省份]</span><br><span class="line"> * @return &#123;[type]&#125; [description]</span><br><span class="line"> */</span></span><br><span class="line">$scope.show_province = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> param = &#123;</span><br><span class="line">        code: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span></span><br><span class="line">    &#125;;</span><br><span class="line">    chaXunProvinceFactory.getChaXunProvince(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="comment">// debugger</span></span><br><span class="line">            $state.go(<span class="string">'choosePovince.city'</span>,&#123;p_obj:callback.data.content&#125;);</span><br><span class="line">            <span class="comment">// $scope.ProvinceList = callback.data.content;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 通过路由的对象传值，渲染ProvinceList显示数据</span><br><span class="line"> * @param  &#123;[type]&#125; angular.isObject($stateParams.p_obj) [description]</span><br><span class="line"> * @return &#123;[type]&#125;                                      [description]</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">if</span> (angular.isObject($stateParams.p_obj)) &#123;</span><br><span class="line">    $scope.ProvinceList=$stateParams.p_obj;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 这里是重点，当点击事件发生时，向父级scope对象发送监听对象请求，传值。</span><br><span class="line"> * @param  &#123;[type]&#125; obj [description]</span><br><span class="line"> * @return &#123;[type]&#125;     [description]</span><br><span class="line"> */</span></span><br><span class="line">$scope.right_menu = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    $ionicSideMenuDelegate.toggleRight();</span><br><span class="line">    $scope.$emit(<span class="string">'cities'</span>,obj);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 父页面监听，如果接收到点击请求，则通过接口获取动态数据，同时赋值给$scope对象。</span><br><span class="line"> * @param  &#123;[type]&#125; e    [description]</span><br><span class="line"> * @param  &#123;Object&#125; d)&#123;                var param [description]</span><br><span class="line"> * @return &#123;[type]&#125;      [description]</span><br><span class="line"> */</span></span><br><span class="line">$scope.$on(<span class="string">'cities'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e,d</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">var</span> param = &#123;</span><br><span class="line">        code: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span>,</span><br><span class="line">        pro_id: d</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    chaXunProvinceFactory.getChaXunCity(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</span><br><span class="line">            $scope.citys = callback.data.content;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>最终效果：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.47.50.png" alt="效果图"><br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.48.15.png" alt="效果图"></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
 
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
