@@ -217,6 +217,11 @@
 
     
     
+      
+      
+
+      
+    
 
     
       
@@ -240,8 +245,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/13/ionic-发布webserver/" itemprop="url">
-                  ionic 发布为webserver
+                <a class="post-title-link" href="/2015/07/14/ionic-android下tab放底部的办法/" itemprop="url">
+                  ionic android下tab放底部的办法
                 </a>
               
             
@@ -254,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-13T17:41:38+08:00" content="2015-07-13">
-              2015-07-13
+            <time itemprop="dateCreated" datetime="2015-07-14T11:47:25+08:00" content="2015-07-14">
+              2015-07-14
             </time>
           </span>
 
@@ -265,8 +270,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/07/13/ionic-发布webserver/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/13/ionic-发布webserver/" itemprop="commentsCount"></span>
+                <a href="/2015/07/14/ionic-android下tab放底部的办法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/14/ionic-android下tab放底部的办法/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,11 +294,9 @@
       
         
           
-            <p><em>公司在做ionic开发时，遇到要发布为webserver:</em><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd [ionic project]&#10;$ ionic platform add browser&#10;$ cd [ionic project]/platforms/browser/</span><br></pre></td></tr></table></figure></p>
-<p>安装 <code>Install Node.js</code></p>
-<p><em>Install connect and serve-static</em><br><code>$ cd [webapp] $ npm install connect serve-static</code><br><em>编写server.js</em><br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">connect</span> = <span class="keyword">require</span>(<span class="string">'connect'</span>);</span><br><span class="line">var serveStatic = <span class="keyword">require</span>(<span class="string">'serve-static'</span>);</span><br><span class="line"><span class="keyword">connect</span>().<span class="keyword">use</span>(serveStatic(__dirname)).<span class="keyword">listen</span>(<span class="number">8080</span>)</span><br></pre></td></tr></table></figure></p>
-<p><em>运行：</em><br><code>$ node server.js &amp;</code></p>
-
+            <p><em>在app.js里加：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.config(<span class="function"><span class="keyword">function</span>(<span class="params">$stateProvider, $urlRouterProvider, $ionicConfigProvider</span>) </span>&#123;</span><br><span class="line">    $ionicConfigProvider.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><em>更详细设置：</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ionicConfigProvider.platform.ios.tabs.style(<span class="string">'standard'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.tabs.style(<span class="string">'standard'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.tabs.position(<span class="string">'bottom'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.navBar.alignTitle(<span class="string">'center'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.navBar.alignTitle(<span class="string">'center'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.backButton.previousTitleText(<span class="string">''</span>).icon(<span class="string">'ion-ios-arrow-thin-left'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.backButton.previousTitleText(<span class="string">''</span>).icon(<span class="string">'ion-android-arrow-back'</span>);</span><br><span class="line">$ionicConfigProvider.platform.ios.views.transition(<span class="string">'ios'</span>);</span><br><span class="line">$ionicConfigProvider.platform.android.views.transition(<span class="string">'android'</span>);</span><br></pre></td></tr></table></figure>
           
         
       
@@ -318,7 +321,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -359,7 +362,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -373,7 +376,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

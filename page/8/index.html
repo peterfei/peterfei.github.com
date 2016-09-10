@@ -217,6 +217,11 @@
 
     
     
+      
+      
+
+      
+    
 
     
       
@@ -240,8 +245,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/05/04/rails-minitest-写mocha/" itemprop="url">
-                  rails minitest 写mocha
+                <a class="post-title-link" href="/2016/05/13/Ruby-编程风格指南/" itemprop="url">
+                  Ruby 编程风格指南
                 </a>
               
             
@@ -254,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-04T15:10:48+08:00" content="2016-05-04">
-              2016-05-04
+            <time itemprop="dateCreated" datetime="2016-05-13T10:39:16+08:00" content="2016-05-13">
+              2016-05-13
             </time>
           </span>
 
@@ -265,8 +270,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/04/rails-minitest-写mocha/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/rails-minitest-写mocha/" itemprop="commentsCount"></span>
+                <a href="/2016/05/13/Ruby-编程风格指南/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/13/Ruby-编程风格指南/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -288,11 +293,30 @@
 
       
         
-          
-            <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe <span class="string">"订单号测试"</span> <span class="keyword">do</span></span><br><span class="line">      it <span class="string">"规则测试"</span> <span class="keyword">do</span></span><br><span class="line">        time = <span class="constant">Time</span>.now</span><br><span class="line">        <span class="constant">Time</span>.expects(<span class="symbol">:now</span>).at_least_once.returns(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</span><br><span class="line">        order = <span class="constant">OrderInfo</span>.new</span><br><span class="line">        order.serial_number.must_equal <span class="string">"<span class="subst">#&#123;(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>).strftime(<span class="string">'%Y%m%d'</span>)&#125;</span>000001"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p><code>expects(:now)</code>是期望返回now的值是一天后的值非当天的值。</p>
-
-          
+          <h2 id="目录">目录</h2><ul>
+<li><a href="#源代码排版">源代码排版</a></li>
+<li><a href="#语法">语法</a></li>
+<li><a href="#命名">命名</a></li>
+<li><a href="#注释">注释</a><ul>
+<li><a href="#注解">注解</a></li>
+</ul>
+</li>
+<li><a href="#类与模块">类与模块</a></li>
+<li><a href="#异常">异常</a></li>
+<li><a href="#集合">集合</a></li>
+<li><a href="#数值">数值</a></li>
+<li><a href="#字符串">字符串</a></li>
+<li><a href="#正则表达式">正则表达式</a></li>
+<li><a href="#百分号字面量">百分号字面量</a></li>
+<li><a href="#元编程">元编程</a></li>
+<li><a href="#其他">其他</a></li>
+<li><a href="#工具">工具</a></li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/13/Ruby-编程风格指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -316,7 +340,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -357,7 +381,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -371,7 +395,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

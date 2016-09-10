@@ -217,6 +217,11 @@
 
     
     
+      
+      
+
+      
+    
 
     
       
@@ -240,8 +245,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/11/04/Ionic-更新默认图标/" itemprop="url">
-                  Ionic 更新默认图标
+                <a class="post-title-link" href="/2015/11/12/rails-minitest自动化测试/" itemprop="url">
+                  rails minitest自动化测试
                 </a>
               
             
@@ -254,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-04T13:52:01+08:00" content="2015-11-04">
-              2015-11-04
+            <time itemprop="dateCreated" datetime="2015-11-12T09:32:09+08:00" content="2015-11-12">
+              2015-11-12
             </time>
           </span>
 
@@ -265,8 +270,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/11/04/Ionic-更新默认图标/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/04/Ionic-更新默认图标/" itemprop="commentsCount"></span>
+                <a href="/2015/11/12/rails-minitest自动化测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/12/rails-minitest自动化测试/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,12 +294,24 @@
       
         
           
-            <p>项目中要替换ionic 默认的icon 图标，<code>Google</code> 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：</p>
-<blockquote>
-<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">"\f447"</span></span></span>;</span><br><span class="line">   &#125;</span></span><br></pre></td></tr></table></figure></p>
+            <h2 id="Gemfile加入相关测试驱动：">Gemfile加入相关测试驱动：</h2><blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">#测试组</span></span><br><span class="line">group <span class="symbol">:test</span> <span class="keyword">do</span></span><br><span class="line">    gem <span class="string">"minitest"</span></span><br><span class="line">    gem <span class="string">'minitest-spec-rails'</span></span><br><span class="line">    gem <span class="string">'minitest-reporters'</span></span><br><span class="line">    gem <span class="string">'spring'</span></span><br><span class="line">    gem <span class="string">'guard'</span></span><br><span class="line">    gem <span class="string">'guard-minitest'</span></span><br><span class="line">    <span class="comment"># 添加调用跟踪静默程序</span></span><br><span class="line">    <span class="comment"># gem 'mini_backtrace'</span></span><br><span class="line">    gem <span class="string">'ruby-prof'</span></span><br><span class="line">    gem <span class="string">'minitest-rails-capybara'</span></span><br><span class="line">    gem <span class="string">'autotest-standalone'</span> <span class="comment"># The file '.autotest' makes sure the tests are run via test server (spork).</span></span><br><span class="line">    gem <span class="string">'autotest-rails-pure'</span> <span class="comment"># -pure gives us autotest without ZenTest gem.</span></span><br><span class="line">    gem <span class="string">'autotest-growl'</span>      <span class="comment"># growl notifications, complains a little bit if growl isn't installed</span></span><br><span class="line">    gem <span class="string">'autotest-fsevent'</span>    <span class="comment"># react to filesystem events, save your CPU</span></span><br><span class="line">    gem <span class="string">'spork-minitest'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 </blockquote>
-<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="comment">/*content: "\f447";*/</span></span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="function">url</span>(<span class="string">'../img/car.png'</span>) <span class="important">!important</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/icon-finsih.png" alt="效果图"></p>
+<h2 id="初始化guard:">初始化guard:</h2><blockquote>
+<p><code>guard init minitest</code></p>
+</blockquote>
+<h2 id="配置guard:">配置guard:</h2><pre><code><span class="comment"><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># A sample Guardfile</span></span><br><span class="line"><span class="comment"># More info at https://github.com/guard/guard#readme</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Uncomment and set this to only include directories you want to watch</span></span><br><span class="line"><span class="comment"># directories %w(app lib config test spec features) \</span></span><br><span class="line"><span class="comment">#  .select&#123;|d| Dir.exists?(d) ? d : UI.warning("Directory #&#123;d&#125; does not exist")&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## <span class="doctag">Note:</span> if you are using the `directories` clause above and you are not</span></span><br><span class="line"><span class="comment">## watching the project directory ('.'), then you will want to move</span></span><br><span class="line"><span class="comment">## the Guardfile to a watched dir and symlink it back, e.g.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  $ mkdir config</span></span><br><span class="line"><span class="comment">#  $ mv Guardfile config/</span></span><br><span class="line"><span class="comment">#  $ ln -s config/Guardfile .</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># and, you'll have to watch "config/Guardfile" instead of "Guardfile"</span></span><br><span class="line"></span><br><span class="line">guard <span class="symbol">:minitest</span>, <span class="symbol">spring:</span> <span class="keyword">true</span>, <span class="symbol">all_on_start:</span> <span class="keyword">false</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># with Minitest::Unit</span></span><br><span class="line">  watch(%r&#123;^test/(.*)\/?test<span class="constant">_</span>(.*)\.rb<span class="variable">$&#125;</span>)</span><br><span class="line">  watch(%r&#123;^lib/(.*<span class="regexp">/)?([^/</span>]+)\.rb<span class="variable">$&#125;</span>)     &#123; |m| <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>test_<span class="subst">#&#123;m[<span class="number">2</span>]&#125;</span>.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^test/test_helper\.rb<span class="variable">$&#125;</span>)      &#123; <span class="string">'test'</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># with Minitest::Spec</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^spec/(.*)_spec\.rb$&#125;)</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^lib/(.+)\.rb$&#125;)         &#123; |m| "spec/#&#123;m[1]&#125;_spec.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^spec/spec_helper\.rb$&#125;) &#123; 'spec' &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Rails 4</span></span><br><span class="line">  watch(%r&#123;^app/(.+)\.rb<span class="variable">$&#125;</span>)                               &#123; |m| <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/controllers/application_controller\.rb<span class="variable">$&#125;</span>) &#123; <span class="string">'test/controllers'</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/controllers/(.+)<span class="constant">_controller\</span>.rb<span class="variable">$&#125;</span>)        &#123; |m| <span class="string">"test/integration/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/views/(.+)<span class="constant">_mailer/</span>.+&#125;)                   &#123; |m| <span class="string">"test/mailers/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_mailer_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^lib/(.+)\.rb<span class="variable">$&#125;</span>)                               &#123; |m| <span class="string">"test/lib/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^test/.+<span class="constant">_test\</span>.rb<span class="variable">$&#125;</span>)</span><br><span class="line">  watch(%r&#123;^test/test_helper\.rb<span class="variable">$&#125;</span>) &#123; <span class="string">'test'</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Rails &lt; 4</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/controllers/(.*)\.rb$&#125;) &#123; |m| "test/functional/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/helpers/(.*)\.rb$&#125;)     &#123; |m| "test/helpers/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/models/(.*)\.rb$&#125;)      &#123; |m| "test/unit/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></span>
+</code></pre><h2 id="运行Guard:">运行Guard:</h2><blockquote>
+<p>输入 <code>guard</code> 命令运行测试</p>
+</blockquote>
+<h2 id="例外">例外</h2><blockquote>
+<p>如果database不用默认的数据库迁移，测试时可以在db下放入<code>structure.sql</code>, 该配置为数据库结构，然后更改配置文件 <code>application.rb</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config<span class="class">.active_record</span><span class="class">.schema_format</span> = :sql</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>运行：<code>rake db:test:prepare</code></p>
+<h2 id="生成集成化测试文件">生成集成化测试文件</h2><blockquote>
+<p><code>rails g test_unit:integration testName</code></p>
+<h2 id="生成model测试文件">生成model测试文件</h2><p><code>rails g test_unit:model</code></p>
+</blockquote>
 
           
         
@@ -320,7 +337,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -361,7 +378,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -375,7 +392,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

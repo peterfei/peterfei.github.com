@@ -217,6 +217,11 @@
 
     
     
+      
+      
+
+      
+    
 
     
       
@@ -240,8 +245,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/10/31/puma-在nginx-启动后报错解决/" itemprop="url">
-                  puma 在nginx 启动后报错解决
+                <a class="post-title-link" href="/2015/11/04/Ionic-更新默认图标/" itemprop="url">
+                  Ionic 更新默认图标
                 </a>
               
             
@@ -254,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-31T11:46:44+08:00" content="2015-10-31">
-              2015-10-31
+            <time itemprop="dateCreated" datetime="2015-11-04T13:52:01+08:00" content="2015-11-04">
+              2015-11-04
             </time>
           </span>
 
@@ -265,8 +270,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/10/31/puma-在nginx-启动后报错解决/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/31/puma-在nginx-启动后报错解决/" itemprop="commentsCount"></span>
+                <a href="/2015/11/04/Ionic-更新默认图标/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/04/Ionic-更新默认图标/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,13 +294,12 @@
       
         
           
-            <h2 id="在Centos上部署时遇到如下错误：">在Centos上部署时遇到如下错误：</h2><blockquote>
-<p>puma nginx connect() Permission denied</p>
-</blockquote>
-<p>解决方法：在nginx.conf 配置文件中加入了puma 用户：<br><code>user deploy</code> </p>
+            <p>项目中要替换ionic 默认的icon 图标，<code>Google</code> 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：</p>
 <blockquote>
-<p>puma 启动时的用户，如此启动正常。</p>
+<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">"\f447"</span></span></span>;</span><br><span class="line">   &#125;</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
+<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="comment">/*content: "\f447";*/</span></span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="function">url</span>(<span class="string">'../img/car.png'</span>) <span class="important">!important</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/icon-finsih.png" alt="效果图"></p>
 
           
         
@@ -321,7 +325,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/23/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -362,7 +366,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -376,7 +380,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
