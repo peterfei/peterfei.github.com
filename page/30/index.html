@@ -217,11 +217,6 @@
 
     
     
-      
-      
-
-      
-    
 
     
       
@@ -245,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/22/ionic-发送POST请求/" itemprop="url">
-                  ionic 发送POST请求
+                <a class="post-title-link" href="/2015/08/05/ionic-android-打包/" itemprop="url">
+                  ionic android 打包
                 </a>
               
             
@@ -259,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-22T00:40:03+08:00" content="2015-07-22">
-              2015-07-22
+            <time itemprop="dateCreated" datetime="2015-08-05T10:54:14+08:00" content="2015-08-05">
+              2015-08-05
             </time>
           </span>
 
@@ -270,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/07/22/ionic-发送POST请求/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/ionic-发送POST请求/" itemprop="commentsCount"></span>
+                <a href="/2015/08/05/ionic-android-打包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/05/ionic-android-打包/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,9 +289,15 @@
       
         
           
-            <p><em>今天写一个<code>POST</code>请求给远程API，<code>FORM</code>数据一直不能发送，最终用如下factory解决问题：</em></p>
-<hr>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'LoginService'</span>, [<span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> users = [];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            getUsers: <span class="function"><span class="keyword">function</span>(<span class="params">loginData</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> username = loginData.username,</span><br><span class="line">                    password = loginData.password;</span><br><span class="line">                <span class="keyword">return</span> $http(&#123;</span><br><span class="line">                    method: <span class="string">'POST'</span>,</span><br><span class="line">                    url: <span class="string">'http://172.16.100.222/zf/app/login.php?act=login'</span>,</span><br><span class="line">                    data: $.param(loginData),</span><br><span class="line">                    headers: &#123;</span><br><span class="line">                        <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">// debugger</span></span><br><span class="line">                    users = response;</span><br><span class="line">                    <span class="keyword">return</span> users;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">   &#125;])</span><br></pre></td></tr></table></figure>
+            <p><em>生成证书</em></p>
+<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keyword">alias</span><span class="number">_n</span>ame -keyalg RSA -keysize <span class="number">2048</span> -validity <span class="number">10000</span>`
+</code></pre><p><em>生成release 版本:</em></p>
+<pre><code>cordova build <span class="comment">--release android</span>
+</code></pre><p><em>jarsinger:</em></p>
+<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk  alias_name
+</code></pre><p><em>生成apk:</em></p>
+<pre><code><span class="regexp">/Library/</span>Android<span class="regexp">/android-sdk-macosx/</span>build-tools<span class="regexp">/22.0.1/</span>zipalign -v <span class="number">4</span> <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk ezu110.apk
+</code></pre>
           
         
       
@@ -321,7 +322,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/31/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -362,7 +363,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -376,7 +377,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

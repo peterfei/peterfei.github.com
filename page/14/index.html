@@ -217,11 +217,6 @@
 
     
     
-      
-      
-
-      
-    
 
     
       
@@ -245,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/12/15/mac-跳过App-Store-更新系统/" itemprop="url">
-                  mac 跳过App Store 更新系统
+                <a class="post-title-link" href="/2015/12/28/ionic-页面对象传值/" itemprop="url">
+                  ionic 页面对象传值
                 </a>
               
             
@@ -259,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-15T10:55:34+08:00" content="2015-12-15">
-              2015-12-15
+            <time itemprop="dateCreated" datetime="2015-12-28T16:13:15+08:00" content="2015-12-28">
+              2015-12-28
             </time>
           </span>
 
@@ -270,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/15/mac-跳过App-Store-更新系统/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/mac-跳过App-Store-更新系统/" itemprop="commentsCount"></span>
+                <a href="/2015/12/28/ionic-页面对象传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/28/ionic-页面对象传值/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,8 +289,10 @@
       
         
           
-            <p><code>sudo softwareupdate -i -a</code><br>应用它就可以跳过臃肿的app store 进行系统更新了。</p>
-
+            <p>ionic 项目里常常遇到页面间传值的情况，一般是这样的：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.state(<span class="string">'tab.chat-detail'</span>, &#123;</span><br><span class="line">				url: <span class="string">'/chats/:chatId'</span>,</span><br><span class="line">				views: &#123;</span><br><span class="line">					<span class="string">'tab-chats'</span>: &#123;</span><br><span class="line">						templateUrl: <span class="string">'templates/chat-detail.html'</span>,</span><br><span class="line">						controller: <span class="string">'ChatDetailCtrl'</span></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>但遇到对象时,应做如下处理:<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$stateProvider</span>.state(<span class="string">'users'</span>, &#123;</span><br><span class="line">    url: <span class="string">'/users'</span>,</span><br><span class="line">    controller: <span class="string">'UsersCtrl'</span>,</span><br><span class="line">    params: &#123;</span><br><span class="line">        obj: null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> UserCtrl(<span class="variable">$stateParams</span>) &#123;</span><br><span class="line">    conrole.log(<span class="variable">$stateParams</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$state</span>.go(<span class="string">'users'</span>, &#123;obj:yourObj&#125;);</span><br></pre></td></tr></table></figure>
           
         
       
@@ -320,7 +317,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -361,7 +358,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -375,7 +372,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

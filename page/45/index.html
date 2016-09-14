@@ -217,11 +217,6 @@
 
     
     
-      
-      
-
-      
-    
 
     
       
@@ -245,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/09/22/2014-09-22-rails-subselect/" itemprop="url">
-                  Rails中的子查询
+                <a class="post-title-link" href="/2014/09/25/2014-09-25-php-magento-productions/" itemprop="url">
+                  Magento 该如何多语言翻译
                 </a>
               
             
@@ -259,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-22T14:16:16+08:00" content="2014-09-22">
-              2014-09-22
+            <time itemprop="dateCreated" datetime="2014-09-25T20:09:54+08:00" content="2014-09-25">
+              2014-09-25
             </time>
           </span>
 
@@ -270,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/09/22/2014-09-22-rails-subselect/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/22/2014-09-22-rails-subselect/" itemprop="commentsCount"></span>
+                <a href="/2014/09/25/2014-09-25-php-magento-productions/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/25/2014-09-25-php-magento-productions/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,7 +289,8 @@
       
         
           
-            <h3 id="大致是这样子的">大致是这样子的</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">favarate_post</span> <span class="title">options=</span>&#123;&#125;</span></span><br><span class="line">        subselect = <span class="constant">Favarate</span>.send(</span><br><span class="line">                <span class="symbol">:construct_finder_sql</span>,</span><br><span class="line">                    <span class="symbol">:select</span> =&gt;<span class="string">"post_id"</span>,</span><br><span class="line">                    <span class="symbol">:conditions=&gt;</span>&#123;<span class="symbol">:blog_id=&gt;self</span>.id&#125;,</span><br><span class="line">                    <span class="symbol">:order=&gt;<span class="string">"published_at desc"</span></span>,</span><br><span class="line">                    <span class="symbol">:limit</span> =&gt; option[<span class="symbol">:limit</span>]||<span class="number">10</span>,<span class="symbol">:offset=&gt;option</span>[<span class="symbol">:offset</span>]</span><br><span class="line">            )</span><br><span class="line">        <span class="constant">Post</span>.find(<span class="symbol">:all</span>,<span class="symbol">:conditions</span> =&gt;<span class="string">'posts.id in <span class="subst">#&#123;subselect&#125;</span>'</span>,<span class="symbol">:order</span> =&gt;<span class="string">"published_at DESC"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span><br><span class="line">construct_finder_sql 同下句SQL类似：</span><br><span class="line">`</span><span class="string">``</span>sql</span><br><span class="line">    <span class="constant">SELECT</span> * <span class="constant">FROM</span> posts <span class="constant">WHERE</span> posts.id <span class="constant">IN</span> (</span><br><span class="line">    <span class="constant">SELECT</span> post_id <span class="constant">FROM</span> favorites <span class="constant">WHERE</span> blog_id = <span class="number">42</span> <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span> <span class="constant">LIMIT</span> <span class="number">10</span> <span class="constant">OFFSET</span> <span class="number">10</span></span><br><span class="line">  ) <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span></span><br></pre></td></tr></table></figure>
+            <p>一般的，登陆后台，e.g.选择[目录]-&gt;[管理产品]-&gt;[choose store view],如图示：<br><img src="http://pic.yupoo.com/peterfei/E5hJuyQ6/wTouJ.jpg" alt="choose store view"></p>
+<p>就可以编辑中文内容，同理，选择[目录]-&gt;[管理产品]-&gt;[choose store view]，选择英文，就可以编辑英文产品。<br>编辑’CMS’,如[页面]，选择一静态页面，如[About Us],点编辑后，按”ctrl”健，在商店界面，点’英文’，界面会着色，之后选内容项，就可以编辑英文内容，同理，再新建一页面，复制’About Us’的页面信息，如标题，网址等，按”ctrl”健，在商店界面，点’中文’，界面会着色，之后选内容项，就可以编辑中文内容，前台就已经对应生成中英文双语的关于我们了，是不是很Cool。<br><img src="http://pic.yupoo.com/peterfei/E5hOg1K0/D2nZQ.jpg" alt="choose store view"></p>
 
           
         
@@ -320,7 +316,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -361,7 +357,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -375,7 +371,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

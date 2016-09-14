@@ -217,11 +217,6 @@
 
     
     
-      
-      
-
-      
-    
 
     
       
@@ -245,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/03/IOS-打包script/" itemprop="url">
-                  IOS 打包script
+                <a class="post-title-link" href="/2015/07/03/从octopress折腾果断切到hexo/" itemprop="url">
+                  从octopress折腾果断切到hexo
                 </a>
               
             
@@ -259,7 +254,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-03T19:47:03+08:00" content="2015-07-03">
+            <time itemprop="dateCreated" datetime="2015-07-03T21:05:40+08:00" content="2015-07-03">
               2015-07-03
             </time>
           </span>
@@ -270,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/07/03/IOS-打包script/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/IOS-打包script/" itemprop="commentsCount"></span>
+                <a href="/2015/07/03/从octopress折腾果断切到hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/从octopress折腾果断切到hexo/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,8 +289,8 @@
       
         
           
-            <p><em>无签名打包命令</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"iphoneos"</span> ] || [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"ipados"</span> ]; <span class="keyword">then</span></span><br><span class="line">/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py <span class="string">"my.company.<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span>;</span><br><span class="line">codesign <span class="operator">-f</span> <span class="operator">-s</span> <span class="string">"iPhone Developer"</span> --entitlements <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+            <p>上次发博文记得是五月，中间mac更新了一次，ruby1.9.3 用不了，缺少组件，于是rebuild and reintall ruby, 折腾了一个钟左右，之后rake 生成文章，deploy 尽然上传不上去，又一个钟pass了。在种种不能忍受的情况下，果断切到hexo.真的是很很力呀！！！</p>
+
           
         
       
@@ -320,7 +315,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -361,7 +356,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -375,7 +370,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

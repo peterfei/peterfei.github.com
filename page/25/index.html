@@ -217,11 +217,6 @@
 
     
     
-      
-      
-
-      
-    
 
     
       
@@ -245,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/10/27/angularjs-mobiscroll-日期用例/" itemprop="url">
-                  angularjs mobiscroll 日期用例
+                <a class="post-title-link" href="/2015/10/29/Sublime-中自定义snippets/" itemprop="url">
+                  Sublime 中自定义snippets
                 </a>
               
             
@@ -259,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-27T16:23:20+08:00" content="2015-10-27">
-              2015-10-27
+            <time itemprop="dateCreated" datetime="2015-10-29T10:00:20+08:00" content="2015-10-29">
+              2015-10-29
             </time>
           </span>
 
@@ -270,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/10/27/angularjs-mobiscroll-日期用例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/27/angularjs-mobiscroll-日期用例/" itemprop="commentsCount"></span>
+                <a href="/2015/10/29/Sublime-中自定义snippets/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/29/Sublime-中自定义snippets/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,9 +289,42 @@
       
         
           
-            <p>Angularjs 写了个mobiscroll directive ：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">.directive(<span class="string">'mobiDateTimePicker'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="string">'A'</span>,</span><br><span class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> $(element).mobiscroll().datetime(&#123;</span><br><span class="line">        theme: <span class="string">'default'</span>,</span><br><span class="line">        display: <span class="string">'bottom'</span>,</span><br><span class="line">        lang:<span class="string">'zh'</span>,</span><br><span class="line">        minWidth:<span class="number">40</span>,</span><br><span class="line">        steps:&#123;  minute: <span class="number">15</span>&#125;,</span><br><span class="line">        rows:<span class="number">3</span>,</span><br><span class="line">        <span class="comment">// dayText: '日', monthText: '月', yearText: '年',</span></span><br><span class="line">        dateFormat: <span class="string">'yy-MM-dd'</span>,</span><br><span class="line">        timeFormat: <span class="string">'HH:ii:ss'</span>,</span><br><span class="line">        <span class="comment">// timeWheels: 'HHii',</span></span><br><span class="line">        showNow: <span class="literal">true</span>, </span><br><span class="line">        showLabel:<span class="literal">true</span>,</span><br><span class="line">        dateOrder: <span class="string">'yyyyMMddDD'</span>,</span><br><span class="line">        <span class="comment">// tap:true,</span></span><br><span class="line">        <span class="comment">// invalid:[&#123;'10/27',start:'18:00',end:"19:00"&#125;]</span></span><br><span class="line">        headerText: <span class="function"><span class="keyword">function</span> (<span class="params">valueText</span>) </span>&#123; <span class="comment">//自定义弹出框头部格式</span></span><br><span class="line">            <span class="keyword">return</span> valueText;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// dayNames:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</span></span><br><span class="line"></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>其中：<code>minWidth:40</code>是控件的显示高度，<code>dateOrder: &#39;yyyyMMddDD&#39;,</code>可显示友好的星期+日期：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/15-10-27/48605780.jpg" alt=""></p>
-
+            <h2 id="选择tool-&gt;new_snippet">选择<code>tool</code>-&gt;<code>new snippet</code></h2><p>内容如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line">Hello, $&#123;1:this&#125; is a $&#123;2:snippet&#125;.</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Hello, ${1:this} is a ${2:snippet} 这正是你要插入到文档中的文本。在此节放入的任何片段都会被插入到你的文档中。</li>
+<li>tabTrigger 此节是可选的配置，默认是被注释掉的。默认 hello 的意思是：如果你在某个文档里输入了单词 hello ，然后按下 Tab 键，接着 hello 就会被替换为1中定义的代码片段。再次按下Tab键，接着snippet会被替换为2中定义的代码片段</li>
+<li>scope 此节也是可选配置，默认是被注释掉的。默认 source.php 的意思是：只有在编辑 php 源码的时候，才能用此代码片段</li>
+</ol>
+<h2 id="保存代码片段文件">保存代码片段文件</h2><p>在能自定义代码片段之前，应该首先保存。在保存文件对话框里，需要明确的指定文件的扩展名为.sublime-snippet，然后把文件保存到默认目录（当前用户主目录下的\Sublime Text 3\Packages\User目录中）。</p>
+<p>保存文件之后，就可以测试上面提到的tabTrigger功能了。如果不再使用此功能，可以在此注释掉.</p>
+<h2 id="修改代码片段文件">修改代码片段文件</h2><p>在创建新代码片段中提到过 Hello, ${1:this} is a ${2:snippet} ，其中 ${1:this} 和 ${2:snippet} 是占位符。在插入代码片段后，单词 this 被选中，如果键入内容，this 将会被替换掉，接着按下 Tab 键，将会选中单词 snippet，如果键入内容，snippet 将会被替换掉。</p>
+<h2 id="绑定快捷键">绑定快捷键</h2><p>可以将上述的操作绑定到一个快捷键，在不键入任何文本的情况下，直接按快捷键插入代码片段。</p>
+<p>点击菜单栏的 Preferences 的子菜单 Key Binding – User，在打开的文件的方括号内部粘贴如下配置：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; “keys”: <span class="collection">[“ctrl+1″]</span>, “command”: “insert_snippet”, “args”: <span class="collection">&#123;“name”: “Packages/User/example.sublime-snippet”&#125;</span> &#125;</span></span><br></pre></td></tr></table></figure>
+<p>现在简单介绍一下这段配置：</p>
+<ol>
+<li><p>“keys”: [“ctrl+1″] 这个定义了触发此命令的快捷键。</p>
+</li>
+<li><p>“command”: “insert_snippet” 这个是需要触发的命令的名字。</p>
+</li>
+<li><p>“args”: {“name”: “Packages/User/example.sublime-snippet”} 这个是需要传入到上述命令的参数。这里把代码片段文件的相对路径传递过去。</p>
+</li>
+</ol>
+<p>保存配置文件，现在就可以用快捷键插入代码片段了。</p>
+<blockquote>
+<p>以下是我Ruby的注释代码：</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line"># ########################################################</span><br><span class="line"># | Software: $&#123;1&#125;</span><br><span class="line"># | Version: 2015.10</span><br><span class="line"># | Site: http://peterfei.me</span><br><span class="line"># |--------------------------------------------------------</span><br><span class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span><br><span class="line"># | Copyright (c) 2012-2015, http://peterfei.me. All Rights</span><br><span class="line">#Reserved.</span><br><span class="line"># | Time:  $&#123;2&#125; </span><br><span class="line"># ########################################################</span><br><span class="line">$&#123;3&#125;</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为上例中有写Time 获取当前时间的，于是写个获取当前时间的：</p>
+<blockquote>
+<p>创建插件：<code>Tools → New Plugin:</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCurrentTimeCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.run_command(<span class="string">"insert_snippet"</span>, </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"contents"</span>: <span class="string">"%s"</span> % datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>) </span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>保存为Sublime Text 2\Packages\User\addCurrentTime.py</p>
+<blockquote>
+<p>创建快捷键：<code>Preference → Key Bindings - User:</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "<span class="attribute">command</span>": <span class="value"><span class="string">"add_current_time"</span></span>,</span><br><span class="line">        "<span class="attribute">keys</span>": <span class="value">[</span><br><span class="line">            <span class="string">"ctrl+shift+."</span></span><br><span class="line">        ]</span><br><span class="line">    </span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>此时使用快捷键ctrl+shift+.即可在当前光标处插入当前时间，如下:</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># ########################################################</span></span><br><span class="line"><span class="preprocessor"># | Software: test</span></span><br><span class="line"><span class="preprocessor"># | Version: <span class="number">2015.10</span></span></span><br><span class="line"><span class="preprocessor"># | Site: http:<span class="comment">//peterfei.me</span></span></span><br><span class="line"><span class="preprocessor"># |--------------------------------------------------------</span></span><br><span class="line"><span class="preprocessor"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span></span><br><span class="line"><span class="preprocessor"># | Copyright (c) <span class="number">2012</span>-<span class="number">2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></span></span><br><span class="line"><span class="preprocessor">#Reserved.</span></span><br><span class="line"><span class="preprocessor"># | Time:  <span class="number">2015</span>-<span class="number">10</span>-<span class="number">29</span> <span class="number">09</span>:<span class="number">58</span>:<span class="number">53</span> </span></span><br><span class="line"><span class="preprocessor"># ########################################################</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -321,7 +349,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/26/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/26/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -362,7 +390,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -376,7 +404,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
