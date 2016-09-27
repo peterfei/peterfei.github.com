@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="url">
-                  ionic 加载app,页面空白解决方案
+                <a class="post-title-link" href="/2015/07/09/ionic-socket-io-开发/" itemprop="url">
+                  ionic socket.io 开发
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-21T10:55:25+08:00" content="2016-05-21">
-              2016-05-21
+            <time itemprop="dateCreated" datetime="2015-07-09T00:48:44+08:00" content="2015-07-09">
+              2015-07-09
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/21/ionic-加载app-页面空白解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="commentsCount"></span>
+                <a href="/2015/07/09/ionic-socket-io-开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/09/ionic-socket-io-开发/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,9 +289,461 @@
       
         
           
-            <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"AutoHideSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"ShowSplashScreenSpinner"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashMaintainAspectRatio"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashShowOnlyFirstTime"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"SplashScreenDelay"</span> <span class="attribute">value</span>=<span class="value">"10000"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">preference</span> <span class="attribute">name</span>=<span class="value">"FadeSplashScreen"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">feature</span> <span class="attribute">name</span>=<span class="value">"SplashScreen"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">param</span> <span class="attribute">name</span>=<span class="value">"android-package"</span> <span class="attribute">value</span>=<span class="value">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">feature</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在app.js里加入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.cordova &amp;&amp; <span class="built_in">window</span>.cordova.plugins &amp;&amp; <span class="built_in">window</span>.cordova.plugins.Keyboard) &#123;</span><br><span class="line">            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(<span class="literal">true</span>);</span><br><span class="line">            cordova.plugins.Keyboard.disableScroll(<span class="literal">true</span>);</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                navigator.splashscreen.hide();</span><br><span class="line">            &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <p><em>这两天一直在做</em>ionic<em>开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。</em></p>
+<p><em>先叙述下基本的诉求：</em></p>
+<ul>
+<li>Nodejs 做为服务端，主要做服务端消息的监听与发送</li>
+<li>客户端App 为服务端发送消息</li>
+<li>主要协议TCP</li>
+</ul>
+<p>服务端代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http= <span class="built_in">require</span>(<span class="string">'http'</span>), io= <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">var</span> app = http.createServer(), io = io.listen(app);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">10010</span>);</span><br><span class="line"></span><br><span class="line">io.sockets.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">  socket.emit(<span class="string">'news'</span>, &#123; hello: <span class="string">'world'</span> &#125;);<span class="comment">//监听，一旦客户端连接上，即发送数据，第一个参数'new'为数据名，第二个参数既为数据</span></span><br><span class="line">  socket.on(<span class="string">'my new event'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获客户端发送名为'my other event'的数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data.my);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  socket.emit(<span class="string">'other'</span>, &#123; hello: <span class="string">'other world'</span> &#125;);<span class="comment">//发送另一个数据</span></span><br><span class="line">  socket.on(<span class="string">'event1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获另外一个数据</span></span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><em>Ionic 部分：</em></p>
+<ul>
+<li>生成新项目：<code>ionic start chat-app blank</code></li>
+<li>引入angular-socket-io 库:<code>bower install angular-socket-io</code></li>
+<li><img src="http://pic.yupoo.com/peterfei/EMOPKcas/Veffo.png" alt="folder"></li>
+<li>注入socket.io在项目里：<code>var app=angular.module(&#39;ionic-socketio-chat-client&#39;, [&#39;ionic&#39;,&#39;btford.socket-io&#39;])</code></li>
+<li><p>在index.html导入socket.io，<strong>注：socket.io/socket.io.js是服务端动态生成</strong></p>
+<pre><code> <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://192.168.0.101:10010/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"lib/angular-socket-io/socket.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://192.168.0.101:10010'</span>);</span><br><span class="line">      <span class="comment">// io.set('origins', '*:*');</span></span><br><span class="line">      socket.on(<span class="string">'news'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">      &#125;);</span><br><span class="line">      socket.on(<span class="string">'other'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123; <span class="comment">//接收另一个名为'other'数据，  </span></span><br><span class="line">          <span class="built_in">console</span>.log(data.hello);</span><br><span class="line">          socket.emit(<span class="string">'event1'</span>, &#123;</span><br><span class="line">              my: <span class="string">'other data'</span></span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如此，客户端调用成功。</p>
 
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/07/06/windows-ionic-环境配置/" itemprop="url">
+                  windows ionic 环境配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-06T15:44:36+08:00" content="2015-07-06">
+              2015-07-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/06/windows-ionic-环境配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/06/windows-ionic-环境配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>安装Node.js (这里主要是要用它的npm命令装东西)<br>  进入官网<a href="http://" target="_blank" rel="external">http://www.nodejs.org/</a> )，下载安装包安装</li>
+<li>安装phonegap和cordova</li>
+<li>安装ionic<br>  <code>npm install -g ionic</code></li>
+</ul>
+<hr>
+<blockquote>
+<p>配置环境变量node的npm命令:</p>
+</blockquote>
+<p><code>Path : C:\Documents and Settings\Administrator\Application Data\npm</code></p>
+<blockquote>
+<p><a href="http://download.csdn.net/detail/superjunjin/8417723" target="_blank" rel="external">补齐npm文件夹下有关于ionic的文件</a></p>
+<p><a href="http://download.csdn.net/detail/superjunjin/8417731" target="_blank" rel="external">补齐ionic项目下node_modules等文件</a> </p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/07/04/我的仔/" itemprop="url">
+                  我的乖仔
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-04T11:23:30+08:00" content="2015-07-04">
+              2015-07-04
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/04/我的仔/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/04/我的仔/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_citl5lajj0003jg4vy7vev57m"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+            
+              <a class="post-gallery-img fancybox"
+                 href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_citl5lajj0003jg4vy7vev57m"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+            
+              <a class="post-gallery-img fancybox"
+                 href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_citl5lajj0003jg4vy7vev57m"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" itemprop="contentUrl"/>
+              </a>
+            </div>
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_citl5lajj0003jg4vy7vev57m"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+            
+              <a class="post-gallery-img fancybox"
+                 href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_citl5lajj0003jg4vy7vev57m"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+            
+              <a class="post-gallery-img fancybox"
+                 href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_citl5lajj0003jg4vy7vev57m"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" itemprop="contentUrl"/>
+              </a>
+            </div>
+          
+
+          
+          
+        </div>
+      
+
+      
+        
+          
+            <p><img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" alt="专职司机"></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/07/03/从octopress折腾果断切到hexo/" itemprop="url">
+                  从octopress折腾果断切到hexo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-03T21:05:40+08:00" content="2015-07-03">
+              2015-07-03
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/03/从octopress折腾果断切到hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/从octopress折腾果断切到hexo/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上次发博文记得是五月，中间mac更新了一次，ruby1.9.3 用不了，缺少组件，于是rebuild and reintall ruby, 折腾了一个钟左右，之后rake 生成文章，deploy 尽然上传不上去，又一个钟pass了。在种种不能忍受的情况下，果断切到hexo.真的是很很力呀！！！</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/07/03/IOS-打包script/" itemprop="url">
+                  IOS 打包script
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-03T19:47:03+08:00" content="2015-07-03">
+              2015-07-03
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/03/IOS-打包script/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/IOS-打包script/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>无签名打包命令</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"iphoneos"</span> ] || [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"ipados"</span> ]; <span class="keyword">then</span></span><br><span class="line">/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py <span class="string">"my.company.<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span>;</span><br><span class="line">codesign <span class="operator">-f</span> <span class="operator">-s</span> <span class="string">"iPhone Developer"</span> --entitlements <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -316,7 +768,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

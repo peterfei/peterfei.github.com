@@ -240,8 +240,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/05/04/rails-minitest-写mocha/" itemprop="url">
-                  rails minitest 写mocha
+                <a class="post-title-link" href="/2014/09/22/2014-09-22-rails-subselect/" itemprop="url">
+                  Rails中的子查询
                 </a>
               
             
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-04T15:10:48+08:00" content="2016-05-04">
-              2016-05-04
+            <time itemprop="dateCreated" datetime="2014-09-22T14:16:16+08:00" content="2014-09-22">
+              2014-09-22
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/04/rails-minitest-写mocha/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/rails-minitest-写mocha/" itemprop="commentsCount"></span>
+                <a href="/2014/09/22/2014-09-22-rails-subselect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/22/2014-09-22-rails-subselect/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,8 +289,389 @@
       
         
           
-            <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe <span class="string">"订单号测试"</span> <span class="keyword">do</span></span><br><span class="line">      it <span class="string">"规则测试"</span> <span class="keyword">do</span></span><br><span class="line">        time = <span class="constant">Time</span>.now</span><br><span class="line">        <span class="constant">Time</span>.expects(<span class="symbol">:now</span>).at_least_once.returns(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</span><br><span class="line">        order = <span class="constant">OrderInfo</span>.new</span><br><span class="line">        order.serial_number.must_equal <span class="string">"<span class="subst">#&#123;(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>).strftime(<span class="string">'%Y%m%d'</span>)&#125;</span>000001"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p><code>expects(:now)</code>是期望返回now的值是一天后的值非当天的值。</p>
+            <h3 id="大致是这样子的">大致是这样子的</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">favarate_post</span> <span class="title">options=</span>&#123;&#125;</span></span><br><span class="line">        subselect = <span class="constant">Favarate</span>.send(</span><br><span class="line">                <span class="symbol">:construct_finder_sql</span>,</span><br><span class="line">                    <span class="symbol">:select</span> =&gt;<span class="string">"post_id"</span>,</span><br><span class="line">                    <span class="symbol">:conditions=&gt;</span>&#123;<span class="symbol">:blog_id=&gt;self</span>.id&#125;,</span><br><span class="line">                    <span class="symbol">:order=&gt;<span class="string">"published_at desc"</span></span>,</span><br><span class="line">                    <span class="symbol">:limit</span> =&gt; option[<span class="symbol">:limit</span>]||<span class="number">10</span>,<span class="symbol">:offset=&gt;option</span>[<span class="symbol">:offset</span>]</span><br><span class="line">            )</span><br><span class="line">        <span class="constant">Post</span>.find(<span class="symbol">:all</span>,<span class="symbol">:conditions</span> =&gt;<span class="string">'posts.id in <span class="subst">#&#123;subselect&#125;</span>'</span>,<span class="symbol">:order</span> =&gt;<span class="string">"published_at DESC"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="string">``</span><span class="string">`    </span><br><span class="line">construct_finder_sql 同下句SQL类似：</span><br><span class="line">`</span><span class="string">``</span>sql</span><br><span class="line">    <span class="constant">SELECT</span> * <span class="constant">FROM</span> posts <span class="constant">WHERE</span> posts.id <span class="constant">IN</span> (</span><br><span class="line">    <span class="constant">SELECT</span> post_id <span class="constant">FROM</span> favorites <span class="constant">WHERE</span> blog_id = <span class="number">42</span> <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span> <span class="constant">LIMIT</span> <span class="number">10</span> <span class="constant">OFFSET</span> <span class="number">10</span></span><br><span class="line">  ) <span class="constant">ORDER</span> <span class="constant">BY</span> published_at <span class="constant">DESC</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/09/18/2014-09-18-bible-plus-everyday/" itemprop="url">
+                  圣经金句分享
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-18T15:08:55+08:00" content="2014-09-18">
+              2014-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/18/2014-09-18-bible-plus-everyday/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-bible-plus-everyday/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>爱是含忍的，爱是慈祥的，爱不嫉妒，不夸张，不自大，不作无礼的事，不求己益，不动怒，不图谋恶事，不以不义为乐，却与真理同乐：凡事包容，凡事相信，凡事盼望，凡事忍耐。(格前13：4-7)</li>
+<li>你们的身体是圣神的宫殿。(格前6：19)</li>
+<li>天主为爱他的人所准备的，是眼所未见，耳所未闻，人心所未想到的。(格前2：9)</li>
+<li>我是葡萄树，你们是枝条，那住在我内，我也住在他内的，就结许多的果实，因为离了我，你们什么也不能作！</li>
+<li>那含泪播种的，必含笑获享收成。（咏126：5）</li>
+<li>凡高举自己的，必被贬抑；凡贬抑自己的，必被高举。（玛23：12)</li>
+<li>天主使太阳上升，光照恶人，也光照善人；降雨给义人，也给不义的人，你们若只爱那些爱你们的人，你们还有什么赏报呢?（玛5：45-46)</li>
+<li>凡是求的，就必得到；找的，就必找到；敲的，就必给他开。（玛7：8)</li>
+<li>人纵然赚得了全世界，却赔上了自己的灵魂，为他有什么益处？（玛16：26）</li>
+<li>不要论断人，以免被论断。（玛7：1）</li>
+<li>你用什么尺度量人，也要被什么尺度量。（玛7：2）</li>
+<li>你当机警如蛇，纯良似鸽。（玛10：16）</li>
+<li>你们白白得来的，也要白白分施。(玛10：8)</li>
+<li>天主是神，应当以心神以真理去朝拜祂。(若4：24)</li>
+<li>知识只会使人傲慢自大，爱德才能立人。(格前8：1)</li>
+<li>小量播种的，也要小量收获；大量播种的，也要大量收获。(格后9：6)<br><img src="http://pic.yupoo.com/peterfei/E4bNfEFu/aIW8d.jpg" alt="主是我的牧者"></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="url">
+                  ROR layout+content_for 配合用法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-18T14:29:09+08:00" content="2014-09-18">
+              2014-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/18/2014-09-18-layout-plus-content-for/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span>&lt;%<span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span>%&gt;<span class="xml"></span><br><span class="line">	 </span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="ruby"> <span class="keyword">end</span> </span>%&gt;<span class="xml"></span></span><br></pre></td></tr></table></figure></p>
+<p>之后</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span>%&gt;<span class="xml"></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/" itemprop="url">
+                  建立类方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-06-14T19:15:00+08:00" content="2013-06-14">
+              2013-06-14
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/06/14/2013-06-14-jian-li-lei-fang-fa/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">First</span> <span class="symbol">way:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="inheritance">&lt;</span><span class="inheritance">&lt; <span class="parent">self</span></span></span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">my_method</span>;</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="constant">Second</span> <span class="constant">Way</span><span class="symbol">:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">my_method</span>;</span> <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="constant">Third</span> <span class="constant">Way</span><span class="symbol">:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MyClass</span>.<span class="title">my_other_method</span>;</span> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/" itemprop="url">
+                  rails 项目中对select2的高级使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-04-16T10:19:00+08:00" content="2013-04-16">
+              2013-04-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/04/16/2013-04-16-rails-xiang-mu-zhong-dui-select2de-gao-ji-shi-yong/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>—</p>
 
           
         
@@ -316,7 +697,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
