@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="angularjs,ionic," />
+  <meta name="keywords" content="ionic,angularjs," />
 
 
 
@@ -69,7 +69,7 @@
 <meta property="og:description" content="今天写一个POST请求给远程API，FORM数据一直不能发送，最终用如下factory解决问题：
 
 12345678910111213141516171819202122.factory(&apos;LoginService&apos;, [&apos;$http&apos;, function($http) &amp;#123;        var users = [];        return &amp;#123;            ge">
-<meta property="og:updated_time" content="2015-07-21T16:44:49.000Z">
+<meta property="og:updated_time" content="2016-10-28T03:52:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ionic 发送POST请求">
 <meta name="twitter:description" content="今天写一个POST请求给远程API，FORM数据一直不能发送，最终用如下factory解决问题：
@@ -285,7 +285,7 @@
       
         <p><em>今天写一个<code>POST</code>请求给远程API，<code>FORM</code>数据一直不能发送，最终用如下factory解决问题：</em></p>
 <hr>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">.factory(<span class="string">'LoginService'</span>, [<span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> users = [];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            getUsers: <span class="function"><span class="keyword">function</span>(<span class="params">loginData</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> username = loginData.username,</span><br><span class="line">                    password = loginData.password;</span><br><span class="line">                <span class="keyword">return</span> $http(&#123;</span><br><span class="line">                    method: <span class="string">'POST'</span>,</span><br><span class="line">                    url: <span class="string">'http://172.16.100.222/zf/app/login.php?act=login'</span>,</span><br><span class="line">                    data: $.param(loginData),</span><br><span class="line">                    headers: &#123;</span><br><span class="line">                        <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">// debugger</span></span><br><span class="line">                    users = response;</span><br><span class="line">                    <span class="keyword">return</span> users;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">   &#125;])</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">.factory(<span class="string">'LoginService'</span>, [<span class="string">'$http'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> users = [];</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="attr">getUsers</span>: <span class="function"><span class="keyword">function</span>(<span class="params">loginData</span>) </span>&#123;</div><div class="line">                <span class="keyword">var</span> username = loginData.username,</div><div class="line">                    password = loginData.password;</div><div class="line">                <span class="keyword">return</span> $http(&#123;</div><div class="line">                    <span class="attr">method</span>: <span class="string">'POST'</span>,</div><div class="line">                    <span class="attr">url</span>: <span class="string">'http://172.16.100.222/zf/app/login.php?act=login'</span>,</div><div class="line">                    <span class="attr">data</span>: $.param(loginData),</div><div class="line">                    <span class="attr">headers</span>: &#123;</div><div class="line">                        <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></div><div class="line">                    &#125;</div><div class="line">                &#125;).success(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">                    <span class="comment">// debugger</span></div><div class="line">                    users = response;</div><div class="line">                    <span class="keyword">return</span> users;</div><div class="line">                &#125;);</div><div class="line">            &#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">   &#125;])</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -293,9 +293,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/angularjs/" rel="tag">#angularjs</a>
-          
             <a href="/tags/ionic/" rel="tag">#ionic</a>
+          
+            <a href="/tags/angularjs/" rel="tag">#angularjs</a>
           
         </div>
       
@@ -387,7 +387,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

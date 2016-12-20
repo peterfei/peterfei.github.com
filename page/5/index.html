@@ -240,6 +240,100 @@
             
               
                 
+                <a class="post-title-link" href="/2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/" itemprop="url">
+                  Rails Migration Multiple(多) Sql Executing(执行) 
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-16T13:46:17+08:00" content="2015-11-16">
+              2015-11-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>在migration 里生成的文件写下如下要批量执行的sql:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">execute</span> &lt;&lt;-<span class="keyword">SQL</span></div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> distributors <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> zipchk <span class="keyword">CHECK</span> (<span class="keyword">char_length</span>(zipcode) = <span class="number">5</span>) <span class="keyword">NO</span> INHERIT;</div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> zipchk <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> board_time <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">COLLATE</span> utf8_unicode_ci <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'时间'</span>;      </div><div class="line">   SQL</div></pre></td></tr></table></figure></p>
+<p>执行一直报sql错误，下面是Google Group 社区给出的解决方案：<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sql = &lt;&lt;-SQL </div><div class="line"> &lt;statement_1&gt;; </div><div class="line"> &lt;statement_2&gt;; </div><div class="line"> &lt;statement_3&gt;; </div><div class="line">SQL </div><div class="line"></div><div class="line">sql.strip.<span class="built_in">split</span>(';').each <span class="built_in">do</span> |<span class="type">s</span>| </div><div class="line">  <span class="type">ActiveRecord</span>::Base.connection.execute(s) </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/11/13/mac-下dash-资源/" itemprop="url">
                   mac 下dash 资源
                 </a>
@@ -384,23 +478,28 @@
       
         
           
-            <h2 id="Gemfile加入相关测试驱动：">Gemfile加入相关测试驱动：</h2><blockquote>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">#测试组</span></span><br><span class="line">group <span class="symbol">:test</span> <span class="keyword">do</span></span><br><span class="line">    gem <span class="string">"minitest"</span></span><br><span class="line">    gem <span class="string">'minitest-spec-rails'</span></span><br><span class="line">    gem <span class="string">'minitest-reporters'</span></span><br><span class="line">    gem <span class="string">'spring'</span></span><br><span class="line">    gem <span class="string">'guard'</span></span><br><span class="line">    gem <span class="string">'guard-minitest'</span></span><br><span class="line">    <span class="comment"># 添加调用跟踪静默程序</span></span><br><span class="line">    <span class="comment"># gem 'mini_backtrace'</span></span><br><span class="line">    gem <span class="string">'ruby-prof'</span></span><br><span class="line">    gem <span class="string">'minitest-rails-capybara'</span></span><br><span class="line">    gem <span class="string">'autotest-standalone'</span> <span class="comment"># The file '.autotest' makes sure the tests are run via test server (spork).</span></span><br><span class="line">    gem <span class="string">'autotest-rails-pure'</span> <span class="comment"># -pure gives us autotest without ZenTest gem.</span></span><br><span class="line">    gem <span class="string">'autotest-growl'</span>      <span class="comment"># growl notifications, complains a little bit if growl isn't installed</span></span><br><span class="line">    gem <span class="string">'autotest-fsevent'</span>    <span class="comment"># react to filesystem events, save your CPU</span></span><br><span class="line">    gem <span class="string">'spork-minitest'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+            <p>##Gemfile加入相关测试驱动：</p>
+<blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">#测试组</span></div><div class="line">group <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">    gem <span class="string">"minitest"</span></div><div class="line">    gem <span class="string">'minitest-spec-rails'</span></div><div class="line">    gem <span class="string">'minitest-reporters'</span></div><div class="line">    gem <span class="string">'spring'</span></div><div class="line">    gem <span class="string">'guard'</span></div><div class="line">    gem <span class="string">'guard-minitest'</span></div><div class="line">    <span class="comment"># 添加调用跟踪静默程序</span></div><div class="line">    <span class="comment"># gem 'mini_backtrace'</span></div><div class="line">    gem <span class="string">'ruby-prof'</span></div><div class="line">    gem <span class="string">'minitest-rails-capybara'</span></div><div class="line">    gem <span class="string">'autotest-standalone'</span> <span class="comment"># The file '.autotest' makes sure the tests are run via test server (spork).</span></div><div class="line">    gem <span class="string">'autotest-rails-pure'</span> <span class="comment"># -pure gives us autotest without ZenTest gem.</span></div><div class="line">    gem <span class="string">'autotest-growl'</span>      <span class="comment"># growl notifications, complains a little bit if growl isn't installed</span></div><div class="line">    gem <span class="string">'autotest-fsevent'</span>    <span class="comment"># react to filesystem events, save your CPU</span></div><div class="line">    gem <span class="string">'spork-minitest'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 </blockquote>
-<h2 id="初始化guard:">初始化guard:</h2><blockquote>
+<p>##初始化guard:</p>
+<blockquote>
 <p><code>guard init minitest</code></p>
 </blockquote>
-<h2 id="配置guard:">配置guard:</h2><pre><code><span class="comment"><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># A sample Guardfile</span></span><br><span class="line"><span class="comment"># More info at https://github.com/guard/guard#readme</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Uncomment and set this to only include directories you want to watch</span></span><br><span class="line"><span class="comment"># directories %w(app lib config test spec features) \</span></span><br><span class="line"><span class="comment">#  .select&#123;|d| Dir.exists?(d) ? d : UI.warning("Directory #&#123;d&#125; does not exist")&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## <span class="doctag">Note:</span> if you are using the `directories` clause above and you are not</span></span><br><span class="line"><span class="comment">## watching the project directory ('.'), then you will want to move</span></span><br><span class="line"><span class="comment">## the Guardfile to a watched dir and symlink it back, e.g.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#  $ mkdir config</span></span><br><span class="line"><span class="comment">#  $ mv Guardfile config/</span></span><br><span class="line"><span class="comment">#  $ ln -s config/Guardfile .</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># and, you'll have to watch "config/Guardfile" instead of "Guardfile"</span></span><br><span class="line"></span><br><span class="line">guard <span class="symbol">:minitest</span>, <span class="symbol">spring:</span> <span class="keyword">true</span>, <span class="symbol">all_on_start:</span> <span class="keyword">false</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># with Minitest::Unit</span></span><br><span class="line">  watch(%r&#123;^test/(.*)\/?test<span class="constant">_</span>(.*)\.rb<span class="variable">$&#125;</span>)</span><br><span class="line">  watch(%r&#123;^lib/(.*<span class="regexp">/)?([^/</span>]+)\.rb<span class="variable">$&#125;</span>)     &#123; |m| <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>test_<span class="subst">#&#123;m[<span class="number">2</span>]&#125;</span>.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^test/test_helper\.rb<span class="variable">$&#125;</span>)      &#123; <span class="string">'test'</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># with Minitest::Spec</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^spec/(.*)_spec\.rb$&#125;)</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^lib/(.+)\.rb$&#125;)         &#123; |m| "spec/#&#123;m[1]&#125;_spec.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^spec/spec_helper\.rb$&#125;) &#123; 'spec' &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Rails 4</span></span><br><span class="line">  watch(%r&#123;^app/(.+)\.rb<span class="variable">$&#125;</span>)                               &#123; |m| <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/controllers/application_controller\.rb<span class="variable">$&#125;</span>) &#123; <span class="string">'test/controllers'</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/controllers/(.+)<span class="constant">_controller\</span>.rb<span class="variable">$&#125;</span>)        &#123; |m| <span class="string">"test/integration/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^app/views/(.+)<span class="constant">_mailer/</span>.+&#125;)                   &#123; |m| <span class="string">"test/mailers/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_mailer_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^lib/(.+)\.rb<span class="variable">$&#125;</span>)                               &#123; |m| <span class="string">"test/lib/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</span><br><span class="line">  watch(%r&#123;^test/.+<span class="constant">_test\</span>.rb<span class="variable">$&#125;</span>)</span><br><span class="line">  watch(%r&#123;^test/test_helper\.rb<span class="variable">$&#125;</span>) &#123; <span class="string">'test'</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Rails &lt; 4</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/controllers/(.*)\.rb$&#125;) &#123; |m| "test/functional/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/helpers/(.*)\.rb$&#125;)     &#123; |m| "test/helpers/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line">  <span class="comment"># watch(%r&#123;^app/models/(.*)\.rb$&#125;)      &#123; |m| "test/unit/#&#123;m[1]&#125;_test.rb" &#125;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></span>
-</code></pre><h2 id="运行Guard:">运行Guard:</h2><blockquote>
+<p>##配置guard:<br>    <figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># A sample Guardfile</span></div><div class="line"><span class="comment"># More info at https://github.com/guard/guard#readme</span></div><div class="line"></div><div class="line"><span class="comment">## Uncomment and set this to only include directories you want to watch</span></div><div class="line"><span class="comment"># directories %w(app lib config test spec features) \</span></div><div class="line"><span class="comment">#  .select&#123;|d| Dir.exists?(d) ? d : UI.warning("Directory #&#123;d&#125; does not exist")&#125;</span></div><div class="line"></div><div class="line"><span class="comment">## Note: if you are using the `directories` clause above and you are not</span></div><div class="line"><span class="comment">## watching the project directory ('.'), then you will want to move</span></div><div class="line"><span class="comment">## the Guardfile to a watched dir and symlink it back, e.g.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#  $ mkdir config</span></div><div class="line"><span class="comment">#  $ mv Guardfile config/</span></div><div class="line"><span class="comment">#  $ ln -s config/Guardfile .</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># and, you'll have to watch "config/Guardfile" instead of "Guardfile"</span></div><div class="line"></div><div class="line">guard <span class="symbol">:minitest</span>, <span class="symbol">spring:</span> <span class="literal">true</span>, <span class="symbol">all_on_start:</span> <span class="literal">false</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># with Minitest::Unit</span></div><div class="line">  watch(<span class="regexp">%r&#123;^test/(.*)\/?test_(.*)\.rb$&#125;</span>)</div><div class="line">  watch(<span class="regexp">%r&#123;^lib/(.*/)?([^/]+)\.rb$&#125;</span>)     &#123; <span class="params">|m|</span> <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>test_<span class="subst">#&#123;m[<span class="number">2</span>]&#125;</span>.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^test/test_helper\.rb$&#125;</span>)      &#123; <span class="string">'test'</span> &#125;</div><div class="line"></div><div class="line">  <span class="comment"># with Minitest::Spec</span></div><div class="line">  <span class="comment"># watch(%r&#123;^spec/(.*)_spec\.rb$&#125;)</span></div><div class="line">  <span class="comment"># watch(%r&#123;^lib/(.+)\.rb$&#125;)         &#123; |m| "spec/#&#123;m[1]&#125;_spec.rb" &#125;</span></div><div class="line">  <span class="comment"># watch(%r&#123;^spec/spec_helper\.rb$&#125;) &#123; 'spec' &#125;</span></div><div class="line"></div><div class="line">  <span class="comment"># Rails 4</span></div><div class="line">  watch(<span class="regexp">%r&#123;^app/(.+)\.rb$&#125;</span>)                               &#123; <span class="params">|m|</span> <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^app/controllers/application_controller\.rb$&#125;</span>) &#123; <span class="string">'test/controllers'</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^app/controllers/(.+)_controller\.rb$&#125;</span>)        &#123; <span class="params">|m|</span> <span class="string">"test/integration/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^app/views/(.+)_mailer/.+&#125;</span>)                   &#123; <span class="params">|m|</span> <span class="string">"test/mailers/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_mailer_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^lib/(.+)\.rb$&#125;</span>)                               &#123; <span class="params">|m|</span> <span class="string">"test/lib/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^test/.+_test\.rb$&#125;</span>)</div><div class="line">  watch(<span class="regexp">%r&#123;^test/test_helper\.rb$&#125;</span>) &#123; <span class="string">'test'</span> &#125;</div><div class="line"></div><div class="line">  <span class="comment"># Rails &lt; 4</span></div><div class="line">  <span class="comment"># watch(%r&#123;^app/controllers/(.*)\.rb$&#125;) &#123; |m| "test/functional/#&#123;m[1]&#125;_test.rb" &#125;</span></div><div class="line">  <span class="comment"># watch(%r&#123;^app/helpers/(.*)\.rb$&#125;)     &#123; |m| "test/helpers/#&#123;m[1]&#125;_test.rb" &#125;</span></div><div class="line">  <span class="comment"># watch(%r&#123;^app/models/(.*)\.rb$&#125;)      &#123; |m| "test/unit/#&#123;m[1]&#125;_test.rb" &#125;</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>##运行Guard:</p>
+<blockquote>
 <p>输入 <code>guard</code> 命令运行测试</p>
 </blockquote>
-<h2 id="例外">例外</h2><blockquote>
-<p>如果database不用默认的数据库迁移，测试时可以在db下放入<code>structure.sql</code>, 该配置为数据库结构，然后更改配置文件 <code>application.rb</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config<span class="class">.active_record</span><span class="class">.schema_format</span> = :sql</span><br></pre></td></tr></table></figure></p>
+<p>##例外</p>
+<blockquote>
+<p>如果database不用默认的数据库迁移，测试时可以在db下放入<code>structure.sql</code>, 该配置为数据库结构，然后更改配置文件 <code>application.rb</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config<span class="selector-class">.active_record</span><span class="selector-class">.schema_format</span> = :sql</div></pre></td></tr></table></figure></p>
 </blockquote>
 <p>运行：<code>rake db:test:prepare</code></p>
-<h2 id="生成集成化测试文件">生成集成化测试文件</h2><blockquote>
+<p>##生成集成化测试文件 </p>
+<blockquote>
 <p><code>rails g test_unit:integration testName</code></p>
-<h2 id="生成model测试文件">生成model测试文件</h2><p><code>rails g test_unit:model</code></p>
+<p>##生成model测试文件<br><code>rails g test_unit:model</code></p>
 </blockquote>
 
           
@@ -494,9 +593,9 @@
           
             <p>项目中要替换ionic 默认的icon 图标，<code>Google</code> 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：</p>
 <blockquote>
-<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">"\f447"</span></span></span>;</span><br><span class="line">   &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ion-ios-home-outline</span><span class="selector-pseudo">:before</span> &#123;</div><div class="line">    <span class="attribute">content</span>: <span class="string">"\f447"</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
 </blockquote>
-<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.ion-ios-home-outline</span><span class="pseudo">:before</span> <span class="rules">&#123;</span><br><span class="line">    <span class="comment">/*content: "\f447";*/</span></span><br><span class="line">    <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="function">url</span>(<span class="string">'../img/car.png'</span>) <span class="important">!important</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ion-ios-home-outline</span><span class="selector-pseudo">:before</span> &#123;</div><div class="line">    <span class="comment">/*content: "\f447";*/</span></div><div class="line">    <span class="attribute">content</span>: <span class="built_in">url</span>(<span class="string">'../img/car.png'</span>) <span class="meta">!important</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/icon-finsih.png" alt="效果图"></p>
 
           
@@ -588,7 +687,8 @@
       
         
           
-            <h2 id="在Centos上部署时遇到如下错误：">在Centos上部署时遇到如下错误：</h2><blockquote>
+            <p>##在Centos上部署时遇到如下错误：</p>
+<blockquote>
 <p>puma nginx connect() Permission denied</p>
 </blockquote>
 <p>解决方法：在nginx.conf 配置文件中加入了puma 用户：<br><code>user deploy</code> </p>
@@ -596,131 +696,6 @@
 <p>puma 启动时的用户，如此启动正常。</p>
 </blockquote>
 
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/29/Sublime-中自定义snippets/" itemprop="url">
-                  Sublime 中自定义snippets
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-29T10:00:20+08:00" content="2015-10-29">
-              2015-10-29
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/10/29/Sublime-中自定义snippets/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/29/Sublime-中自定义snippets/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="选择tool-&gt;new_snippet">选择<code>tool</code>-&gt;<code>new snippet</code></h2><p>内容如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line">Hello, $&#123;1:this&#125; is a $&#123;2:snippet&#125;.</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>Hello, ${1:this} is a ${2:snippet} 这正是你要插入到文档中的文本。在此节放入的任何片段都会被插入到你的文档中。</li>
-<li>tabTrigger 此节是可选的配置，默认是被注释掉的。默认 hello 的意思是：如果你在某个文档里输入了单词 hello ，然后按下 Tab 键，接着 hello 就会被替换为1中定义的代码片段。再次按下Tab键，接着snippet会被替换为2中定义的代码片段</li>
-<li>scope 此节也是可选配置，默认是被注释掉的。默认 source.php 的意思是：只有在编辑 php 源码的时候，才能用此代码片段</li>
-</ol>
-<h2 id="保存代码片段文件">保存代码片段文件</h2><p>在能自定义代码片段之前，应该首先保存。在保存文件对话框里，需要明确的指定文件的扩展名为.sublime-snippet，然后把文件保存到默认目录（当前用户主目录下的\Sublime Text 3\Packages\User目录中）。</p>
-<p>保存文件之后，就可以测试上面提到的tabTrigger功能了。如果不再使用此功能，可以在此注释掉.</p>
-<h2 id="修改代码片段文件">修改代码片段文件</h2><p>在创建新代码片段中提到过 Hello, ${1:this} is a ${2:snippet} ，其中 ${1:this} 和 ${2:snippet} 是占位符。在插入代码片段后，单词 this 被选中，如果键入内容，this 将会被替换掉，接着按下 Tab 键，将会选中单词 snippet，如果键入内容，snippet 将会被替换掉。</p>
-<h2 id="绑定快捷键">绑定快捷键</h2><p>可以将上述的操作绑定到一个快捷键，在不键入任何文本的情况下，直接按快捷键插入代码片段。</p>
-<p>点击菜单栏的 Preferences 的子菜单 Key Binding – User，在打开的文件的方括号内部粘贴如下配置：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; “keys”: <span class="collection">[“ctrl+1″]</span>, “command”: “insert_snippet”, “args”: <span class="collection">&#123;“name”: “Packages/User/example.sublime-snippet”&#125;</span> &#125;</span></span><br></pre></td></tr></table></figure>
-<p>现在简单介绍一下这段配置：</p>
-<ol>
-<li><p>“keys”: [“ctrl+1″] 这个定义了触发此命令的快捷键。</p>
-</li>
-<li><p>“command”: “insert_snippet” 这个是需要触发的命令的名字。</p>
-</li>
-<li><p>“args”: {“name”: “Packages/User/example.sublime-snippet”} 这个是需要传入到上述命令的参数。这里把代码片段文件的相对路径传递过去。</p>
-</li>
-</ol>
-<p>保存配置文件，现在就可以用快捷键插入代码片段了。</p>
-<blockquote>
-<p>以下是我Ruby的注释代码：</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">snippet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">content</span>&gt;</span><span class="cdata">&lt;![CDATA[</span><br><span class="line"># ########################################################</span><br><span class="line"># | Software: $&#123;1&#125;</span><br><span class="line"># | Version: 2015.10</span><br><span class="line"># | Site: http://peterfei.me</span><br><span class="line"># |--------------------------------------------------------</span><br><span class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span><br><span class="line"># | Copyright (c) 2012-2015, http://peterfei.me. All Rights</span><br><span class="line">#Reserved.</span><br><span class="line"># | Time:  $&#123;2&#125; </span><br><span class="line"># ########################################################</span><br><span class="line">$&#123;3&#125;</span><br><span class="line">]]&gt;</span><span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>因为上例中有写Time 获取当前时间的，于是写个获取当前时间的：</p>
-<blockquote>
-<p>创建插件：<code>Tools → New Plugin:</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> sublime_plugin</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCurrentTimeCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></span><br><span class="line">        self.view.run_command(<span class="string">"insert_snippet"</span>, </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"contents"</span>: <span class="string">"%s"</span> % datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>) </span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>保存为Sublime Text 2\Packages\User\addCurrentTime.py</p>
-<blockquote>
-<p>创建快捷键：<code>Preference → Key Bindings - User:</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "<span class="attribute">command</span>": <span class="value"><span class="string">"add_current_time"</span></span>,</span><br><span class="line">        "<span class="attribute">keys</span>": <span class="value">[</span><br><span class="line">            <span class="string">"ctrl+shift+."</span></span><br><span class="line">        ]</span><br><span class="line">    </span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>此时使用快捷键ctrl+shift+.即可在当前光标处插入当前时间，如下:</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># ########################################################</span></span><br><span class="line"><span class="preprocessor"># | Software: test</span></span><br><span class="line"><span class="preprocessor"># | Version: <span class="number">2015.10</span></span></span><br><span class="line"><span class="preprocessor"># | Site: http:<span class="comment">//peterfei.me</span></span></span><br><span class="line"><span class="preprocessor"># |--------------------------------------------------------</span></span><br><span class="line"><span class="preprocessor"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</span></span><br><span class="line"><span class="preprocessor"># | Copyright (c) <span class="number">2012</span>-<span class="number">2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></span></span><br><span class="line"><span class="preprocessor">#Reserved.</span></span><br><span class="line"><span class="preprocessor"># | Time:  <span class="number">2015</span>-<span class="number">10</span>-<span class="number">29</span> <span class="number">09</span>:<span class="number">58</span>:<span class="number">53</span> </span></span><br><span class="line"><span class="preprocessor"># ########################################################</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -786,7 +761,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

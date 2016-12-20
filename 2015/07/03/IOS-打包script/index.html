@@ -67,7 +67,7 @@
 <meta property="og:site_name" content="Peterfei">
 <meta property="og:description" content="无签名打包命令
 12345export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocateif [ &quot;$&amp;#123;PLATFORM_NAME&amp;#125;&quot; == &quot;iphoneos&quot; ] || [ &quot;">
-<meta property="og:updated_time" content="2015-07-04T06:30:00.000Z">
+<meta property="og:updated_time" content="2016-10-28T03:52:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IOS 打包script">
 <meta name="twitter:description" content="无签名打包命令
@@ -281,7 +281,7 @@
 
       
         <p><em>无签名打包命令</em></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"iphoneos"</span> ] || [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"ipados"</span> ]; <span class="keyword">then</span></span><br><span class="line">/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py <span class="string">"my.company.<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span>;</span><br><span class="line">codesign <span class="operator">-f</span> <span class="operator">-s</span> <span class="string">"iPhone Developer"</span> --entitlements <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</div><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"iphoneos"</span> ] || [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"ipados"</span> ]; <span class="keyword">then</span></div><div class="line">/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py <span class="string">"my.company.<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span>;</div><div class="line">codesign <span class="_">-f</span> <span class="_">-s</span> <span class="string">"iPhone Developer"</span> --entitlements <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/"</span></div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>
       
     </div>
 
@@ -375,7 +375,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

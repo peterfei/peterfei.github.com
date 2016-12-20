@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="minitest,mocha,rails," />
+  <meta name="keywords" content="rails,minitest,mocha," />
 
 
 
@@ -65,7 +65,7 @@
 <meta property="og:url" content="http://peterfei.me/2016/05/04/rails-minitest-写mocha/index.html">
 <meta property="og:site_name" content="Peterfei">
 <meta property="og:description" content="123456789describe &quot;订单号测试&quot; do      it &quot;规则测试&quot; do        time = Time.now        Time.expects(:now).at_least_once.returns(time+24*60*60)        order = OrderInfo.new        order.serial_number.must_equal">
-<meta property="og:updated_time" content="2016-05-04T07:18:03.000Z">
+<meta property="og:updated_time" content="2016-10-28T03:52:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rails minitest 写mocha">
 <meta name="twitter:description" content="123456789describe &quot;订单号测试&quot; do      it &quot;规则测试&quot; do        time = Time.now        Time.expects(:now).at_least_once.returns(time+24*60*60)        order = OrderInfo.new        order.serial_number.must_equal">
@@ -277,7 +277,7 @@
       
 
       
-        <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe <span class="string">"订单号测试"</span> <span class="keyword">do</span></span><br><span class="line">      it <span class="string">"规则测试"</span> <span class="keyword">do</span></span><br><span class="line">        time = <span class="constant">Time</span>.now</span><br><span class="line">        <span class="constant">Time</span>.expects(<span class="symbol">:now</span>).at_least_once.returns(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</span><br><span class="line">        order = <span class="constant">OrderInfo</span>.new</span><br><span class="line">        order.serial_number.must_equal <span class="string">"<span class="subst">#&#123;(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>).strftime(<span class="string">'%Y%m%d'</span>)&#125;</span>000001"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+        <figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">describe <span class="string">"订单号测试"</span> <span class="keyword">do</span></div><div class="line">      it <span class="string">"规则测试"</span> <span class="keyword">do</span></div><div class="line">        time = Time.now</div><div class="line">        Time.expects(<span class="symbol">:now</span>).at_least_once.returns(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</div><div class="line">        order = OrderInfo.new</div><div class="line">        order.serial_number.must_equal <span class="string">"<span class="subst">#&#123;(time+<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>).strftime(<span class="string">'%Y%m%d'</span>)&#125;</span>000001"</span></div><div class="line">      <span class="keyword">end</span></div><div class="line"></div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure>
 <p><code>expects(:now)</code>是期望返回now的值是一天后的值非当天的值。</p>
 
       
@@ -287,11 +287,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/rails/" rel="tag">#rails</a>
+          
             <a href="/tags/minitest/" rel="tag">#minitest</a>
           
             <a href="/tags/mocha/" rel="tag">#mocha</a>
-          
-            <a href="/tags/rails/" rel="tag">#rails</a>
           
         </div>
       
@@ -383,7 +383,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -69,7 +69,7 @@
 <meta property="og:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
 之后
 12345&amp;lt;head&amp;gt; 	&amp;lt;title&amp;gt;Todo List&amp;lt;/title&amp;gt; 	&amp;lt;%= style">
-<meta property="og:updated_time" content="2015-07-03T12:13:04.000Z">
+<meta property="og:updated_time" content="2016-10-28T03:52:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ROR layout+content_for 配合用法">
 <meta name="twitter:description" content="content_for 一般要这样用才好在view先找个地方声明123&amp;lt;% content_for :head do %&amp;gt;	 &amp;lt;%= stylesheet_link_tag &apos;projects&apos; %&amp;gt;&amp;lt;% end %&amp;gt;
@@ -283,9 +283,9 @@
       
 
       
-        <p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span>&lt;%<span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span>%&gt;<span class="xml"></span><br><span class="line">	 </span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span>%&gt;<span class="xml"></span><br><span class="line"></span>&lt;%<span class="ruby"> <span class="keyword">end</span> </span>%&gt;<span class="xml"></span></span><br></pre></td></tr></table></figure></p>
+        <p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line">	 <span class="tag">&lt;<span class="name">%=</span></span><span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span><span class="ruby"> <span class="keyword">end</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div></pre></td></tr></table></figure></p>
 <p>之后</p>
-<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="title">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span>%&gt;<span class="xml"></span><br><span class="line"> 	</span>&lt;%=<span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span>%&gt;<span class="xml"></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></div><div class="line"> 	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"> 	<span class="tag">&lt;<span class="name">%=</span></span><span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"> 	<span class="tag">&lt;<span class="name">%=</span></span><span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div></pre></td></tr></table></figure>
       
     </div>
 
@@ -385,7 +385,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

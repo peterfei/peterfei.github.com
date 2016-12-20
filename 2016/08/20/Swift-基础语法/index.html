@@ -59,34 +59,34 @@
 
 
 
-<meta name="description" content="声明常量和变量let 声明的是常量 var 声明变量e.g.12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0
+<meta name="description" content="##声明常量和变量let 声明的是常量 var 声明变量e.g.12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0
 多个变量,分隔var x = 0.0, y = 0.0, z = 0.0
-类型标注var welcomeMessage: String 
+##类型标注var welcomeMessage: String 
 
 注: :后有空格
 
-welcomeMessage变量现在可以被设置">
+welcomeMessage变量现在可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift 基础语法">
 <meta property="og:url" content="http://peterfei.me/2016/08/20/Swift-基础语法/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="声明常量和变量let 声明的是常量 var 声明变量e.g.12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0
+<meta property="og:description" content="##声明常量和变量let 声明的是常量 var 声明变量e.g.12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0
 多个变量,分隔var x = 0.0, y = 0.0, z = 0.0
-类型标注var welcomeMessage: String 
+##类型标注var welcomeMessage: String 
 
 注: :后有空格
 
-welcomeMessage变量现在可以被设置">
-<meta property="og:updated_time" content="2016-08-20T07:27:03.000Z">
+welcomeMessage变量现在可">
+<meta property="og:updated_time" content="2016-10-28T03:52:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift 基础语法">
-<meta name="twitter:description" content="声明常量和变量let 声明的是常量 var 声明变量e.g.12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0
+<meta name="twitter:description" content="##声明常量和变量let 声明的是常量 var 声明变量e.g.12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0
 多个变量,分隔var x = 0.0, y = 0.0, z = 0.0
-类型标注var welcomeMessage: String 
+##类型标注var welcomeMessage: String 
 
 注: :后有空格
 
-welcomeMessage变量现在可以被设置">
+welcomeMessage变量现在可">
 
 
 
@@ -295,9 +295,9 @@ welcomeMessage变量现在可以被设置">
       
 
       
-        <h2 id="声明常量和变量">声明常量和变量</h2><p><code>let</code> 声明的是常量 <code>var</code> 声明变量<br>e.g.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let maximumNumberOfLoginAttempts = <span class="number">10</span></span><br><span class="line">var currentLoginAttempt = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+        <p>##声明常量和变量<br><code>let</code> 声明的是常量 <code>var</code> 声明变量<br>e.g.<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="attr">maximumNumberOfLoginAttempts</span> = <span class="number">10</span></div><div class="line">var <span class="attr">currentLoginAttempt</span> = <span class="number">0</span></div></pre></td></tr></table></figure></p>
 <p>多个变量<code>,</code>分隔<br><code>var x = 0.0, y = 0.0, z = 0.0</code></p>
-<h2 id="类型标注">类型标注</h2><p><code>var welcomeMessage: String</code> </p>
+<p>##类型标注<br><code>var welcomeMessage: String</code> </p>
 <blockquote>
 <p>注: <code>:</code>后有空格</p>
 </blockquote>
@@ -306,14 +306,15 @@ welcomeMessage变量现在可以被设置">
 <p>常量一经声明就不允许改值，否则编译器报错</p>
 <p>同ruby 语法类似 ，swift 在字符串中可这样输出变量||常量<br>将常量或变量名放入圆括号中，并在开括号前使用反斜杠将其转义</p>
 </blockquote>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">print</span><span class="params">(<span class="string">"The current value of friendlyWelcome is \(friendlyWelcome)"</span>)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="属性观察器">属性观察器</h2><p>属性观察器监控和响应属性值的变化，每次属性被设置值的时候都会调用属性观察器，甚至新的值和现在的值相同的时候也不例外<br>可以为属性添加如下的一个或全部观察器：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">print</span><span class="params">(<span class="string">"The current value of friendlyWelcome is \(friendlyWelcome)"</span>)</span></span></div></pre></td></tr></table></figure>
+<p>##属性观察器<br>属性观察器监控和响应属性值的变化，每次属性被设置值的时候都会调用属性观察器，甚至新的值和现在的值相同的时候也不例外<br>可以为属性添加如下的一个或全部观察器：</p>
 <ol>
 <li>willSet在新的值被设置之前调用</li>
 <li>didSet在新的值被设置之后立即调用</li>
 </ol>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StepCounter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> totalSteps: <span class="type">Int</span> = <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">willSet</span>(newTotalSteps) &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"About to set totalSteps to <span class="subst">\(newTotalSteps)</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> totalSteps &gt; oldValue  &#123;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"Added <span class="subst">\(totalSteps - oldValue)</span> steps"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> stepCounter = <span class="type">StepCounter</span>()</span><br><span class="line">stepCounter.totalSteps = <span class="number">200</span></span><br><span class="line"><span class="comment">// About to set totalSteps to 200</span></span><br><span class="line"><span class="comment">// Added 200 steps</span></span><br><span class="line">stepCounter.totalSteps = <span class="number">360</span></span><br><span class="line"><span class="comment">// About to set totalSteps to 360</span></span><br><span class="line"><span class="comment">// Added 160 steps</span></span><br><span class="line">stepCounter.totalSteps = <span class="number">896</span></span><br><span class="line"><span class="comment">// About to set totalSteps to 896</span></span><br><span class="line"><span class="comment">// Added 536 steps</span></span><br></pre></td></tr></table></figure>
-<h2 id="泛型函数">泛型函数</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">swapTwoValues</span><span class="generics">&lt;T&gt;</span><span class="params">(<span class="keyword">inout</span> a: T, <span class="keyword">inout</span> <span class="number">_</span> b: T)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> temporaryA = a</span><br><span class="line">    a = b</span><br><span class="line">    b = temporaryA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StepCounter</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> totalSteps: <span class="type">Int</span> = <span class="number">0</span> &#123;</div><div class="line">        <span class="keyword">willSet</span>(newTotalSteps) &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"About to set totalSteps to <span class="subst">\(newTotalSteps)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">didSet</span> &#123;</div><div class="line">            <span class="keyword">if</span> totalSteps &gt; oldValue  &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"Added <span class="subst">\(totalSteps - oldValue)</span> steps"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> stepCounter = <span class="type">StepCounter</span>()</div><div class="line">stepCounter.totalSteps = <span class="number">200</span></div><div class="line"><span class="comment">// About to set totalSteps to 200</span></div><div class="line"><span class="comment">// Added 200 steps</span></div><div class="line">stepCounter.totalSteps = <span class="number">360</span></div><div class="line"><span class="comment">// About to set totalSteps to 360</span></div><div class="line"><span class="comment">// Added 160 steps</span></div><div class="line">stepCounter.totalSteps = <span class="number">896</span></div><div class="line"><span class="comment">// About to set totalSteps to 896</span></div><div class="line"><span class="comment">// Added 536 steps</span></div></pre></td></tr></table></figure>
+<p>##泛型函数</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func swapTwoValues&lt;T&gt;(inout <span class="selector-tag">a</span>: T, inout _ <span class="selector-tag">b</span>: T) &#123;</div><div class="line">    let temporaryA = <span class="selector-tag">a</span></div><div class="line">    <span class="selector-tag">a</span> = <span class="selector-tag">b</span></div><div class="line">    <span class="selector-tag">b</span> = temporaryA</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -408,7 +409,7 @@ welcomeMessage变量现在可以被设置">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -471,7 +472,7 @@ welcomeMessage变量现在可以被设置">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明常量和变量"><span class="nav-number">1.</span> <span class="nav-text">声明常量和变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型标注"><span class="nav-number">2.</span> <span class="nav-text">类型标注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性观察器"><span class="nav-number">3.</span> <span class="nav-text">属性观察器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型函数"><span class="nav-number">4.</span> <span class="nav-text">泛型函数</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

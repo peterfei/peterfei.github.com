@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="angularjs,directive,ionic," />
+  <meta name="keywords" content="ionic,angularjs,directive," />
 
 
 
@@ -59,31 +59,31 @@
 
 
 
-<meta name="description" content="隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
+<meta name="description" content="###隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
 
 html
 
 1&amp;lt;mobi edit-click=&quot;selectMobiFlag(1)&quot; item=&quot;item&quot;&amp;gt;&amp;lt;/mobi&amp;gt;
-html 端定义了mobi的指令， 具体点击事件方法如selec">
+html 端定义了mobi的指令， 具体点击事件方法如se">
 <meta property="og:type" content="article">
 <meta property="og:title" content="angular directive ng-click not work">
 <meta property="og:url" content="http://peterfei.me/2015/12/07/angular-directive-ng-click-not-work/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
+<meta property="og:description" content="###隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
 
 html
 
 1&amp;lt;mobi edit-click=&quot;selectMobiFlag(1)&quot; item=&quot;item&quot;&amp;gt;&amp;lt;/mobi&amp;gt;
-html 端定义了mobi的指令， 具体点击事件方法如selec">
-<meta property="og:updated_time" content="2015-12-07T07:50:34.000Z">
+html 端定义了mobi的指令， 具体点击事件方法如se">
+<meta property="og:updated_time" content="2016-10-28T03:52:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="angular directive ng-click not work">
-<meta name="twitter:description" content="隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
+<meta name="twitter:description" content="###隔离事件中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：
 
 html
 
 1&amp;lt;mobi edit-click=&quot;selectMobiFlag(1)&quot; item=&quot;item&quot;&amp;gt;&amp;lt;/mobi&amp;gt;
-html 端定义了mobi的指令， 具体点击事件方法如selec">
+html 端定义了mobi的指令， 具体点击事件方法如se">
 
 
 
@@ -292,18 +292,18 @@ html 端定义了mobi的指令， 具体点击事件方法如selec">
       
 
       
-        <h3 id="隔离事件">隔离事件</h3><p>中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：</p>
+        <p>###隔离事件<br>中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：</p>
 <blockquote>
 <p>html</p>
 </blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">mobi</span> <span class="attribute">edit-click</span>=<span class="value">"selectMobiFlag(1)"</span> <span class="attribute">item</span>=<span class="value">"item"</span>&gt;</span><span class="tag">&lt;/<span class="title">mobi</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mobi</span> <span class="attr">edit-click</span>=<span class="string">"selectMobiFlag(1)"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">mobi</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>html 端定义了<code>mobi</code>的指令， 具体点击事件方法如<code>selectMobileFlat</code>,</p>
 <blockquote>
 <p>指令（Directive）</p>
 </blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.directive(<span class="string">'mobi'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		restrict: <span class="string">'EA'</span>,</span><br><span class="line">		scope: &#123;</span><br><span class="line">			<span class="string">'item'</span>:<span class="string">'='</span>,</span><br><span class="line">			<span class="string">'editClick'</span>: <span class="string">'&amp;'</span></span><br><span class="line">		&#125;,</span><br><span class="line">		template: <span class="string">'&lt;div ng-click="toggleState(item)" &gt;111&lt;/div&gt;'</span>,</span><br><span class="line">		link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</span><br><span class="line">			$scope.toggleState = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">				<span class="built_in">console</span>.log(item);</span><br><span class="line">				$scope.editClick(item);</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">.directive(<span class="string">'mobi'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> &#123;</div><div class="line">		<span class="attr">restrict</span>: <span class="string">'EA'</span>,</div><div class="line">		<span class="attr">scope</span>: &#123;</div><div class="line">			<span class="string">'item'</span>:<span class="string">'='</span>,</div><div class="line">			<span class="string">'editClick'</span>: <span class="string">'&amp;'</span></div><div class="line">		&#125;,</div><div class="line">		<span class="attr">template</span>: <span class="string">'&lt;div ng-click="toggleState(item)" &gt;111&lt;/div&gt;'</span>,</div><div class="line">		<span class="attr">link</span>: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</div><div class="line">			$scope.toggleState = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</div><div class="line">				<span class="built_in">console</span>.log(item);</div><div class="line">				$scope.editClick(item);</div><div class="line">			&#125;;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>指令里绑定了item,传入的是点击 <code>HTML</code>片段本身，在<code>directive</code>里渲染了<code>template</code> 模板，主要负责点击的声明，在隔离作用域里，应用<code>editClick:&quot;&amp;&quot;</code> 和 <code>$scope.toggleState</code> 实现关联。</p>
-<h3 id="最后">最后</h3><p>实现<code>selectMobiFlag</code>的具体实现:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.selectMobiFlag = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">	</span><br><span class="line">	$scope.mobiFlag = item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###最后<br>实现<code>selectMobiFlag</code>的具体实现:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$scope.selectMobiFlag = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</div><div class="line">	</div><div class="line">	$scope.mobiFlag = item;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -312,11 +312,11 @@ html 端定义了mobi的指令， 具体点击事件方法如selec">
       
         <div class="post-tags">
           
+            <a href="/tags/ionic/" rel="tag">#ionic</a>
+          
             <a href="/tags/angularjs/" rel="tag">#angularjs</a>
           
             <a href="/tags/directive/" rel="tag">#directive</a>
-          
-            <a href="/tags/ionic/" rel="tag">#ionic</a>
           
         </div>
       
@@ -408,7 +408,7 @@ html 端定义了mobi的指令， 具体点击事件方法如selec">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -471,7 +471,7 @@ html 端定义了mobi的指令， 具体点击事件方法如selec">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#隔离事件"><span class="nav-number">1.</span> <span class="nav-text">隔离事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">2.</span> <span class="nav-text">最后</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

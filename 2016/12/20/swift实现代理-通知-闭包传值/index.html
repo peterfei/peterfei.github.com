@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="rails,cache," />
+  <meta name="keywords" content="peterfei.me,peterfei" />
 
 
 
@@ -59,16 +59,19 @@
 
 
 
-<meta name="description" content="Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:1234567before_filter :set_cache_headersdef set_cache_headers  response.headers[&quot;Cache-Control&quot;] = &quot;no-cache, no-store&quot;  response">
+<meta name="description" content="区别第一就是代理，这也是很常用的方式，特点是一对一的形式，而且逻辑结构非常清晰。实现起来较为简单：写协议 ，设置代理这个属性， 最好在你想通知代理做事情的方法中调用即可。当然这里面有一些细节，包括 ①协议定义时，请用关键字@required，和@optional来明确代理是否必须实现某些方法 ②代理的类型需用id类型，并写明要遵守的协议 ③就是在调用代理方法的时候需要判断代理是否实现该方法。
+第二">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rails page no cache">
-<meta property="og:url" content="http://peterfei.me/2016/08/16/rails-page-no-cache/index.html">
+<meta property="og:title" content="swift实现代理,通知,闭包传值">
+<meta property="og:url" content="http://peterfei.me/2016/12/20/swift实现代理-通知-闭包传值/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:1234567before_filter :set_cache_headersdef set_cache_headers  response.headers[&quot;Cache-Control&quot;] = &quot;no-cache, no-store&quot;  response">
-<meta property="og:updated_time" content="2016-10-28T03:52:35.000Z">
+<meta property="og:description" content="区别第一就是代理，这也是很常用的方式，特点是一对一的形式，而且逻辑结构非常清晰。实现起来较为简单：写协议 ，设置代理这个属性， 最好在你想通知代理做事情的方法中调用即可。当然这里面有一些细节，包括 ①协议定义时，请用关键字@required，和@optional来明确代理是否必须实现某些方法 ②代理的类型需用id类型，并写明要遵守的协议 ③就是在调用代理方法的时候需要判断代理是否实现该方法。
+第二">
+<meta property="og:updated_time" content="2016-12-20T02:22:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rails page no cache">
-<meta name="twitter:description" content="Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:1234567before_filter :set_cache_headersdef set_cache_headers  response.headers[&quot;Cache-Control&quot;] = &quot;no-cache, no-store&quot;  response">
+<meta name="twitter:title" content="swift实现代理,通知,闭包传值">
+<meta name="twitter:description" content="区别第一就是代理，这也是很常用的方式，特点是一对一的形式，而且逻辑结构非常清晰。实现起来较为简单：写协议 ，设置代理这个属性， 最好在你想通知代理做事情的方法中调用即可。当然这里面有一些细节，包括 ①协议定义时，请用关键字@required，和@optional来明确代理是否必须实现某些方法 ②代理的类型需用id类型，并写明要遵守的协议 ③就是在调用代理方法的时候需要判断代理是否实现该方法。
+第二">
 
 
 
@@ -86,7 +89,7 @@
   };
 </script>
 
-  <title> rails page no cache | Peterfei </title>
+  <title> swift实现代理,通知,闭包传值 | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -232,7 +235,7 @@
             
             
               
-                rails page no cache
+                swift实现代理,通知,闭包传值
               
             
           </h1>
@@ -244,8 +247,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T15:21:21+08:00" content="2016-08-16">
-              2016-08-16
+            <time itemprop="dateCreated" datetime="2016-12-20T09:58:21+08:00" content="2016-12-20">
+              2016-12-20
             </time>
           </span>
 
@@ -255,8 +258,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/16/rails-page-no-cache/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/rails-page-no-cache/" itemprop="commentsCount"></span>
+                <a href="/2016/12/20/swift实现代理-通知-闭包传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/20/swift实现代理-通知-闭包传值/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -277,37 +280,32 @@
       
 
       
-        <p>Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">before_filter :set_cache_headers</div><div class="line"></div><div class="line">def set_cache_headers</div><div class="line">  response.headers["<span class="keyword">Cache</span>-Control<span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span>, <span class="keyword">no</span>-<span class="keyword">store</span><span class="string">"</span></div><div class="line">  response.headers["<span class="keyword">Pragma</span><span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span><span class="string">"</span></div><div class="line">  response.headers["Expires<span class="string">"] = "</span>Fri, <span class="number">01</span> Jan <span class="number">2016</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> GMT<span class="string">"</span></div><div class="line">end</div></pre></td></tr></table></figure></p>
+        <h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>第一就是代理，这也是很常用的方式，特点是一对一的形式，而且逻辑结构非常清晰。实现起来较为简单：写协议 ，设置代理这个属性， 最好在你想通知代理做事情的方法中调用即可。当然这里面有一些细节，包括 ①协议定义时，请用关键字@required，和@optional来明确代理是否必须实现某些方法 ②代理的类型需用id类型，并写明要遵守的协议 ③就是在调用代理方法的时候需要判断代理是否实现该方法。</p>
+<p>第二就是通知，通知的优点很明显，他是一对多的形式，而且可以在任意对象之间传递，不需要二者有联系，当然他的实现和代理相比较稍微绕一点，注册，发通知，收通知。这里面的注意点就是 ①对于系统没有定义的事件监听时需要自己发通知，这是你就需要定义一个key，字符串类型，这也是通知的一个弊端，你需要拷贝到收通知的对象，避免写错一个字母而无法收通知的尴尬 ②就是注册的通知中心需要手动移除，不然除了性能的问题还会有其他的问题出现，比如说一个控制器消失了之后还有因为某些事件而发出通知，造成不想要的结果。</p>
+<p>第三就是block了，这是苹果后来才加入的，也是目前开发比较常用的一种方式，功能比较强大，但是在理解和使用上可能需要一段时间摸索和熟悉。他的最大特点就是回调，而且回调时可以传入参数，最重要的是，无论在哪调用，block的执行都会回到block创建的地方执行，而非调用的地方。而block本身可以封装一段代码，一段代码你懂的，很多人在初学时会被搞晕，甚至在block的声明上就纠结，其实很正常，多用就好。</p>
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><p>如下面代码,我们定义了一个协议方法, 其结构就是protocol关键字+协议的名称 + : + NSObjectProtocol {},注意Swift中的自定义协议其本身必须遵循NSObjectProtocol协议</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">TextViewControllerDelegate</span>: <span class="title">NSObjectProtocol</span></span>&#123;</div><div class="line">    <span class="comment">// 点击delegate按钮回调</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">delegateBtnWillClick</span><span class="params">(message : String)</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>并且在OC中,我们一般会定义一个属性来保存代理如@property (nonatomic,weak)id&lt; TextViewControllerDelegate &gt; delegate;但是在Swift中我们依然要这样做,只不过写法变成了weak var delegate : TextViewControllerDelegate?,注意一定要加上weak关键字,避免循环引用问题.这是我的demo中的代码,回调一段字符串</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/<span class="type">MARK</span>: - 点击代理传值按钮</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">delegateBtnClick</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"代理传值按钮被点击"</span>)</div><div class="line">    <span class="keyword">let</span> str = <span class="string">"代理传值按钮被点击,把上个界面的值传了过来"</span></div><div class="line">    delegate?.delegateBtnWillClick(str)</div><div class="line">    <span class="keyword">self</span>.navigationController?.popViewControllerAnimated(<span class="literal">true</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后就在别的控制器,设置那个控制器为该控制器的代理,去实现协议方法就可以了</p>
 
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/rails/" rel="tag">#rails</a>
-          
-            <a href="/tags/cache/" rel="tag">#cache</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/21/ionic-加载app-页面空白解决方案/" rel="next" title="ionic 加载app,页面空白解决方案">
-                <i class="fa fa-chevron-left"></i> ionic 加载app,页面空白解决方案
+              <a href="/2016/09/14/使用SnapKit作应用新手上路导览/" rel="next" title="使用SnapKit作应用新手上路导览">
+                <i class="fa fa-chevron-left"></i> 使用SnapKit作应用新手上路导览
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/20/Swift-基础语法/" rel="prev" title="Swift 基础语法">
-                Swift 基础语法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -334,8 +332,8 @@
   <div class="comments" id="comments">
   <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
     
-      <div class="ds-thread" data-thread-key="2016/08/16/rails-page-no-cache/"
-           data-title="rails page no cache" data-url="http://peterfei.me/2016/08/16/rails-page-no-cache/">
+      <div class="ds-thread" data-thread-key="2016/12/20/swift实现代理-通知-闭包传值/"
+           data-title="swift实现代理,通知,闭包传值" data-url="http://peterfei.me/2016/12/20/swift实现代理-通知-闭包传值/">
       </div>
     
   </div>
@@ -443,7 +441,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">1.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理"><span class="nav-number">2.</span> <span class="nav-text">代理</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

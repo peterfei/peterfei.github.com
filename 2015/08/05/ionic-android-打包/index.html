@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,ionic,打包," />
+  <meta name="keywords" content="ionic,打包,android," />
 
 
 
@@ -75,7 +75,7 @@ jarsigner -verbose -sig">
 cordova build --release android
 jarsinger:
 jarsigner -verbose -sig">
-<meta property="og:updated_time" content="2015-08-05T03:02:30.000Z">
+<meta property="og:updated_time" content="2016-10-28T03:52:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ionic android 打包">
 <meta name="twitter:description" content="生成证书
@@ -293,13 +293,13 @@ jarsigner -verbose -sig">
 
       
         <p><em>生成证书</em></p>
-<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -<span class="keyword">alias</span> <span class="keyword">alias</span><span class="number">_n</span>ame -keyalg RSA -keysize <span class="number">2048</span> -validity <span class="number">10000</span>`
+<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
 </code></pre><p><em>生成release 版本:</em></p>
-<pre><code>cordova build <span class="comment">--release android</span>
+<pre><code>cordova build --release android
 </code></pre><p><em>jarsinger:</em></p>
-<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk  alias_name
+<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore /Users/liufei/ionic/yongche/platforms/android/build/outputs/apk/android-release-unsigned.apk  alias_name
 </code></pre><p><em>生成apk:</em></p>
-<pre><code><span class="regexp">/Library/</span>Android<span class="regexp">/android-sdk-macosx/</span>build-tools<span class="regexp">/22.0.1/</span>zipalign -v <span class="number">4</span> <span class="regexp">/Users/</span>liufei<span class="regexp">/ionic/y</span>ongche<span class="regexp">/platforms/</span>android<span class="regexp">/build/</span>outputs<span class="regexp">/apk/</span>android-release-unsigned.apk ezu110.apk
+<pre><code>/Library/Android/android-sdk-macosx/build-tools/22.0.1/zipalign -v 4 /Users/liufei/ionic/yongche/platforms/android/build/outputs/apk/android-release-unsigned.apk ezu110.apk
 </code></pre>
       
     </div>
@@ -308,11 +308,11 @@ jarsigner -verbose -sig">
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag">#android</a>
-          
             <a href="/tags/ionic/" rel="tag">#ionic</a>
           
             <a href="/tags/打包/" rel="tag">#打包</a>
+          
+            <a href="/tags/android/" rel="tag">#android</a>
           
         </div>
       
@@ -404,7 +404,7 @@ jarsigner -verbose -sig">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
