@@ -77,7 +77,7 @@ welcomeMessage变量现在可">
 注: :后有空格
 
 welcomeMessage变量现在可">
-<meta property="og:updated_time" content="2016-10-28T03:52:36.000Z">
+<meta property="og:updated_time" content="2019-04-08T09:50:56.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift 基础语法">
 <meta name="twitter:description" content="##声明常量和变量let 声明的是常量 var 声明变量e.g.12let maximumNumberOfLoginAttempts = 10var currentLoginAttempt = 0
@@ -268,6 +268,25 @@ welcomeMessage变量现在可">
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -312,7 +331,7 @@ welcomeMessage变量现在可">
 <li>willSet在新的值被设置之前调用</li>
 <li>didSet在新的值被设置之后立即调用</li>
 </ol>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StepCounter</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> totalSteps: <span class="type">Int</span> = <span class="number">0</span> &#123;</div><div class="line">        <span class="keyword">willSet</span>(newTotalSteps) &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"About to set totalSteps to <span class="subst">\(newTotalSteps)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">didSet</span> &#123;</div><div class="line">            <span class="keyword">if</span> totalSteps &gt; oldValue  &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"Added <span class="subst">\(totalSteps - oldValue)</span> steps"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> stepCounter = <span class="type">StepCounter</span>()</div><div class="line">stepCounter.totalSteps = <span class="number">200</span></div><div class="line"><span class="comment">// About to set totalSteps to 200</span></div><div class="line"><span class="comment">// Added 200 steps</span></div><div class="line">stepCounter.totalSteps = <span class="number">360</span></div><div class="line"><span class="comment">// About to set totalSteps to 360</span></div><div class="line"><span class="comment">// Added 160 steps</span></div><div class="line">stepCounter.totalSteps = <span class="number">896</span></div><div class="line"><span class="comment">// About to set totalSteps to 896</span></div><div class="line"><span class="comment">// Added 536 steps</span></div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class StepCounter &#123;</div><div class="line">    <span class="selector-tag">var</span> totalSteps: Int = <span class="number">0</span> &#123;</div><div class="line">        willSet(newTotalSteps) &#123;</div><div class="line">            print(<span class="string">"About to set totalSteps to \(newTotalSteps)"</span>)</div><div class="line">        &#125;</div><div class="line">        didSet &#123;</div><div class="line">            <span class="keyword">if</span> totalSteps &gt; oldValue  &#123;</div><div class="line">                print(<span class="string">"Added \(totalSteps - oldValue) steps"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">let stepCounter = StepCounter()</div><div class="line">stepCounter<span class="selector-class">.totalSteps</span> = <span class="number">200</span></div><div class="line"><span class="comment">// About to set totalSteps to 200</span></div><div class="line"><span class="comment">// Added 200 steps</span></div><div class="line">stepCounter<span class="selector-class">.totalSteps</span> = <span class="number">360</span></div><div class="line"><span class="comment">// About to set totalSteps to 360</span></div><div class="line"><span class="comment">// Added 160 steps</span></div><div class="line">stepCounter<span class="selector-class">.totalSteps</span> = <span class="number">896</span></div><div class="line"><span class="comment">// About to set totalSteps to 896</span></div><div class="line"><span class="comment">// Added 536 steps</span></div></pre></td></tr></table></figure>
 <p>##泛型函数</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func swapTwoValues&lt;T&gt;(inout <span class="selector-tag">a</span>: T, inout _ <span class="selector-tag">b</span>: T) &#123;</div><div class="line">    let temporaryA = <span class="selector-tag">a</span></div><div class="line">    <span class="selector-tag">a</span> = <span class="selector-tag">b</span></div><div class="line">    <span class="selector-tag">b</span> = temporaryA</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
@@ -416,7 +435,7 @@ welcomeMessage变量现在可">
 
           <div class="site-state-item site-state-categories">
             
-              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               
           </div>

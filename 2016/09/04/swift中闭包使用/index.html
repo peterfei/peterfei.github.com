@@ -75,7 +75,7 @@ Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行�
 
 利用上下文推断参数和返回值类型
 隐式返回单表达式闭包,即单表达式闭包可以省略 return">
-<meta property="og:updated_time" content="2016-10-28T03:52:36.000Z">
+<meta property="og:updated_time" content="2019-04-08T09:51:11.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="swift中闭包使用">
 <meta name="twitter:description" content="闭包是自包含的函数代码块,可以在代码中被传递和使用。
@@ -265,6 +265,25 @@ Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行�
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -302,7 +321,7 @@ Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行�
 <li>尾随(Trailing)闭包语法</li>
 </ol>
 <p>##闭包表达式语法(Closure Expression Syntax)<br>闭包表达式语法有如下一般形式:<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123; <span class="function"><span class="params">(parameters)</span> -&gt;</span> returnType <span class="keyword">in</span></div><div class="line">    statements</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>demo:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">operate</span><span class="params">(sender: UIButton)</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> operate = sender.currentTitle!</div><div class="line">        <span class="built_in">print</span>(<span class="string">"current operate is <span class="subst">\(operate)</span>"</span>)</div><div class="line">        <span class="keyword">switch</span> operate &#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">"+"</span>: performOperation(&#123;$<span class="number">0</span>+$<span class="number">1</span>&#125;)</div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="string">"−"</span>: performOperation(&#123;$<span class="number">1</span>-$<span class="number">0</span>&#125;)</div><div class="line">        <span class="keyword">case</span> <span class="string">"×"</span>: performOperation(&#123;$<span class="number">0</span>*$<span class="number">1</span>&#125;)</div><div class="line">        <span class="keyword">case</span> <span class="string">"÷"</span>: performOperation(&#123;$<span class="number">1</span>/$<span class="number">0</span>&#125;)</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">performOperation</span><span class="params">(operation:<span class="params">(Double, Double)</span></span></span> -&gt; <span class="type">Double</span>) &#123;</div><div class="line">        <span class="keyword">if</span> operandStack.<span class="built_in">count</span>&gt;=<span class="number">2</span> &#123;</div><div class="line">                displayValue = operation(operandStack.removeLast(),operandStack.removeLast())</div><div class="line">                <span class="built_in">print</span>(<span class="string">"displayValue is <span class="subst">\(displayValue)</span>"</span>)</div><div class="line">                enter()</div><div class="line">            &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>demo:<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">operate</span><span class="params">(sender: UIButton)</span> &#123;</span></div><div class="line">        let operate = sender.currentTitle!</div><div class="line">        print(<span class="string">"current operate is \(operate)"</span>)</div><div class="line">        <span class="keyword">switch</span> operate &#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">"+"</span>: performOperation(&#123;$0+$1&#125;)</div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="string">"−"</span>: performOperation(&#123;$1-$0&#125;)</div><div class="line">        <span class="keyword">case</span> <span class="string">"×"</span>: performOperation(&#123;$0*$1&#125;)</div><div class="line">        <span class="keyword">case</span> <span class="string">"÷"</span>: performOperation(&#123;$1/$0&#125;)</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="built_in">break</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">performOperation</span><span class="params">(operation:(Double, Double)</span> -&gt; <span class="title">Double</span>) &#123;</span></div><div class="line">        <span class="keyword">if</span> operandStack.count&gt;=<span class="number">2</span> &#123;</div><div class="line">                displayValue = operation(operandStack.removeLast(),operandStack.removeLast())</div><div class="line">                print(<span class="string">"displayValue is \(displayValue)"</span>)</div><div class="line">                enter()</div><div class="line">            &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -410,7 +429,7 @@ Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行�
 
           <div class="site-state-item site-state-categories">
             
-              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               
           </div>
