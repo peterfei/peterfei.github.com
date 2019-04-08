@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://peterfei.me/"/>
-  <updated>2019-04-08T09:02:01.157Z</updated>
+  <updated>2019-04-08T09:06:40.974Z</updated>
   <id>http://peterfei.me/</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android 调试|日志脚本</title>
+    <link href="http://peterfei.me/2019/04/08/Android-%E8%B0%83%E8%AF%95-%E6%97%A5%E5%BF%97%E8%84%9A%E6%9C%AC/"/>
+    <id>http://peterfei.me/2019/04/08/Android-调试-日志脚本/</id>
+    <published>2019-04-08T09:04:56.000Z</published>
+    <updated>2019-04-08T09:06:40.974Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">PackageName=<span class="variable">$1</span></div><div class="line"></div><div class="line"><span class="comment">#PackageName=com.example.appinfomanagertinno</span></div><div class="line">pid=<span class="string">"<span class="variable">$(adb shell ps | grep $PackageName | awk '&#123;print $2&#125;')</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"PackageName-----"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$PackageName</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"pid-----"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$pid</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"></div><div class="line">adb logcat | grep <span class="variable">$pid</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用方法<br><code>./logcat_package.sh com.XXX.XXX</code></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://peterfei.me/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>百度语音tts Android9.0 发音解决办法</title>
@@ -1313,45 +1337,6 @@
       <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
     
       <category term="angular" scheme="http://peterfei.me/tags/angular/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>angular directive ng-click not work</title>
-    <link href="http://peterfei.me/2015/12/07/angular-directive-ng-click-not-work/"/>
-    <id>http://peterfei.me/2015/12/07/angular-directive-ng-click-not-work/</id>
-    <published>2015-12-07T07:32:14.000Z</published>
-    <updated>2016-10-28T03:52:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>###隔离事件<br>中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：</p>
-<blockquote>
-<p>html</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mobi</span> <span class="attr">edit-click</span>=<span class="string">"selectMobiFlag(1)"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">mobi</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>html 端定义了<code>mobi</code>的指令， 具体点击事件方法如<code>selectMobileFlat</code>,</p>
-<blockquote>
-<p>指令（Directive）</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">.directive(<span class="string">'mobi'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> &#123;</div><div class="line">		<span class="attr">restrict</span>: <span class="string">'EA'</span>,</div><div class="line">		<span class="attr">scope</span>: &#123;</div><div class="line">			<span class="string">'item'</span>:<span class="string">'='</span>,</div><div class="line">			<span class="string">'editClick'</span>: <span class="string">'&amp;'</span></div><div class="line">		&#125;,</div><div class="line">		<span class="attr">template</span>: <span class="string">'&lt;div ng-click="toggleState(item)" &gt;111&lt;/div&gt;'</span>,</div><div class="line">		<span class="attr">link</span>: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</div><div class="line">			$scope.toggleState = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</div><div class="line">				<span class="built_in">console</span>.log(item);</div><div class="line">				$scope.editClick(item);</div><div class="line">			&#125;;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>指令里绑定了item,传入的是点击 <code>HTML</code>片段本身，在<code>directive</code>里渲染了<code>template</code> 模板，主要负责点击的声明，在隔离作用域里，应用<code>editClick:&quot;&amp;&quot;</code> 和 <code>$scope.toggleState</code> 实现关联。</p>
-<p>###最后<br>实现<code>selectMobiFlag</code>的具体实现:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$scope.selectMobiFlag = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</div><div class="line">	</div><div class="line">	$scope.mobiFlag = item;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;###隔离事件&lt;br&gt;中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;html&lt;/p&gt;
-&lt;/blockquo
-    
-    </summary>
-    
-    
-      <category term="ionic" scheme="http://peterfei.me/tags/ionic/"/>
-    
-      <category term="angularjs" scheme="http://peterfei.me/tags/angularjs/"/>
-    
-      <category term="directive" scheme="http://peterfei.me/tags/directive/"/>
     
   </entry>
   
