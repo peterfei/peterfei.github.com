@@ -59,15 +59,19 @@
 
 
 
-<meta name="description" content="peterfei|技术|上主是我的牧者">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Peterfei">
-<meta property="og:url" content="http://peterfei.me/index.html">
+<meta name="description" content="公司有开发wpf需求,模型主要是由Unity开发,导出后是.exe可执行程序,外层是利用react-native编写界面,主要组件为react-native-windows,于是需要融合二者.  首先是写入wpf调用外部exe组件:
+12345678910111213141516171819202122232425262728293031323334353637383940414243444">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用WPF加载Unity可执行程序">
+<meta property="og:url" content="http://peterfei.me/2019/04/09/使用WPF加载Unity可执行程序/index.html">
 <meta property="og:site_name" content="Peterfei">
-<meta property="og:description" content="peterfei|技术|上主是我的牧者">
+<meta property="og:description" content="公司有开发wpf需求,模型主要是由Unity开发,导出后是.exe可执行程序,外层是利用react-native编写界面,主要组件为react-native-windows,于是需要融合二者.  首先是写入wpf调用外部exe组件:
+12345678910111213141516171819202122232425262728293031323334353637383940414243444">
+<meta property="og:updated_time" content="2019-04-09T03:54:34.743Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Peterfei">
-<meta name="twitter:description" content="peterfei|技术|上主是我的牧者">
+<meta name="twitter:title" content="使用WPF加载Unity可执行程序">
+<meta name="twitter:description" content="公司有开发wpf需求,模型主要是由Unity开发,导出后是.exe可执行程序,外层是利用react-native编写界面,主要组件为react-native-windows,于是需要融合二者.  首先是写入wpf调用外部exe组件:
+12345678910111213141516171819202122232425262728293031323334353637383940414243444">
 
 
 
@@ -85,7 +89,7 @@
   };
 </script>
 
-  <title> Peterfei </title>
+  <title> 使用WPF加载Unity可执行程序 | Peterfei </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -102,9 +106,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -211,15 +213,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
 
+  <div id="posts" class="posts-expand">
     
-
-    
-    
-
-    
-      
 
   
   
@@ -239,10 +235,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2019/04/09/使用WPF加载Unity可执行程序/" itemprop="url">
-                  使用WPF加载Unity可执行程序
-                </a>
+                使用WPF加载Unity可执行程序
               
             
           </h1>
@@ -306,9 +299,7 @@
       
 
       
-        
-          
-            <p>  公司有开发wpf需求,模型主要是由Unity开发,导出后是<code>.exe</code>可执行程序,<br>外层是利用react-native编写界面,主要组件为react-native-windows,于是需要融合二者.<br>  首先是写入wpf调用外部<code>exe</code>组件:</p>
+        <p>  公司有开发wpf需求,模型主要是由Unity开发,导出后是<code>.exe</code>可执行程序,<br>外层是利用react-native编写界面,主要组件为react-native-windows,于是需要融合二者.<br>  首先是写入wpf调用外部<code>exe</code>组件:</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Diagnostics;</div><div class="line"><span class="keyword">using</span> System.Runtime.InteropServices;</div><div class="line"><span class="keyword">using</span> System.Windows;</div><div class="line"><span class="keyword">using</span> System.Windows.Interop;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">Vesal_PC</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// GameHost is a FrameworkElement and can be added to controls like so:</span></div><div class="line">    <span class="comment">// var gameHost = new GameHost(container.ActualWidth, container.ActualHeight);</span></div><div class="line">    <span class="comment">// container.Child = gameHost;</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// Sources:</span></div><div class="line">    <span class="comment">// - https://msdn.microsoft.com/en-us/library/ms752055.aspx</span></div><div class="line">    <span class="comment">// - Another source I can't remember or find, concerning running a standalone Unity process using parentHWND parameter</span></div><div class="line">    </div><div class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">GameHost</span> : <span class="title">HwndHost</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> WS_CHILD = <span class="number">0x40000000</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> WS_VISIBLE = <span class="number">0x10000000</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> HOST_ID = <span class="number">0x00000002</span>;</div><div class="line"></div><div class="line">        <span class="keyword">private</span> IntPtr hwndHost;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">int</span> hostHeight, hostWidth;</div><div class="line"></div><div class="line">        <span class="keyword">private</span> Process process;</div><div class="line">        <span class="keyword">private</span> IntPtr unityHWND = IntPtr.Zero;</div><div class="line"></div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> WM_ACTIVATE = <span class="number">0x0006</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IntPtr WA_ACTIVE = <span class="keyword">new</span> IntPtr(<span class="number">1</span>);</div><div class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IntPtr WA_INACTIVE = <span class="keyword">new</span> IntPtr(<span class="number">0</span>);</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">GameHost</span>(<span class="params"><span class="keyword">double</span> width, <span class="keyword">double</span> height</span>)</span></div><div class="line">        &#123;</div><div class="line">            hostHeight = (<span class="keyword">int</span>)height;</div><div class="line">            hostWidth = (<span class="keyword">int</span>)width;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> HandleRef <span class="title">BuildWindowCore</span>(<span class="params">HandleRef hwndParent</span>)</span></div><div class="line">        &#123;</div><div class="line">            hwndHost = IntPtr.Zero;</div><div class="line"></div><div class="line">            hwndHost = CreateWindowEx(<span class="number">0</span>, <span class="string">"static"</span>, <span class="string">""</span>,</div><div class="line">                                      WS_CHILD | WS_VISIBLE,</div><div class="line">                                      <span class="number">0</span>, <span class="number">0</span>,</div><div class="line">                                      hostWidth, hostHeight,</div><div class="line">                                      hwndParent.Handle,</div><div class="line">                                      (IntPtr)HOST_ID,</div><div class="line">                                      IntPtr.Zero,</div><div class="line">                                      <span class="number">0</span>);</div><div class="line"></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">try</span></div><div class="line">                &#123;</div><div class="line">                    process = <span class="keyword">new</span> Process();</div><div class="line">                    process.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + <span class="string">"win/vesal.exe"</span>;</div><div class="line">                    process.StartInfo.Arguments = <span class="string">"-parentHWND "</span> + hwndHost.ToInt32() + <span class="string">" "</span> + Environment.CommandLine;</div><div class="line">                    process.StartInfo.UseShellExecute = <span class="literal">true</span>;</div><div class="line">                    process.StartInfo.CreateNoWindow = <span class="literal">true</span>;</div><div class="line"></div><div class="line">                    process.Start();</div><div class="line"></div><div class="line">                    process.WaitForInputIdle();</div><div class="line">                    <span class="comment">// Doesn't work for some reason ?!</span></div><div class="line">                    <span class="comment">//unityHWND = process.MainWindowHandle;</span></div><div class="line">                    EnumChildWindows(hwndHost, WindowEnum, IntPtr.Zero);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">catch</span> (Exception ex)</div><div class="line">                &#123;</div><div class="line">                    MessageBox.Show(ex.Message + <span class="string">"GameHost: Could not find game executable."</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> HandleRef(<span class="keyword">this</span>, hwndHost);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DestroyWindowCore</span>(<span class="params">HandleRef hwnd</span>)</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">try</span></div><div class="line">            &#123;</div><div class="line">                process.CloseMainWindow();</div><div class="line"></div><div class="line">                System.Threading.Thread.Sleep(<span class="number">1000</span>);</div><div class="line">                <span class="keyword">while</span> (process.HasExited == <span class="literal">false</span>)</div><div class="line">                    process.Kill();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span> (Exception)</div><div class="line">            &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            DestroyWindow(hwnd.Handle);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ActivateUnityWindow</span>(<span class="params"></span>)</span></div><div class="line">        &#123;</div><div class="line">            SendMessage(unityHWND, WM_ACTIVATE, WA_ACTIVE, IntPtr.Zero);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">DeactivateUnityWindow</span>(<span class="params"></span>)</span></div><div class="line">        &#123;</div><div class="line">            SendMessage(unityHWND, WM_ACTIVATE, WA_INACTIVE, IntPtr.Zero);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> IntPtr <span class="title">WndProc</span>(<span class="params">IntPtr hwnd, <span class="keyword">int</span> msg, IntPtr wParam, IntPtr lParam, <span class="keyword">ref</span> <span class="keyword">bool</span> handled</span>)</span></div><div class="line">        &#123;</div><div class="line">            handled = <span class="literal">false</span>;</div><div class="line">            <span class="keyword">return</span> IntPtr.Zero;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">WindowEnum</span>(<span class="params">IntPtr hwnd, IntPtr lparam</span>)</span></div><div class="line">        &#123;</div><div class="line">            unityHWND = hwnd;</div><div class="line">            ActivateUnityWindow();</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//PInvoke declarations</span></div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>, EntryPoint = <span class="string">"CreateWindowEx"</span>, CharSet = CharSet.Unicode)]</div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">CreateWindowEx</span>(<span class="params"><span class="keyword">int</span> dwExStyle,</span></span></div><div class="line">                                                      <span class="keyword">string</span> lpszClassName,</div><div class="line">                                                      <span class="keyword">string</span> lpszWindowName,</div><div class="line">                                                      <span class="keyword">int</span> style,</div><div class="line">                                                      <span class="keyword">int</span> x, <span class="keyword">int</span> y,</div><div class="line">                                                      <span class="keyword">int</span> width, <span class="keyword">int</span> height,</div><div class="line">                                                      IntPtr hwndParent,</div><div class="line">                                                      IntPtr hMenu,</div><div class="line">                                                      IntPtr hInst,</div><div class="line">                                                      [MarshalAs(UnmanagedType.AsAny)] <span class="keyword">object</span> pvParam);</div><div class="line"></div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>, EntryPoint = <span class="string">"DestroyWindow"</span>, CharSet = CharSet.Unicode)]</div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">DestroyWindow</span>(<span class="params">IntPtr hwnd</span>)</span>;</div><div class="line"></div><div class="line">        [DllImport(<span class="string">"User32.dll"</span>)]</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">MoveWindow</span>(<span class="params">IntPtr handle, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">bool</span> redraw</span>)</span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">delegate</span> <span class="keyword">int</span> <span class="title">WindowEnumProc</span>(<span class="params">IntPtr hwnd, IntPtr lparam</span>)</span>;</div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>)]</div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">EnumChildWindows</span>(<span class="params">IntPtr hwnd, WindowEnumProc func, IntPtr lParam</span>)</span>;</div><div class="line"></div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>)]</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">SendMessage</span>(<span class="params">IntPtr hWnd, <span class="keyword">int</span> msg, IntPtr wParam, IntPtr lParam</span>)</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>编写react-native UnityView组件:</p>
 <blockquote>
@@ -331,8 +322,6 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; <span class="type">PropTypes</span>, <span class="type">Component</span> &#125; from <span class="string">"react"</span>;</div><div class="line"><span class="keyword">import</span> &#123; requireNativeComponent, <span class="type">View</span>, <span class="type">ViewPropTypes</span> &#125; from <span class="string">"react-native"</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnityView</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> &lt;<span class="type">RCTUnityView</span> &#123;...<span class="keyword">this</span>.props&#125; /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">module.exports = requireNativeComponent(<span class="string">"RCTUnityView"</span>, <span class="type">UnityView</span>);</div></pre></td></tr></table></figure>
 <p>使用:<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;UnityView <span class="built_in">style</span>=&#123;&#123;<span class="built_in">width</span>:<span class="number">1680</span>,<span class="built_in">height</span>:<span class="number">1050</span>&#125;&#125;/&gt;</div></pre></td></tr></table></figure></p>
 
-          
-        
       
     </div>
 
@@ -340,488 +329,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/04/09/服务器监控脚本/" rel="next" title="服务器监控脚本">
+                <i class="fa fa-chevron-left"></i> 服务器监控脚本
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2019/04/09/服务器监控脚本/" itemprop="url">
-                  服务器监控脚本
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-04-09T08:52:58+08:00" content="2019-04-09">
-              2019-04-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/04/09/服务器监控脚本/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/09/服务器监控脚本/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <blockquote>
-<p>monitor.py</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding:utf-8</span></div><div class="line"><span class="comment"># ！/usr/bin/env python3</span></div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">from</span> aliyunsdkdysmsapi.request.v20170525 <span class="keyword">import</span> SendSmsRequest</div><div class="line"><span class="keyword">from</span> aliyunsdkdysmsapi.request.v20170525 <span class="keyword">import</span> QuerySendDetailsRequest</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.client <span class="keyword">import</span> AcsClient</div><div class="line"><span class="keyword">import</span> uuid</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.profile <span class="keyword">import</span> region_provider</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.http <span class="keyword">import</span> method_type <span class="keyword">as</span> MT</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.http <span class="keyword">import</span> format_type <span class="keyword">as</span> FT</div><div class="line"><span class="keyword">import</span> const</div><div class="line"><span class="comment"># from config import Alarm_cache</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> Settings</div><div class="line"></div><div class="line"><span class="comment"># 监控逻辑</span></div><div class="line"></div><div class="line"><span class="comment"># 注意：不要更改</span></div><div class="line">REGION = <span class="string">"cn-hangzhou"</span></div><div class="line">PRODUCT_NAME = <span class="string">"Dysmsapi"</span></div><div class="line">DOMAIN = <span class="string">"dysmsapi.aliyuncs.com"</span></div><div class="line"></div><div class="line">acs_client = AcsClient(const.ACCESS_KEY_ID, const.ACCESS_KEY_SECRET, REGION)</div><div class="line">region_provider.add_endpoint(PRODUCT_NAME, REGION, DOMAIN)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_sms</span><span class="params">(phone_numbers, sign_name, template_code, template_param=None)</span>:</span></div><div class="line">    smsRequest = SendSmsRequest.SendSmsRequest()</div><div class="line">    <span class="comment"># 申请的短信模板编码,必填</span></div><div class="line">    smsRequest.set_TemplateCode(template_code)</div><div class="line"></div><div class="line">    <span class="comment"># 短信模板变量参数</span></div><div class="line">    <span class="keyword">if</span> template_param <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        smsRequest.set_TemplateParam(template_param)</div><div class="line"></div><div class="line">    <span class="comment"># 短信签名</span></div><div class="line">    smsRequest.set_SignName(sign_name)</div><div class="line"></div><div class="line">    <span class="comment"># 数据提交方式</span></div><div class="line">    <span class="comment"># smsRequest.set_method(MT.POST)</span></div><div class="line"></div><div class="line">    <span class="comment"># 数据提交格式</span></div><div class="line">    <span class="comment"># smsRequest.set_accept_format(FT.JSON)</span></div><div class="line"></div><div class="line">    <span class="comment"># 短信发送的号码列表，必填。</span></div><div class="line">    smsRequest.set_PhoneNumbers(phone_numbers)</div><div class="line"></div><div class="line">    <span class="comment"># 调用短信发送接口，返回json</span></div><div class="line">    smsResponse = acs_client.do_action_with_exception(smsRequest)</div><div class="line"></div><div class="line">    <span class="comment"># TODO 业务处理</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> smsResponse</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">monitor</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'***启动监控***'</span>)</div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        ports = [<span class="number">8000</span>, <span class="number">8001</span>, <span class="number">8002</span>]</div><div class="line">        <span class="keyword">for</span> port <span class="keyword">in</span> ports:</div><div class="line">            check_url = <span class="string">"http://api.XXX.cn:%s/server?type=0"</span> % (</div><div class="line">                port)</div><div class="line">            command = <span class="string">"curl -I -m 30 -o /dev/null -s -w %&#123;http_code&#125; "</span> + check_url</div><div class="line">            http_code = os.popen(command).read()</div><div class="line">            print(<span class="string">"ping %s 状态码为%s"</span> % (check_url, http_code))</div><div class="line">            <span class="keyword">if</span> http_code != <span class="string">"200"</span>:</div><div class="line">                <span class="comment"># Alarm_cache["ping_error"].append(diff)</span></div><div class="line">                <span class="comment"># 发短信</span></div><div class="line">                print(<span class="string">"###发送短信给相关的人###"</span>)</div><div class="line">                params = <span class="string">"&#123;\"interface\":\"%s\"&#125;"</span> % (port)</div><div class="line">                <span class="keyword">for</span> phone <span class="keyword">in</span> Settings[<span class="string">"alarm_phones"</span>]:</div><div class="line">                    print(send_sms(phone, <span class="string">"thisissignname"</span>, <span class="string">"SMS_99999999"</span>, params))</div><div class="line">        time.sleep(<span class="number">300</span>)</div><div class="line">        print(<span class="string">'5分钟后检查'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    monitor()</div></pre></td></tr></table></figure>
-<blockquote>
-<p>config.py</p>
-</blockquote>
-<figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># coding:utf-8</span></div><div class="line">Alarm_cache = &#123;</div><div class="line">    <span class="string">"ping_error"</span>: []</div><div class="line">&#125;</div><div class="line"><span class="meta"># 配置</span></div><div class="line">Settings = &#123;</div><div class="line">    <span class="string">"alarm_phones"</span>: [<span class="string">'thisiscellphone'</span>]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/04/08/Android-调试-日志脚本/" itemprop="url">
-                  Android 调试|日志脚本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-04-08T17:04:56+08:00" content="2019-04-08">
-              2019-04-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/04/08/Android-调试-日志脚本/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/08/Android-调试-日志脚本/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">PackageName=<span class="variable">$1</span></div><div class="line"></div><div class="line"><span class="comment">#PackageName=com.example.appinfomanagertinno</span></div><div class="line">pid=<span class="string">"<span class="variable">$(adb shell ps | grep $PackageName | awk '&#123;print $2&#125;')</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"PackageName-----"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$PackageName</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"pid-----"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$pid</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------------------------------"</span></div><div class="line"></div><div class="line">adb logcat | grep <span class="variable">$pid</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>使用方法<br><code>./logcat_package.sh com.XXX.XXX</code></p>
-</blockquote>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/04/08/百度语音tts-Android9-0-发音解决办法/" itemprop="url">
-                  百度语音tts Android9.0 发音解决办法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-04-08T16:58:00+08:00" content="2019-04-08">
-              2019-04-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/04/08/百度语音tts-Android9-0-发音解决办法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/08/百度语音tts-Android9-0-发音解决办法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>百度语音在Android9.0不能发音解决办法:<br>在 <code>AndroidManifest.xml</code> <code>&lt;application&gt;</code>下加入:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-library <span class="string">android:</span>name=<span class="string">"org.apache.http.legacy"</span> <span class="string">android:</span>required=<span class="string">"false"</span>/&gt;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/20/Swift高级篇/" itemprop="url">
-                  Swift高级篇
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-20T13:55:50+08:00" content="2016-12-20">
-              2016-12-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/20/Swift高级篇/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/20/Swift高级篇/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="扩展-Extension"><a href="#扩展-Extension" class="headerlink" title="扩展(Extension)"></a>扩展(Extension)</h2><p>任务： 求数字的平方。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">square</span><span class="params">(x: Int)</span></span> -&gt; <span class="type">Int</span> &#123; <span class="keyword">return</span> x * x &#125;</div><div class="line"><span class="keyword">var</span> squaredOfFive = square(x: <span class="number">5</span>)</div><div class="line">square(x: squaredOfFive) <span class="comment">// 625</span></div></pre></td></tr></table></figure>
-<p>为了求5的四次方我们被迫创建变量 squaredOfFive — 高手可不喜欢被迫定义一个无用的变量。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Int</span> </span>&#123; </div><div class="line"> <span class="keyword">var</span> squared: <span class="type">Int</span> &#123; <span class="keyword">return</span> <span class="keyword">self</span> * <span class="keyword">self</span> &#125;</div><div class="line">&#125;</div><div class="line"><span class="number">5</span>.squared <span class="comment">// 25</span></div><div class="line"><span class="number">5</span>.squared.squared <span class="comment">// 625</span></div></pre></td></tr></table></figure>
-<h2 id="泛型-Generics"><a href="#泛型-Generics" class="headerlink" title="泛型(Generics)"></a>泛型(Generics)</h2><p>任务：打印输出数组内所有的元素。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">var</span> stringArray = [<span class="string">"苍老师"</span>, <span class="string">"范老师"</span>, <span class="string">"优衣库"</span>]</div><div class="line"><span class="selector-tag">var</span> intArray = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</div><div class="line"><span class="selector-tag">var</span> doubleArray = [<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>]</div><div class="line">func printStringArray(<span class="selector-tag">a</span>: [String]) &#123; </div><div class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; </div><div class="line">              print(s) </div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">func printIntArray(<span class="selector-tag">a</span>: [Int]) &#123; <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; print(i) &#125; &#125;</div><div class="line">func printDoubleArray(<span class="selector-tag">a</span>: [Double]) &#123;<span class="keyword">for</span> d <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; print(d) &#125; &#125;</div></pre></td></tr></table></figure></p>
-<p>居然要定义这么多函数？ 菜鸟能忍高手不能忍！</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printElementFromArray</span><span class="params">(a: [T])</span></span> &#123;</div><div class="line">        <span class="keyword">for</span> element <span class="keyword">in</span> a &#123; </div><div class="line">            <span class="built_in">print</span>(element) </div><div class="line">        &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="For-遍历-vs-While-遍历"><a href="#For-遍历-vs-While-遍历" class="headerlink" title="For 遍历 vs While 遍历"></a>For 遍历 vs While 遍历</h2><p>任务：打印 5 次 大雁塔</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">var</span> <span class="selector-tag">i</span> = <span class="number">0</span></div><div class="line">while <span class="number">5</span> &gt; <span class="selector-tag">i</span> &#123;</div><div class="line">      print(<span class="string">"大雁塔"</span>)</div><div class="line">      <span class="selector-tag">i</span> += <span class="number">1</span> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>被迫定义了变量 i 来确保打印大雁塔5次</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.5</span> &#123; </div><div class="line">    <span class="built_in">print</span>(<span class="string">"大雁塔"</span>) </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="计算属性-vs-函数"><a href="#计算属性-vs-函数" class="headerlink" title="计算属性 vs 函数"></a>计算属性 vs 函数</h2><p>任务：计算圆的直径<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">funcgetDiameter</span>(<span class="attribute">radius</span>: Double) <span class="selector-tag">-</span>&gt; <span class="selector-tag">Double</span> &#123; <span class="selector-tag">return</span> <span class="selector-tag">radius</span> * <span class="selector-tag">2</span>&#125;</div><div class="line"><span class="selector-tag">funcgetRadius</span>(<span class="attribute">diameter</span>: Double) <span class="selector-tag">-</span>&gt; <span class="selector-tag">Double</span> &#123; <span class="selector-tag">return</span> <span class="selector-tag">diameter</span> / <span class="selector-tag">2</span>&#125;</div><div class="line"><span class="selector-tag">getDiameter</span>(<span class="attribute">radius</span>: <span class="number">10</span>) <span class="comment">// return 20</span></div><div class="line"><span class="selector-tag">getRadius</span>(<span class="attribute">diameter</span>: <span class="number">200</span>) <span class="comment">// return 100</span></div><div class="line"><span class="selector-tag">getRadius</span>(<span class="attribute">diameter</span>: <span class="number">600</span>) <span class="comment">// return 300</span></div></pre></td></tr></table></figure></p>
-<p>上面我们创建了2个毫无关系的函数，可是直径和周长两者真的没有关系吗？<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="keyword">var</span> radius: <span class="built_in">Double</span> = <span class="number">10</span></div><div class="line"><span class="keyword">var</span> diameter: <span class="built_in">Double</span> &#123;</div><div class="line">      <span class="keyword">get</span> &#123; <span class="keyword">return</span> radius * <span class="number">2</span>&#125;</div><div class="line">      <span class="keyword">set</span> &#123; radius = newValue / <span class="number">2</span>&#125; </div><div class="line">&#125;</div><div class="line">radius <span class="comment">// 10</span></div><div class="line">diameter <span class="comment">// 20</span></div><div class="line">diameter = <span class="number">1000</span></div><div class="line">radius <span class="comment">// 500</span></div></pre></td></tr></table></figure></p>
-<h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2><p>任务： 获取偶数。</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Evens</span> = [<span class="keyword">Int</span>]()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.10</span> &#123;</div><div class="line">  <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span> &#123; </div><div class="line">      <span class="keyword">new</span><span class="type">Evens</span>.append(i) </div><div class="line">    &#125; </div><div class="line">&#125;</div><div class="line">print(<span class="keyword">new</span><span class="type">Evens</span>) <span class="comment">// [2, 4, 6, 8, 10]</span></div></pre></td></tr></table></figure>
-<p>这种for循环真是冗长，让人看的昏昏欲睡。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line">var evens = (<span class="number">1.</span>.<span class="number">.10</span>).filter &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; </div><div class="line">print(evens) </div><div class="line"><span class="comment">// [2, 4, 6, 8, 10]</span></div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -829,6 +362,15 @@
 
 
           
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2019/04/09/使用WPF加载Unity可执行程序/"
+           data-title="使用WPF加载Unity可执行程序" data-url="http://peterfei.me/2019/04/09/使用WPF加载Unity可执行程序/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -848,8 +390,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
@@ -913,6 +464,23 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
       
 
     </div>
@@ -994,6 +562,167 @@
 
 
   
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
 
   
 
