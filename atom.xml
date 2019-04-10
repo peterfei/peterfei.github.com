@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://peterfei.me/"/>
-  <updated>2019-04-10T02:29:12.161Z</updated>
+  <updated>2019-04-10T02:36:50.370Z</updated>
   <id>http://peterfei.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://peterfei.me/2019/04/10/%E8%AE%B0IOS%E5%BC%80%E5%8F%91%E4%B9%8B%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3react-native-unity-view%E6%8F%92%E4%BB%B6%E5%9C%A8Product%E6%A8%A1%E5%BC%8F%E9%97%AA%E9%80%80Bug/"/>
     <id>http://peterfei.me/2019/04/10/记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退Bug/</id>
     <published>2019-04-10T01:44:13.000Z</published>
-    <updated>2019-04-10T02:29:12.161Z</updated>
+    <updated>2019-04-10T02:36:50.370Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p> 事件起因:</p>
