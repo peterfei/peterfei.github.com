@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://peterfei.me/"/>
-  <updated>2019-04-11T03:44:36.705Z</updated>
+  <updated>2019-04-11T03:45:37.868Z</updated>
   <id>http://peterfei.me/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://peterfei.me/2019/04/11/ReactNative%E4%B9%8BRealm%E9%A2%84%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE/"/>
     <id>http://peterfei.me/2019/04/11/ReactNative之Realm预加载数据/</id>
     <published>2019-04-11T03:28:51.000Z</published>
-    <updated>2019-04-11T03:44:36.705Z</updated>
+    <updated>2019-04-11T03:45:37.868Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>realm 数据预加载</p>
 </blockquote>
-<h4 id="Require-Env"><a href="#Require-Env" class="headerlink" title="Require Env:"></a>Require Env:</h4><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> i realm</div><div class="line"><span class="built_in">npm</span> i react-<span class="keyword">native</span>-fs</div><div class="line">react-<span class="keyword">native</span> link</div></pre></td></tr></table></figure>
+<h5 id="Require-Env"><a href="#Require-Env" class="headerlink" title="Require Env:"></a>Require Env:</h5><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> i realm</div><div class="line"><span class="built_in">npm</span> i react-<span class="keyword">native</span>-fs</div><div class="line">react-<span class="keyword">native</span> link</div></pre></td></tr></table></figure>
 <p>分别拷贝数据库至原生公用目录</p>
 <h5 id="Android端"><a href="#Android端" class="headerlink" title="Android端"></a>Android端</h5><p><code>android/app/src/main/assets/demo.realm</code></p>
 <h5 id="IOS端"><a href="#IOS端" class="headerlink" title="IOS端"></a>IOS端</h5><p><code>Build Phases-&gt;Copy Bundle Resources-&gt;demo.realm</code></p>
@@ -40,7 +40,7 @@
       &lt;blockquote&gt;
 &lt;p&gt;realm 数据预加载&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4 id=&quot;Require-Env&quot;&gt;&lt;a href=&quot;#Require-Env&quot; class=&quot;headerlink&quot; title=&quot;Require Env:&quot;&gt;&lt;/a&gt;Requir
+&lt;h5 id=&quot;Require-Env&quot;&gt;&lt;a href=&quot;#Require-Env&quot; class=&quot;headerlink&quot; title=&quot;Require Env:&quot;&gt;&lt;/a&gt;Requir
     
     </summary>
     
