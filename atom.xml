@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://peterfei.me/"/>
-  <updated>2019-04-11T03:41:16.170Z</updated>
+  <updated>2019-04-11T03:44:36.705Z</updated>
   <id>http://peterfei.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://peterfei.me/2019/04/11/ReactNative%E4%B9%8BRealm%E9%A2%84%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE/"/>
     <id>http://peterfei.me/2019/04/11/ReactNative之Realm预加载数据/</id>
     <published>2019-04-11T03:28:51.000Z</published>
-    <updated>2019-04-11T03:41:16.170Z</updated>
+    <updated>2019-04-11T03:44:36.705Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>realm 数据预加载</p>
@@ -33,8 +33,7 @@
 <blockquote>
 <p><code>Realm.copyBundledRealmFiles();</code></p>
 </blockquote>
-<p>Demo至</p>
-<h5 id="prepare-realm-data-demo"><a href="#prepare-realm-data-demo" class="headerlink" title="prepare-realm-data-demo"></a><a href="https://github.com/peterfei/prepare-realm-data-demo" target="_blank" rel="external">prepare-realm-data-demo</a></h5>]]></content>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><h5 id="prepare-realm-data-demo"><a href="#prepare-realm-data-demo" class="headerlink" title="prepare-realm-data-demo"></a><a href="https://github.com/peterfei/prepare-realm-data-demo" target="_blank" rel="external">prepare-realm-data-demo</a></h5>]]></content>
     
     <summary type="html">
     
@@ -45,6 +44,12 @@
     
     </summary>
     
+      <category term="前端" scheme="http://peterfei.me/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="react-native" scheme="http://peterfei.me/tags/react-native/"/>
+    
+      <category term="realm" scheme="http://peterfei.me/tags/realm/"/>
     
   </entry>
   
