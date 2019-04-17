@@ -71,7 +71,7 @@
 安装完成之后，执行 hello-world 试一下:
 1$ docker run hello-world
 123456789101112131415161718192021Hello from Docker!This message shows that your installation appears to">
-<meta property="og:updated_time" content="2019-04-17T10:31:24.959Z">
+<meta property="og:updated_time" content="2019-04-17T10:35:46.232Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker笔记01">
 <meta name="twitter:description" content="安装 DockerMac 上的安装1brew cask install docker
@@ -325,6 +325,9 @@
 </blockquote>
 <h3 id="停止运行"><a href="#停止运行" class="headerlink" title="停止运行"></a>停止运行</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker <span class="built_in">stop</span> <span class="number">4591552</span>a4185</div></pre></td></tr></table></figure>
 <h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm <span class="number">4591552</span>a4185</div></pre></td></tr></table></figure>
+<h3 id="分配IP给宿主机"><a href="#分配IP给宿主机" class="headerlink" title="分配IP给宿主机"></a>分配IP给宿主机</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ifconfig lo0 alias <span class="number">192.168</span><span class="number">.64</span><span class="number">.0</span>/<span class="number">24</span></div></pre></td></tr></table></figure>
+<p>访问 <code>http://192.168.64.0:8080</code> </p>
+
       
     </div>
 
@@ -483,7 +486,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Docker"><span class="nav-number">1.</span> <span class="nav-text">安装 Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Nginx服务"><span class="nav-number">2.</span> <span class="nav-text">启动Nginx服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入容器"><span class="nav-number">3.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止运行"><span class="nav-number">4.</span> <span class="nav-text">停止运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除容器"><span class="nav-number">5.</span> <span class="nav-text">删除容器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Docker"><span class="nav-number">1.</span> <span class="nav-text">安装 Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Nginx服务"><span class="nav-number">2.</span> <span class="nav-text">启动Nginx服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入容器"><span class="nav-number">3.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止运行"><span class="nav-number">4.</span> <span class="nav-text">停止运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除容器"><span class="nav-number">5.</span> <span class="nav-text">删除容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配IP给宿主机"><span class="nav-number">6.</span> <span class="nav-text">分配IP给宿主机</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

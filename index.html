@@ -328,6 +328,9 @@
 </blockquote>
 <h3 id="停止运行"><a href="#停止运行" class="headerlink" title="停止运行"></a>停止运行</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker <span class="built_in">stop</span> <span class="number">4591552</span>a4185</div></pre></td></tr></table></figure>
 <h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm <span class="number">4591552</span>a4185</div></pre></td></tr></table></figure>
+<h3 id="分配IP给宿主机"><a href="#分配IP给宿主机" class="headerlink" title="分配IP给宿主机"></a>分配IP给宿主机</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ifconfig lo0 alias <span class="number">192.168</span><span class="number">.64</span><span class="number">.0</span>/<span class="number">24</span></div></pre></td></tr></table></figure>
+<p>访问 <code>http://192.168.64.0:8080</code> </p>
+
           
         
       
