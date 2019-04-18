@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://peterfei.me/"/>
-  <updated>2019-04-18T03:26:04.983Z</updated>
+  <updated>2019-04-18T03:35:53.104Z</updated>
   <id>http://peterfei.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://peterfei.me/2019/04/18/%E8%AE%B0-%E7%BB%99%E5%85%AC%E5%8F%B8Unity%E7%BB%84%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%93%E5%AD%98%E7%B1%BB/"/>
     <id>http://peterfei.me/2019/04/18/记-给公司Unity组实现的数据库缓存类/</id>
     <published>2019-04-18T02:28:51.000Z</published>
-    <updated>2019-04-18T03:26:04.983Z</updated>
+    <updated>2019-04-18T03:35:53.104Z</updated>
     
     <content type="html"><![CDATA[<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><ol>
 <li>所有线上接口管理至本地缓存</li>
@@ -94,6 +94,8 @@
 &lt;h3
     
     </summary>
+    
+      <category term="Unity" scheme="http://peterfei.me/categories/Unity/"/>
     
     
       <category term="Unity" scheme="http://peterfei.me/tags/Unity/"/>
