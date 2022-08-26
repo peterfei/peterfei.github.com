@@ -4,6 +4,7 @@ tags:
 - rails
 - minitest
 - mocha
+categories: Ruby
 ---
 ```ruby 
 describe "订单号测试" do

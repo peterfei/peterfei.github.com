@@ -3,6 +3,7 @@ date: 2015-07-13 17:41:38
 tags:
 - ionic
 - webserver
+categories: Ionic
 ---
 *公司在做ionic开发时，遇到要发布为webserver:*
 ```nodejs

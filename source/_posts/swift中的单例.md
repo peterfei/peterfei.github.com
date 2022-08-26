@@ -3,6 +3,7 @@ date: 2016-09-09 17:51:27
 tags:
 - swift
 - IOS
+categories: Swift
 ---
 ##关于单例
 . 单例必须是唯一的，所以它才被称为单例。在一个应用程序的生命周期里，有且只有一个实例存在。单例的存在给我们提供了一个唯一的全局状态。比如我们熟悉的NSNotification，UIApplication和NSUserDefaults都是单例。

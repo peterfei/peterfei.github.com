@@ -1,6 +1,7 @@
 title: IOS 打包script
 date: 2015-07-03 19:47:03
 tags:
+categories: IOS
 ---
 *无签名打包命令*
 

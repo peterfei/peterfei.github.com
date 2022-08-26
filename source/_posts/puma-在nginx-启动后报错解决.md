@@ -1,6 +1,7 @@
 title: puma 在nginx 启动后报错解决
 date: 2015-10-31 11:46:44
 tags:
+categories: ROR
 ---
 ##在Centos上部署时遇到如下错误：
 >puma nginx connect() Permission denied

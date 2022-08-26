@@ -3,6 +3,7 @@ date: 2015-12-08 16:23:31
 tags:
 - ionic 
 - angular
+categories: Ionic
 ---
 ionic手动清除页面方法：
 

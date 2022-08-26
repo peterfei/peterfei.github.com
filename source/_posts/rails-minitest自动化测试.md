@@ -1,6 +1,7 @@
 title: rails minitest自动化测试
 date: 2015-11-12 09:32:09
 tags:
+categories: Ruby
 ---
 ##Gemfile加入相关测试驱动：
 > ```ruby

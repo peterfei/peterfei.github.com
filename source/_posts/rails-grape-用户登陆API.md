@@ -1,6 +1,7 @@
 title: rails grape 用户登陆API
 date: 2015-10-20 23:27:37
 tags:
+categories: ROR
 ---
 ##新建apiUser表：
   1.access_token

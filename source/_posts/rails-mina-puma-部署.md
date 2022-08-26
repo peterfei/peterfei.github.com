@@ -1,6 +1,7 @@
 title: rails mina+puma 部署
 date: 2015-10-19 14:26:47
 tags:
+categories: ROR
 ---
 出于安全考虑，不要使用 root 帐号运行 web 应用。这里新建一个专门用于部署的用户，例如 deploy 或者其它你喜欢的名字。运行以下命令创建用户：
 

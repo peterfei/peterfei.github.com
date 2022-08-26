@@ -4,6 +4,7 @@ tags:
 - ionic
 - jpush
 - ios
+categories: 前端
 ---
 ###添加 IOS 平台
 `$ ionic platform add ios`

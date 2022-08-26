@@ -1,6 +1,7 @@
 title: AngularJS 指令的 Scope (作用域)
 date: 2016-04-19 21:58:37
 tags:
+categories: 前端
 ---
 当一个指令被创建的时候，都会有这样一个选择，是继承自己的父作用域（一般是外部的Controller提供的作用域或者根作用域（$rootScope）），还是创建一个新的自己的作用域，当然AngularJS为我们指令的scope参数提供了三种选择，分别是：`false`,`true`,`{}`；默认情况下是false。
 JS:

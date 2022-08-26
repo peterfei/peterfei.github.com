@@ -1,6 +1,7 @@
 title: Sublime 中自定义snippets
 date: 2015-10-29 10:00:20
 tags:
+categories: 工具
 ---
 ##选择`tool`->`new snippet`
 内容如下：

@@ -1,6 +1,7 @@
 title: 'Rails Migration Multiple(多) Sql Executing(执行) '
 date: 2015-11-16 13:46:17
 tags:
+categories: ROR
 ---
 >在migration 里生成的文件写下如下要批量执行的sql:
 ```sql

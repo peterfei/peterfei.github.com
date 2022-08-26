@@ -4,6 +4,7 @@ tags:
 - ionic
 - actionsheet
 - android
+categories: 前端
 ---
 ###Ionic ActionSheet Android 样式
 在`style.css`拷贝如下样式表：

@@ -3,6 +3,7 @@ date: 2015-07-06 15:44:36
 tags:
 - ionic
 - angular
+categories: 前端
 ---
 * 安装Node.js (这里主要是要用它的npm命令装东西)
 	进入官网[http://www.nodejs.org/](http://) )，下载安装包安装

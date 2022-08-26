@@ -1,6 +1,7 @@
 title: rails 使用angularjs 中完成分页
 date: 2016-04-07 13:09:48
 tags:
+categories: ROR
 ---
 rails 使用angularjs 中完成分页:
 Base 插件：`kaminari` ,`angular-paginate-anything`

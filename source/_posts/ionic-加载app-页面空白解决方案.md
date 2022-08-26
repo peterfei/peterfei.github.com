@@ -3,6 +3,7 @@ date: 2016-05-21 10:55:25
 tags:
 - ionic 
 - splash
+categories: Ionic
 ---
 给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了`cordova.splashscreen.SplashScreen`,但问题依然存在。
 Google之后得到如下解决方案：

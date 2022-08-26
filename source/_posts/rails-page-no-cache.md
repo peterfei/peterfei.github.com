@@ -3,6 +3,7 @@ date: 2016-08-16 15:21:21
 tags:
 - rails
 - cache
+categories: ROR
 ---
 Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:
 ```

@@ -1,6 +1,7 @@
 title: Swift 基础语法
 date: 2016-08-20 12:43:37
 tags:
+categories: Swift
 ---
 
 ##声明常量和变量

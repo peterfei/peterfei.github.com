@@ -3,6 +3,7 @@ date: 2015-07-09 00:48:44
 tags:
 - ionic&socket.io
 - ionic
+categories: Ionic
 ---
 *这两天一直在做*ionic*开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。*
 

@@ -3,6 +3,7 @@ date: 2015-07-14 11:47:25
 tags:
 - ionic 
 - android
+categories: 前端
 ---
 *在app.js里加：*
 ```javascript

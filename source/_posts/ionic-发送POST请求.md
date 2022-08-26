@@ -3,6 +3,7 @@ date: 2015-07-22 00:40:03
 tags:
 - ionic 
 - angularjs
+categories: Ionic
 ---
 *今天写一个`POST`请求给远程API，`FORM`数据一直不能发送，最终用如下factory解决问题：*
 ****************************************

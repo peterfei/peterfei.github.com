@@ -1,6 +1,7 @@
 title: Angularjs 判断服务器401错误
 date: 2015-10-21 14:42:53
 tags:
+categories: 前端
 ---
 之前在`github`上有篇判断`augularjs`401状态码的:
 ```javascript

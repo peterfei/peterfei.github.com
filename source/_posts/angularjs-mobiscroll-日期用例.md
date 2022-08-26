@@ -1,6 +1,7 @@
 title: angularjs mobiscroll 日期用例
 date: 2015-10-27 16:23:20
 tags:
+categories: 前端
 ---
 Angularjs 写了个mobiscroll directive ：
 ```javascript

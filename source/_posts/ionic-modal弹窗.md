@@ -3,6 +3,7 @@ date: 2015-07-09 14:03:00
 tags:
 -  ionic
 - modal
+categories: 前端
 ---
 *今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错*
 

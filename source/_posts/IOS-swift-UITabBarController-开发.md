@@ -4,6 +4,7 @@ tags:
 - ios
 - swift
 - UITabBarController
+categories: Swift
 ---
 Swift 开发中，省去storyboard,应用UITabBarController也可以生成:
 ![效果](http://pic.yupoo.com/peterfei_s/FQ13FI9K/Pi7pg.png)

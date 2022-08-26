@@ -3,6 +3,7 @@ date: 2016-05-13 10:39:16
 tags:
 - ruby
 - 风格指南
+categories: Ruby
 ---
 
 ## 目录

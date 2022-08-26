@@ -4,6 +4,7 @@ tags:
 - mac
 - app store
 - 更新
+categories: mac
 ---
 `sudo softwareupdate -i -a` 
 应用它就可以跳过臃肿的app store 进行系统更新了。

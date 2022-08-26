@@ -4,6 +4,7 @@ tags:
 - swift 
 - ios
 - tableview
+categories: Swift
 ---
 在做移动端开发时，难免会用到tableview 来渲染列表数据，像这样:
 ![](http://pic.yupoo.com/peterfei_s/FQ13FI9K/Pi7pg.png)

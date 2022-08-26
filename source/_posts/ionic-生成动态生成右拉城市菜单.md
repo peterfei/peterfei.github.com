@@ -4,6 +4,7 @@ tags:
 - Ionic
 - ion-side-menus
 - $ionicSideMenuDelegate
+categories: Ionic
 ---
 昨天有时间想重写下之前技术部小黄写的城市右拉， 主要用的功能是`ionic` 自带的 `ion-side-menus` 和 `ionicSideMenuDelegate`。
 配置路由：
