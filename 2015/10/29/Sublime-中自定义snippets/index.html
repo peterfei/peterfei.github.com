@@ -1,0 +1,768 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="peterfei.me,peterfei" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="##选择tool-&amp;gt;new snippet内容如下：123456789&amp;lt;snippet&amp;gt;    &amp;lt;content&amp;gt;&amp;lt;![CDATA[Hello, $&amp;#123;1:this&amp;#125; is a $&amp;#123;2:snippet&amp;#125;.]]&amp;gt;&amp;lt;/content&amp;gt;    &amp;lt;!-- Optional: Set a tabTrigger">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sublime 中自定义snippets">
+<meta property="og:url" content="http://peterfei.me/2015/10/29/Sublime-中自定义snippets/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="##选择tool-&amp;gt;new snippet内容如下：123456789&amp;lt;snippet&amp;gt;    &amp;lt;content&amp;gt;&amp;lt;![CDATA[Hello, $&amp;#123;1:this&amp;#125; is a $&amp;#123;2:snippet&amp;#125;.]]&amp;gt;&amp;lt;/content&amp;gt;    &amp;lt;!-- Optional: Set a tabTrigger">
+<meta property="og:updated_time" content="2022-08-26T02:42:20.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sublime 中自定义snippets">
+<meta name="twitter:description" content="##选择tool-&amp;gt;new snippet内容如下：123456789&amp;lt;snippet&amp;gt;    &amp;lt;content&amp;gt;&amp;lt;![CDATA[Hello, $&amp;#123;1:this&amp;#125; is a $&amp;#123;2:snippet&amp;#125;.]]&amp;gt;&amp;lt;/content&amp;gt;    &amp;lt;!-- Optional: Set a tabTrigger">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Sublime 中自定义snippets | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Sublime 中自定义snippets
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-10-29T10:00:20+08:00" content="2015-10-29">
+              2015-10-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/29/Sublime-中自定义snippets/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/29/Sublime-中自定义snippets/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##选择<code>tool</code>-&gt;<code>new snippet</code><br>内容如下：<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">snippet</span>&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">content</span>&gt;</span>&lt;![CDATA[</div><div class="line">Hello, $<span class="template-variable">&#123;1:this&#125;</span><span class="xml"> is a $</span><span class="template-variable">&#123;2:snippet&#125;</span><span class="xml">.</span></div><div class="line">]]&gt;<span class="tag">&lt;/<span class="name">content</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">snippet</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<ol>
+<li>Hello, ${1:this} is a ${2:snippet} 这正是你要插入到文档中的文本。在此节放入的任何片段都会被插入到你的文档中。</li>
+<li>tabTrigger 此节是可选的配置，默认是被注释掉的。默认 hello 的意思是：如果你在某个文档里输入了单词 hello ，然后按下 Tab 键，接着 hello 就会被替换为1中定义的代码片段。再次按下Tab键，接着snippet会被替换为2中定义的代码片段</li>
+<li>scope 此节也是可选配置，默认是被注释掉的。默认 source.php 的意思是：只有在编辑 php 源码的时候，才能用此代码片段</li>
+</ol>
+<p>##保存代码片段文件<br>在能自定义代码片段之前，应该首先保存。在保存文件对话框里，需要明确的指定文件的扩展名为.sublime-snippet，然后把文件保存到默认目录（当前用户主目录下的\Sublime Text 3\Packages\User目录中）。</p>
+<p>保存文件之后，就可以测试上面提到的tabTrigger功能了。如果不再使用此功能，可以在此注释掉.</p>
+<p>##修改代码片段文件<br>在创建新代码片段中提到过 Hello, ${1:this} is a ${2:snippet} ，其中 ${1:this} 和 ${2:snippet} 是占位符。在插入代码片段后，单词 this 被选中，如果键入内容，this 将会被替换掉，接着按下 Tab 键，将会选中单词 snippet，如果键入内容，snippet 将会被替换掉。</p>
+<p>##绑定快捷键</p>
+<p>可以将上述的操作绑定到一个快捷键，在不键入任何文本的情况下，直接按快捷键插入代码片段。</p>
+<p>点击菜单栏的 Preferences 的子菜单 Key Binding – User，在打开的文件的方括号内部粘贴如下配置：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; “keys”: [“ctrl+1″], “command”: “insert_snippet”, “args”: &#123;“name”: “Packages/User/example.sublime-snippet”&#125; &#125;</div></pre></td></tr></table></figure>
+<p>现在简单介绍一下这段配置：</p>
+<ol>
+<li><p>“keys”: [“ctrl+1″] 这个定义了触发此命令的快捷键。</p>
+</li>
+<li><p>“command”: “insert_snippet” 这个是需要触发的命令的名字。</p>
+</li>
+<li><p>“args”: {“name”: “Packages/User/example.sublime-snippet”} 这个是需要传入到上述命令的参数。这里把代码片段文件的相对路径传递过去。</p>
+</li>
+</ol>
+<p>保存配置文件，现在就可以用快捷键插入代码片段了。</p>
+<blockquote>
+<p>以下是我Ruby的注释代码：</p>
+</blockquote>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;snippet&gt;</div><div class="line">	&lt;content&gt;&lt;![CDATA[</div><div class="line"># ########################################################</div><div class="line"># | Software: $&#123;<span class="number">1</span>&#125;</div><div class="line"># | Version: <span class="number">2015.10</span></div><div class="line"># | Site: http:<span class="comment">//peterfei.me</span></div><div class="line"># |--------------------------------------------------------</div><div class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</div><div class="line"># | Copyright (c) <span class="number">2012</span><span class="number">-2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></div><div class="line">#Reserved.</div><div class="line"># | Time:  $&#123;<span class="number">2</span>&#125; </div><div class="line"># ########################################################</div><div class="line">$&#123;<span class="number">3</span>&#125;</div><div class="line">]]&gt;&lt;/content&gt;</div><div class="line">	&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</div><div class="line">	&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</div><div class="line">	&lt;!-- Optional: Set a scope to limit <span class="keyword">where</span> the snippet will trigger --&gt;</div><div class="line">	&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</div><div class="line">&lt;/snippet&gt;</div></pre></td></tr></table></figure>
+<p>因为上例中有写Time 获取当前时间的，于是写个获取当前时间的：</p>
+<blockquote>
+<p>创建插件：<code>Tools → New Plugin:</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> datetime</div><div class="line"><span class="keyword">import</span> sublime_plugin</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCurrentTimeCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></div><div class="line">        self.view.run_command(<span class="string">"insert_snippet"</span>, </div><div class="line">            &#123;</div><div class="line">                <span class="string">"contents"</span>: <span class="string">"%s"</span> % datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>) </div><div class="line">            &#125;</div><div class="line">        )</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>保存为Sublime Text 2\Packages\User\addCurrentTime.py</p>
+<blockquote>
+<p>创建快捷键：<code>Preference → Key Bindings - User:</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    &#123;</div><div class="line">        <span class="attr">"command"</span>: <span class="string">"add_current_time"</span>,</div><div class="line">        <span class="attr">"keys"</span>: [</div><div class="line">            <span class="string">"ctrl+shift+."</span></div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>此时使用快捷键ctrl+shift+.即可在当前光标处插入当前时间，如下:</p>
+</blockquote>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># ########################################################</div><div class="line"># | Software: test</div><div class="line"># | Version: <span class="number">2015.10</span></div><div class="line"># | Site: http:<span class="comment">//peterfei.me</span></div><div class="line"># |--------------------------------------------------------</div><div class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</div><div class="line"># | Copyright (c) <span class="number">2012</span><span class="number">-2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></div><div class="line">#Reserved.</div><div class="line"># | Time:  <span class="number">2015</span><span class="number">-10</span><span class="number">-29</span> <span class="number">09</span>:<span class="number">58</span>:<span class="number">53</span> </div><div class="line"># ########################################################</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/27/angularjs-mobiscroll-日期用例/" rel="next" title="angularjs mobiscroll 日期用例">
+                <i class="fa fa-chevron-left"></i> angularjs mobiscroll 日期用例
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/31/puma-在nginx-启动后报错解决/" rel="prev" title="puma 在nginx 启动后报错解决">
+                puma 在nginx 启动后报错解决 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2015/10/29/Sublime-中自定义snippets/"
+           data-title="Sublime 中自定义snippets" data-url="http://peterfei.me/2015/10/29/Sublime-中自定义snippets/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

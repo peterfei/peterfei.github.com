@@ -1,0 +1,822 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="peterfei.me,peterfei" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="Kubectl 上下文和配置设置 kubectl 与哪个 Kubernetes 集群进行通信并修改配置信息。
+12345678910111213141516171819202122232425kubectl config view # 显示合并的 kubeconfig 配置。# 同时使用多个 kubeconfig 文件并查看合并的配置KUBECONFIG=~/.kube/config:~/.kub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubectl 备忘单">
+<meta property="og:url" content="http://peterfei.me/2021/04/30/kubectl-备忘单/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="Kubectl 上下文和配置设置 kubectl 与哪个 Kubernetes 集群进行通信并修改配置信息。
+12345678910111213141516171819202122232425kubectl config view # 显示合并的 kubeconfig 配置。# 同时使用多个 kubeconfig 文件并查看合并的配置KUBECONFIG=~/.kube/config:~/.kub">
+<meta property="og:updated_time" content="2022-08-26T02:42:20.310Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kubectl 备忘单">
+<meta name="twitter:description" content="Kubectl 上下文和配置设置 kubectl 与哪个 Kubernetes 集群进行通信并修改配置信息。
+12345678910111213141516171819202122232425kubectl config view # 显示合并的 kubeconfig 配置。# 同时使用多个 kubeconfig 文件并查看合并的配置KUBECONFIG=~/.kube/config:~/.kub">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> kubectl 备忘单 | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                kubectl 备忘单
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2021-04-30T11:43:50+08:00" content="2021-04-30">
+              2021-04-30
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2021/04/30/kubectl-备忘单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2021/04/30/kubectl-备忘单/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Kubectl-上下文和配置"><a href="#Kubectl-上下文和配置" class="headerlink" title="Kubectl 上下文和配置"></a>Kubectl 上下文和配置</h2><p>设置 <code>kubectl</code> 与哪个 Kubernetes 集群进行通信并修改配置信息。</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="string">view </span><span class="comment"># 显示合并的 kubeconfig 配置。</span></div><div class="line"></div><div class="line"><span class="comment"># 同时使用多个 kubeconfig 文件并查看合并的配置</span></div><div class="line"><span class="string">KUBECONFIG=</span>~/.<span class="string">kube/</span><span class="string">config:</span>~/.<span class="string">kube/</span><span class="string">kubconfig2 </span><span class="string">kubectl </span><span class="string">config </span><span class="string">view</span></div><div class="line"></div><div class="line"><span class="comment"># 获取 e2e 用户的密码</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="string">view </span>-o <span class="string">jsonpath=</span><span class="string">'&#123;.users[?(@.name == "e2e")].user.password&#125;'</span></div><div class="line"></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="string">view </span>-o <span class="string">jsonpath=</span><span class="string">'&#123;.users[].name&#125;'</span>    <span class="comment"># 显示第一个用户</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="string">view </span>-o <span class="string">jsonpath=</span><span class="string">'&#123;.users[*].name&#125;'</span>   <span class="comment"># 获取用户列表</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="built_in">get-contexts</span>                          <span class="comment"># 显示上下文列表</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="string">current-context </span>                      <span class="comment"># 展示当前所处的上下文</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="string">use-context </span><span class="string">my-cluster-</span><span class="string">name </span>          <span class="comment"># 设置默认的上下文为 my-cluster-name</span></div><div class="line"></div><div class="line"><span class="comment"># 添加新的用户配置到 kubeconf 中，使用 basic auth 进行身份认证</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="built_in">set-credentials</span> <span class="string">kubeuser/</span><span class="string">foo.</span><span class="string">kubernetes.</span><span class="string">com </span><span class="built_in">--username=kubeuser</span> <span class="built_in">--password=kubepassword</span></div><div class="line"></div><div class="line"><span class="comment"># 在指定上下文中持久性地保存名字空间，供所有后续 kubectl 命令使用</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="built_in">set-context</span> <span class="built_in">--current</span> <span class="built_in">--namespace=ggckad-s2</span></div><div class="line"></div><div class="line"><span class="comment"># 使用特定的用户名和名字空间设置上下文</span></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="built_in">set-context</span> <span class="string">gce </span><span class="built_in">--user=cluster-admin</span> <span class="built_in">--namespace=foo</span> \</div><div class="line">  &amp;&amp; <span class="string">kubectl </span><span class="string">config </span><span class="string">use-context </span><span class="string">gce</span></div><div class="line"></div><div class="line"><span class="string">kubectl </span><span class="string">config </span><span class="string">unset </span><span class="string">users.</span><span class="string">foo </span>                      <span class="comment"># 删除用户 foo</span></div></pre></td></tr></table></figure>
+<h2 id="Kubectl-apply"><a href="#Kubectl-apply" class="headerlink" title="Kubectl apply"></a>Kubectl apply</h2><p><code>apply</code> 通过定义 Kubernetes 资源的文件来管理应用。 它通过运行 <code>kubectl apply</code> 在集群中创建和更新资源。 这是在生产中管理 Kubernetes 应用的推荐方法</p>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象 "></a>创建对象<a href="https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/#creating-objects" target="_blank" rel="external"> </a></h2><p>Kubernetes 配置可以用 YAML 或 JSON 定义。可以使用的文件扩展名有 <code>.yaml</code>、<code>.yml</code> 和 <code>.json</code>。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">kubectl apply -f ./my-manifest.yaml           <span class="comment"># 创建资源</span></div><div class="line">kubectl apply -f ./my1.yaml -f ./my2.yaml     <span class="comment"># 使用多个文件创建</span></div><div class="line">kubectl apply -f ./dir                        <span class="comment"># 基于目录下的所有清单文件创建资源</span></div><div class="line">kubectl apply -f https://git.io/vPieo         <span class="comment"># 从 URL 中创建资源</span></div><div class="line">kubectl create deployment nginx --image=nginx <span class="comment"># 启动单实例 nginx</span></div><div class="line"></div><div class="line"><span class="comment"># 创建一个打印 “Hello World” 的 Job</span></div><div class="line">kubectl create job hello --image=busybox -- echo <span class="string">"Hello World"</span> </div><div class="line"></div><div class="line"><span class="comment"># 创建一个打印 “Hello World” 间隔1分钟的 CronJob</span></div><div class="line">kubectl create cronjob hello --image=busybox   --schedule=<span class="string">"*/1 * * * *"</span> -- echo <span class="string">"Hello World"</span>    </div><div class="line"></div><div class="line">kubectl explain pods                          <span class="comment"># 获取 pod 清单的文档说明</span></div><div class="line"></div><div class="line"><span class="comment"># 从标准输入创建多个 YAML 对象</span></div><div class="line">cat &lt;&lt;EOF | kubectl apply -f -</div><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> Pod</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> busybox-sleep</div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  containers:</span></div><div class="line"><span class="attr">  - name:</span> busybox</div><div class="line"><span class="attr">    image:</span> busybox</div><div class="line"><span class="attr">    args:</span></div><div class="line"><span class="bullet">    -</span> sleep</div><div class="line"><span class="bullet">    -</span> <span class="string">"1000000"</span></div><div class="line"><span class="meta">---</span></div><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> Pod</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> busybox-sleep-less</div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  containers:</span></div><div class="line"><span class="attr">  - name:</span> busybox</div><div class="line"><span class="attr">    image:</span> busybox</div><div class="line"><span class="attr">    args:</span></div><div class="line"><span class="bullet">    -</span> sleep</div><div class="line"><span class="bullet">    -</span> <span class="string">"1000"</span></div><div class="line">EOF</div><div class="line"></div><div class="line"><span class="comment"># 创建有多个 key 的 Secret</span></div><div class="line">cat &lt;&lt;EOF | kubectl apply -f -</div><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> Secret</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> mysecret</div><div class="line"><span class="attr">type:</span> Opaque</div><div class="line"><span class="attr">data:</span></div><div class="line"><span class="attr">  password:</span> $(echo -n <span class="string">"s33msi4"</span> | base64 -w0)</div><div class="line"><span class="attr">  username:</span> $(echo -n <span class="string">"jane"</span> | base64 -w0)</div><div class="line">EOF</div></pre></td></tr></table></figure>
+<h2 id="查看和查找资源"><a href="#查看和查找资源" class="headerlink" title="查看和查找资源"></a>查看和查找资源</h2><figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># get 命令的基本输出</span></div><div class="line">kubectl <span class="keyword">get</span> services                          # 列出当前命名空间下的所有 services</div><div class="line">kubectl <span class="keyword">get</span> pods --all-namespaces             # 列出所有命名空间下的全部的 Pods</div><div class="line">kubectl <span class="keyword">get</span> pods -o wide                      # 列出当前命名空间下的全部 Pods，并显示更详细的信息</div><div class="line">kubectl <span class="keyword">get</span> deployment my-dep                 # 列出某个特定的 Deployment</div><div class="line">kubectl <span class="keyword">get</span> pods                              # 列出当前命名空间下的全部 Pods</div><div class="line">kubectl <span class="keyword">get</span> pod my-pod -o yaml                # 获取一个 pod 的 YAML</div><div class="line"></div><div class="line"><span class="meta"># describe 命令的详细输出</span></div><div class="line">kubectl describe nodes my-node</div><div class="line">kubectl describe pods my-pod</div><div class="line"></div><div class="line"><span class="meta"># 列出当前名字空间下所有 Services，按名称排序</span></div><div class="line">kubectl <span class="keyword">get</span> services --sort-by=.metadata.name</div><div class="line"></div><div class="line"><span class="meta"># 列出 Pods，按重启次数排序</span></div><div class="line">kubectl <span class="keyword">get</span> pods --sort-by=<span class="string">'.status.containerStatuses[0].restartCount'</span></div><div class="line"></div><div class="line"><span class="meta"># 列举所有 PV 持久卷，按容量排序</span></div><div class="line">kubectl <span class="keyword">get</span> pv --sort-by=.spec.capacity.storage</div><div class="line"></div><div class="line"><span class="meta"># 获取包含 app=cassandra 标签的所有 Pods 的 version 标签</span></div><div class="line">kubectl <span class="keyword">get</span> pods --selector=app=cassandra -o \</div><div class="line">  jsonpath=<span class="string">'&#123;.items[*].metadata.labels.version&#125;'</span></div><div class="line"></div><div class="line"><span class="meta"># 检索带有 “.” 键值，例： 'ca.crt'</span></div><div class="line">kubectl <span class="keyword">get</span> configmap myconfig \</div><div class="line">  -o jsonpath=<span class="string">'&#123;.data.ca\.crt&#125;'</span></div><div class="line"></div><div class="line"><span class="meta"># 获取所有工作节点（使用选择器以排除标签名称为 'node-role.kubernetes.io/master' 的结果）</span></div><div class="line">kubectl <span class="keyword">get</span> node --selector=<span class="string">'!node-role.kubernetes.io/master'</span></div><div class="line"></div><div class="line"><span class="meta"># 获取当前命名空间中正在运行的 Pods</span></div><div class="line">kubectl <span class="keyword">get</span> pods --field-selector=status.phase=Running</div><div class="line"></div><div class="line"><span class="meta"># 获取全部节点的 ExternalIP 地址</span></div><div class="line">kubectl <span class="keyword">get</span> nodes -o jsonpath=<span class="string">'&#123;.items[*].status.addresses[?(@.type=="ExternalIP")].address&#125;'</span></div><div class="line"></div><div class="line"><span class="meta"># 列出属于某个特定 RC 的 Pods 的名称</span></div><div class="line"><span class="meta"># 在转换对于 jsonpath 过于复杂的场合，"jq" 命令很有用；可以在 https://stedolan.github.io/jq/ 找到它。</span></div><div class="line">sel=$&#123;$(kubectl <span class="keyword">get</span> rc my-rc --output=json | jq -j <span class="string">'.spec.selector | to_entries | .[] | "\(.key)=\(.value),"'</span>)%?&#125;</div><div class="line">echo $(kubectl <span class="keyword">get</span> pods --selector=$sel --output=jsonpath=&#123;.items..metadata.name&#125;)</div><div class="line"></div><div class="line"><span class="meta"># 显示所有 Pods 的标签（或任何其他支持标签的 Kubernetes 对象）</span></div><div class="line">kubectl <span class="keyword">get</span> pods --show-labels</div><div class="line"></div><div class="line"><span class="meta"># 检查哪些节点处于就绪状态</span></div><div class="line">JSONPATH=<span class="string">'&#123;range .items[*]&#125;&#123;@.metadata.name&#125;:&#123;range @.status.conditions[*]&#125;&#123;@.type&#125;=&#123;@.status&#125;;&#123;end&#125;&#123;end&#125;'</span> \</div><div class="line"> &amp;&amp; kubectl <span class="keyword">get</span> nodes -o jsonpath=<span class="string">"$JSONPATH"</span> | grep <span class="string">"Ready=True"</span></div><div class="line"></div><div class="line"><span class="meta"># 列出被一个 Pod 使用的全部 Secret</span></div><div class="line">kubectl <span class="keyword">get</span> pods -o json | jq <span class="string">'.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name'</span> | grep -v <span class="literal">null</span> | sort | uniq</div><div class="line"></div><div class="line"><span class="meta"># 列举所有 Pods 中初始化容器的容器 ID（containerID）</span></div><div class="line"><span class="meta"># Helpful when cleaning up stopped containers, while avoiding removal of initContainers.</span></div><div class="line">kubectl <span class="keyword">get</span> pods --all-namespaces -o jsonpath=<span class="string">'&#123;range .items[*].status.initContainerStatuses[*]&#125;&#123;.containerID&#125;&#123;"\n"&#125;&#123;end&#125;'</span> | cut -d/ -f3</div><div class="line"></div><div class="line"><span class="meta"># 列出事件（Events），按时间戳排序</span></div><div class="line">kubectl <span class="keyword">get</span> events --sort-by=.metadata.creationTimestamp</div><div class="line"></div><div class="line"><span class="meta"># 比较当前的集群状态和假定某清单被应用之后的集群状态</span></div><div class="line">kubectl diff -f ./my-manifest.yaml</div><div class="line"></div><div class="line"><span class="meta"># 生成一个句点分隔的树，其中包含为节点返回的所有键</span></div><div class="line"><span class="meta"># 在复杂的嵌套JSON结构中定位键时非常有用</span></div><div class="line">kubectl <span class="keyword">get</span> nodes -o json | jq -c <span class="string">'path(..)|[.[]|tostring]|join(".")'</span></div><div class="line"></div><div class="line"><span class="meta"># 生成一个句点分隔的树，其中包含为pod等返回的所有键</span></div><div class="line">kubectl <span class="keyword">get</span> pods -o json | jq -c <span class="string">'path(..)|[.[]|tostring]|join(".")'</span></div></pre></td></tr></table></figure>
+<h2 id="更新资源"><a href="#更新资源" class="headerlink" title="更新资源 "></a>更新资源<a href="https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/#更新资源" target="_blank" rel="external"> </a></h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">kubectl <span class="built_in">set</span> image deployment/frontend www=image:v2               <span class="comment"># 滚动更新 "frontend" Deployment 的 "www" 容器镜像</span></div><div class="line">kubectl rollout history deployment/frontend                      <span class="comment"># 检查 Deployment 的历史记录，包括版本</span></div><div class="line">kubectl rollout undo deployment/frontend                         <span class="comment"># 回滚到上次部署版本</span></div><div class="line">kubectl rollout undo deployment/frontend <span class="comment">--to-revision=2         # 回滚到特定部署版本</span></div><div class="line">kubectl rollout status -w deployment/frontend                    <span class="comment"># 监视 "frontend" Deployment 的滚动升级状态直到完成</span></div><div class="line">kubectl rollout restart deployment/frontend                      <span class="comment"># 轮替重启 "frontend" Deployment</span></div><div class="line"></div><div class="line">cat pod.json | kubectl <span class="built_in">replace</span> -f -                              <span class="comment"># 通过传入到标准输入的 JSON 来替换 Pod</span></div><div class="line"></div><div class="line"><span class="comment"># 强制替换，删除后重建资源。会导致服务不可用。</span></div><div class="line">kubectl <span class="built_in">replace</span> <span class="comment">--force -f ./pod.json</span></div><div class="line"></div><div class="line"><span class="comment"># 为多副本的 nginx 创建服务，使用 80 端口提供服务，连接到容器的 8000 端口。</span></div><div class="line">kubectl expose rc nginx <span class="comment">--port=80 --target-port=8000</span></div><div class="line"></div><div class="line"><span class="comment"># 将某单容器 Pod 的镜像版本（标签）更新到 v4</span></div><div class="line">kubectl <span class="built_in">get</span> pod mypod -o yaml | sed <span class="string">'s/\(image: myimage\):.*$/\1:v4/'</span> | kubectl <span class="built_in">replace</span> -f -</div><div class="line"></div><div class="line">kubectl label pods my-pod <span class="built_in">new</span>-label=awesome                      <span class="comment"># 添加标签</span></div><div class="line">kubectl annotate pods my-pod icon-url=<span class="keyword">http</span>://goo.gl/XXBTWq       <span class="comment"># 添加注解</span></div><div class="line">kubectl autoscale deployment foo <span class="comment">--min=2 --max=10                # 对 "foo" Deployment 自动伸缩容</span></div></pre></td></tr></table></figure>
+<h2 id="部分更新资源"><a href="#部分更新资源" class="headerlink" title="部分更新资源 "></a>部分更新资源<a href="https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/#部分更新资源" target="_blank" rel="external"> </a></h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 部分更新某节点</span></div><div class="line">kubectl patch <span class="keyword">node</span> <span class="title">k8s-node-1</span> -p '&#123;<span class="string">"spec"</span>:&#123;<span class="string">"unschedulable"</span>:<span class="literal">true</span>&#125;&#125;'</div><div class="line"></div><div class="line"><span class="comment"># 更新容器的镜像；spec.containers[*].name 是必须的。因为它是一个合并性质的主键。</span></div><div class="line">kubectl patch pod valid-pod -p '&#123;<span class="string">"spec"</span>:&#123;<span class="string">"containers"</span>:[&#123;<span class="string">"name"</span>:<span class="string">"kubernetes-serve-hostname"</span>,<span class="string">"image"</span>:<span class="string">"new image"</span>&#125;]&#125;&#125;'</div><div class="line"></div><div class="line"><span class="comment"># 使用带位置数组的 JSON patch 更新容器的镜像</span></div><div class="line">kubectl patch pod valid-pod --<span class="attr">type=</span>'json' -p='[&#123;<span class="string">"op"</span>: <span class="string">"replace"</span>, <span class="string">"path"</span>: <span class="string">"/spec/containers/0/image"</span>, <span class="string">"value"</span>:<span class="string">"new image"</span>&#125;]'</div><div class="line"></div><div class="line"><span class="comment"># 使用带位置数组的 JSON patch 禁用某 Deployment 的 livenessProbe</span></div><div class="line">kubectl patch deployment valid-deployment  --<span class="keyword">type</span> json   -p='[&#123;<span class="string">"op"</span>: <span class="string">"remove"</span>, <span class="string">"path"</span>: <span class="string">"/spec/template/spec/containers/0/livenessProbe"</span>&#125;]'</div><div class="line"></div><div class="line"><span class="comment"># 在带位置数组中添加元素</span></div><div class="line">kubectl patch sa default --<span class="attr">type=</span>'json' -p='[&#123;<span class="string">"op"</span>: <span class="string">"add"</span>, <span class="string">"path"</span>: <span class="string">"/secrets/1"</span>, <span class="string">"value"</span>: &#123;<span class="string">"name"</span>: <span class="string">"whatever"</span> &#125; &#125;]'</div></pre></td></tr></table></figure>
+<h2 id="编辑资源"><a href="#编辑资源" class="headerlink" title="编辑资源 "></a>编辑资源<a href="https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/#编辑资源" target="_blank" rel="external"> </a></h2><figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kubectl <span class="keyword">edit</span> svc/docker-registry                      <span class="meta"># 编辑名为 docker-registry 的服务</span></div></pre></td></tr></table></figure>
+<h2 id="删除资源"><a href="#删除资源" class="headerlink" title="删除资源 "></a>删除资源<a href="https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/#删除资源" target="_blank" rel="external"> </a></h2><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">kubectl <span class="keyword">delete</span> -f ./pod.json                                              <span class="comment"># 删除在 pod.json 中指定的类型和名称的 Pod</span></div><div class="line">kubectl <span class="keyword">delete</span> pod,service baz foo                                        <span class="comment"># 删除名称为 "baz" 和 "foo" 的 Pod 和服务</span></div><div class="line">kubectl <span class="keyword">delete</span> pods,services -l name=myLabel                              <span class="comment"># 删除包含 name=myLabel 标签的 pods 和服务</span></div><div class="line">kubectl -n my-ns <span class="keyword">delete</span> pod,svc --all                                     <span class="comment"># 删除在 my-ns 名字空间中全部的 Pods 和服务</span></div><div class="line"><span class="comment"># 删除所有与 pattern1 或 pattern2 awk 模式匹配的 Pods</span></div><div class="line">kubectl get pods  -n mynamespace --<span class="literal">no</span>-headers=<span class="literal">true</span> | awk <span class="string">'/pattern1|pattern2/&#123;print $1&#125;'</span> | xargs  kubectl <span class="keyword">delete</span> -n mynamespace pod</div></pre></td></tr></table></figure>
+<h2 id="与运行中的-Pods-进行交互"><a href="#与运行中的-Pods-进行交互" class="headerlink" title="与运行中的 Pods 进行交互"></a>与运行中的 Pods 进行交互</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">kubectl logs <span class="keyword">my</span>-pod                                 <span class="comment"># 获取 pod 日志（标准输出）</span></div><div class="line">kubectl logs -l <span class="built_in">name</span>=myLabel                        <span class="comment"># 获取含 name=myLabel 标签的 Pods 的日志（标准输出）</span></div><div class="line">kubectl logs <span class="keyword">my</span>-pod <span class="comment">--previous                      # 获取上个容器实例的 pod 日志（标准输出）</span></div><div class="line">kubectl logs <span class="keyword">my</span>-pod -c <span class="keyword">my</span>-container                 <span class="comment"># 获取 Pod 容器的日志（标准输出, 多容器场景）</span></div><div class="line">kubectl logs -l <span class="built_in">name</span>=myLabel -c <span class="keyword">my</span>-container        <span class="comment"># 获取含 name=myLabel 标签的 Pod 容器日志（标准输出, 多容器场景）</span></div><div class="line">kubectl logs <span class="keyword">my</span>-pod -c <span class="keyword">my</span>-container <span class="comment">--previous      # 获取 Pod 中某容器的上个实例的日志（标准输出, 多容器场景）</span></div><div class="line">kubectl logs -f <span class="keyword">my</span>-pod                              <span class="comment"># 流式输出 Pod 的日志（标准输出）</span></div><div class="line">kubectl logs -f <span class="keyword">my</span>-pod -c <span class="keyword">my</span>-container              <span class="comment"># 流式输出 Pod 容器的日志（标准输出, 多容器场景）</span></div><div class="line">kubectl logs -f -l <span class="built_in">name</span>=myLabel <span class="comment">--all-containers    # 流式输出含 name=myLabel 标签的 Pod 的所有日志（标准输出）</span></div><div class="line">kubectl <span class="built_in">run</span> -i <span class="comment">--tty busybox --image=busybox -- sh  # 以交互式 Shell 运行 Pod</span></div><div class="line">kubectl <span class="built_in">run</span> nginx <span class="comment">--image=nginx -n mynamespace      # 在指定名字空间中运行 nginx Pod</span></div><div class="line">kubectl <span class="built_in">run</span> nginx <span class="comment">--image=nginx                     # 运行 ngins Pod 并将其规约写入到名为 pod.yaml 的文件</span></div><div class="line">  <span class="comment">--dry-run=client -o yaml &gt; pod.yaml</span></div><div class="line"></div><div class="line">kubectl attach <span class="keyword">my</span>-pod -i                            <span class="comment"># 挂接到一个运行的容器中</span></div><div class="line">kubectl port-forward <span class="keyword">my</span>-pod <span class="number">5000</span>:<span class="number">6000</span>               <span class="comment"># 在本地计算机上侦听端口 5000 并转发到 my-pod 上的端口 6000</span></div><div class="line">kubectl exec <span class="keyword">my</span>-pod <span class="comment">-- ls /                         # 在已有的 Pod 中运行命令（单容器场景）</span></div><div class="line">kubectl exec <span class="comment">--stdin --tty my-pod -- /bin/sh        # 使用交互 shell 访问正在运行的 Pod (一个容器场景)</span></div><div class="line">kubectl exec <span class="keyword">my</span>-pod -c <span class="keyword">my</span>-container <span class="comment">-- ls /         # 在已有的 Pod 中运行命令（多容器场景）</span></div><div class="line">kubectl top pod POD_NAME <span class="comment">--containers               # 显示给定 Pod 和其中容器的监控数据</span></div></pre></td></tr></table></figure>
+<h2 id="与节点和集群进行交互"><a href="#与节点和集群进行交互" class="headerlink" title="与节点和集群进行交互"></a>与节点和集群进行交互</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">kubectl cordon my-<span class="keyword">node</span>                                                <span class="title"># 标记 my-node</span> 节点为不可调度</div><div class="line">kubectl drain my-<span class="keyword">node</span>                                                 <span class="title"># 对 my-node</span> 节点进行清空操作，为节点维护做准备</div><div class="line">kubectl uncordon my-<span class="keyword">node</span>                                              <span class="title"># 标记 my-node</span> 节点为可以调度</div><div class="line">kubectl top <span class="keyword">node</span> <span class="title">my-node</span>                                              <span class="comment"># 显示给定节点的度量值</span></div><div class="line">kubectl cluster<span class="literal">-inf</span>o                                                  <span class="comment"># 显示主控节点和服务的地址</span></div><div class="line">kubectl cluster<span class="literal">-inf</span>o dump                                             <span class="comment"># 将当前集群状态转储到标准输出</span></div><div class="line">kubectl cluster<span class="literal">-inf</span>o dump --<span class="attr">output-directory=</span>/path/to/cluster-state   <span class="comment"># 将当前集群状态输出到 /path/to/cluster-state</span></div><div class="line"></div><div class="line"><span class="comment"># 如果已存在具有指定键和效果的污点，则替换其值为指定值。</span></div><div class="line">kubectl taint nodes foo <span class="attr">dedicated=</span>special-user:NoSchedule</div></pre></td></tr></table></figure>
+<h3 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出 "></a>格式化输出<a href="https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/#格式化输出" target="_blank" rel="external"> </a></h3><p>要以特定格式将详细信息输出到终端窗口，将 <code>-o</code>（或者 <code>--output</code>）参数添加到支持的 <code>kubectl</code> 命令中。</p>
+<table>
+<thead>
+<tr>
+<th>输出格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-o=custom-columns=&lt;spec&gt;</code></td>
+<td>使用逗号分隔的自定义列来打印表格</td>
+</tr>
+<tr>
+<td><code>-o=custom-columns-file=&lt;filename&gt;</code></td>
+<td>使用 <code>&lt;filename&gt;</code> 文件中的自定义列模板打印表格</td>
+</tr>
+<tr>
+<td><code>-o=json</code></td>
+<td>输出 JSON 格式的 API 对象</td>
+</tr>
+<tr>
+<td><code>-o=jsonpath=&lt;template&gt;</code></td>
+<td>打印 <a href="https://kubernetes.io/zh/docs/reference/kubectl/jsonpath" target="_blank" rel="external">jsonpath</a> 表达式中定义的字段</td>
+</tr>
+<tr>
+<td><code>-o=jsonpath-file=&lt;filename&gt;</code></td>
+<td>打印在 <code>&lt;filename&gt;</code> 文件中定义的 <a href="https://kubernetes.io/zh/docs/reference/kubectl/jsonpath" target="_blank" rel="external">jsonpath</a> 表达式所指定的字段。</td>
+</tr>
+<tr>
+<td><code>-o=name</code></td>
+<td>仅打印资源名称而不打印其他内容</td>
+</tr>
+<tr>
+<td><code>-o=wide</code></td>
+<td>以纯文本格式输出额外信息，对于 Pod 来说，输出中包含了节点名称</td>
+</tr>
+<tr>
+<td><code>-o=yaml</code></td>
+<td>输出 YAML 格式的 API 对象</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Kubectl-日志输出详细程度和调试"><a href="#Kubectl-日志输出详细程度和调试" class="headerlink" title="Kubectl 日志输出详细程度和调试 "></a>Kubectl 日志输出详细程度和调试<a href="https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/#kubectl-日志输出详细程度和调试" target="_blank" rel="external"> </a></h3><p>Kubectl 日志输出详细程度是通过 <code>-v</code> 或者 <code>--v</code> 来控制的，参数后跟一个数字表示日志的级别。 Kubernetes 通用的日志习惯和相关的日志级别在 <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md" target="_blank" rel="external">这里</a> 有相应的描述。</p>
+<table>
+<thead>
+<tr>
+<th>详细程度</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--v=0</code></td>
+<td>用于那些应该 <em>始终</em> 对运维人员可见的信息，因为这些信息一般很有用。</td>
+</tr>
+<tr>
+<td><code>--v=1</code></td>
+<td>如果您不想要看到冗余信息，此值是一个合理的默认日志级别。</td>
+</tr>
+<tr>
+<td><code>--v=2</code></td>
+<td>输出有关服务的稳定状态的信息以及重要的日志消息，这些信息可能与系统中的重大变化有关。这是建议大多数系统设置的默认日志级别。</td>
+</tr>
+<tr>
+<td><code>--v=3</code></td>
+<td>包含有关系统状态变化的扩展信息。</td>
+</tr>
+<tr>
+<td><code>--v=4</code></td>
+<td>包含调试级别的冗余信息。</td>
+</tr>
+<tr>
+<td><code>--v=5</code></td>
+<td>跟踪级别的详细程度。</td>
+</tr>
+<tr>
+<td><code>--v=6</code></td>
+<td>显示所请求的资源。</td>
+</tr>
+<tr>
+<td><code>--v=7</code></td>
+<td>显示 HTTP 请求头。</td>
+</tr>
+<tr>
+<td><code>--v=8</code></td>
+<td>显示 HTTP 请求内容。</td>
+</tr>
+<tr>
+<td><code>--v=9</code></td>
+<td>显示 HTTP 请求内容而且不截断内容。</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/29/Prometheus-Operator-自定义报警/" rel="next" title="Prometheus Operator 自定义报警">
+                <i class="fa fa-chevron-left"></i> Prometheus Operator 自定义报警
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/08/26/ES-ReIndex迁移数据/" rel="prev" title="ES ReIndex迁移数据">
+                ES ReIndex迁移数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2021/04/30/kubectl-备忘单/"
+           data-title="kubectl 备忘单" data-url="http://peterfei.me/2021/04/30/kubectl-备忘单/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubectl-上下文和配置"><span class="nav-number">1.</span> <span class="nav-text">Kubectl 上下文和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubectl-apply"><span class="nav-number">2.</span> <span class="nav-text">Kubectl apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建对象"><span class="nav-number">3.</span> <span class="nav-text">创建对象 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看和查找资源"><span class="nav-number">4.</span> <span class="nav-text">查看和查找资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新资源"><span class="nav-number">5.</span> <span class="nav-text">更新资源 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部分更新资源"><span class="nav-number">6.</span> <span class="nav-text">部分更新资源 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑资源"><span class="nav-number">7.</span> <span class="nav-text">编辑资源 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除资源"><span class="nav-number">8.</span> <span class="nav-text">删除资源 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与运行中的-Pods-进行交互"><span class="nav-number">9.</span> <span class="nav-text">与运行中的 Pods 进行交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与节点和集群进行交互"><span class="nav-number">10.</span> <span class="nav-text">与节点和集群进行交互</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化输出"><span class="nav-number">10.1.</span> <span class="nav-text">格式化输出 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubectl-日志输出详细程度和调试"><span class="nav-number">10.2.</span> <span class="nav-text">Kubectl 日志输出详细程度和调试 </span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

@@ -1,0 +1,760 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="swift," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="扩展(Extension)任务： 求数字的平方。
+1234// 菜鸟版func square(x: Int) -&amp;gt; Int &amp;#123; return x * x &amp;#125;var squaredOfFive = square(x: 5)square(x: squaredOfFive) // 625
+为了求5的四次方我们被迫创建变量 squaredOfFive — 高手可不喜欢被迫定义一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift高级篇">
+<meta property="og:url" content="http://peterfei.me/2016/12/20/Swift高级篇/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="扩展(Extension)任务： 求数字的平方。
+1234// 菜鸟版func square(x: Int) -&amp;gt; Int &amp;#123; return x * x &amp;#125;var squaredOfFive = square(x: 5)square(x: squaredOfFive) // 625
+为了求5的四次方我们被迫创建变量 squaredOfFive — 高手可不喜欢被迫定义一个">
+<meta property="og:updated_time" content="2022-08-26T02:42:20.305Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift高级篇">
+<meta name="twitter:description" content="扩展(Extension)任务： 求数字的平方。
+1234// 菜鸟版func square(x: Int) -&amp;gt; Int &amp;#123; return x * x &amp;#125;var squaredOfFive = square(x: 5)square(x: squaredOfFive) // 625
+为了求5的四次方我们被迫创建变量 squaredOfFive — 高手可不喜欢被迫定义一个">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Swift高级篇 | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift高级篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-20T13:55:50+08:00" content="2016-12-20">
+              2016-12-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/20/Swift高级篇/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/20/Swift高级篇/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="扩展-Extension"><a href="#扩展-Extension" class="headerlink" title="扩展(Extension)"></a>扩展(Extension)</h2><p>任务： 求数字的平方。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">square</span><span class="params">(x: Int)</span></span> -&gt; <span class="type">Int</span> &#123; <span class="keyword">return</span> x * x &#125;</div><div class="line"><span class="keyword">var</span> squaredOfFive = square(x: <span class="number">5</span>)</div><div class="line">square(x: squaredOfFive) <span class="comment">// 625</span></div></pre></td></tr></table></figure>
+<p>为了求5的四次方我们被迫创建变量 squaredOfFive — 高手可不喜欢被迫定义一个无用的变量。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Int</span> </span>&#123; </div><div class="line"> <span class="keyword">var</span> squared: <span class="type">Int</span> &#123; <span class="keyword">return</span> <span class="keyword">self</span> * <span class="keyword">self</span> &#125;</div><div class="line">&#125;</div><div class="line"><span class="number">5</span>.squared <span class="comment">// 25</span></div><div class="line"><span class="number">5</span>.squared.squared <span class="comment">// 625</span></div></pre></td></tr></table></figure>
+<h2 id="泛型-Generics"><a href="#泛型-Generics" class="headerlink" title="泛型(Generics)"></a>泛型(Generics)</h2><p>任务：打印输出数组内所有的元素。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">var</span> stringArray = [<span class="string">"苍老师"</span>, <span class="string">"范老师"</span>, <span class="string">"优衣库"</span>]</div><div class="line"><span class="selector-tag">var</span> intArray = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</div><div class="line"><span class="selector-tag">var</span> doubleArray = [<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>]</div><div class="line">func printStringArray(<span class="selector-tag">a</span>: [String]) &#123; </div><div class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; </div><div class="line">              print(s) </div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">func printIntArray(<span class="selector-tag">a</span>: [Int]) &#123; <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; print(i) &#125; &#125;</div><div class="line">func printDoubleArray(<span class="selector-tag">a</span>: [Double]) &#123;<span class="keyword">for</span> d <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; print(d) &#125; &#125;</div></pre></td></tr></table></figure></p>
+<p>居然要定义这么多函数？ 菜鸟能忍高手不能忍！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printElementFromArray</span><span class="params">(a: [T])</span></span> &#123;</div><div class="line">        <span class="keyword">for</span> element <span class="keyword">in</span> a &#123; </div><div class="line">            <span class="built_in">print</span>(element) </div><div class="line">        &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="For-遍历-vs-While-遍历"><a href="#For-遍历-vs-While-遍历" class="headerlink" title="For 遍历 vs While 遍历"></a>For 遍历 vs While 遍历</h2><p>任务：打印 5 次 大雁塔</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">var</span> <span class="selector-tag">i</span> = <span class="number">0</span></div><div class="line">while <span class="number">5</span> &gt; <span class="selector-tag">i</span> &#123;</div><div class="line">      print(<span class="string">"大雁塔"</span>)</div><div class="line">      <span class="selector-tag">i</span> += <span class="number">1</span> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>被迫定义了变量 i 来确保打印大雁塔5次</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.5</span> &#123; </div><div class="line">    <span class="built_in">print</span>(<span class="string">"大雁塔"</span>) </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="计算属性-vs-函数"><a href="#计算属性-vs-函数" class="headerlink" title="计算属性 vs 函数"></a>计算属性 vs 函数</h2><p>任务：计算圆的直径<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">funcgetDiameter</span>(<span class="attribute">radius</span>: Double) <span class="selector-tag">-</span>&gt; <span class="selector-tag">Double</span> &#123; <span class="selector-tag">return</span> <span class="selector-tag">radius</span> * <span class="selector-tag">2</span>&#125;</div><div class="line"><span class="selector-tag">funcgetRadius</span>(<span class="attribute">diameter</span>: Double) <span class="selector-tag">-</span>&gt; <span class="selector-tag">Double</span> &#123; <span class="selector-tag">return</span> <span class="selector-tag">diameter</span> / <span class="selector-tag">2</span>&#125;</div><div class="line"><span class="selector-tag">getDiameter</span>(<span class="attribute">radius</span>: <span class="number">10</span>) <span class="comment">// return 20</span></div><div class="line"><span class="selector-tag">getRadius</span>(<span class="attribute">diameter</span>: <span class="number">200</span>) <span class="comment">// return 100</span></div><div class="line"><span class="selector-tag">getRadius</span>(<span class="attribute">diameter</span>: <span class="number">600</span>) <span class="comment">// return 300</span></div></pre></td></tr></table></figure></p>
+<p>上面我们创建了2个毫无关系的函数，可是直径和周长两者真的没有关系吗？<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="keyword">var</span> radius: <span class="built_in">Double</span> = <span class="number">10</span></div><div class="line"><span class="keyword">var</span> diameter: <span class="built_in">Double</span> &#123;</div><div class="line">      <span class="keyword">get</span> &#123; <span class="keyword">return</span> radius * <span class="number">2</span>&#125;</div><div class="line">      <span class="keyword">set</span> &#123; radius = newValue / <span class="number">2</span>&#125; </div><div class="line">&#125;</div><div class="line">radius <span class="comment">// 10</span></div><div class="line">diameter <span class="comment">// 20</span></div><div class="line">diameter = <span class="number">1000</span></div><div class="line">radius <span class="comment">// 500</span></div></pre></td></tr></table></figure></p>
+<h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2><p>任务： 获取偶数。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Evens</span> = [<span class="keyword">Int</span>]()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.10</span> &#123;</div><div class="line">  <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span> &#123; </div><div class="line">      <span class="keyword">new</span><span class="type">Evens</span>.append(i) </div><div class="line">    &#125; </div><div class="line">&#125;</div><div class="line">print(<span class="keyword">new</span><span class="type">Evens</span>) <span class="comment">// [2, 4, 6, 8, 10]</span></div></pre></td></tr></table></figure>
+<p>这种for循环真是冗长，让人看的昏昏欲睡。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line">var evens = (<span class="number">1.</span>.<span class="number">.10</span>).filter &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; </div><div class="line">print(evens) </div><div class="line"><span class="comment">// [2, 4, 6, 8, 10]</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/swift/" rel="tag">#swift</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/20/swift实现代理-通知-闭包传值/" rel="next" title="swift实现代理,通知,闭包传值">
+                <i class="fa fa-chevron-left"></i> swift实现代理,通知,闭包传值
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/08/百度语音tts-Android9-0-发音解决办法/" rel="prev" title="百度语音tts Android9.0 发音解决办法">
+                百度语音tts Android9.0 发音解决办法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2016/12/20/Swift高级篇/"
+           data-title="Swift高级篇" data-url="http://peterfei.me/2016/12/20/Swift高级篇/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展-Extension"><span class="nav-number">1.</span> <span class="nav-text">扩展(Extension)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型-Generics"><span class="nav-number">2.</span> <span class="nav-text">泛型(Generics)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For-遍历-vs-While-遍历"><span class="nav-number">3.</span> <span class="nav-text">For 遍历 vs While 遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性-vs-函数"><span class="nav-number">4.</span> <span class="nav-text">计算属性 vs 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式编程"><span class="nav-number">5.</span> <span class="nav-text">函数式编程</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

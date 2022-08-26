@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="IOS,React-native,react-native-unity-view," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="事件起因:
+公司在使用react-native开发解剖3D软件,需要和unity进行融合,在组件选择上,使用了react-native-unity-view这款插件,在融合过程中,踩了很多坑,花费精力最大的,是年后IOS升级为12.1后,集成方案集中出现闪退.
+
+Issue #79iOS crashes on launch in release builds only #79
+
+Cash lo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退">
+<meta property="og:url" content="http://peterfei.me/2019/04/10/记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退Bug/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="事件起因:
+公司在使用react-native开发解剖3D软件,需要和unity进行融合,在组件选择上,使用了react-native-unity-view这款插件,在融合过程中,踩了很多坑,花费精力最大的,是年后IOS升级为12.1后,集成方案集中出现闪退.
+
+Issue #79iOS crashes on launch in release builds only #79
+
+Cash lo">
+<meta property="og:updated_time" content="2022-08-26T02:42:20.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退">
+<meta name="twitter:description" content="事件起因:
+公司在使用react-native开发解剖3D软件,需要和unity进行融合,在组件选择上,使用了react-native-unity-view这款插件,在融合过程中,踩了很多坑,花费精力最大的,是年后IOS升级为12.1后,集成方案集中出现闪退.
+
+Issue #79iOS crashes on launch in release builds only #79
+
+Cash lo">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退 | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-10T09:44:13+08:00" content="2019-04-10">
+              2019-04-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/IOS/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/04/10/记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退Bug/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/10/记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退Bug/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p> 事件起因:</p>
+<p>公司在使用react-native开发解剖3D软件,需要和unity进行融合,在组件选择上,使用了react-native-unity-view这款插件,在融合过程中,踩了很多坑,花费精力最大的,是年后IOS升级为12.1后,集成方案集中出现闪退.</p>
+</blockquote>
+<h5 id="Issue-79"><a href="#Issue-79" class="headerlink" title="Issue #79"></a>Issue #79</h5><p><a href="https://github.com/f111fei/react-native-unity-view/issues/79" target="_blank" rel="external">iOS crashes on launch in release builds only #79</a></p>
+<blockquote>
+<p>Cash log 如下</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">Thread <span class="number">7</span> <span class="symbol">name:</span>  com.facebook.react.JavaScript</div><div class="line">Thread <span class="number">7</span> <span class="symbol">Crashed:</span></div><div class="line"><span class="number">0</span>   libsystem_kernel.dylib        	<span class="number">0x00000001fbbbd104</span> __pthread_kill + <span class="number">8</span></div><div class="line"><span class="number">1</span>   libsystem_pthread.dylib       	<span class="number">0x00000001fbc3ca00</span> pthread_kill<span class="variable">$VARIANT</span><span class="variable">$armv81</span> + <span class="number">296</span></div><div class="line"><span class="number">2</span>   libsystem_c.dylib             	<span class="number">0x00000001fbb14d78</span> abort + <span class="number">140</span></div><div class="line"><span class="number">3</span>   libsystem_malloc.dylib        	<span class="number">0x00000001fbc11768</span> _malloc_put + <span class="number">0</span></div><div class="line"><span class="number">4</span>   libsystem_malloc.dylib        	<span class="number">0x00000001fbc11924</span> malloc_report + <span class="number">64</span></div><div class="line"><span class="number">5</span>   libsystem_malloc.dylib        	<span class="number">0x00000001fbc042d0</span> free + <span class="number">376</span></div><div class="line"><span class="number">6</span>   libc++.<span class="number">1</span>.dylib                	<span class="number">0x00000001fb1bf120</span> <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt;<span class="symbol">:</span><span class="symbol">:~basic_string+</span> <span class="number">258336</span> () + <span class="number">32</span></div><div class="line"><span class="number">7</span>   UnityTest                     	<span class="number">0x0000000102de23a4</span> <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:__vector_base&lt;std</span><span class="symbol">:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt;, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;std</span><span class="symbol">:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt; &gt; &gt;<span class="symbol">:</span><span class="symbol">:~__vector_base</span>() + <span class="number">730020</span> (<span class="symbol">vector:</span><span class="number">451</span>)</div><div class="line"><span class="number">8</span>   UnityTest                     	<span class="number">0x0000000103385214</span> <span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:ModuleRegistry</span><span class="symbol">:</span><span class="symbol">:getConfig+</span> <span class="number">6640148</span> (<span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt; const&amp;) + <span class="number">100</span></div><div class="line"><span class="number">9</span>   UnityTest                     	<span class="number">0x0000000103394168</span> <span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSCNativeModules</span><span class="symbol">:</span><span class="symbol">:createModule+</span> <span class="number">6701416</span> (<span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt; const&amp;, OpaqueJSContext const*) + <span class="number">292</span></div><div class="line"><span class="number">10</span>  UnityTest                     	<span class="number">0x0000000103393cc8</span> <span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSCNativeModules</span><span class="symbol">:</span><span class="symbol">:getModule+</span> <span class="number">6700232</span> (OpaqueJSContext const*, OpaqueJSString*) + <span class="number">188</span></div><div class="line"><span class="number">11</span>  UnityTest                     	<span class="number">0x000000010338e85c</span> OpaqueJSValue const* (*<span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:</span>(anonymous namespace)<span class="symbol">:</span><span class="symbol">:exceptionWrapMethod&lt;&amp;</span>(<span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSCExecutor</span><span class="symbol">:</span><span class="symbol">:getNativeModule</span>(OpaqueJSValue*, OpaqueJSString*))&gt;())(OpaqueJSContext const*, OpaqueJSValue*, OpaqueJSString*, OpaqueJSValue const**)<span class="symbol">:</span><span class="symbol">:funcWrapper</span><span class="symbol">:</span><span class="symbol">:call+</span> <span class="number">6678620</span> (OpaqueJSContext const*, OpaqueJSValue*, OpaqueJSString*, OpaqueJSValue const**) + <span class="number">104</span></div><div class="line"><span class="number">12</span>  JavaScriptCore                	<span class="number">0x0000000203350404</span> <span class="symbol">JSC:</span><span class="symbol">:JSCallbackObject&lt;JSC</span><span class="symbol">:</span><span class="symbol">:JSDestructibleObject&gt;</span><span class="symbol">:</span><span class="symbol">:getOwnPropertySlot+</span> <span class="number">574468</span> (<span class="symbol">JSC:</span><span class="symbol">:JSObject*</span>, <span class="symbol">JSC:</span><span class="symbol">:ExecState*</span>, <span class="symbol">JSC:</span><span class="symbol">:PropertyName</span>, <span class="symbol">JSC:</span><span class="symbol">:PropertySlot&amp;</span>) + <span class="number">340</span></div><div class="line"><span class="number">13</span>  JavaScriptCore                	<span class="number">0x0000000203a354f0</span> llint_slow_path_get_by_id + <span class="number">2008</span></div><div class="line"><span class="number">14</span>  JavaScriptCore                	<span class="number">0x0000000203328928</span> llint_entry + <span class="number">11528</span></div><div class="line"><span class="number">15</span>  JavaScriptCore                	<span class="number">0x000000020332d134</span> llint_entry + <span class="number">29972</span></div><div class="line"><span class="number">16</span>  JavaScriptCore                	<span class="number">0x000000020332d134</span> llint_entry + <span class="number">29972</span></div><div class="line"><span class="number">17</span>  JavaScriptCore                	<span class="number">0x000000020332d134</span> llint_entry + <span class="number">29972</span></div><div class="line"><span class="number">18</span>  JavaScriptCore                	<span class="number">0x000000020332d134</span> llint_entry + <span class="number">29972</span></div><div class="line"><span class="number">19</span>  JavaScriptCore                	<span class="number">0x000000020332d134</span> llint_entry + <span class="number">29972</span></div><div class="line"><span class="number">20</span>  JavaScriptCore                	<span class="number">0x0000000203325a1c</span> vmEntryToJavaScript + <span class="number">300</span></div><div class="line"><span class="number">21</span>  JavaScriptCore                	<span class="number">0x000000020399bfe4</span> <span class="symbol">JSC:</span><span class="symbol">:Interpreter</span><span class="symbol">:</span><span class="symbol">:executeProgram+</span> <span class="number">7176164</span> (<span class="symbol">JSC:</span><span class="symbol">:SourceCode</span> const&amp;, <span class="symbol">JSC:</span><span class="symbol">:ExecState*</span>, <span class="symbol">JSC:</span><span class="symbol">:JSObject*</span>) + <span class="number">9620</span></div><div class="line"><span class="number">22</span>  JavaScriptCore                	<span class="number">0x0000000203b77218</span> <span class="symbol">JSC:</span><span class="symbol">:evaluate+</span> <span class="number">9122328</span> (<span class="symbol">JSC:</span><span class="symbol">:ExecState*</span>, <span class="symbol">JSC:</span><span class="symbol">:SourceCode</span> const&amp;, <span class="symbol">JSC:</span><span class="symbol">:JSValue</span>, <span class="symbol">WTF:</span><span class="symbol">:NakedPtr&lt;JSC</span><span class="symbol">:</span><span class="symbol">:Exception&gt;&amp;</span>) + <span class="number">316</span></div><div class="line"><span class="number">23</span>  JavaScriptCore                	<span class="number">0x000000020334e634</span> JSEvaluateScript + <span class="number">472</span></div><div class="line"><span class="number">24</span>  UnityTest                     	<span class="number">0x000000010336dad0</span> <span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:evaluateScript+</span> <span class="number">6544080</span> (OpaqueJSContext const*, OpaqueJSString*, OpaqueJSString*) + <span class="number">80</span></div><div class="line"><span class="number">25</span>  UnityTest                     	<span class="number">0x000000010338c918</span> <span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSCExecutor</span><span class="symbol">:</span><span class="symbol">:loadApplicationScript+</span> <span class="number">6670616</span> (<span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:unique_ptr&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSBigString</span> const, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:default_delete&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSBigString</span> const&gt; &gt;, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt;) + <span class="number">528</span></div><div class="line"><span class="number">26</span>  UnityTest                     	<span class="number">0x0000000103392ba4</span> <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:__function</span><span class="symbol">:</span><span class="symbol">:__func&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:NativeToJsBridge</span><span class="symbol">:</span><span class="symbol">:loadApplication</span>(<span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:unique_ptr&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:RAMBundleRegistry</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:default_delete&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:RAMBundleRegistry&gt;</span> &gt;, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:unique_ptr&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSBigString</span> const, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:default_delete&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSBigString</span> const&gt; &gt;, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt;)<span class="symbol">:</span><span class="symbol">:</span><span class="variable">$_0</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:NativeToJsBridge</span><span class="symbol">:</span><span class="symbol">:loadApplication</span>(<span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:unique_ptr&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:RAMBundleRegistry</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:default_delete&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:RAMBundleRegistry&gt;</span> &gt;, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:unique_ptr&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSBigString</span> const, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:default_delete&lt;facebook</span><span class="symbol">:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSBigString</span> const&gt; &gt;, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:basic_string&lt;char</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:char_traits&lt;char&gt;</span>, <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:allocator&lt;char&gt;</span> &gt;)<span class="symbol">:</span><span class="symbol">:</span><span class="variable">$_0</span>&gt;, void (<span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSExecutor*</span>)&gt;<span class="symbol">:</span><span class="symbol">:operator</span>()+ <span class="number">6695844</span> (<span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSExecutor*&amp;&amp;</span>) + <span class="number">144</span></div><div class="line"><span class="number">27</span>  UnityTest                     	<span class="number">0x0000000103393ba8</span> <span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:function&lt;void</span> (<span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSExecutor*</span>)&gt;<span class="symbol">:</span><span class="symbol">:operator</span>()+ <span class="number">6699944</span> (<span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:JSExecutor*</span>) const + <span class="number">40</span></div><div class="line"><span class="number">28</span>  UnityTest                     	<span class="number">0x000000010330c9cc</span> <span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:tryAndReturnError</span>(<span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:function&lt;void</span> + <span class="number">6146508</span> ()&gt; const&amp;) + <span class="number">24</span></div><div class="line"><span class="number">29</span>  UnityTest                     	<span class="number">0x0000000103302528</span> <span class="symbol">facebook:</span><span class="symbol">:react</span><span class="symbol">:</span><span class="symbol">:RCTMessageThread</span><span class="symbol">:</span><span class="symbol">:tryFunc</span>(<span class="symbol">std:</span><span class="symbol">:__1</span><span class="symbol">:</span><span class="symbol">:function&lt;void</span> + <span class="number">6104360</span> ()&gt; const&amp;) + <span class="number">24</span></div><div class="line"><span class="number">30</span>  CoreFoundation                	<span class="number">0x00000001fbfb6408</span> __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK_<span class="number">_</span> + <span class="number">20</span></div><div class="line"><span class="number">31</span>  CoreFoundation                	<span class="number">0x00000001fbfb5d08</span> __CFRunLoopDoBlocks + <span class="number">272</span></div><div class="line"><span class="number">32</span>  CoreFoundation                	<span class="number">0x00000001fbfb1220</span> __CFRunLoopRun + <span class="number">2376</span></div><div class="line"><span class="number">33</span>  CoreFoundation                	<span class="number">0x00000001fbfb05b8</span> CFRunLoopRunSpecific + <span class="number">436</span></div><div class="line"><span class="number">34</span>  UnityTest                     	<span class="number">0x00000001032e36a4</span> +[RCTCxxBridge runRunLoop] + <span class="number">264</span></div><div class="line"><span class="number">35</span>  Foundation                    	<span class="number">0x00000001fcad73b0</span> __NSThread__start_<span class="number">_</span> + <span class="number">1040</span></div><div class="line"><span class="number">36</span>  libsystem_pthread.dylib       	<span class="number">0x00000001fbc412fc</span> _pthread_body + <span class="number">128</span></div><div class="line"><span class="number">37</span>  libsystem_pthread.dylib       	<span class="number">0x00000001fbc4125c</span> _pthread_start + <span class="number">48</span></div><div class="line"><span class="number">38</span>  libsystem_pthread.dylib       	<span class="number">0x00000001fbc44d08</span> thread_start + <span class="number">4</span></div></pre></td></tr></table></figure>
+<h5 id="最初的解决方案"><a href="#最初的解决方案" class="headerlink" title="最初的解决方案"></a>最初的解决方案</h5><ul>
+<li>升级<code>react-native</code>版本到0.57.0</li>
+<li><code>rm -fr node_modules</code></li>
+<li>升级插件版本<code>react-native-unity-view&quot;: &quot;^1.2.1&quot;</code></li>
+<li>在Xcode里<code>Setting &quot;Strip Linked Product&quot; to NO</code>  </li>
+</ul>
+<p>成功阻止了编译闪退,但发布后被审核告知闪退.来来回回几次后,终于重新测试发现,居然是打包为<code>release IPA file</code>后才开始闪退-_-!!</p>
+<h5 id="再次尝试"><a href="#再次尝试" class="headerlink" title="再次尝试"></a>再次尝试</h5><p>之后在issue里提问回帖,得到如下方案:</p>
+<p>在配置文件里加入</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">COPY_PHASE_STRIP</span> = <span class="literal">YES</span>;</div><div class="line"><span class="attr">ENABLE_BITCODE</span> = <span class="literal">NO</span>;</div><div class="line"><span class="attr">STRIP_INSTALLED_PRODUCT</span> = <span class="literal">NO</span>;</div></pre></td></tr></table></figure>
+<p>之后在测试机上运行,没有闪退.于是提交审核,发布了版本.之后有用户反馈在<code>IPHONE XS Max</code>上闪退 <code>-_-!!!</code></p>
+<h5 id="最后的尝试"><a href="#最后的尝试" class="headerlink" title="最后的尝试"></a>最后的尝试</h5><p>之后继续回帖,在 <a href="https://github.com/JanOwiesniak" target="_blank" rel="external">JanOwiesniak</a>和<a href="https://github.com/mtostenson" target="_blank" rel="external">mtostenson </a>的建议下,进行如下改动:</p>
+<ul>
+<li>using XCodes new build system or the legacy build system</li>
+<li>Reinstall node_modues </li>
+<li>Update Unity from 2018.2.14f1 to 2018.3.6f1</li>
+<li>Build UnityExport</li>
+<li>Patch UnityExport <a href="https://github.com/jiulongw/swift-unity/pull/120#issuecomment-456315250" target="_blank" rel="external">jiulongw/swift-unity#120 (comment)</a> <a href="https://github.com/f111fei/react-native-unity-view/issues/79#issuecomment-465819733" target="_blank" rel="external">#79 (comment)</a></li>
+<li>Update react-native-unity-view to 1.3.3</li>
+<li>Update react-native to 0.57+</li>
+<li>Patch react-native moduleNames() <a href="https://github.com/f111fei/react-native-unity-view/issues/79#issuecomment-465110101" target="_blank" rel="external">(#79 (comment)</a></li>
+<li>Add AVKit.framework in Xcode</li>
+</ul>
+<h5 id="最终成功解决iphone-xs-max-12-1兼容"><a href="#最终成功解决iphone-xs-max-12-1兼容" class="headerlink" title="最终成功解决iphone xs max 12.1兼容"></a>最终成功解决iphone xs max 12.1兼容</h5>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IOS/" rel="tag">#IOS</a>
+          
+            <a href="/tags/React-native/" rel="tag">#React-native</a>
+          
+            <a href="/tags/react-native-unity-view/" rel="tag">#react-native-unity-view</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/09/使用WPF加载Unity可执行程序/" rel="next" title="使用WPF加载Unity可执行程序">
+                <i class="fa fa-chevron-left"></i> 使用WPF加载Unity可执行程序
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/11/ReactNative之Realm预加载数据/" rel="prev" title="ReactNative之Realm预加载数据">
+                ReactNative之Realm预加载数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2019/04/10/记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退Bug/"
+           data-title="记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退" data-url="http://peterfei.me/2019/04/10/记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退Bug/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Issue-79"><span class="nav-number">1.</span> <span class="nav-text">Issue #79</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最初的解决方案"><span class="nav-number">2.</span> <span class="nav-text">最初的解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#再次尝试"><span class="nav-number">3.</span> <span class="nav-text">再次尝试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后的尝试"><span class="nav-number">4.</span> <span class="nav-text">最后的尝试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终成功解决iphone-xs-max-12-1兼容"><span class="nav-number">5.</span> <span class="nav-text">最终成功解决iphone xs max 12.1兼容</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

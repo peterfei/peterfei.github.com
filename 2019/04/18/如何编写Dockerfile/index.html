@@ -1,0 +1,799 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="docker,Dockerfile," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="示例假设我们需要使用Docker运行一个Node.js应用
+12345678910FROM ubuntuADD . /appRUN apt-get update  RUN apt-get upgrade -y  RUN apt-get install -y nodejs ssh mysql  RUN cd /app &amp;amp;&amp;amp; npm installCMD mysql &amp;amp; ssh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何编写Dockerfile">
+<meta property="og:url" content="http://peterfei.me/2019/04/18/如何编写Dockerfile/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="示例假设我们需要使用Docker运行一个Node.js应用
+12345678910FROM ubuntuADD . /appRUN apt-get update  RUN apt-get upgrade -y  RUN apt-get install -y nodejs ssh mysql  RUN cd /app &amp;amp;&amp;amp; npm installCMD mysql &amp;amp; ssh">
+<meta property="og:updated_time" content="2022-08-26T02:42:20.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何编写Dockerfile">
+<meta name="twitter:description" content="示例假设我们需要使用Docker运行一个Node.js应用
+12345678910FROM ubuntuADD . /appRUN apt-get update  RUN apt-get upgrade -y  RUN apt-get install -y nodejs ssh mysql  RUN cd /app &amp;amp;&amp;amp; npm installCMD mysql &amp;amp; ssh">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 如何编写Dockerfile | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何编写Dockerfile
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-18T13:59:18+08:00" content="2019-04-18">
+              2019-04-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/04/18/如何编写Dockerfile/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/18/如何编写Dockerfile/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>假设我们需要使用Docker运行一个Node.js应用</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> ubuntu</div><div class="line"></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app</span></div><div class="line"></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get upgrade -y  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get install -y nodejs ssh mysql  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /app &amp;&amp; npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> mysql &amp; sshd &amp; npm start</span></div></pre></td></tr></table></figure>
+<p>构建镜像:</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">docker</span> <span class="keyword">build </span>-t mydocker .</div></pre></td></tr></table></figure>
+<h4 id="编写-dockerignore文件"><a href="#编写-dockerignore文件" class="headerlink" title="编写.dockerignore文件"></a>编写.dockerignore文件</h4><p>构建镜像时，Docker需要先准备context ，将所有需要的文件收集到进程中。默认的context包含Dockerfile目录中的所有文件，但是实际上，我们并不需要.git目录，node_modules目录等内容。 .dockerignore 的作用和语法类似于 .gitignore，可以忽略一些不需要的文件，这样可以有效加快镜像构建时间，同时减少Docker镜像的大小。示例如下:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="title">.git/</span></div><div class="line">node<span class="emphasis">_modules/</span></div></pre></td></tr></table></figure>
+<h4 id="容器只运行单个应用"><a href="#容器只运行单个应用" class="headerlink" title="容器只运行单个应用"></a>容器只运行单个应用</h4><p>从技术角度讲，你可以在Docker容器中运行多个进程。你可以将数据库，前端，后端，ssh，supervisor都运行在同一个Docker容器中。但是，这会让你非常痛苦:</p>
+<ul>
+<li>非常长的构建时间(修改前端之后，整个后端也需要重新构建)</li>
+<li>非常大的镜像大小</li>
+<li>多个应用的日志难以处理</li>
+<li>横向扩展时非常浪费资源(不同的应用需要运行的容器数并不相同)</li>
+<li>僵尸进程问题 - 你需要选择合适的init进程</li>
+</ul>
+<p>因此，我建议大家为每个应用构建单独的Docker镜像，然后使用 Docker Compose 运行多个Docker容器。</p>
+<p>现在，我从Dockerfile中删除一些不需要的安装包，另外，SSH可以用docker exec替代。示例如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> ubuntu</div><div class="line"></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app</span></div><div class="line"></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get upgrade -y</span></div><div class="line"></div><div class="line"><span class="comment"># we should remove ssh and mysql, and use</span></div><div class="line"><span class="comment"># separate container for database </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get install -y nodejs  <span class="comment"># ssh mysql  </span></span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /app &amp;&amp; npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> npm start</span></div></pre></td></tr></table></figure>
+<h4 id="将多个RUN指令合并为一个"><a href="#将多个RUN指令合并为一个" class="headerlink" title="将多个RUN指令合并为一个"></a>将多个RUN指令合并为一个</h4><p>Docker镜像是分层的，下面这些知识点非常重要:</p>
+<ul>
+<li>Dockerfile中的每个指令都会创建一个新的镜像层。</li>
+<li>镜像层将被缓存和复用</li>
+<li>当Dockerfile的指令修改了，复制的文件变化了，或者构建镜像时指定的变量不同了，对应的镜像层缓存就会失效</li>
+<li>某一层的镜像缓存失效之后，它之后的镜像层缓存都会失效</li>
+<li>镜像层是不可变的，如果我们再某一层中添加一个文件，然后在下一层中删除它，则镜像中依然会包含该文件(只是这个文件在Docker容器中不可见了)。</li>
+</ul>
+<p>Docker镜像类似于洋葱。它们都有很多层。为了修改内层，则需要将外面的层都删掉。记住这一点的话，其他内容就很好理解了。</p>
+<p>现在，我们将所有的RUN指令合并为一个。同时把apt-get upgrade删除，因为它会使得镜像构建非常不确定(我们只需要依赖基础镜像的更新就好了)</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> ubuntu</div><div class="line"></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app</span></div><div class="line"></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update \  </span></div><div class="line">    &amp;&amp; apt-get install -y nodejs \</div><div class="line">    &amp;&amp; cd /app \</div><div class="line">    &amp;&amp; npm install</div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> npm start</span></div></pre></td></tr></table></figure>
+<p>记住一点，我们只能将变化频率一样的指令合并在一起。将node.js安装与npm模块安装放在一起的话，则每次修改源代码，都需要重新安装node.js，这显然不合适。因此，正确的写法是这样的:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> ubuntu</div><div class="line"></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y nodejs  </span></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /app &amp;&amp; npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> npm start</span></div></pre></td></tr></table></figure>
+<h4 id="基础镜像的标签不要用latest"><a href="#基础镜像的标签不要用latest" class="headerlink" title="基础镜像的标签不要用latest"></a>基础镜像的标签不要用latest</h4><p>当镜像没有指定标签时，将默认使用latest 标签。因此， FROM ubuntu 指令等同于FROM ubuntu:latest。当时，当镜像更新时，latest标签会指向不同的镜像，这时构建镜像有可能失败。如果你的确需要使用最新版的基础镜像，可以使用latest标签，否则的话，最好指定确定的镜像标签。</p>
+<p>示例Dockerfile应该使用16.04作为标签。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">16.04</span>  <span class="comment"># it's that easy!</span></div><div class="line"></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y nodejs  </span></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /app &amp;&amp; npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> npm start</span></div></pre></td></tr></table></figure>
+<h4 id="每个RUN指令后删除多余文件"><a href="#每个RUN指令后删除多余文件" class="headerlink" title="每个RUN指令后删除多余文件"></a>每个RUN指令后删除多余文件</h4><p>假设我们更新了apt-get源，下载，解压并安装了一些软件包，它们都保存在/var/lib/apt/lists/目录中。但是，运行应用时Docker镜像中并不需要这些文件。我们最好将它们删除，因为它会使Docker镜像变大。</p>
+<p>示例Dockerfile中，我们可以删除/var/lib/apt/lists/目录中的文件(它们是由apt-get update生成的)。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ROM ubuntu:<span class="number">16.04</span></div><div class="line"></div><div class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update \  </span></div><div class="line">    &amp;&amp; apt-get install -y nodejs \</div><div class="line">    <span class="comment"># added lines</span></div><div class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</div><div class="line"></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /app &amp;&amp; npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> npm start</span></div></pre></td></tr></table></figure>
+<h4 id="选择合适的基础镜像-alpine版本最好"><a href="#选择合适的基础镜像-alpine版本最好" class="headerlink" title="选择合适的基础镜像(alpine版本最好)"></a>选择合适的基础镜像(alpine版本最好)</h4><p>在示例中，我们选择了ubuntu作为基础镜像。但是我们只需要运行node程序，有必要使用一个通用的基础镜像吗？node镜像应该是更好的选择。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node</div><div class="line"></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app  </span></div><div class="line"><span class="comment"># we don't need to install node </span></div><div class="line"><span class="comment"># anymore and use apt-get</span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /app &amp;&amp; npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> npm start</span></div></pre></td></tr></table></figure>
+<p>更好的选择是alpine版本的node镜像。alpine是一个极小化的Linux发行版，只有4MB，这让它非常适合作为基础镜像。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node:<span class="number">7</span>-alpine</div><div class="line"></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">cd</span> /app &amp;&amp; npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> npm start</span></div></pre></td></tr></table></figure>
+<h4 id="设置WORKDIR和-CMD"><a href="#设置WORKDIR和-CMD" class="headerlink" title="设置WORKDIR和 CMD"></a>设置WORKDIR和 CMD</h4><p>WORKDIR指令可以设置默认目录，也就是运行RUN / CMD / ENTRYPOINT指令的地方。</p>
+<p>CMD指令可以设置容器创建是执行的默认命令。另外，你应该讲命令写在一个数组中，数组中每个元素为命令的每个单词(参考<a href="https://docs.docker.com/engine/reference/builder/#cmd" target="_blank" rel="external">官方文档</a>)。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node:<span class="number">7</span>-alpine</div><div class="line"></div><div class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app  </span></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> npm install</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"npm"</span>, <span class="string">"start"</span>]</span></div></pre></td></tr></table></figure>
+<h4 id="使用ENTRYPOINT-可选"><a href="#使用ENTRYPOINT-可选" class="headerlink" title="使用ENTRYPOINT (可选)"></a>使用ENTRYPOINT (可选)</h4><p>ENTRYPOINT指令并不是必须的，因为它会增加复杂度。ENTRYPOINT是一个脚本，它会默认执行，并且将指定的命令错误其参数。它通常用于构建可执行的Docker镜像。entrypoint.sh如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/usr/bin/env sh</span></div><div class="line"><span class="comment"># $0 is a script name, </span></div><div class="line"><span class="comment"># $1, $2, $3 etc are passed arguments</span></div><div class="line"><span class="comment"># $1 is our command</span></div><div class="line">CMD=<span class="variable">$1</span></div><div class="line"></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$CMD</span>"</span> <span class="keyword">in</span>  </div><div class="line">  <span class="string">"dev"</span> )</div><div class="line">    npm install</div><div class="line">    <span class="built_in">export</span> NODE_ENV=development</div><div class="line">    <span class="built_in">exec</span> npm run dev</div><div class="line">    ;;</div><div class="line"></div><div class="line">  <span class="string">"start"</span> )</div><div class="line">    <span class="comment"># we can modify files here, using ENV variables passed in </span></div><div class="line">    <span class="comment"># "docker create" command. It can't be done during build process.</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"db: <span class="variable">$DATABASE_ADDRESS</span>"</span> &gt;&gt; /app/config.yml</div><div class="line">    <span class="built_in">export</span> NODE_ENV=production</div><div class="line">    <span class="built_in">exec</span> npm start</div><div class="line">    ;;</div><div class="line"></div><div class="line">   * )</div><div class="line">    <span class="comment"># Run custom command. Thanks to this line we can still use </span></div><div class="line">    <span class="comment"># "docker run our_image /bin/bash" and it will work</span></div><div class="line">    <span class="built_in">exec</span> <span class="variable">$CMD</span> <span class="variable">$&#123;@:2&#125;</span></div><div class="line">    ;;</div><div class="line"><span class="keyword">esac</span></div></pre></td></tr></table></figure>
+<p>示例Dockerfile:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">FROM</span> node:<span class="number">7</span>-alpine</div><div class="line"></div><div class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app  </span></div><div class="line"><span class="keyword">ADD</span><span class="bash"> . /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> npm install</span></div><div class="line"></div><div class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"./entrypoint.sh"</span>]  </span></div><div class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"start"</span>]</span></div></pre></td></tr></table></figure>
+<p>可以使用如下命令运行该镜像:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 运行开发版本</span></div><div class="line">docker <span class="keyword">run</span><span class="bash"> our-app dev </span></div><div class="line"></div><div class="line"><span class="comment"># 运行生产版本</span></div><div class="line">docker <span class="keyword">run</span><span class="bash"> our-app start </span></div><div class="line"></div><div class="line"><span class="comment"># 运行bash</span></div><div class="line">docker <span class="keyword">run</span><span class="bash"> -it our-app /bin/bash</span></div></pre></td></tr></table></figure>
+<h4 id="COPY与ADD优先使用前者"><a href="#COPY与ADD优先使用前者" class="headerlink" title="COPY与ADD优先使用前者"></a>COPY与ADD优先使用前者</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node:<span class="number">7</span>-alpine</div><div class="line"></div><div class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app</span></div><div class="line"></div><div class="line"><span class="keyword">COPY</span><span class="bash"> . /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> npm install</span></div><div class="line"></div><div class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"./entrypoint.sh"</span>]  </span></div><div class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"start"</span>]</span></div></pre></td></tr></table></figure>
+<h4 id="合理调整COPY与RUN的顺序"><a href="#合理调整COPY与RUN的顺序" class="headerlink" title="合理调整COPY与RUN的顺序"></a>合理调整COPY与RUN的顺序</h4><p>我们应该把变化最少的部分放在Dockerfile的前面，这样可以充分利用镜像缓存。</p>
+<p>示例中，源代码会经常变化，则每次构建镜像时都需要重新安装NPM模块，这显然不是我们希望看到的。因此我们可以先拷贝package.json，然后安装NPM模块，最后才拷贝其余的源代码。这样的话，即使源代码变化，也不需要重新安装NPM模块。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node:<span class="number">7</span>-alpine</div><div class="line"></div><div class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app</span></div><div class="line"></div><div class="line"><span class="keyword">COPY</span><span class="bash"> package.json /app  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> npm install  </span></div><div class="line"><span class="keyword">COPY</span><span class="bash"> . /app</span></div><div class="line"></div><div class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"./entrypoint.sh"</span>]  </span></div><div class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"start"</span>]</span></div></pre></td></tr></table></figure>
+<h4 id="设置默认的环境变量，映射端口和数据卷"><a href="#设置默认的环境变量，映射端口和数据卷" class="headerlink" title="设置默认的环境变量，映射端口和数据卷"></a>设置默认的环境变量，映射端口和数据卷</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node:<span class="number">7</span>-alpine</div><div class="line"></div><div class="line"><span class="keyword">ENV</span> PROJECT_DIR=/app</div><div class="line"></div><div class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$PROJECT_DIR</span></span></div><div class="line"></div><div class="line"><span class="keyword">COPY</span><span class="bash"> package.json <span class="variable">$PROJECT_DIR</span>  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> npm install  </span></div><div class="line"><span class="keyword">COPY</span><span class="bash"> . <span class="variable">$PROJECT_DIR</span></span></div><div class="line"></div><div class="line"><span class="keyword">ENV</span> MEDIA_DIR=/media \  </div><div class="line">    NODE_ENV=production \</div><div class="line">    APP_PORT=<span class="number">3000</span></div><div class="line"></div><div class="line"><span class="keyword">VOLUME</span><span class="bash"> <span class="variable">$MEDIA_DIR</span>  </span></div><div class="line"><span class="keyword">EXPOSE</span> $APP_PORT</div><div class="line"></div><div class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"./entrypoint.sh"</span>]  </span></div><div class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"start"</span>]</span></div></pre></td></tr></table></figure>
+<h4 id="添加HEALTHCHECK"><a href="#添加HEALTHCHECK" class="headerlink" title="添加HEALTHCHECK"></a>添加HEALTHCHECK</h4><p>运行容器时，可以指定–restart always选项。这样的话，容器崩溃时，Docker守护进程(docker daemon)会重启容器。对于需要长时间运行的容器，这个选项非常有用。但是，如果容器的确在运行，但是不可(陷入死循环，配置错误)用怎么办？使用HEALTHCHECK指令可以让Docker周期性的检查容器的健康状况。我们只需要指定一个命令，如果一切正常的话返回0，否则返回1。示例如下:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node:<span class="number">7</span>-alpine  </div><div class="line"><span class="keyword">LABEL</span><span class="bash"> maintainer <span class="string">"jakub.skalecki@example.com"</span></span></div><div class="line"></div><div class="line"><span class="keyword">ENV</span> PROJECT_DIR=/app  </div><div class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$PROJECT_DIR</span></span></div><div class="line"></div><div class="line"><span class="keyword">COPY</span><span class="bash"> package.json <span class="variable">$PROJECT_DIR</span>  </span></div><div class="line"><span class="keyword">RUN</span><span class="bash"> npm install  </span></div><div class="line"><span class="keyword">COPY</span><span class="bash"> . <span class="variable">$PROJECT_DIR</span></span></div><div class="line"></div><div class="line"><span class="keyword">ENV</span> MEDIA_DIR=/media \  </div><div class="line">    NODE_ENV=production \</div><div class="line">    APP_PORT=<span class="number">3000</span></div><div class="line"></div><div class="line"><span class="keyword">VOLUME</span><span class="bash"> <span class="variable">$MEDIA_DIR</span>  </span></div><div class="line"><span class="keyword">EXPOSE</span> $APP_PORT  </div><div class="line"><span class="keyword">HEALTHCHECK</span><span class="bash"> CMD curl --fail http://localhost:<span class="variable">$APP_PORT</span> || <span class="built_in">exit</span> 1</span></div><div class="line"></div><div class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"./entrypoint.sh"</span>]  </span></div><div class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"start"</span>]</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag">#docker</a>
+          
+            <a href="/tags/Dockerfile/" rel="tag">#Dockerfile</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/18/记-给公司Unity组实现的数据库缓存类/" rel="next" title="记_给公司Unity小组实现的基于Sqlite缓存Cache类">
+                <i class="fa fa-chevron-left"></i> 记_给公司Unity小组实现的基于Sqlite缓存Cache类
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/29/记k8s在公网部署/" rel="prev" title="记k8s在公网部署">
+                记k8s在公网部署 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2019/04/18/如何编写Dockerfile/"
+           data-title="如何编写Dockerfile" data-url="http://peterfei.me/2019/04/18/如何编写Dockerfile/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写-dockerignore文件"><span class="nav-number">2.</span> <span class="nav-text">编写.dockerignore文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器只运行单个应用"><span class="nav-number">3.</span> <span class="nav-text">容器只运行单个应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将多个RUN指令合并为一个"><span class="nav-number">4.</span> <span class="nav-text">将多个RUN指令合并为一个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基础镜像的标签不要用latest"><span class="nav-number">5.</span> <span class="nav-text">基础镜像的标签不要用latest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#每个RUN指令后删除多余文件"><span class="nav-number">6.</span> <span class="nav-text">每个RUN指令后删除多余文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择合适的基础镜像-alpine版本最好"><span class="nav-number">7.</span> <span class="nav-text">选择合适的基础镜像(alpine版本最好)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置WORKDIR和-CMD"><span class="nav-number">8.</span> <span class="nav-text">设置WORKDIR和 CMD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ENTRYPOINT-可选"><span class="nav-number">9.</span> <span class="nav-text">使用ENTRYPOINT (可选)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COPY与ADD优先使用前者"><span class="nav-number">10.</span> <span class="nav-text">COPY与ADD优先使用前者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合理调整COPY与RUN的顺序"><span class="nav-number">11.</span> <span class="nav-text">合理调整COPY与RUN的顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置默认的环境变量，映射端口和数据卷"><span class="nav-number">12.</span> <span class="nav-text">设置默认的环境变量，映射端口和数据卷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加HEALTHCHECK"><span class="nav-number">13.</span> <span class="nav-text">添加HEALTHCHECK</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="peterfei.me,peterfei" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="准备工作1. 安装必备软件1yum install -y wget vim net-tools epel-release
+2. 关闭swap1234swapoff -a# 永久禁用，打开/etc/fstab注释掉swap那一行。sed -i &apos;s/.*swap.*/#&amp;amp;/&apos; /etc/fstab
+3. 关闭selinux12345# 临时禁用selinuxsetenforce 0# 永久关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记k8s在公网部署">
+<meta property="og:url" content="http://peterfei.me/2020/10/29/记k8s在公网部署/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="准备工作1. 安装必备软件1yum install -y wget vim net-tools epel-release
+2. 关闭swap1234swapoff -a# 永久禁用，打开/etc/fstab注释掉swap那一行。sed -i &apos;s/.*swap.*/#&amp;amp;/&apos; /etc/fstab
+3. 关闭selinux12345# 临时禁用selinuxsetenforce 0# 永久关">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g90yzxelfhj30m00f8ac2.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g90z0cev0kj30m00f8dhs.jpg">
+<meta property="og:updated_time" content="2022-08-26T02:42:20.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记k8s在公网部署">
+<meta name="twitter:description" content="准备工作1. 安装必备软件1yum install -y wget vim net-tools epel-release
+2. 关闭swap1234swapoff -a# 永久禁用，打开/etc/fstab注释掉swap那一行。sed -i &apos;s/.*swap.*/#&amp;amp;/&apos; /etc/fstab
+3. 关闭selinux12345# 临时禁用selinuxsetenforce 0# 永久关">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g90yzxelfhj30m00f8ac2.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 记k8s在公网部署 | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                记k8s在公网部署
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-10-29T10:26:59+08:00" content="2020-10-29">
+              2020-10-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/10/29/记k8s在公网部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/10/29/记k8s在公网部署/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="1-安装必备软件"><a href="#1-安装必备软件" class="headerlink" title="1. 安装必备软件"></a>1. 安装必备软件</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum <span class="keyword">install</span> -y wget vim net-tools epel-<span class="keyword">release</span></div></pre></td></tr></table></figure>
+<h3 id="2-关闭swap"><a href="#2-关闭swap" class="headerlink" title="2. 关闭swap"></a>2. 关闭swap</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">swapoff -a</div><div class="line"></div><div class="line"><span class="comment"># 永久禁用，打开/etc/fstab注释掉swap那一行。</span></div><div class="line">sed -i <span class="string">'s/.*swap.*/#&amp;/'</span> <span class="regexp">/etc/</span>fstab</div></pre></td></tr></table></figure>
+<h3 id="3-关闭selinux"><a href="#3-关闭selinux" class="headerlink" title="3. 关闭selinux"></a>3. 关闭selinux</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># 临时禁用selinux</span></div><div class="line">setenforce <span class="number">0</span></div><div class="line"><span class="meta"># 永久关闭 修改/etc/sysconfig/selinux文件设置</span></div><div class="line">sed -i <span class="string">'s/SELINUX=permissive/SELINUX=disabled/'</span> /etc/sysconfig/selinux</div><div class="line">sed -i <span class="string">"s/SELINUX=enforcing/SELINUX=disabled/g"</span> /etc/selinux/config</div></pre></td></tr></table></figure>
+<h3 id="4-关闭防火墙"><a href="#4-关闭防火墙" class="headerlink" title="4. 关闭防火墙"></a>4. 关闭防火墙</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl <span class="keyword">disable</span> firewalld</div><div class="line">systemctl <span class="keyword">stop</span> firewalld</div></pre></td></tr></table></figure>
+<h2 id="安装Docker和配置代理"><a href="#安装Docker和配置代理" class="headerlink" title="安装Docker和配置代理"></a>安装Docker和配置代理</h2><h3 id="1-配置yum源"><a href="#1-配置yum源" class="headerlink" title="1. 配置yum源"></a>1. 配置yum源</h3><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">## 配置默认源</div><div class="line">## 备份</div><div class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</div><div class="line"></div><div class="line">## 下载阿里源</div><div class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http:<span class="comment">//mirrors.aliyun.com/repo/Centos-7.repo</span></div><div class="line"></div><div class="line">## 刷新</div><div class="line">yum makecache fast</div><div class="line"></div><div class="line">## 配置k8s源</div><div class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</div><div class="line">[kubernetes]</div><div class="line">name=Kubernetes</div><div class="line">baseurl=https:<span class="comment">//mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span></div><div class="line">enabled=<span class="number">1</span></div><div class="line">gpgcheck=<span class="number">0</span></div><div class="line">EOF</div><div class="line"></div><div class="line">## 重建yum缓存</div><div class="line">yum clean all</div><div class="line">yum makecache fast</div><div class="line">yum -y update</div></pre></td></tr></table></figure>
+<h3 id="2-安装docker"><a href="#2-安装docker" class="headerlink" title="2. 安装docker"></a>2. 安装docker</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> yum-utils device-mapper-persistent-<span class="keyword">data</span> lvm2</div><div class="line">yum-config-manager <span class="comment">--add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span></div><div class="line">yum -y <span class="keyword">install</span> docker-ce</div><div class="line">systemctl <span class="keyword">enable</span> docker</div><div class="line">systemctl <span class="keyword">start</span> docker</div></pre></td></tr></table></figure>
+<h3 id="3-确保kubelet使用的cgroup-driver-与-Docker的一致"><a href="#3-确保kubelet使用的cgroup-driver-与-Docker的一致" class="headerlink" title="3. 确保kubelet使用的cgroup driver 与 Docker的一致"></a>3. 确保kubelet使用的cgroup driver 与 Docker的一致</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">cat &gt; /etc/docker/daemon.json &lt;&lt;<span class="built_in">EOF</span></div><div class="line">&#123;</div><div class="line">  <span class="string">"exec-opts"</span>: [<span class="string">"native.cgroupdriver=systemd"</span>],</div><div class="line">  <span class="string">"log-driver"</span>: <span class="string">"json-file"</span>,</div><div class="line">  <span class="string">"log-opts"</span>: &#123;</div><div class="line">    <span class="string">"max-size"</span>: <span class="string">"100m"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"storage-driver"</span>: <span class="string">"overlay2"</span>,</div><div class="line">  <span class="string">"storage-opts"</span>: [</div><div class="line">    <span class="string">"overlay2.override_kernel_check=true"</span></div><div class="line">  ]</div><div class="line">&#125;</div><div class="line"><span class="built_in">EOF</span></div><div class="line"></div><div class="line">sudo systemctl daemon-reload sudo systemctl restart docker</div></pre></td></tr></table></figure>
+<h3 id="4-设置docker代理（核心步骤-如果有代理）"><a href="#4-设置docker代理（核心步骤-如果有代理）" class="headerlink" title="4. 设置docker代理（核心步骤-如果有代理）"></a>4. 设置docker代理（核心步骤-如果有代理）</h3><blockquote>
+<p>没有代理执行步骤5</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mkdir /etc/systemd/system/docker<span class="selector-class">.service</span><span class="selector-class">.d</span></div><div class="line">touch /etc/systemd/system/docker<span class="selector-class">.service</span><span class="selector-class">.d</span>/http-proxy<span class="selector-class">.conf</span></div><div class="line"></div><div class="line">[Service]</div><div class="line">Environment=<span class="string">"HTTP_PROXY=http://xxx"</span></div><div class="line">Environment=<span class="string">"HTTPS_PROXY=http://xxx"</span></div><div class="line">Environment=<span class="string">"NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com"</span></div><div class="line"></div><div class="line">systemctl daemon-reload &amp;&amp; systemctl restart docker</div></pre></td></tr></table></figure>
+<h3 id="5-从国内仓库拉取镜像（核心步骤-如果没有代理）"><a href="#5-从国内仓库拉取镜像（核心步骤-如果没有代理）" class="headerlink" title="5. 从国内仓库拉取镜像（核心步骤-如果没有代理）"></a>5. 从国内仓库拉取镜像（核心步骤-如果没有代理）</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## 查看集群初始化所需镜像及对应依赖版本号，列出的就是需要下载的镜像</span></div><div class="line">kubeadm config images <span class="built_in">list</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">images=(</div><div class="line">kube-apiserver:v1.18.0</div><div class="line">kube-controller-manager:v1.18.0</div><div class="line">kube-scheduler:v1.18.0</div><div class="line">kube-proxy:v1.18.0</div><div class="line">pause:3.2</div><div class="line">etcd:3.4.3-0</div><div class="line">coredns:1.6.7</div><div class="line">kubernetes-dashboard-amd64:v1.10.1</div><div class="line">)</div><div class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> <span class="variable">$&#123;images[@]&#125;</span>;<span class="keyword">do</span></div><div class="line">        docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span></div><div class="line">        docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span> k8s.gcr.io/<span class="variable">$imageName</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h2 id="开始安装k8s"><a href="#开始安装k8s" class="headerlink" title="开始安装k8s"></a>开始安装k8s</h2><h3 id="1-安装kubeadm，kubelet等"><a href="#1-安装kubeadm，kubelet等" class="headerlink" title="1. 安装kubeadm，kubelet等"></a>1. 安装kubeadm，kubelet等</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> kubelet kubeadm kubectl kubernetes-cni</div><div class="line">systemctl <span class="keyword">enable</span> kubelet &amp;&amp; systemctl <span class="keyword">start</span> kubelet</div></pre></td></tr></table></figure>
+<h3 id="2-集群初始化"><a href="#2-集群初始化" class="headerlink" title="2. 集群初始化"></a>2. 集群初始化</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">## master节点执行：</div><div class="line">sudo kubeadm init \</div><div class="line"> --apiserver-advertise-address <span class="number">10.1</span><span class="number">.69</span><span class="number">.101</span> \</div><div class="line"> --kubernetes-version=v1<span class="number">.15</span><span class="number">.0</span> \</div><div class="line"> --pod-network-cidr=<span class="number">10.244</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">16</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>公网会卡在:</p>
+</blockquote>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[wait-control-plane] Waiting <span class="keyword">for</span> the kubelet <span class="keyword">to</span> boot up the control plane <span class="keyword">as</span> <span class="keyword">static</span> Pods <span class="keyword">from</span> directory <span class="string">"/etc/kubernetes/manifests"</span>. This can <span class="keyword">take</span> up <span class="keyword">to</span> <span class="number">4</span>m0s</div><div class="line">[kubelet-check] Initial timeout <span class="keyword">of</span> <span class="number">40</span>s passed.</div></pre></td></tr></table></figure>
+<h2 id="修改etcd-yaml"><a href="#修改etcd-yaml" class="headerlink" title="修改etcd.yaml"></a>修改etcd.yaml</h2><blockquote>
+<p>文件路径”/etc/kubernetes/manifests/etcd.yaml”</p>
+</blockquote>
+<h5 id="修改前"><a href="#修改前" class="headerlink" title="修改前"></a>修改前</h5><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g90yzxelfhj30m00f8ac2.jpg" alt=""></p>
+<h5 id="修改后"><a href="#修改后" class="headerlink" title="修改后"></a>修改后</h5><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g90z0cev0kj30m00f8dhs.jpg" alt=""></p>
+<blockquote>
+<p>此处”xxx”为公网ip，要关注的是”–listen-client-urls”和”–listen-peer-urls”。需要把–listen-client-urls 和 –listen-peer-urls 都改成0.0.0.0：xxx</p>
+</blockquote>
+<p><a href="https://my.oschina.net/u/4389078/blog/3233116" target="_blank" rel="external">来源</a></p>
+<p>得到回复：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">(...省略)</div><div class="line"><span class="keyword">mkdir</span> -p <span class="variable">$HOME</span>/.kube</div><div class="line">sudo cp -i /etc/kubernetes/admin.<span class="keyword">conf</span> <span class="variable">$HOME</span>/.kube/config</div><div class="line">sudo chown $(id -<span class="keyword">u</span>):$(id -<span class="keyword">g</span>) <span class="variable">$HOME</span>/.kube/config</div><div class="line"></div><div class="line">## 保存好该命令，丢了不好找回。节点加入时需要</div><div class="line">kubeadm join 10.1.69.101:6443 --<span class="keyword">token</span> ou5pvo.qseafc4s8licblzy \</div><div class="line">    --discovery-<span class="keyword">token</span>-<span class="keyword">ca</span>-cert-hash sha256:de9c10f11c50c074f212698b9d514fc12a9c1c4ffe70961aff89ac5e585f0663</div></pre></td></tr></table></figure>
+<h3 id="3-拷贝配置，给kubectl使用"><a href="#3-拷贝配置，给kubectl使用" class="headerlink" title="3. 拷贝配置，给kubectl使用"></a>3. 拷贝配置，给kubectl使用</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir -<span class="selector-tag">p</span> <span class="variable">$HOME</span>/<span class="selector-class">.kube</span></div><div class="line">sudo cp -<span class="selector-tag">i</span> /etc/kubernetes/admin<span class="selector-class">.conf</span> <span class="variable">$HOME</span>/.kube/config</div><div class="line">sudo chown $(id -u):$(id -g) <span class="variable">$HOME</span>/.kube/config</div></pre></td></tr></table></figure>
+<h3 id="4-安装flannel网络"><a href="#4-安装flannel网络" class="headerlink" title="4. 安装flannel网络"></a>4. 安装flannel网络</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sudo kubectl apply -<span class="keyword">f</span> http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/coreos/flannel/master/Documentation/kube-flannel.yml</div><div class="line"></div><div class="line">## 查看flannal是否安装成功</div><div class="line"></div><div class="line">sudo kubectl -n kube-<span class="built_in">system</span> <span class="built_in">get</span> <span class="keyword">po</span> -<span class="keyword">l</span> app=flannel -<span class="keyword">o</span> wide</div></pre></td></tr></table></figure>
+<h2 id="5-node节点加入集群"><a href="#5-node节点加入集群" class="headerlink" title="5. node节点加入集群"></a>5. node节点加入集群</h2><p>其他节点执行：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">kubeadm</span> <span class="selector-tag">join</span> 39<span class="selector-class">.99</span><span class="selector-class">.xxx</span><span class="selector-class">.xxx</span><span class="selector-pseudo">:6443</span>   <span class="selector-tag">--token</span> <span class="selector-tag">w4tx2r</span><span class="selector-class">.0dm194h24wlw8m8t</span> <span class="selector-tag">--discovery-token-ca-cert-hash</span> <span class="selector-tag">sha256</span><span class="selector-pseudo">:caae3b178b4172839269254f373b6eaa14514173b01e129e0b0fe7d64694dc39</span></div></pre></td></tr></table></figure>
+<h2 id="清理安装"><a href="#清理安装" class="headerlink" title="清理安装"></a>清理安装</h2><blockquote>
+<p> 如果安装过程中出任何问题，可以重置后重新安装</p>
+</blockquote>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">sudo kubeadm reset</span></div></pre></td></tr></table></figure>
+<h1 id="Dashboard安装"><a href="#Dashboard安装" class="headerlink" title="Dashboard安装"></a>Dashboard安装</h1><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 安装dashboard，国内可以使用别的yaml源</span></div><div class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.<span class="number">10.1</span>/src/deploy/recommended/kubernetes-dashboard.yaml</div><div class="line"></div><div class="line"><span class="comment"># 修改node为NodePort模式</span></div><div class="line">kubectl patch svc -n kube-system kubernetes-dashboard -p '&#123;<span class="string">"spec"</span>:&#123;<span class="string">"type"</span>:<span class="string">"NodePort"</span>&#125;&#125;'</div><div class="line"></div><div class="line"><span class="comment"># 查看服务(得知dashboard运行在443:32383/TCP端口)</span></div><div class="line">kubectl get svc -n kube-system </div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line">NAME                   <span class="keyword">TYPE</span>        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE</div><div class="line">kube-dns               ClusterIP   <span class="number">10.96</span>.<span class="number">0.10</span>      <span class="tag">&lt;none&gt;</span>        <span class="number">53</span>/UDP,<span class="number">53</span>/TCP,<span class="number">9153</span>/TCP   <span class="number">7h</span>40m</div><div class="line">kubernetes-dashboard   NodePort    <span class="number">10.111</span>.<span class="number">77.210</span>   <span class="tag">&lt;none&gt;</span>        <span class="number">443</span>:<span class="number">32383</span>/TCP            <span class="number">3h</span>42m</div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line"></div><div class="line"><span class="comment"># 查看dashboard运行在哪个node(得知dashboard运行在192.168.20.4)</span></div><div class="line">kubectl get pods -A -o wide</div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line">NAMESPACE     NAME                                    READY   STATUS    RESTARTS   AGE     IP             <span class="keyword">NODE</span>     <span class="title">NOMINATED</span> <span class="keyword">NODE</span>   <span class="title">READINESS</span> GATES</div><div class="line">kube-system   coredns-fb8b8dccf-rn8kd                 <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>43m   <span class="number">10.244</span>.<span class="number">0.2</span>     <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   coredns-fb8b8dccf-slwr4                 <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>43m   <span class="number">10.244</span>.<span class="number">0.3</span>     <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   etcd-<span class="keyword">master</span>                             <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-apiserver-<span class="keyword">master</span>                   <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-controller-manager-<span class="keyword">master</span>          <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-flannel-ds-amd64-l8c7c             <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>3m    <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-flannel-ds-amd64-lcmxw             <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">1</span>          <span class="number">6h</span>50m   <span class="number">192.168</span>.<span class="number">20.4</span>   node1    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-flannel-ds-amd64-pqnln             <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">1</span>          <span class="number">6h</span>5m    <span class="number">192.168</span>.<span class="number">20.3</span>   node2    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-proxy-<span class="number">4</span>kcqb                        <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>43m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-proxy-jcqjd                        <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">6h</span>5m    <span class="number">192.168</span>.<span class="number">20.3</span>   node2    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-proxy-vm9sj                        <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">6h</span>50m   <span class="number">192.168</span>.<span class="number">20.4</span>   node1    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-scheduler-<span class="keyword">master</span>                   <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kubernetes-dashboard-<span class="number">5</span>f7b999d65-<span class="number">2</span>ltmv   <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">3h</span>45m   <span class="number">10.244</span>.<span class="number">1.2</span>     node1    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line"><span class="comment"># 如果无法变成Running状态，可以使用以下命令排错</span></div><div class="line">journalctl -f -u kubelet  <span class="comment"># 只看当前的kubelet进程日志</span></div><div class="line"><span class="comment">### 提示拉取镜像失败，无法翻墙的可以使用以下方法预先拉取镜像</span></div><div class="line"><span class="comment">### 请在kubernetes-dashboard的节点上操作：</span></div><div class="line">docker pull mirrorgooglecontainers/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span></div><div class="line">docker <span class="keyword">tag</span> <span class="title">mirrorgooglecontainers</span>/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span> k8s.gcr.io/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span></div><div class="line">docker rmi  mirrorgooglecontainers/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span></div></pre></td></tr></table></figure>
+<p>获取token命令</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## 获取登陆界面token</span></div><div class="line">kubectl -n kube-<span class="keyword">system</span> describe $(kubectl -n kube-<span class="keyword">system</span> \</div><div class="line"><span class="built_in">get</span> secret -n kube-<span class="keyword">system</span> -o name | grep namespace) | grep <span class="keyword">token</span></div></pre></td></tr></table></figure>
+<p>如果dashboard的token过期，以下脚本重新生成config文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TOKEN=$(kubectl -n kube-system describe secret default| awk <span class="string">'$1=="token:"&#123;print $2&#125;'</span>)</div><div class="line">kubectl config <span class="built_in">set</span>-credentials kubernetes-admin --token=<span class="string">"<span class="variable">$&#123;TOKEN&#125;</span>"</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/18/如何编写Dockerfile/" rel="next" title="如何编写Dockerfile">
+                <i class="fa fa-chevron-left"></i> 如何编写Dockerfile
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/16/k8s-部署和gitlab-CI-CD/" rel="prev" title="k8s 部署和gitlab CI/CD">
+                k8s 部署和gitlab CI/CD <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2020/10/29/记k8s在公网部署/"
+           data-title="记k8s在公网部署" data-url="http://peterfei.me/2020/10/29/记k8s在公网部署/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装必备软件"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装必备软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-关闭swap"><span class="nav-number">1.2.</span> <span class="nav-text">2. 关闭swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-关闭selinux"><span class="nav-number">1.3.</span> <span class="nav-text">3. 关闭selinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-关闭防火墙"><span class="nav-number">1.4.</span> <span class="nav-text">4. 关闭防火墙</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Docker和配置代理"><span class="nav-number">2.</span> <span class="nav-text">安装Docker和配置代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-配置yum源"><span class="nav-number">2.1.</span> <span class="nav-text">1. 配置yum源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装docker"><span class="nav-number">2.2.</span> <span class="nav-text">2. 安装docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-确保kubelet使用的cgroup-driver-与-Docker的一致"><span class="nav-number">2.3.</span> <span class="nav-text">3. 确保kubelet使用的cgroup driver 与 Docker的一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-设置docker代理（核心步骤-如果有代理）"><span class="nav-number">2.4.</span> <span class="nav-text">4. 设置docker代理（核心步骤-如果有代理）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-从国内仓库拉取镜像（核心步骤-如果没有代理）"><span class="nav-number">2.5.</span> <span class="nav-text">5. 从国内仓库拉取镜像（核心步骤-如果没有代理）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始安装k8s"><span class="nav-number">3.</span> <span class="nav-text">开始安装k8s</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装kubeadm，kubelet等"><span class="nav-number">3.1.</span> <span class="nav-text">1. 安装kubeadm，kubelet等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-集群初始化"><span class="nav-number">3.2.</span> <span class="nav-text">2. 集群初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改etcd-yaml"><span class="nav-number">4.</span> <span class="nav-text">修改etcd.yaml</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改前"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">修改前</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改后"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">修改后</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-拷贝配置，给kubectl使用"><span class="nav-number">4.1.</span> <span class="nav-text">3. 拷贝配置，给kubectl使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装flannel网络"><span class="nav-number">4.2.</span> <span class="nav-text">4. 安装flannel网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-node节点加入集群"><span class="nav-number">5.</span> <span class="nav-text">5. node节点加入集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清理安装"><span class="nav-number">6.</span> <span class="nav-text">清理安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dashboard安装"><span class="nav-number"></span> <span class="nav-text">Dashboard安装</span></a></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>
