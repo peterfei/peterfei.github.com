@@ -236,6 +236,121 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="url">
+                  ionic 生成动态生成右拉城市菜单
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-30T09:59:35+08:00" content="2015-12-30">
+              2015-12-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Ionic/" itemprop="url" rel="index">
+                    <span itemprop="name">Ionic</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/30/ionic-生成动态生成右拉城市菜单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>昨天有时间想重写下之前技术部小黄写的城市右拉， 主要用的功能是<code>ionic</code> 自带的 <code>ion-side-menus</code> 和 <code>ionicSideMenuDelegate</code>。<br>配置路由：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">.state(<span class="string">'choosePovince'</span>,&#123;</div><div class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</div><div class="line">  url:<span class="string">'/choose_port'</span>,</div><div class="line">  abstract:<span class="literal">true</span>,</div><div class="line">  templateUrl:<span class="string">'templates/jiesongji/choose_porvince_main.html'</span>,</div><div class="line">  controller:<span class="string">'JiejiCtrl'</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 右侧滑动</div><div class="line"> * @type &#123;应用框架自带的滑动更好解决&#125;</div><div class="line"> */</div><div class="line">.state(<span class="string">'choosePovince.city'</span>,&#123;</div><div class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</div><div class="line">  url:<span class="string">'/city'</span>,</div><div class="line">  views:&#123;</div><div class="line">    <span class="string">'menuContent'</span> :</div><div class="line">    &#123;</div><div class="line">      templateUrl: <span class="string">"templates/jiesongji/porvince_main.html"</span>,</div><div class="line">      controller:<span class="string">'JiejiCtrl'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">'right-menu'</span>:</div><div class="line">    &#123;</div><div class="line">      templateUrl : <span class="string">"templates/jiesongji/city_right.html"</span>,</div><div class="line">      controller:<span class="string">'JiejiCtrl'</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="keyword">params</span>: &#123;</div><div class="line">    p_obj: <span class="built_in">null</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>第一层路由是声明右拉的父级关联模板。<br><code>Html</code>模板<code>choose_porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ion-side-menus</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ion-pane</span> <span class="attr">ion-side-menu-content</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">ion-nav-bar</span> <span class="attr">class</span>=<span class="string">"bar bar-header top-header"</span>&gt;</span></div><div class="line"></div><div class="line">              <span class="tag">&lt;<span class="name">ion-nav-buttons</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"button button-clear"</span> <span class="attr">ng-click</span>=<span class="string">"goBack()"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">ion-nav-buttons</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">ion-nav-back-button</span> <span class="attr">class</span>=<span class="string">"button-clear"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Back<span class="tag">&lt;/<span class="name">ion-nav-back-button</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">ion-nav-bar</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">ion-nav-view</span> <span class="attr">name</span>=<span class="string">"menuContent"</span> <span class="attr">animation</span>=<span class="string">"slide-left-right"</span>&gt;</span><span class="tag">&lt;/<span class="name">ion-nav-view</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ion-pane</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ion-side-menu</span> <span class="attr">side</span>=<span class="string">"right"</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"bar bar-header top-header"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>选择城市<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">ion-content</span> <span class="attr">class</span>=<span class="string">"has-header"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">ion-nav-view</span> <span class="attr">name</span>=<span class="string">"right-menu"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">ion-nav-view</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">ion-content</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ion-side-menu</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">ion-side-menus</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>第二层路由声明右拉的模板与主模板。<br><code>Html</code> 模板 <code>porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ion-view</span> <span class="attr">title</span>=<span class="string">"选择城市"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ion-content</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ion-list</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ion-item</span> <span class="attr">ng-click</span>=<span class="string">"right_menu(province.pro_id);"</span> <span class="attr">ng-repeat</span>=<span class="string">"province in ProvinceList"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- &lt;ion-item ng-click="show_province();"&gt; --&gt;</span></div><div class="line"></div><div class="line">             <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;province.province&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;/<span class="name">ion-item</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">ion-list</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ion-content</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ion-view</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><code>Html</code> 模板 <code>city_right.html</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ion-item</span> <span class="attr">ng-repeat</span>=<span class="string">"city in citys"</span> <span class="attr">style</span>=<span class="string">"height:50px;"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;city.city_name&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ion-item</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><code>Javascript</code>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * [show_province 加载省份]</div><div class="line"> * @return &#123;[type]&#125; [description]</div><div class="line"> */</div><div class="line">$scope.show_province = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> param = &#123;</div><div class="line">        <span class="attr">code</span>: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span></div><div class="line">    &#125;;</div><div class="line">    chaXunProvinceFactory.getChaXunProvince(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</div><div class="line">            <span class="comment">// debugger</span></div><div class="line">            $state.go(<span class="string">'choosePovince.city'</span>,&#123;<span class="attr">p_obj</span>:callback.data.content&#125;);</div><div class="line">            <span class="comment">// $scope.ProvinceList = callback.data.content;</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 通过路由的对象传值，渲染ProvinceList显示数据</div><div class="line"> * @param  &#123;[type]&#125; angular.isObject($stateParams.p_obj) [description]</div><div class="line"> * @return &#123;[type]&#125;                                      [description]</div><div class="line"> */</div><div class="line"><span class="keyword">if</span> (angular.isObject($stateParams.p_obj)) &#123;</div><div class="line">    $scope.ProvinceList=$stateParams.p_obj;</div><div class="line">&#125;;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 这里是重点，当点击事件发生时，向父级scope对象发送监听对象请求，传值。</div><div class="line"> * @param  &#123;[type]&#125; obj [description]</div><div class="line"> * @return &#123;[type]&#125;     [description]</div><div class="line"> */</div><div class="line">$scope.right_menu = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">    $ionicSideMenuDelegate.toggleRight();</div><div class="line">    $scope.$emit(<span class="string">'cities'</span>,obj);</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 父页面监听，如果接收到点击请求，则通过接口获取动态数据，同时赋值给$scope对象。</div><div class="line"> * @param  &#123;[type]&#125; e    [description]</div><div class="line"> * @param  &#123;Object&#125; d)&#123;                var param [description]</div><div class="line"> * @return &#123;[type]&#125;      [description]</div><div class="line"> */</div><div class="line">$scope.$on(<span class="string">'cities'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e,d</span>)</span>&#123;</div><div class="line">   <span class="keyword">var</span> param = &#123;</div><div class="line">        <span class="attr">code</span>: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span>,</div><div class="line">        <span class="attr">pro_id</span>: d</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    chaXunProvinceFactory.getChaXunCity(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</div><div class="line">            $scope.citys = callback.data.content;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>最终效果：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.47.50.png" alt="效果图"><br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.48.15.png" alt="效果图"></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/28/ionic-页面对象传值/" itemprop="url">
                   ionic 页面对象传值
                 </a>
@@ -649,122 +764,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/04/ionic-Jpush-IOS-配置/" itemprop="url">
-                  ionic jpush  IOS 配置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-04T13:24:17+08:00" content="2015-12-04">
-              2015-12-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/04/ionic-Jpush-IOS-配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/ionic-Jpush-IOS-配置/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###添加 IOS 平台<br><code>$ ionic platform add ios</code></p>
-<p>###安装插件<br><code>ionic plugin add https://github.com/DongHongfei/jpush-phonegap-plugin.git</code></p>
-<p>###修改配置<br>修改: ionic_jpush\plugins\cn.jpush.phonegap.JPushPlugin\src\ios\PushConfig.plist 修改对应的APP_KEY和CHANNEL<br>确保有如下代码，不然后面 Xcode 运行会警告：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="type">key</span>&gt;APS_FOR_PRODUCTION&lt;/<span class="type">key</span>&gt;</div><div class="line">&lt;<span class="type">string</span>&gt;<span class="number">0</span>&lt;/<span class="type">string</span>&gt;</div></pre></td></tr></table></figure>
-<p>###编译 IOS 项目<br><code>$ ionic build ios</code></p>
-<p>###修改配置 IOS 项目<br>修改 AppDelegate.m</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> Licensed to the Apache Software Foundation (ASF) under one</div><div class="line"> or more contributor license agreements.  See the NOTICE file</div><div class="line"> distributed with this work for additional information</div><div class="line"> regarding copyright ownership.  The ASF licenses this file</div><div class="line"> to you under the Apache License, Version 2.0 (the</div><div class="line"> "License"); you may not use this file except in compliance</div><div class="line"> with the License.  You may obtain a copy of the License at</div><div class="line"> </div><div class="line"> http://www.apache.org/licenses/LICENSE-2.0</div><div class="line"> </div><div class="line"> Unless required by applicable law or agreed to in writing,</div><div class="line"> software distributed under the License is distributed on an</div><div class="line"> "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</div><div class="line"> KIND, either express or implied.  See the License for the</div><div class="line"> specific language governing permissions and limitations</div><div class="line"> under the License.</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  AppDelegate.m</span></div><div class="line"><span class="comment">//  ionic_jpush</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"MainViewController.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"APService.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"JPushPlugin.h"</span>  //viper</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Cordova/CDVPlugin.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AppDelegate</span></span></div><div class="line"></div><div class="line"><span class="keyword">@synthesize</span> window, viewController;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)init</div><div class="line">&#123;</div><div class="line">    <span class="comment">/** If you need to do any extra app-specific initialization, you can do it here</span></div><div class="line">     *  -jm</div><div class="line">     **/</div><div class="line">    <span class="built_in">NSHTTPCookieStorage</span>* cookieStorage = [<span class="built_in">NSHTTPCookieStorage</span> sharedHTTPCookieStorage];</div><div class="line">    </div><div class="line">    [cookieStorage setCookieAcceptPolicy:<span class="built_in">NSHTTPCookieAcceptPolicyAlways</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">int</span> cacheSizeMemory = <span class="number">8</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 8MB</span></div><div class="line">    <span class="keyword">int</span> cacheSizeDisk = <span class="number">32</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 32MB</span></div><div class="line"><span class="meta">#if __has_feature(objc_arc)</span></div><div class="line">    <span class="built_in">NSURLCache</span>* sharedCache = [[<span class="built_in">NSURLCache</span> alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:<span class="string">@"nsurlcache"</span>];</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="built_in">NSURLCache</span>* sharedCache = [[[<span class="built_in">NSURLCache</span> alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:<span class="string">@"nsurlcache"</span>] autorelease];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    [<span class="built_in">NSURLCache</span> setSharedURLCache:sharedCache];</div><div class="line">    </div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark UIApplicationDelegate implementation</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * This is main kick off after the app inits, the views and Settings are setup here. (preferred - iOS4 and up)</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span>*)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span>*)launchOptions</div><div class="line">&#123;</div><div class="line">    <span class="built_in">CGRect</span> screenBounds = [[<span class="built_in">UIScreen</span> mainScreen] bounds];</div><div class="line">    </div><div class="line"><span class="meta">#if __has_feature(objc_arc)</span></div><div class="line">    <span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:screenBounds];</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="keyword">self</span>.window = [[[<span class="built_in">UIWindow</span> alloc] initWithFrame:screenBounds] autorelease];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    <span class="keyword">self</span>.window.autoresizesSubviews = <span class="literal">YES</span>;</div><div class="line">    </div><div class="line"><span class="meta">#if __has_feature(objc_arc)</span></div><div class="line">    <span class="keyword">self</span>.viewController = [[MainViewController alloc] init];</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="keyword">self</span>.viewController = [[[MainViewController alloc] init] autorelease];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    </div><div class="line">    <span class="comment">// Set your app's start page by setting the &lt;content src='foo.html' /&gt; tag in config.xml.</span></div><div class="line">    <span class="comment">// If necessary, uncomment the line below to override it.</span></div><div class="line">    <span class="comment">// self.viewController.startPage = @"index.html";</span></div><div class="line">    </div><div class="line">    <span class="comment">// <span class="doctag">NOTE:</span> To customize the view's frame size (which defaults to full screen), override</span></div><div class="line">    <span class="comment">// [self.viewController viewWillAppear:] in your view controller.</span></div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.window.rootViewController = <span class="keyword">self</span>.viewController;</div><div class="line">    [<span class="keyword">self</span>.window makeKeyAndVisible];</div><div class="line">    </div><div class="line">    <span class="comment">// Required</span></div><div class="line"><span class="meta">#if __IPHONE_OS_VERSION_MAX_ALLOWED &gt; __IPHONE_7_1</span></div><div class="line">    <span class="keyword">if</span> ([[<span class="built_in">UIDevice</span> currentDevice].systemVersion floatValue] &gt;= <span class="number">8.0</span>) &#123;</div><div class="line">        <span class="comment">//可以添加自定义categories</span></div><div class="line">        [APService registerForRemoteNotificationTypes:(<span class="built_in">UIUserNotificationTypeBadge</span> |</div><div class="line">                                                       <span class="built_in">UIUserNotificationTypeSound</span> |</div><div class="line">                                                       <span class="built_in">UIUserNotificationTypeAlert</span>)</div><div class="line">                                           categories:<span class="literal">nil</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//categories 必须为nil</span></div><div class="line">        [APService registerForRemoteNotificationTypes:(<span class="built_in">UIRemoteNotificationTypeBadge</span> |</div><div class="line">                                                       <span class="built_in">UIRemoteNotificationTypeSound</span> |</div><div class="line">                                                       <span class="built_in">UIRemoteNotificationTypeAlert</span>)</div><div class="line">                                           categories:<span class="literal">nil</span>];</div><div class="line">    &#125;</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="comment">//categories 必须为nil</span></div><div class="line">    [APService registerForRemoteNotificationTypes:(<span class="built_in">UIRemoteNotificationTypeBadge</span> |</div><div class="line">                                                   <span class="built_in">UIRemoteNotificationTypeSound</span> |</div><div class="line">                                                   <span class="built_in">UIRemoteNotificationTypeAlert</span>)</div><div class="line">                                       categories:<span class="literal">nil</span>];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    <span class="comment">// Required</span></div><div class="line">    [APService setupWithOption:launchOptions];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// this happens while we are running ( in the background, or from within our own app )</span></div><div class="line"><span class="comment">// only valid if ionic_jpush-Info.plist specifies a protocol to handle</span></div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span>*)application openURL:(<span class="built_in">NSURL</span>*)url sourceApplication:(<span class="built_in">NSString</span>*)sourceApplication annotation:(<span class="keyword">id</span>)annotation</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!url) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// all plugins will get the notification, and their handlers will be called</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotification:[<span class="built_in">NSNotification</span> notificationWithName:CDVPluginHandleOpenURLNotification object:url]];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// repost all remote and local notification using the default NSNotificationCenter so multiple plugins may respond</span></div><div class="line">- (<span class="keyword">void</span>)            application:(<span class="built_in">UIApplication</span>*)application</div><div class="line">    didReceiveLocalNotification:(<span class="built_in">UILocalNotification</span>*)notification</div><div class="line">&#123;</div><div class="line">    <span class="comment">// re-post ( broadcast )</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVLocalNotification object:notification];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#ifndef DISABLE_PUSH_NOTIFICATIONS</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)                                 application:(<span class="built_in">UIApplication</span>*)application</div><div class="line">    didRegisterForRemoteNotificationsWithDeviceToken:(<span class="built_in">NSData</span>*)deviceToken</div><div class="line">&#123;</div><div class="line">    <span class="comment">// re-post ( broadcast )</span></div><div class="line">    <span class="built_in">NSString</span>* token = [[[[deviceToken description]</div><div class="line">                         stringByReplacingOccurrencesOfString:<span class="string">@"&lt;"</span> withString:<span class="string">@""</span>]</div><div class="line">                        stringByReplacingOccurrencesOfString:<span class="string">@"&gt;"</span> withString:<span class="string">@""</span>]</div><div class="line">                       stringByReplacingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</div><div class="line">    </div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVRemoteNotification object:token];</div><div class="line">    </div><div class="line">    <span class="comment">// Required</span></div><div class="line">    [APService registerDeviceToken:deviceToken];</div><div class="line">    [APService setDebugMode];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)                                 application:(<span class="built_in">UIApplication</span>*)application</div><div class="line">    didFailToRegisterForRemoteNotificationsWithError:(<span class="built_in">NSError</span>*)error</div><div class="line">&#123;</div><div class="line">    <span class="comment">// re-post ( broadcast )</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVRemoteNotificationError object:error];</div><div class="line">&#125;</div><div class="line"><span class="meta">#endif</span></div><div class="line"></div><div class="line">- (<span class="built_in">NSUInteger</span>)application:(<span class="built_in">UIApplication</span>*)application supportedInterfaceOrientationsForWindow:(<span class="built_in">UIWindow</span>*)window</div><div class="line">&#123;</div><div class="line">    <span class="comment">// iPhone doesn't support upside down by default, while the iPad does.  Override to allow all orientations always, and let the root view controller decide what's allowed (the supported orientations mask gets intersected).</span></div><div class="line">    <span class="built_in">NSUInteger</span> supportedInterfaceOrientations = (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationPortrait</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationLandscapeLeft</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationLandscapeRight</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationPortraitUpsideDown</span>);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> supportedInterfaceOrientations;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)applicationDidReceiveMemoryWarning:(<span class="built_in">UIApplication</span>*)application</div><div class="line">&#123;</div><div class="line">    [[<span class="built_in">NSURLCache</span> sharedURLCache] removeAllCachedResponses];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)application:(<span class="built_in">UIApplication</span> *)application didReceiveRemoteNotification:(<span class="built_in">NSDictionary</span> *)userInfo &#123;</div><div class="line">    <span class="comment">// Required</span></div><div class="line">    [APService handleRemoteNotification:userInfo];</div><div class="line">    <span class="built_in">BOOL</span> isActive;</div><div class="line">    <span class="keyword">if</span> (application.applicationState == <span class="built_in">UIApplicationStateActive</span>) &#123;</div><div class="line">        isActive = <span class="literal">TRUE</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        isActive = <span class="literal">FALSE</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">NSDictionary</span> *dict=[[<span class="built_in">NSMutableDictionary</span> alloc] initWithDictionary:userInfo];</div><div class="line">    </div><div class="line">    [dict setValue: [[<span class="built_in">NSNumber</span> alloc] initWithBool:isActive] forKey:<span class="string">@"isActive"</span> ];</div><div class="line">    </div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:kJPushPluginReceiveNotification</div><div class="line">                                                        object:dict] ;<span class="comment">//viper</span></div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -811,7 +810,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">69</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

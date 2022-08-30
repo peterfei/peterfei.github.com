@@ -1,0 +1,828 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="peterfei.me,peterfei" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="数据流
+Elasticsearch
+
+Data stream 的概念时序性数据时间序列数据（ time series data ）是在不同时间上收集到的数据，用于所描述现象随时间变化的情况。这类数据反映了某一事物、现象等，随时间的变化状态或程度。
+总的来说，这类数据主要基于时间特性明显，随着时间的流逝，往往过去时间的数据没有现在时间的重要或者敏感。
+对于 Elastisearch 处理时序性数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch 之Data stream">
+<meta property="og:url" content="http://peterfei.me/2022/08/26/Elasticsearch-之Data-stream/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="数据流
+Elasticsearch
+
+Data stream 的概念时序性数据时间序列数据（ time series data ）是在不同时间上收集到的数据，用于所描述现象随时间变化的情况。这类数据反映了某一事物、现象等，随时间的变化状态或程度。
+总的来说，这类数据主要基于时间特性明显，随着时间的流逝，往往过去时间的数据没有现在时间的重要或者敏感。
+对于 Elastisearch 处理时序性数据">
+<meta property="og:image" content="https://ucc.alicdn.com/pic/developer-ecology/2a1db1d79f6448398201a833be2e1d6c.png">
+<meta property="og:image" content="https://ucc.alicdn.com/pic/developer-ecology/7f9c38c3deb84f3cb919e8581d69770b.png">
+<meta property="og:image" content="https://ucc.alicdn.com/pic/developer-ecology/6d00171f1af04002b72ef6f9d263f192.png">
+<meta property="og:updated_time" content="2022-08-30T02:14:36.129Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch 之Data stream">
+<meta name="twitter:description" content="数据流
+Elasticsearch
+
+Data stream 的概念时序性数据时间序列数据（ time series data ）是在不同时间上收集到的数据，用于所描述现象随时间变化的情况。这类数据反映了某一事物、现象等，随时间的变化状态或程度。
+总的来说，这类数据主要基于时间特性明显，随着时间的流逝，往往过去时间的数据没有现在时间的重要或者敏感。
+对于 Elastisearch 处理时序性数据">
+<meta name="twitter:image" content="https://ucc.alicdn.com/pic/developer-ecology/2a1db1d79f6448398201a833be2e1d6c.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Elasticsearch 之Data stream | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Elasticsearch 之Data stream
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-08-26T17:05:46+08:00" content="2022-08-26">
+              2022-08-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2022/08/26/Elasticsearch-之Data-stream/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/08/26/Elasticsearch-之Data-stream/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>数据流</li>
+<li>Elasticsearch</li>
+</ul>
+<h2 id="Data-stream-的概念"><a href="#Data-stream-的概念" class="headerlink" title="Data stream 的概念"></a>Data stream 的概念</h2><h3 id="时序性数据"><a href="#时序性数据" class="headerlink" title="时序性数据"></a>时序性数据</h3><p>时间序列数据（ time series data ）是在不同时间上收集到的数据，用于所描述现象随时间变化的情况。这类数据反映了某一事物、现象等，随时间的变化状态或程度。</p>
+<p>总的来说，这类数据主要基于时间特性明显，随着时间的流逝，往往过去时间的数据没有现在时间的重要或者敏感。</p>
+<p>对于 Elastisearch 处理时序性数据，有人总结了主要有以下特点：</p>
+<ul>
+<li>由时间戳 + 数据组成。基于时间的事件，可以是服务器日志或者社交媒体流。</li>
+<li>通常搜索最近事件，旧文件变得不太重要。</li>
+<li>索引的使用主要基于时间，但是数据并不一定随着时间均衡分布。</li>
+<li>时序性数据一旦存入后很少修改。</li>
+<li>时序性数据随着时间的增加，数据量会很大。</li>
+</ul>
+<p>Elastisearch 在时序性数据的使用中，往往会有以下的缺点：</p>
+<ul>
+<li>索引随着时间增加而数目较多。</li>
+<li>索引大小无法均衡。</li>
+<li>管理索引成本较高，需要维护 merge 合并删除等一系列任务。</li>
+<li>节点资源与冷热数据分布不匹配。</li>
+</ul>
+<p>在这样的一个场景下，数据流 Data stream 应运而生。</p>
+<p>Data stream （数据流）是 Elastic Stack 7.9 的一个新的功能。Data stream 可以跨多个索引存储只追加时序性数据，同时为查询写入等请求提供唯一的一个命名资源。Data stream 非常适合日志，事件，指标以及其他持续生成的数据。</p>
+<p>简单来说，Data stream 根据模板生成存储数据的后备索引，然后自动将搜索或者索引请求路由到存储流数据的后备索引。而这些后备索引则根据索引生命周期管理（ ILM ）来自动管理。</p>
+<h2 id="Data-stream-的组成"><a href="#Data-stream-的组成" class="headerlink" title="Data stream 的组成"></a>Data stream 的组成</h2><p>数据流在 Elasticsearch 集群中由一个或多个隐藏的、自动生成的后备索引组成。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/2a1db1d79f6448398201a833be2e1d6c.png" alt=""></p>
+<p>在实际的 Elasticsearch 操作中，数据流依靠索引模板来设定数据流实体的后备索引。</p>
+<ul>
+<li>模板包含用于配置流的后备索引的映射和设置。</li>
+<li>同一个索引模板可用于多个数据流。</li>
+<li>不能删除数据流正在使用的索引模板。</li>
+</ul>
+<p>每个索引到数据流的文档，必须包含一个 @timestamp 字段，映射为 date 或 date_nanos 字段类型。如果索引模板没有为 @timestamp 字段指定映射，Elasticsearch 将 @timestamp 映射为带有默认选项的日期字段。</p>
+<p>Data stream 的读请求主要如下图，数据流自动将请求路由到其所有后备索引。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/7f9c38c3deb84f3cb919e8581d69770b.png" alt=""></p>
+<p>而对于写请求，数据流则将该请求自动转发给最新的后备索引。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/6d00171f1af04002b72ef6f9d263f192.png" alt=""></p>
+<h2 id="Data-stream-的特性"><a href="#Data-stream-的特性" class="headerlink" title="Data stream 的特性"></a>Data stream 的特性</h2><h3 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h3><p>每个 Data stream 的后备索引都有一个 generation 数，一个六位数，零填充的整数，从 000001 开始，用作该流的 rollover 的计数。</p>
+<p>后备索引名主要依照以下格式：</p>
+<p>.ds–</p>
+<p>Generation 越大，后备索引包含的数据越新。 例如，web-server-logs 数据流最新的 generation 为 34。该流的最新后备索引名为 .ds-web-server-logs-000034。</p>
+<p>注意：某些操作（例如 shrink 或 restore ）可以更改后备索引的名称。 这些名称更改不会从其数据流中删除后备索引。</p>
+<h3 id="Rollover"><a href="#Rollover" class="headerlink" title="Rollover"></a>Rollover</h3><p>在 Data stream 的使用中，rollover 是必不可少的条件。</p>
+<p>创建数据流时，Elasticsearch 会自动为该 Data stream 根据 template 创建一个后备索引。 该索引还充当流的第一个写入索引。当满足一定条件时， rollover 会创建一个新的后备索引，该后备索引将成为 Data stream 的新写入索引。</p>
+<p>当然 rollover 的条件设置主要依靠 ILM。 如果需要，你还可以手动将数据 rollover 。</p>
+<h3 id="追加"><a href="#追加" class="headerlink" title="追加"></a>追加</h3><p>由于时序性数据的特征，Data stream 的设计场景中，数据是只追加的，极少需要修改删除。如果实际需要修改删除，则可以考虑以下操作：</p>
+<ul>
+<li>对于数据流只能通过 update by query 或者 delete by query 操作，不能进行 update 或者 delete 文档。</li>
+<li>需要 delete 或者 update 文档，则直接对后备索引操作。</li>
+<li>需要经常删除或者修改文档的，请使用索引别名或者索引模板，不要对 Data stream 操作。</li>
+</ul>
+<h2 id="Data-stream-的使用"><a href="#Data-stream-的使用" class="headerlink" title="Data stream 的使用"></a>Data stream 的使用</h2><h3 id="创建索引生命周期管理策略-ILM"><a href="#创建索引生命周期管理策略-ILM" class="headerlink" title="创建索引生命周期管理策略 ILM"></a>创建索引生命周期管理策略 ILM</h3><p>索引生命周期管理策略 ILM 的主要配置细节见索引周期管理一章，此处主要做 hot 和 delete 阶段的设置，用于 rollover 的引用。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">PUT /_ilm/policy/my-data-stream-policy</div><div class="line">&#123;</div><div class="line">  <span class="string">"policy"</span>: &#123;</div><div class="line">    <span class="string">"phases"</span>: &#123;</div><div class="line">      <span class="string">"hot"</span>: &#123;</div><div class="line">        <span class="string">"actions"</span>: &#123;</div><div class="line">          <span class="string">"rollover"</span>: &#123;</div><div class="line">            <span class="string">"max_size"</span>: <span class="string">"10mb"</span></div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建索引模板"><a href="#创建索引模板" class="headerlink" title="创建索引模板"></a>创建索引模板</h3><p>索引模板是后备索引设置，以及 mapping 的主要配置来源，此处不展开延伸。主要设置 Data stream 相关的部分。</p>
+<p>相关命令：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">PUT /_index_template/my-data-stream-template</div><div class="line">&#123;</div><div class="line">  <span class="string">"index_patterns"</span>: [ <span class="string">"my-data-stream*"</span> ],</div><div class="line">  <span class="string">"data_stream"</span>: &#123; &#125;,</div><div class="line">  <span class="string">"priority"</span>: <span class="number">200</span>,</div><div class="line">  <span class="string">"template"</span>: &#123;</div><div class="line">    <span class="string">"settings"</span>: &#123;</div><div class="line">      <span class="string">"index.lifecycle.name"</span>: <span class="string">"my-data-stream-policy"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>定义 data_stream 为一个空的 object ，这是必要的。</li>
+<li>Template 中使用了上一步创建的 ILM 策略 my-data-stream-policy。</li>
+</ol>
+<p>此外，还需要注意两点：</p>
+<ol>
+<li>Elasticsearch 有一些内置索引模板如 metric-<strong>-</strong> 和 logs-<strong>-</strong> ，默认优先级 priority 是 100。如果有重名使用，则可以调高优先级，防止被默认的覆盖。</li>
+<li>索引模板默认将 @timestamp 字段设置为 date 属性</li>
+</ol>
+<h3 id="创建-Data-stream"><a href="#创建-Data-stream" class="headerlink" title="创建 Data stream"></a>创建 Data stream</h3><p>可以自动利用 template 的匹配模式新增文档创建</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">PUT</span> /_data_stream/my-<span class="class"><span class="keyword">data</span>-stream</span></div></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除命令：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">DELETE</span> <span class="regexp">/_data_stream/my</span>-data-stream</div></pre></td></tr></table></figure>
+<p>删除数据流会将数据流的后备索引一起删除。</p>
+<h2 id="使用-Data-stream"><a href="#使用-Data-stream" class="headerlink" title="使用 Data stream"></a>使用 Data stream</h2><p>此处对数据流的操作主要以命令为主</p>
+<h3 id="新增数据"><a href="#新增数据" class="headerlink" title="新增数据"></a>新增数据</h3><p>Data stream 在新增数据时是只追加的模式，因此在固定 id 和 bulk 的模式下，op_type 是指定 create 的。</p>
+<p>如下面命令：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">POST</span> my-<span class="meta">data</span>-<span class="keyword">stream/_create/1</span></div><div class="line">&#123;<span class="string">"@timestamp"</span>:<span class="string">"2020-12-07T11:06:07.000Z"</span>,<span class="string">"test"</span>:<span class="number">1</span>&#125;</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">PUT /my-data-stream/_bulk?refresh</div><div class="line">&#123;<span class="string">"create"</span>:&#123; &#125;&#125;</div><div class="line">&#123; <span class="string">"@timestamp"</span>: <span class="string">"2020-12-08T11:04:05.000Z"</span>, <span class="string">"user"</span>: &#123; <span class="string">"id"</span>: <span class="string">"vlb44hny"</span> &#125;, <span class="string">"message"</span>: <span class="string">"Login attempt failed"</span> &#125;</div><div class="line">&#123;<span class="string">"create"</span>:&#123; &#125;&#125;</div><div class="line">&#123; <span class="string">"@timestamp"</span>: <span class="string">"2020-12-08T11:06:07.000Z"</span>, <span class="string">"user"</span>: &#123; <span class="string">"id"</span>: <span class="string">"8a4f500d"</span> &#125;, <span class="string">"message"</span>: <span class="string">"Login successful"</span> &#125;</div><div class="line">&#123;<span class="string">"create"</span>:&#123; &#125;&#125;</div><div class="line">&#123; <span class="string">"@timestamp"</span>: <span class="string">"2020-12-09T11:07:08.000Z"</span>, <span class="string">"user"</span>: &#123; <span class="string">"id"</span>: <span class="string">"l7gk7f82"</span> &#125;, <span class="string">"message"</span>: <span class="string">"Logout successful"</span> &#125;</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">POST /_reindex</div><div class="line">&#123;</div><div class="line">  <span class="string">"source"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"kibana_sample_data_logs_new"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"dest"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"my-data-stream"</span>,</div><div class="line">    <span class="string">"op_type"</span>: <span class="string">"create"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因字段中<code>@timestamp</code>是必填，实验数据如下改动：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">POST _reindex</div><div class="line">&#123;</div><div class="line">  <span class="string">"source"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"kibana_sample_data_logs"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"dest"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"kibana_sample_data_logs_new"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"script"</span>: &#123;</div><div class="line">    <span class="string">"source"</span>: <span class="string">"ctx._source['@timestamp'] = ctx._source.remove(\"</span>timestamp\<span class="string">")"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="获取-Data-stream-状态"><a href="#获取-Data-stream-状态" class="headerlink" title="获取 Data stream 状态"></a>获取 Data stream 状态</h3><p>使用 Data stream stats API 查看 Data stream 的状态。</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET /<span class="variable">_data_stream</span>/my-data-stream/<span class="variable">_stats</span>?human=<span class="literal">true</span></div></pre></td></tr></table></figure>
+<p>同时需要用 _ilm/explain 获取 Data stream 后备索引所在的 ILM 策略状态。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">GET</span> my-<span class="class"><span class="keyword">data</span>-stream/_ilm/explain</span></div></pre></td></tr></table></figure>
+<h3 id="手动-rollover-Data-stream"><a href="#手动-rollover-Data-stream" class="headerlink" title="手动 rollover Data stream"></a>手动 rollover Data stream</h3><p>使用 rollover API，手动 rollover Data stream。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">POST</span> my-<span class="class"><span class="keyword">data</span>-stream/_rollover</span></div></pre></td></tr></table></figure>
+<p>Response:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"acknowledged"</span> : <span class="literal">true</span>,</div><div class="line">  <span class="attr">"shards_acknowledged"</span> : <span class="literal">true</span>,</div><div class="line">  <span class="attr">"old_index"</span> : <span class="string">".ds-my-data-stream-000001"</span>,</div><div class="line">  <span class="attr">"new_index"</span> : <span class="string">".ds-my-data-stream-000002"</span>,</div><div class="line">  <span class="attr">"rolled_over"</span> : <span class="literal">true</span>,</div><div class="line">  <span class="attr">"dry_run"</span> : <span class="literal">false</span>,</div><div class="line">  <span class="attr">"conditions"</span> : &#123; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再 GET 相关 Data stream 状态，后备索引增加。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">GET</span> /_data_stream/my-<span class="class"><span class="keyword">data</span>-stream/</span></div></pre></td></tr></table></figure>
+<p>Response:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"data_streams"</span> : [</div><div class="line">    &#123;</div><div class="line">      <span class="attr">"name"</span> : <span class="string">"my-data-stream"</span>,</div><div class="line">      <span class="attr">"timestamp_field"</span> : &#123;</div><div class="line">        <span class="attr">"name"</span> : <span class="string">"@timestamp"</span></div><div class="line">      &#125;,</div><div class="line">      <span class="attr">"indices"</span> : [</div><div class="line">        &#123;</div><div class="line">          <span class="attr">"index_name"</span> : <span class="string">".ds-my-data-stream-000001"</span>,</div><div class="line">          <span class="attr">"index_uuid"</span> : <span class="string">"AJBi0g3fRyG8-1tiH2UD2Q"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">          <span class="attr">"index_name"</span> : <span class="string">".ds-my-data-stream-000002"</span>,</div><div class="line">          <span class="attr">"index_uuid"</span> : <span class="string">"AgOLGMSBSYWb4X-ID8uwtg"</span></div><div class="line">        &#125;</div><div class="line">      ],</div><div class="line">      <span class="attr">"generation"</span> : <span class="number">2</span>,</div><div class="line">      <span class="attr">"status"</span> : <span class="string">"GREEN"</span>,</div><div class="line">      <span class="attr">"template"</span> : <span class="string">"my-data-stream-template"</span>,</div><div class="line">      <span class="attr">"ilm_policy"</span> : <span class="string">"my-data-stream-policy"</span>,</div><div class="line">      <span class="attr">"hidden"</span> : <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Reindex-Data-stream"><a href="#Reindex-Data-stream" class="headerlink" title="Reindex Data stream"></a>Reindex Data stream</h3><p>使用 reindex API 去复制数据到一个 Data stream。由于 Data stream 的只追加特性，在 op_type 中要选择为 create 。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">POST /_reindex</div><div class="line">&#123;</div><div class="line">  <span class="string">"source"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"test"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"dest"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"my-data-stream"</span>,</div><div class="line">    <span class="string">"op_type"</span>: <span class="string">"create"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Response:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"took"</span> : <span class="number">80</span>,</div><div class="line">  <span class="attr">"timed_out"</span> : <span class="literal">false</span>,</div><div class="line">  <span class="attr">"total"</span> : <span class="number">1</span>,</div><div class="line">  <span class="attr">"updated"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"created"</span> : <span class="number">1</span>,</div><div class="line">  <span class="attr">"deleted"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"batches"</span> : <span class="number">1</span>,</div><div class="line">  <span class="attr">"version_conflicts"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"noops"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"retries"</span> : &#123;</div><div class="line">    <span class="attr">"bulk"</span> : <span class="number">0</span>,</div><div class="line">    <span class="attr">"search"</span> : <span class="number">0</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"throttled_millis"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"requests_per_second"</span> : <span class="number">-1.0</span>,</div><div class="line">  <span class="attr">"throttled_until_millis"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"failures"</span> : [ ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Delete-Update-by-query"><a href="#Delete-Update-by-query" class="headerlink" title="Delete/Update by query"></a>Delete/Update by query</h3><p>针对 Data stream 只能 delete/update by query 。</p>
+<p>相关命令：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">POST /my-data-stream/_update_by_query</div><div class="line">&#123;</div><div class="line">  <span class="string">"query"</span>: &#123;</div><div class="line">    <span class="string">"match"</span>: &#123;</div><div class="line">      <span class="string">"user.id"</span>: <span class="string">"l7gk7f82"</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="string">"script"</span>: &#123;</div><div class="line">    <span class="string">"source"</span>: <span class="string">"ctx._source.user.id = params.new_id"</span>,</div><div class="line">    <span class="string">"params"</span>: &#123;</div><div class="line">      <span class="string">"new_id"</span>: <span class="string">"XgdX0NoX"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">POST /my-data-stream/_delete_by_query</div><div class="line">&#123;</div><div class="line">  <span class="string">"query"</span>: &#123;</div><div class="line">    <span class="string">"match"</span>: &#123;</div><div class="line">      <span class="string">"user.id"</span>: <span class="string">"vlb44hny"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/08/26/ES-ReIndex迁移数据/" rel="next" title="ES ReIndex迁移数据">
+                <i class="fa fa-chevron-left"></i> ES ReIndex迁移数据
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2022/08/26/Elasticsearch-之Data-stream/"
+           data-title="Elasticsearch 之Data stream" data-url="http://peterfei.me/2022/08/26/Elasticsearch-之Data-stream/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-stream-的概念"><span class="nav-number">1.</span> <span class="nav-text">Data stream 的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时序性数据"><span class="nav-number">1.1.</span> <span class="nav-text">时序性数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-stream-的组成"><span class="nav-number">2.</span> <span class="nav-text">Data stream 的组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-stream-的特性"><span class="nav-number">3.</span> <span class="nav-text">Data stream 的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成"><span class="nav-number">3.1.</span> <span class="nav-text">生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rollover"><span class="nav-number">3.2.</span> <span class="nav-text">Rollover</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#追加"><span class="nav-number">3.3.</span> <span class="nav-text">追加</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-stream-的使用"><span class="nav-number">4.</span> <span class="nav-text">Data stream 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引生命周期管理策略-ILM"><span class="nav-number">4.1.</span> <span class="nav-text">创建索引生命周期管理策略 ILM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引模板"><span class="nav-number">4.2.</span> <span class="nav-text">创建索引模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-Data-stream"><span class="nav-number">4.3.</span> <span class="nav-text">创建 Data stream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">4.4.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Data-stream"><span class="nav-number">5.</span> <span class="nav-text">使用 Data stream</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新增数据"><span class="nav-number">5.1.</span> <span class="nav-text">新增数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取-Data-stream-状态"><span class="nav-number">5.2.</span> <span class="nav-text">获取 Data stream 状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动-rollover-Data-stream"><span class="nav-number">5.3.</span> <span class="nav-text">手动 rollover Data stream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reindex-Data-stream"><span class="nav-number">5.4.</span> <span class="nav-text">Reindex Data stream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delete-Update-by-query"><span class="nav-number">5.5.</span> <span class="nav-text">Delete/Update by query</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

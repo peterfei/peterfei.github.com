@@ -236,6 +236,126 @@
             
               
                 
+                <a class="post-title-link" href="/2019/04/11/ReactNative之Realm预加载数据/" itemprop="url">
+                  ReactNative之Realm预加载数据
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-11T11:28:51+08:00" content="2019-04-11">
+              2019-04-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/04/11/ReactNative之Realm预加载数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/11/ReactNative之Realm预加载数据/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>realm 数据预加载</p>
+</blockquote>
+<h5 id="Require-Env"><a href="#Require-Env" class="headerlink" title="Require Env:"></a>Require Env:</h5><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">npm</span> i realm</div><div class="line"><span class="built_in">npm</span> i react-<span class="keyword">native</span>-fs</div><div class="line">react-<span class="keyword">native</span> link</div></pre></td></tr></table></figure>
+<p>分别拷贝数据库至原生公用目录</p>
+<h5 id="Android端"><a href="#Android端" class="headerlink" title="Android端"></a>Android端</h5><p><code>android/app/src/main/assets/demo.realm</code></p>
+<h5 id="IOS端"><a href="#IOS端" class="headerlink" title="IOS端"></a>IOS端</h5><p><code>Build Phases-&gt;Copy Bundle Resources-&gt;demo.realm</code></p>
+<h5 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h5><p>执行Realm 提供的copyBundledRealmFiles,可以将共用的数据库文件拷贝至应用安装的<code>Documents</code>目录.</p>
+<blockquote>
+<p><code>Realm.copyBundledRealmFiles();</code></p>
+</blockquote>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><h5 id="prepare-realm-data-demo"><a href="#prepare-realm-data-demo" class="headerlink" title="prepare-realm-data-demo"></a><a href="https://github.com/peterfei/prepare-realm-data-demo" target="_blank" rel="external">prepare-realm-data-demo</a></h5>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/04/10/记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退Bug/" itemprop="url">
                   记IOS开发之我是如何解决react-native-unity-view插件在Product模式闪退
                 </a>
@@ -716,116 +836,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/04/08/百度语音tts-Android9-0-发音解决办法/" itemprop="url">
-                  百度语音tts Android9.0 发音解决办法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-04-08T16:58:00+08:00" content="2019-04-08">
-              2019-04-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/04/08/百度语音tts-Android9-0-发音解决办法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/08/百度语音tts-Android9-0-发音解决办法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>百度语音在Android9.0不能发音解决办法:<br>在 <code>AndroidManifest.xml</code> <code>&lt;application&gt;</code>下加入:</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-library <span class="string">android:</span>name=<span class="string">"org.apache.http.legacy"</span> <span class="string">android:</span>required=<span class="string">"false"</span>/&gt;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -872,7 +882,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">69</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
