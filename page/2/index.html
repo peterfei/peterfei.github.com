@@ -236,6 +236,100 @@
             
               
                 
+                <a class="post-title-link" href="/2021/03/22/Springboot-AliOssUtil/" itemprop="url">
+                  Springboot AliOssUtil
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2021-03-22T14:05:32+08:00" content="2021-03-22">
+              2021-03-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2021/03/22/Springboot-AliOssUtil/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2021/03/22/Springboot-AliOssUtil/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>oss</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xxx.common.utils;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.hutool.core.date.DateUtil;</div><div class="line"><span class="keyword">import</span> cn.hutool.core.util.IdUtil;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.*;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.model.CannedAccessControlList;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.model.PutObjectRequest;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.model.PutObjectResult;</div><div class="line"><span class="keyword">import</span> com.huazhu.spm.face.config.AliOssProperties;</div><div class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.util.Date;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> haobiao</div><div class="line"> * <span class="doctag">@date</span> 2020/12/22 11:05</div><div class="line"> * <span class="doctag">@description</span> 阿里OSS存储</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliOssUtil</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> AliOssProperties aliOssProperties;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> OSS <span class="title">initClient</span><span class="params">()</span> </span>&#123;</div><div class="line">        ClientBuilderConfiguration conf = <span class="keyword">new</span> ClientBuilderConfiguration();</div><div class="line">        conf.setConnectionTimeout(<span class="number">10000</span>);</div><div class="line">        conf.setMaxErrorRetry(<span class="number">10</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OSSClientBuilder().build(aliOssProperties.getEndpoint(), aliOssProperties.getKey(), aliOssProperties.getSecret(), conf);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 上传照片</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> inputStream</div><div class="line">     * <span class="doctag">@param</span> fileType    文件类型</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">ossUploadFile</span><span class="params">(InputStream inputStream, String fileType)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            OSS ossBuild = <span class="keyword">new</span> OSSClientBuilder().build(aliOssProperties.getEndpoint(), aliOssProperties.getKey(), aliOssProperties.getSecret());</div><div class="line">            String bucketName = aliOssProperties.getBucket();</div><div class="line">            String endpoint = aliOssProperties.getEndpoint();</div><div class="line">            String fileName = DateUtil.format(<span class="keyword">new</span> Date(), <span class="string">"yyyyMMdd"</span>) + <span class="string">"/"</span> + IdUtil.simpleUUID() + <span class="string">"."</span> + fileType;</div><div class="line">            <span class="comment">//上传文件</span></div><div class="line">            PutObjectRequest putObjectRequest = <span class="keyword">new</span> PutObjectRequest(bucketName, fileName, inputStream);</div><div class="line">            PutObjectResult result = ossBuild.putObject(putObjectRequest);</div><div class="line">            <span class="comment">//设置权限为公开读</span></div><div class="line">            ossBuild.setObjectAcl(bucketName, fileName, CannedAccessControlList.PublicRead);</div><div class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != result) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="string">"http://"</span> + bucketName + <span class="string">"."</span> + endpoint + <span class="string">"/"</span> + fileName;</div><div class="line">            &#125;</div><div class="line">            ossBuild.shutdown();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            log.error(<span class="string">"ossUploadFile exception is &#123;&#125;"</span>, e);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AliOssUtil</span><span class="params">(AliOssProperties aliOssProperties)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.aliOssProperties = aliOssProperties;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2021/03/16/k8s-部署和gitlab-CI-CD/" itemprop="url">
                   k8s 部署和gitlab CI/CD
                 </a>
@@ -823,137 +917,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/04/17/docker笔记01/" itemprop="url">
-                  docker笔记01
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-04-17T18:16:56+08:00" content="2019-04-17">
-              2019-04-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/04/17/docker笔记01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/17/docker笔记01/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><p>Mac 上的安装<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span>cask <span class="keyword">install </span>docker</div></pre></td></tr></table></figure></p>
-<p>安装完成之后，执行 hello-world 试一下:</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="keyword">run</span><span class="bash"> hello-world</span></div></pre></td></tr></table></figure>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Hello <span class="built_in">from</span> Docker!</div><div class="line">This message shows that your installation appears <span class="built_in">to</span> be working correctly.</div><div class="line"></div><div class="line">To generate this message, Docker took <span class="keyword">the</span> following steps:</div><div class="line"> <span class="number">1.</span> The Docker client contacted <span class="keyword">the</span> Docker daemon.</div><div class="line"> <span class="number">2.</span> The Docker daemon pulled <span class="keyword">the</span> <span class="string">"hello-world"</span> image <span class="built_in">from</span> <span class="keyword">the</span> Docker Hub.</div><div class="line">    (amd64)</div><div class="line"> <span class="number">3.</span> The Docker daemon created <span class="keyword">a</span> <span class="built_in">new</span> container <span class="built_in">from</span> that image which runs <span class="keyword">the</span></div><div class="line">    executable that produces <span class="keyword">the</span> output you are currently reading.</div><div class="line"> <span class="number">4.</span> The Docker daemon streamed that output <span class="built_in">to</span> <span class="keyword">the</span> Docker client, which sent <span class="keyword">it</span></div><div class="line">    <span class="built_in">to</span> your terminal.</div><div class="line"></div><div class="line">To <span class="keyword">try</span> something more ambitious, you can run <span class="keyword">an</span> Ubuntu container <span class="keyword">with</span>:</div><div class="line"> $ docker run -<span class="keyword">it</span> ubuntu bash</div><div class="line"></div><div class="line">Share images, automate workflows, <span class="keyword">and</span> more <span class="keyword">with</span> <span class="keyword">a</span> free Docker ID:</div><div class="line"> <span class="keyword">https</span>://hub.docker.com/</div><div class="line"></div><div class="line">For more examples <span class="keyword">and</span> ideas, visit:</div><div class="line"> <span class="keyword">https</span>://docs.docker.com/<span class="built_in">get</span>-started/</div></pre></td></tr></table></figure>
-<h3 id="启动Nginx服务"><a href="#启动Nginx服务" class="headerlink" title="启动Nginx服务"></a>启动Nginx服务</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker <span class="keyword">run</span><span class="bash"> <span class="_">-d</span> -p 80:80 --restart=always  nginx:latest</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p><code>-p</code> 表示宿主机IP:容器IP<br><code>--restart</code> 重启模式，设置 always，每次启动 docker 都会启动 nginx 容器</p>
-</blockquote>
-<h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker exec -<span class="keyword">it</span> <span class="number">4591552</span>a4185 bash</div></pre></td></tr></table></figure>
-<p>参数说明：</p>
-<blockquote>
-<p><code>exec</code> 对容器操作<br><code>-it</code> 分配伪tty<br><code>4591552a4185</code>容器ID<br><code>bash</code>交互程序为bash</p>
-</blockquote>
-<p>Docker 提供数据挂载的功能，即可以指定容器内的某些路径映射到宿主机器上，修改命令，添加 -v 参数，启动新的容器。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -d -p <span class="number">80</span>:<span class="number">80</span>  -v <span class="regexp">~/docker-demo/</span>nginx-<span class="string">htmls:</span><span class="regexp">/usr/</span>share<span class="regexp">/nginx/</span>html/ --restart=always  <span class="string">nginx:</span>latest</div></pre></td></tr></table></figure>
-<blockquote>
-<p>启动成功之后，docker 会帮你生成目录 ~/docker-demo/nginx-htmls</p>
-</blockquote>
-<h3 id="停止运行"><a href="#停止运行" class="headerlink" title="停止运行"></a>停止运行</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker <span class="built_in">stop</span> <span class="number">4591552</span>a4185</div></pre></td></tr></table></figure>
-<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm <span class="number">4591552</span>a4185</div></pre></td></tr></table></figure>
-<h3 id="分配IP给宿主机"><a href="#分配IP给宿主机" class="headerlink" title="分配IP给宿主机"></a>分配IP给宿主机</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ifconfig lo0 alias <span class="number">192.168</span><span class="number">.64</span><span class="number">.0</span>/<span class="number">24</span></div></pre></td></tr></table></figure>
-<p>访问 <code>http://192.168.64.0:8080</code> </p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1000,7 +963,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

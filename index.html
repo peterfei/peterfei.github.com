@@ -208,15 +208,237 @@
 
     
     
+
+    
       
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2022/09/05/使用Tailscale搭建VPN专线/" itemprop="url">
+                  使用Tailscale搭建VPN专线
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-09-05T19:16:18+08:00" content="2022-09-05">
+              2022-09-05
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2022/09/05/使用Tailscale搭建VPN专线/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/09/05/使用Tailscale搭建VPN专线/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        
-        
-        
       
 
       
-    
+        
+          
+            <h2 id="Tailscale-是什么"><a href="#Tailscale-是什么" class="headerlink" title="Tailscale 是什么"></a>Tailscale 是什么</h2><p>Tailscale 是一种基于 WireGuard 的虚拟组网工具.</p>
+<p>与 OpenVPN 之流相比还是能甩好几十条街的，Tailscale 虽然在性能上做了些许取舍，但在功能和易用性上绝对是完爆其他工具：</p>
+<ol>
+<li>开箱即用</li>
+</ol>
+<ul>
+<li>无需配置防火墙</li>
+<li>没有额外的配置</li>
+</ul>
+<ol>
+<li>高安全性/私密性</li>
+</ol>
+<ul>
+<li>自动密钥轮换</li>
+<li>点对点连接</li>
+<li>支持用户审查端到端的访问记录</li>
+</ul>
+<ol>
+<li>在原有的 ICE、STUN 等 UDP 协议外，实现了 DERP TCP 协议来实现 NAT 穿透</li>
+<li>基于公网的控制服务器下发 ACL 和配置，实现节点动态更新</li>
+<li>通过第三方（如 Google） SSO 服务生成用户和私钥，实现身份认证</li>
+</ol>
+<p>简而言之，我们可以将 Tailscale 看成是更为易用、功能更完善的 WireGuard。</p>
+<h2 id="Headscale-是什么"><a href="#Headscale-是什么" class="headerlink" title="Headscale 是什么"></a>Headscale 是什么</h2><p>Tailscale 的控制服务器是不开源的，而且对免费用户有诸多限制，这是人家的摇钱树，可以理解。好在目前有一款开源的实现叫 <a href="https://github.com/juanfont/headscale" target="_blank" rel="external">Headscale</a>，这也是唯一的一款，希望能发展壮大。</p>
+<p>Headscale 由欧洲航天局的 Juan Font 使用 Go 语言开发，在 BSD 许可下发布，实现了 Tailscale 控制服务器的所有主要功能，可以部署在企业内部，没有任何设备数量的限制，且所有的网络流量都由自己控制</p>
+<h2 id="Headscale-部署"><a href="#Headscale-部署" class="headerlink" title="Headscale 部署"></a>Headscale 部署</h2><p>Headscale 部署很简单，推荐直接在 Linux 主机上安装</p>
+<p>首先需要到其 GitHub 仓库的 Release 页面下载最新版的二进制文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ wget --output-document=/usr/<span class="built_in">local</span>/bin/headscale \</div><div class="line">   https://github.com/juanfont/headscale/releases/download/v&lt;HEADSCALE VERSION&gt;/headscale_&lt;HEADSCALE VERSION&gt;_linux_&lt;ARCH&gt;</div><div class="line"></div><div class="line">$ chmod +x /usr/<span class="built_in">local</span>/bin/headscale</div></pre></td></tr></table></figure>
+<p>创建配置目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /etc/headscale</div></pre></td></tr></table></figure>
+<p>创建目录用来存储数据与证书：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /var/lib/headscale</div></pre></td></tr></table></figure>
+<p>创建空的 SQLite 数据库文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch /var/lib/headscale/db.sqlite</div></pre></td></tr></table></figure>
+<p>创建 Headscale 配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https://github.com/juanfont/headscale/raw/main/config-example.yaml -O /etc/headscale/config.yaml</div></pre></td></tr></table></figure>
+<ul>
+<li><p>修改配置文件，将 <code>server_url</code> 改为公网 IP 或域名。<strong>如果是国内服务器，域名必须要备案</strong>。我的域名无法备案，所以我就直接用公网 IP 了。</p>
+</li>
+<li><p>如果暂时用不到 DNS 功能，可以先将 <code>magic_dns</code> 设为 false。</p>
+</li>
+<li><p><code>server_url</code> 设置为 <code>http://&lt;PUBLIC_IP&gt;:8080</code>，将 <code>&lt;PUBLIC_IP&gt;</code> 替换为公网 IP 或者域名。</p>
+</li>
+<li><p>可自定义私有网段，也可同时开启 IPv4 和 IPv6：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">ip_prefixes:</span></div><div class="line">  <span class="comment"># - fd7a:115c:a1e0::/48</span></div><div class="line"><span class="bullet">  -</span> <span class="number">10.1</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">16</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>创建 SystemD service 配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># /etc/systemd/system/headscale.service</span></div><div class="line">[Unit]</div><div class="line">Description=headscale controller</div><div class="line">After=syslog.target</div><div class="line">After=network.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">Type=simple</div><div class="line">User=headscale</div><div class="line">Group=headscale</div><div class="line">ExecStart=/usr/<span class="built_in">local</span>/bin/headscale serve</div><div class="line">Restart=always</div><div class="line">RestartSec=5</div><div class="line"></div><div class="line"><span class="comment"># Optional security enhancements</span></div><div class="line">NoNewPrivileges=yes</div><div class="line">PrivateTmp=yes</div><div class="line">ProtectSystem=strict</div><div class="line">ProtectHome=yes</div><div class="line">ReadWritePaths=/var/lib/headscale /var/run/headscale</div><div class="line">AmbientCapabilities=CAP_NET_BIND_SERVICE</div><div class="line">RuntimeDirectory=headscale</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
+<p>创建 headscale 用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ useradd headscale <span class="_">-d</span> /home/headscale -m</div></pre></td></tr></table></figure>
+<p>修改 /var/lib/headscale 目录的 owner：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chown -R headscale:headscale /var/lib/headscale</div></pre></td></tr></table></figure>
+<p>修改配置文件中的 <code>unix_socket</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">unix_socket:</span> /var/run/headscale/headscale.sock</div></pre></td></tr></table></figure>
+<p>Reload SystemD 以加载新的配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl daemon-reload</div></pre></td></tr></table></figure>
+<p>启动 Headscale 服务并设置开机自启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl <span class="built_in">enable</span> --now headscale</div></pre></td></tr></table></figure>
+<p>查看运行状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl status headscale</div></pre></td></tr></table></figure>
+<p>查看占用端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ ss -tulnp|grep headscale</div><div class="line"></div><div class="line">tcp LISTEN 0 1024 [::]:9090 [::]:* users:((<span class="string">"headscale"</span>,pi</div><div class="line"></div><div class="line">d=10899,fd=13))</div><div class="line"></div><div class="line">tcp LISTEN 0 1024 [::]:50443 [::]:* users:((<span class="string">"headscale"</span>,pi</div><div class="line"></div><div class="line">d=10899,fd=10))</div><div class="line"></div><div class="line">tcp LISTEN 0 1024 [::]:8080 [::]:* users:((<span class="string">"headscale"</span>,pi</div><div class="line"></div><div class="line">d=10899,fd=12))</div></pre></td></tr></table></figure>
+<p>ailscale 中有一个概念叫 tailnet，你可以理解成租户，租户与租户之间是相互隔离的，具体看参考 Tailscale 的官方文档： <a href="https://tailscale.com/kb/1136/tailnet/" target="_blank" rel="external">What is a tailnet</a>。Headscale 也有类似的实现叫 namespace，即命名空间。我们需要先创建一个 namespace，以便后续客户端接入，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">headscale namespaces create vpn</div></pre></td></tr></table></figure>
+<p>查看命名空间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ headscale namespaces list</div><div class="line"></div><div class="line">ID | Name | Created</div><div class="line"></div><div class="line">1 | vpn | 2022-03-09 06:12:06</div></pre></td></tr></table></figure>
+<h2 id="Tailscale-客户端接入"><a href="#Tailscale-客户端接入" class="headerlink" title="Tailscale 客户端接入"></a>Tailscale 客户端接入</h2><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Tailscale 官方提供了各种 Linux 发行版的软件包，但国内的网络你懂得，软件源根本用不了。好在官方还提供了 <a href="https://tailscale.com/download/linux/static" target="_blank" rel="external">静态编译的二进制文件</a>，我们可以直接下载。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https://pkgs.tailscale.com/stable/tailscale_1.22.2_amd64.tgz</div></pre></td></tr></table></figure>
+<p>解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ tar zxvf tailscale_1.22.2_amd64.tgz</div><div class="line">x tailscale_1.22.2_amd64/</div><div class="line">x tailscale_1.22.2_amd64/tailscale</div><div class="line">x tailscale_1.22.2_amd64/tailscaled</div><div class="line">x tailscale_1.22.2_amd64/systemd/</div><div class="line">x tailscale_1.22.2_amd64/systemd/tailscaled.defaults</div><div class="line">x tailscale_1.22.2_amd64/systemd/tailscaled.service</div></pre></td></tr></table></figure>
+<p>将二进制文件复制到官方软件包默认的路径下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp tailscale_1.22.2_amd64/tailscaled /usr/sbin/tailscaled</div><div class="line">$ cp tailscale_1.22.2_amd64/tailscale /usr/bin/tailscale</div></pre></td></tr></table></figure>
+<p>将 systemD service 配置文件复制到系统路径下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp tailscale_1.22.2_amd64/systemd/tailscaled.service /lib/systemd/system/tailscaled.service</div></pre></td></tr></table></figure>
+<p>将环境变量配置文件复制到系统路径下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp tailscale_1.22.2_amd64/systemd/tailscaled.defaults /etc/default/tailscaled</div></pre></td></tr></table></figure>
+<p>启动 tailscaled.service 并设置开机自启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl <span class="built_in">enable</span> --now tailscaled</div></pre></td></tr></table></figure>
+<p>查看服务状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl status tailscaled</div></pre></td></tr></table></figure>
+<p>Tailscale 接入 Headscale：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 将 &lt;HEADSCALE_PUB_IP&gt; 换成你的 Headscale 公网 IP 或域名</span></div><div class="line">$ tailscale up --login-server=http://xx.xx.xx.xx:8080 --accept-dns=<span class="literal">false</span> --advertise-routes=192.168.xx.0/24</div></pre></td></tr></table></figure>
+<p>这里推荐将 DNS 功能关闭，因为它会覆盖系统的默认 DNS。如果你对 DNS 有需求，可自己研究官方文档，这里不再赘述。</p>
+<p>执行完上面的命令后，会出现下面的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">To authenticate, visit:</div><div class="line"></div><div class="line">http://xxxxxx:8080/register?key=905cf165204800247fbd33989dbc22be95c987286c45aac303393704</div><div class="line"></div><div class="line">1150d846</div></pre></td></tr></table></figure>
+<p>在浏览器中打开该链接，就会出现如下的界面</p>
+<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-06-08qWbz.png" alt=""></p>
+<p>将其中的命令复制粘贴到 headscale 所在机器的终端中，并将 NAMESPACE 替换为前面所创建的 namespace。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ headscale -n vpn nodes register --key 905cf165204800247fbd33989dbc22be95c987286c45aac3033937041150d846</div><div class="line">Machine register</div></pre></td></tr></table></figure>
+<p>注册成功，查看注册的节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ headscale nodes list</div><div class="line"></div><div class="line">ID | Name | NodeKey | Namespace | IP addresses | Ephemeral | Last seen | Onlin</div><div class="line"></div><div class="line">e | Expired</div><div class="line"></div><div class="line">1 | coredns | [Ew3RB] | vpn | 10.1.0.1 | <span class="literal">false</span> | 2022-03-20 09:08:58 | onlin</div><div class="line"></div><div class="line">e | no</div></pre></td></tr></table></figure>
+<p>回到 Tailscale 客户端所在的 Linux 主机，可以看到 Tailscale 会自动创建相关的路由表和 iptables 规则。路由表可通过以下命令查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ip route show table 52</div></pre></td></tr></table></figure>
+<h3 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h3><p>macOS 有 3 种安装方法：</p>
+<ul>
+<li>直接通过应用商店安装，地址： <a href="https://apps.apple.com/ca/app/tailscale/id1475387142。前提是你**需要一个美区" target="_blank" rel="external">https://apps.apple.com/ca/app/tailscale/id1475387142。前提是你**需要一个美区</a> ID**。。。</li>
+<li>下载 <a href="https://pkgs.tailscale.com/stable/#macos" target="_blank" rel="external">安装包</a>直接安装，绕过应用商店。</li>
+<li>安装开源的命令行工具 <code>tailscale</code> 和 <code>tailscaled</code>。相关链接： <a href="https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS。" target="_blank" rel="external">https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS。</a></li>
+</ul>
+<p>这三种安装包的核心数据包处理代码是相同的，唯一的区别在于在于打包方式以及与系统的交互方式</p>
+<p>安装完 GUI 版应用后还需要做一些骚操作，才能让 Tailscale 使用 Headscale 作为控制服务器。当然，Headscale 已经给我们提供了详细的操作步骤，你只需要在浏览器中打开 URL：<code>http://&lt;HEADSCALE_PUB_IP&gt;:8080/apple</code>，便会出现如下的界面：</p>
+<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-39-arYdfv.png" alt=""></p>
+<blockquote>
+<p>非应用商店版本的 macOS 客户端需要将 <code>io.tailscale.ipn.macos</code> 替换为 <code>io.tailscale.ipn.macsys</code>。即：<code>defaults write io.tailscale.ipn.macsys ControlURL http://&lt;HEADSCALE_PUB_IP&gt;:8080</code></p>
+</blockquote>
+<p>修改完成后重启 Tailscale 客户端，在 macOS 顶部状态栏中找到 Tailscale 并点击，然后再点击 <code>Log in</code></p>
+<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-43-pTW3r7.png" alt=""></p>
+<p>然后立马就会跳转到浏览器并打开一个页面。</p>
+<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-46-AbzngB.png" alt=""></p>
+<p>接下来与之前 Linux 客户端相同，回到 Headscale 所在的机器执行浏览器中的命令即可，注册成功</p>
+<p>回到 Headscale 所在主机，查看注册的节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ headscale nodes list</div><div class="line"></div><div class="line">ID | Name | NodeKey | Namespace | IP addresses | Ephemeral | Last seen | Onlin</div><div class="line"></div><div class="line">e | Expired</div><div class="line"></div><div class="line">1 | coredns | [Ew3RB] | default | 10.1.0.1 | <span class="literal">false</span> | 2022-03-20 09:08:58 | onlin</div><div class="line"></div><div class="line">e | no</div><div class="line">2 | carsondemacbook-pro | [k7bzX] | default   | 10.1.0.2     | <span class="literal">false</span>     | 2022-03-20 09:48:30 | online  | no</div></pre></td></tr></table></figure>
+<p>回到 macOS，测试是否能 ping 通对端节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ ping -c 2 10.1.0.1</div><div class="line">PING 10.1.0.1 (10.1.0.1): 56 data bytes</div><div class="line">64 bytes from 10.1.0.1: icmp_seq=0 ttl=64 time=37.025 ms</div><div class="line">64 bytes from 10.1.0.1: icmp_seq=1 ttl=64 time=38.181 ms</div><div class="line"></div><div class="line">--- 10.1.0.1 ping statistics ---</div><div class="line">2 packets transmitted, 2 packets received, 0.0% packet loss</div><div class="line">round-trip min/avg/max/stddev = 37.025/37.603/38.181/0.578 ms</div></pre></td></tr></table></figure>
+<p>也可以使用 Tailscale CLI 来测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ /Applications/Tailscale.app/Contents/MacOS/Tailscale ping 10.1.0.1</div><div class="line">pong from coredns (10.1.0.1) via xxxx:41641 <span class="keyword">in</span> 36ms</div></pre></td></tr></table></figure>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows Tailscale 客户端想要使用 Headscale 作为控制服务器，只需在浏览器中打开 URL：<code>http://&lt;HEADSCALE_PUB_IP&gt;:8080/windows</code>，便会出现如下的界面</p>
+<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-23-30-zcQX3F.png" alt=""></p>
+<p>按照其中的步骤操作即可。</p>
+<h3 id="通过-Pre-Authkeys-接入"><a href="#通过-Pre-Authkeys-接入" class="headerlink" title="通过 Pre-Authkeys 接入"></a>通过 Pre-Authkeys 接入</h3><p>前面的接入方法都需要服务端同意，步骤比较烦琐，其实还有更简单的方法，可以直接接入，不需要服务端同意。</p>
+<p>首先在服务端生成 pre-authkey 的 token，有效期可以设置为 24 小时：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ headscale preauthkeys create <span class="_">-e</span> 24h -n default</div></pre></td></tr></table></figure>
+<p>查看已经生成的 key：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ headscale -n default preauthkeys list</div><div class="line">ID | Key                                              | Reusable | Ephemeral | Used  | Expiration          | Created            </div><div class="line">1  | 57e419c40e30b0dxxxxxxxf15562c18a8c6xxxx28ae76f57 | <span class="literal">false</span>    | <span class="literal">false</span>     | <span class="literal">false</span> | 2022-05-30 07:14:17 | 2022-05-29 07:14:17</div></pre></td></tr></table></figure>
+<p>现在新节点就可以无需服务端同意直接接入了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tailscale up --login-server=http://&lt;HEADSCALE_PUB_IP&gt;:8080 --accept-routes=<span class="literal">true</span> --accept-dns=<span class="literal">false</span> --authkey <span class="variable">$KEY</span></div></pre></td></tr></table></figure>
+<h2 id="打通局域网"><a href="#打通局域网" class="headerlink" title="打通局域网"></a>打通局域网</h2><p>到目前为止我们只是打造了一个点对点的 Mesh 网络，各个节点之间都可以通过 WireGuard 的私有网络 IP 进行直连。但我们可以更大胆一点，还记得我在文章开头提到的访问家庭内网的资源吗？我们可以通过适当的配置让每个节点都能访问其他节点的局域网 IP。这个使用场景就比较多了，你可以直接访问家庭内网的 NAS，或者内网的任何一个服务，<strong>更高级的玩家可以使用这个方法来访问云上 Kubernetes 集群的 Pod IP 和 Service IP。</strong></p>
+<p>假设你的家庭内网有一台 Linux 主机（比如 OpenWrt）安装了 Tailscale 客户端，我们希望其他 Tailscale 客户端可以直接通过家中的局域网 IP（例如 <strong>192.168.100.0/24</strong>） 访问家庭内网的任何一台设备。</p>
+<p>配置方法很简单，首先需要设置 IPv4 与 IPv6 路由转发：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> <span class="string">'net.ipv4.ip_forward = 1'</span> | tee /etc/sysctl.d/ipforwarding.conf</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'net.ipv6.conf.all.forwarding = 1'</span> | tee <span class="_">-a</span> /etc/sysctl.d/ipforwarding.conf</div><div class="line">$ sysctl -p /etc/sysctl.d/ipforwarding.conf</div></pre></td></tr></table></figure>
+<p>客户端修改注册节点的命令，在原来命令的基础上加上参数 <code>--advertise-routes=192.168.100.0/24</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tailscale up --login-server=http://&lt;HEADSCALE_PUB_IP&gt;:8080 --accept-routes=<span class="literal">true</span> --accept-dns=<span class="literal">false</span> --advertise-routes=192.168.100.0/24</div></pre></td></tr></table></figure>
+<p>在 Headscale 端查看路由，可以看到相关路由是关闭的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ headscale nodes list|grep openwrt</div><div class="line"></div><div class="line">6 | openwrt | [7LdVc] | default | 10.1.0.6 | <span class="literal">false</span> | 2022-03-20 15:50:46 | onlin</div><div class="line"></div><div class="line">e | no</div><div class="line"></div><div class="line">$ headscale routes list -i 6</div><div class="line"></div><div class="line">Route | Enabled</div><div class="line"></div><div class="line">192.168.100.0/24 | <span class="literal">false</span></div></pre></td></tr></table></figure>
+<p>开启路由：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ headscale routes <span class="built_in">enable</span> -i 6 -r <span class="string">"192.168.100.0/24"</span></div><div class="line"></div><div class="line">Route | Enabled</div><div class="line"></div><div class="line">192.168.100.0/24 | <span class="literal">true</span></div></pre></td></tr></table></figure>
+<p>其他节点查看路由结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ip route show table 52|grep <span class="string">"192.168.100.0/24"</span></div><div class="line">192.168.100.0/24 dev tailscale0</div></pre></td></tr></table></figure>
+<p>现在你在任何一个 Tailscale 客户端所在的节点都可以 ping 通家庭内网的机器.</p>
+<hr>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -793,7 +1015,7 @@
 <h3 id="部署Prometheus-软件"><a href="#部署Prometheus-软件" class="headerlink" title="部署Prometheus 软件"></a><strong>部署Prometheus 软件</strong></h3><p>首先，检查一下我们所运行的Helm版本</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ helm version</div><div class="line">version.BuildInfo&#123;<span class="string">Version:</span><span class="string">"v3.1.2"</span>, <span class="string">GitCommit:</span><span class="string">"d878d4d45863e42fd5cff6743294a11d28a9abce"</span>, <span class="string">GitTreeState:</span><span class="string">"clean"</span>, <span class="string">GoVersion:</span><span class="string">"go1.13.8"</span>&#125;</div></pre></td></tr></table></figure>
 <p>当我们使用Helm 3时，我们需要添加一个stable 镜像仓库，因为默认状态下不会设置该仓库。</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root<span class="variable">@ops1</span> test]<span class="comment"># helm repo add stable http://mirror.azure.cn/kubernetes/charts/</span></div><div class="line"></div><div class="line">[root<span class="variable">@ops1</span> test]<span class="comment"># helm repo list</span></div><div class="line"></div><div class="line">NAME            URL</div><div class="line"></div><div class="line">local           <span class="symbol">http:</span>/<span class="regexp">/127.0.0.1:8879/charts</span>                       </div><div class="line"></div><div class="line">stable          <span class="symbol">http:</span>/<span class="regexp">/mirror.azure.cn/kubernetes</span><span class="regexp">/charts/</span></div><div class="line"></div><div class="line">incubator       <span class="symbol">http:</span>/<span class="regexp">/mirror.azure.cn/kubernetes</span><span class="regexp">/charts-incubator/</span></div><div class="line"></div><div class="line">[root<span class="variable">@ops1</span> test]<span class="comment"># helm repo update</span></div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@ops1 test]<span class="comment"># helm repo add stable http://mirror.azure.cn/kubernetes/charts/</span></div><div class="line"></div><div class="line">[root@ops1 test]<span class="comment"># helm repo list</span></div><div class="line"></div><div class="line">NAME            URL</div><div class="line"></div><div class="line">local           <span class="symbol">http:</span>/<span class="regexp">/127.0.0.1:8879/charts</span>                       </div><div class="line"></div><div class="line">stable          <span class="symbol">http:</span>/<span class="regexp">/mirror.azure.cn/kubernetes</span><span class="regexp">/charts/</span></div><div class="line"></div><div class="line">incubator       <span class="symbol">http:</span>/<span class="regexp">/mirror.azure.cn/kubernetes</span><span class="regexp">/charts-incubator/</span></div><div class="line"></div><div class="line">[root@ops1 test]<span class="comment"># helm repo update</span></div></pre></td></tr></table></figure>
 <p>Helm配置完成后，我们可以开始安装<code>prometheus-operator</code></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ kubectl <span class="keyword">create</span> namespace <span class="keyword">monitoring</span></div><div class="line">namespace/<span class="keyword">monitoring</span> created</div><div class="line">[root@ops1 <span class="keyword">test</span>]# helm <span class="keyword">search</span> prometheus</div><div class="line"></div><div class="line">stable/prometheus-<span class="keyword">operator</span>              <span class="number">8.12</span><span class="number">.0</span>          <span class="number">0.37</span><span class="number">.0</span>          Provides easy <span class="keyword">monitoring</span> definitions <span class="keyword">for</span> Kubernetes servi...</div><div class="line"></div><div class="line">[root@ops1 <span class="keyword">test</span>]# helm <span class="keyword">fetch</span> stable/prometheus-<span class="keyword">operator</span> <span class="comment">--version 8.12.0</span></div><div class="line"></div><div class="line">[root@ops1 <span class="keyword">test</span>]# tar -zxf prometheus-<span class="keyword">operator</span><span class="number">-8.12</span><span class="number">.0</span>.tgz </div><div class="line"></div><div class="line">$ cd prometheus-<span class="keyword">operator</span></div></pre></td></tr></table></figure>
 <p>编辑values.yaml</p>
@@ -824,100 +1046,6 @@
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">templates:</span></div><div class="line">  - <span class="meta-keyword">/mnt/</span>data<span class="meta-keyword">/dingtalk/</span>dingdingalert<span class="meta-keyword">/templates/</span>template.tmpl</div><div class="line"><span class="symbol">targets:</span></div><div class="line"><span class="symbol">  webhook1:</span></div><div class="line"><span class="symbol">    url:</span> https:<span class="comment">//oapi.dingtalk.com/robot/send?access_token=84e6cdba089128514d1a641faf8bd28655af2089a47c729877f23c697e71f09b</span></div></pre></td></tr></table></figure>
 <p>cat /mnt/data/dingtalk/dingdingalert/templates/template.tmpl</p>
 <figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; define <span class="string">"ding.link.title"</span> &#125;&#125;[监控报警]&#123;&#123; end &#125;&#125;</div><div class="line">&#123;&#123; define <span class="string">"ding.link.content"</span> -&#125;&#125;</div><div class="line">&#123;&#123;- if gt (len .Alerts.Firing) <span class="number">0</span> -&#125;&#125;</div><div class="line">  &#123;&#123; range $i, $alert := .Alerts.Firing &#125;&#125;</div><div class="line">    [告警项目]:&#123;&#123; index $alert.Labels <span class="string">"alertname"</span> &#125;&#125;</div><div class="line">    [告警实例]:&#123;&#123; index $alert.Labels <span class="string">"instance"</span> &#125;&#125;</div><div class="line">    [告警级别]:&#123;&#123; index $alert.Labels <span class="string">"severity"</span> &#125;&#125;</div><div class="line">    [告警详情]:&#123;&#123; index $alert.Annotations <span class="string">"description"</span> &#125;&#125;</div><div class="line">    [触发时间]:&#123;&#123; (.StartsAt.Add <span class="number">28800</span>e9).Format <span class="string">"2006-01-02 15:04:05"</span> &#125;&#125;</div><div class="line">  &#123;&#123; end &#125;&#125;&#123;&#123;- end &#125;&#125;</div><div class="line">&#123;&#123;- if gt (len .Alerts.Resolved) <span class="number">0</span> -&#125;&#125;</div><div class="line">  &#123;&#123; range $i, $alert := .Alerts.Resolved &#125;&#125;</div><div class="line">    [项目]:&#123;&#123; index $alert.Labels <span class="string">"alertname"</span> &#125;&#125;</div><div class="line">    [实例]:&#123;&#123; index $alert.Labels <span class="string">"instance"</span> &#125;&#125;</div><div class="line">    [状态]:正在重启</div><div class="line">    [开始]:&#123;&#123; (.StartsAt.Add <span class="number">28800</span>e9).Format <span class="string">"2006-01-02 15:04:05"</span> &#125;&#125;</div><div class="line">    [恢复]:&#123;&#123; (.EndsAt.Add <span class="number">28800</span>e9).Format <span class="string">"2006-01-02 15:04:05"</span> &#125;&#125;</div><div class="line">  &#123;&#123; end &#125;&#125;&#123;&#123;- end &#125;&#125;</div><div class="line">&#123;&#123;- end &#125;&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2021/03/22/Springboot-AliOssUtil/" itemprop="url">
-                  Springboot AliOssUtil
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2021-03-22T14:05:32+08:00" content="2021-03-22">
-              2021-03-22
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2021/03/22/Springboot-AliOssUtil/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2021/03/22/Springboot-AliOssUtil/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>oss</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xxx.common.utils;</div><div class="line"></div><div class="line"><span class="keyword">import</span> cn.hutool.core.date.DateUtil;</div><div class="line"><span class="keyword">import</span> cn.hutool.core.util.IdUtil;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.*;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.model.CannedAccessControlList;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.model.PutObjectRequest;</div><div class="line"><span class="keyword">import</span> com.aliyun.oss.model.PutObjectResult;</div><div class="line"><span class="keyword">import</span> com.huazhu.spm.face.config.AliOssProperties;</div><div class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.util.Date;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> haobiao</div><div class="line"> * <span class="doctag">@date</span> 2020/12/22 11:05</div><div class="line"> * <span class="doctag">@description</span> 阿里OSS存储</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliOssUtil</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> AliOssProperties aliOssProperties;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> OSS <span class="title">initClient</span><span class="params">()</span> </span>&#123;</div><div class="line">        ClientBuilderConfiguration conf = <span class="keyword">new</span> ClientBuilderConfiguration();</div><div class="line">        conf.setConnectionTimeout(<span class="number">10000</span>);</div><div class="line">        conf.setMaxErrorRetry(<span class="number">10</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OSSClientBuilder().build(aliOssProperties.getEndpoint(), aliOssProperties.getKey(), aliOssProperties.getSecret(), conf);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 上传照片</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> inputStream</div><div class="line">     * <span class="doctag">@param</span> fileType    文件类型</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">ossUploadFile</span><span class="params">(InputStream inputStream, String fileType)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            OSS ossBuild = <span class="keyword">new</span> OSSClientBuilder().build(aliOssProperties.getEndpoint(), aliOssProperties.getKey(), aliOssProperties.getSecret());</div><div class="line">            String bucketName = aliOssProperties.getBucket();</div><div class="line">            String endpoint = aliOssProperties.getEndpoint();</div><div class="line">            String fileName = DateUtil.format(<span class="keyword">new</span> Date(), <span class="string">"yyyyMMdd"</span>) + <span class="string">"/"</span> + IdUtil.simpleUUID() + <span class="string">"."</span> + fileType;</div><div class="line">            <span class="comment">//上传文件</span></div><div class="line">            PutObjectRequest putObjectRequest = <span class="keyword">new</span> PutObjectRequest(bucketName, fileName, inputStream);</div><div class="line">            PutObjectResult result = ossBuild.putObject(putObjectRequest);</div><div class="line">            <span class="comment">//设置权限为公开读</span></div><div class="line">            ossBuild.setObjectAcl(bucketName, fileName, CannedAccessControlList.PublicRead);</div><div class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != result) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="string">"http://"</span> + bucketName + <span class="string">"."</span> + endpoint + <span class="string">"/"</span> + fileName;</div><div class="line">            &#125;</div><div class="line">            ossBuild.shutdown();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            log.error(<span class="string">"ossUploadFile exception is &#123;&#125;"</span>, e);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AliOssUtil</span><span class="params">(AliOssProperties aliOssProperties)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.aliOssProperties = aliOssProperties;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
           
         
@@ -984,7 +1112,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
