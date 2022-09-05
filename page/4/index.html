@@ -208,11 +208,122 @@
 
     
     
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/04/09/服务器监控脚本/" itemprop="url">
+                  服务器监控脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-09T08:52:58+08:00" content="2019-04-09">
+              2019-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/04/09/服务器监控脚本/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/09/服务器监控脚本/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
-    
+        
+          
+            <blockquote>
+<p>monitor.py</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding:utf-8</span></div><div class="line"><span class="comment"># ！/usr/bin/env python3</span></div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">from</span> aliyunsdkdysmsapi.request.v20170525 <span class="keyword">import</span> SendSmsRequest</div><div class="line"><span class="keyword">from</span> aliyunsdkdysmsapi.request.v20170525 <span class="keyword">import</span> QuerySendDetailsRequest</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.client <span class="keyword">import</span> AcsClient</div><div class="line"><span class="keyword">import</span> uuid</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.profile <span class="keyword">import</span> region_provider</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.http <span class="keyword">import</span> method_type <span class="keyword">as</span> MT</div><div class="line"><span class="keyword">from</span> aliyunsdkcore.http <span class="keyword">import</span> format_type <span class="keyword">as</span> FT</div><div class="line"><span class="keyword">import</span> const</div><div class="line"><span class="comment"># from config import Alarm_cache</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> Settings</div><div class="line"></div><div class="line"><span class="comment"># 监控逻辑</span></div><div class="line"></div><div class="line"><span class="comment"># 注意：不要更改</span></div><div class="line">REGION = <span class="string">"cn-hangzhou"</span></div><div class="line">PRODUCT_NAME = <span class="string">"Dysmsapi"</span></div><div class="line">DOMAIN = <span class="string">"dysmsapi.aliyuncs.com"</span></div><div class="line"></div><div class="line">acs_client = AcsClient(const.ACCESS_KEY_ID, const.ACCESS_KEY_SECRET, REGION)</div><div class="line">region_provider.add_endpoint(PRODUCT_NAME, REGION, DOMAIN)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_sms</span><span class="params">(phone_numbers, sign_name, template_code, template_param=None)</span>:</span></div><div class="line">    smsRequest = SendSmsRequest.SendSmsRequest()</div><div class="line">    <span class="comment"># 申请的短信模板编码,必填</span></div><div class="line">    smsRequest.set_TemplateCode(template_code)</div><div class="line"></div><div class="line">    <span class="comment"># 短信模板变量参数</span></div><div class="line">    <span class="keyword">if</span> template_param <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        smsRequest.set_TemplateParam(template_param)</div><div class="line"></div><div class="line">    <span class="comment"># 短信签名</span></div><div class="line">    smsRequest.set_SignName(sign_name)</div><div class="line"></div><div class="line">    <span class="comment"># 数据提交方式</span></div><div class="line">    <span class="comment"># smsRequest.set_method(MT.POST)</span></div><div class="line"></div><div class="line">    <span class="comment"># 数据提交格式</span></div><div class="line">    <span class="comment"># smsRequest.set_accept_format(FT.JSON)</span></div><div class="line"></div><div class="line">    <span class="comment"># 短信发送的号码列表，必填。</span></div><div class="line">    smsRequest.set_PhoneNumbers(phone_numbers)</div><div class="line"></div><div class="line">    <span class="comment"># 调用短信发送接口，返回json</span></div><div class="line">    smsResponse = acs_client.do_action_with_exception(smsRequest)</div><div class="line"></div><div class="line">    <span class="comment"># TODO 业务处理</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> smsResponse</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">monitor</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'***启动监控***'</span>)</div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        ports = [<span class="number">8000</span>, <span class="number">8001</span>, <span class="number">8002</span>]</div><div class="line">        <span class="keyword">for</span> port <span class="keyword">in</span> ports:</div><div class="line">            check_url = <span class="string">"http://api.XXX.cn:%s/server?type=0"</span> % (</div><div class="line">                port)</div><div class="line">            command = <span class="string">"curl -I -m 30 -o /dev/null -s -w %&#123;http_code&#125; "</span> + check_url</div><div class="line">            http_code = os.popen(command).read()</div><div class="line">            print(<span class="string">"ping %s 状态码为%s"</span> % (check_url, http_code))</div><div class="line">            <span class="keyword">if</span> http_code != <span class="string">"200"</span>:</div><div class="line">                <span class="comment"># Alarm_cache["ping_error"].append(diff)</span></div><div class="line">                <span class="comment"># 发短信</span></div><div class="line">                print(<span class="string">"###发送短信给相关的人###"</span>)</div><div class="line">                params = <span class="string">"&#123;\"interface\":\"%s\"&#125;"</span> % (port)</div><div class="line">                <span class="keyword">for</span> phone <span class="keyword">in</span> Settings[<span class="string">"alarm_phones"</span>]:</div><div class="line">                    print(send_sms(phone, <span class="string">"thisissignname"</span>, <span class="string">"SMS_99999999"</span>, params))</div><div class="line">        time.sleep(<span class="number">300</span>)</div><div class="line">        print(<span class="string">'5分钟后检查'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    monitor()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>config.py</p>
+</blockquote>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># coding:utf-8</span></div><div class="line">Alarm_cache = &#123;</div><div class="line">    <span class="string">"ping_error"</span>: []</div><div class="line">&#125;</div><div class="line"><span class="meta"># 配置</span></div><div class="line">Settings = &#123;</div><div class="line">    <span class="string">"alarm_phones"</span>: [<span class="string">'thisiscellphone'</span>]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -680,123 +791,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/14/使用SnapKit作应用新手上路导览/" itemprop="url">
-                  使用SnapKit作应用新手上路导览
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-14T16:49:00+08:00" content="2016-09-14">
-              2016-09-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/14/使用SnapKit作应用新手上路导览/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/14/使用SnapKit作应用新手上路导览/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>具体实现:<br>YMNewfeatureViewController.swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">import</span> SnapKit</div><div class="line"></div><div class="line"><span class="keyword">let</span> newFeatureID = <span class="string">"newFeatureID"</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">YMNewfeatureViewController</span>: <span class="title">UICollectionViewController</span> </span>&#123;</div><div class="line">    <span class="comment">/// 布局对象</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> layout: <span class="type">UICollectionViewFlowLayout</span> = <span class="type">YMNewfeatureLayout</span>()</div><div class="line">    <span class="keyword">init</span>() &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(collectionViewLayout: layout)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"init(coder:) has not been implemented"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        collectionView?.registerClass(<span class="type">YMNewfeatureCell</span>.<span class="keyword">self</span>, forCellWithReuseIdentifier: newFeatureID)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, numberOfItemsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> kNewFeatureCount</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UICollectionViewCell</span> &#123;</div><div class="line">        <span class="keyword">let</span> cell = collectionView.dequeueReusableCellWithReuseIdentifier(newFeatureID, forIndexPath: indexPath) <span class="keyword">as</span>! <span class="type">YMNewfeatureCell</span></div><div class="line">        cell.imageIndex = indexPath.item</div><div class="line">        <span class="keyword">return</span> cell</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 完全显示一个cell之后调用</span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> path = collectionView.indexPathsForVisibleItems().last!</div><div class="line">        <span class="keyword">if</span> path.item == (kNewFeatureCount - <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">let</span> cell = collectionView.cellForItemAtIndexPath(path) <span class="keyword">as</span>! <span class="type">YMNewfeatureCell</span></div><div class="line">            cell.startBtnAnimation()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/// YMNewfeatureCell</span></div><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">YMNewfeatureCell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> imageIndex: <span class="type">Int</span>? &#123;</div><div class="line">        <span class="keyword">didSet</span> &#123;</div><div class="line">            iconView.image = <span class="type">UIImage</span>(named: <span class="string">"walkthrough_<span class="subst">\(imageIndex! + <span class="number">1</span>)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">startBtnAnimation</span><span class="params">()</span></span> &#123;</div><div class="line">        startButton.hidden = <span class="literal">false</span></div><div class="line">        <span class="comment">// 执行动画</span></div><div class="line">        startButton.transform = <span class="type">CGAffineTransformMakeScale</span>(<span class="number">0.0</span>, <span class="number">0.0</span>)</div><div class="line">        startButton.userInteractionEnabled = <span class="literal">false</span></div><div class="line">        </div><div class="line">        <span class="comment">// UIViewAnimationOptions(rawValue: 0) == OC knilOptions</span></div><div class="line">        <span class="type">UIView</span>.animateWithDuration(<span class="number">2</span>, delay: <span class="number">0</span>, usingSpringWithDamping: <span class="number">0.8</span>, initialSpringVelocity: <span class="number">5</span>, options: <span class="type">UIViewAnimationOptions</span>(rawValue: <span class="number">0</span>), animations: &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">            <span class="comment">// 清空形变</span></div><div class="line">            <span class="keyword">self</span>.startButton.transform = <span class="type">CGAffineTransformIdentity</span></div><div class="line">            &#125;, completion: &#123; (<span class="number">_</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">                <span class="keyword">self</span>.startButton.userInteractionEnabled = <span class="literal">true</span></div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</div><div class="line">        </div><div class="line">        setupUI()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"init(coder:) has not been implemented"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setupUI</span><span class="params">()</span></span> &#123;</div><div class="line">        contentView.addSubview(iconView)</div><div class="line">        contentView.addSubview(startButton)</div><div class="line">        </div><div class="line">        iconView.snp_makeConstraints &#123; (make) <span class="keyword">in</span></div><div class="line">            make.edges.equalTo(contentView)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        startButton.snp_makeConstraints &#123; (make) <span class="keyword">in</span></div><div class="line">            make.bottom.equalTo(contentView.snp_bottom).offset(-<span class="number">50</span>)</div><div class="line">            make.size.equalTo(<span class="type">CGSizeMake</span>(<span class="number">150</span>, <span class="number">40</span>))</div><div class="line">            make.centerX.equalTo(<span class="number">0</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> iconView = <span class="type">UIImageView</span>()</div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> startButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> btn = <span class="type">UIButton</span>()</div><div class="line">        btn.setBackgroundImage(<span class="type">UIImage</span>(named: <span class="string">"btn_begin"</span>), forState: .<span class="type">Normal</span>)</div><div class="line">        btn.addTarget(<span class="keyword">self</span>, action: #selector(startButtonClick), forControlEvents: .<span class="type">TouchUpInside</span>)</div><div class="line">        btn.layer.masksToBounds = <span class="literal">true</span></div><div class="line">        btn.hidden = <span class="literal">true</span></div><div class="line">        <span class="keyword">return</span> btn</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">startButtonClick</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="type">UIApplication</span>.sharedApplication().keyWindow?.rootViewController = <span class="type">YMTabBarController</span>()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">YMNewfeatureLayout</span>: <span class="title">UICollectionViewFlowLayout</span> </span>&#123;</div><div class="line">    <span class="comment">/// 准备布局</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">prepareLayout</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// 设置 layout 布局</span></div><div class="line">        itemSize = <span class="type">UIScreen</span>.mainScreen().bounds.size</div><div class="line">        minimumLineSpacing = <span class="number">0</span></div><div class="line">        minimumInteritemSpacing = <span class="number">0</span></div><div class="line">        scrollDirection = .<span class="type">Horizontal</span></div><div class="line">        <span class="comment">// 设置 contentView 属性</span></div><div class="line">        collectionView?.showsVerticalScrollIndicator = <span class="literal">false</span></div><div class="line">        collectionView?.bounces = <span class="literal">false</span></div><div class="line">        collectionView?.pagingEnabled = <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>用户首次装载时应用:<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> !NSUserDefaults.standardUserDefaults().boolForKey(YMFirstLaunch) &#123;</div><div class="line">    <span class="built_in">window</span>?.rootViewController = YMNewfeatureViewController()</div><div class="line">    NSUserDefaults.standardUserDefaults().setBool(<span class="literal">true</span>, forKey: YMFirstLaunch)</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="built_in">window</span>?.rootViewController = YMTabBarController()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -837,7 +837,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
