@@ -231,6 +231,123 @@
             
               
                 
+                <a class="post-title-link" href="/2015/08/05/ionic-android-打包/" itemprop="url">
+                  ionic android 打包
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-05T10:54:14+08:00" content="2015-08-05">
+              2015-08-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/05/ionic-android-打包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/05/ionic-android-打包/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>生成证书</em></p>
+<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
+</code></pre><p><em>生成release 版本:</em></p>
+<pre><code>cordova build --release android
+</code></pre><p><em>jarsinger:</em></p>
+<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore /Users/liufei/ionic/yongche/platforms/android/build/outputs/apk/android-release-unsigned.apk  alias_name
+</code></pre><p><em>生成apk:</em></p>
+<pre><code>/Library/Android/android-sdk-macosx/build-tools/22.0.1/zipalign -v 4 /Users/liufei/ionic/yongche/platforms/android/build/outputs/apk/android-release-unsigned.apk ezu110.apk
+</code></pre>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/07/22/ionic-发送POST请求/" itemprop="url">
                   ionic 发送POST请求
                 </a>
@@ -656,121 +773,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/09/ionic-modal弹窗/" itemprop="url">
-                  ionic modal弹窗
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-09T14:03:00+08:00" content="2015-07-09">
-              2015-07-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/09/ionic-modal弹窗/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/09/ionic-modal弹窗/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>今天和组员一起做弹窗，发现将弹窗抽离出的factory真心不错</em></p>
-<p><em>modal.facotry.js 如下：</em></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div></pre></td><td class="code"><pre><div class="line">.factory(<span class="string">'appModalService'</span>, [<span class="string">'$ionicModal'</span>, <span class="string">'$rootScope'</span>, <span class="string">'$q'</span>, <span class="string">'$injector'</span>, <span class="string">'$controller'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$ionicModal, $rootScope, $q, $injector, $controller</span>) </span>&#123;</div><div class="line">	  <span class="keyword">return</span> &#123;</div><div class="line">	    <span class="attr">show</span>: show</div><div class="line">	  &#125;</div><div class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">templeteUrl, controller, parameters, options</span>) </span>&#123;</div><div class="line">	    <span class="comment">// Grab the injector and create a new scope</span></div><div class="line">	    <span class="keyword">var</span> deferred = $q.defer(),</div><div class="line">	        ctrlInstance,</div><div class="line">	        modalScope = $rootScope.$<span class="keyword">new</span>(),</div><div class="line">	        thisScopeId = modalScope.$id,</div><div class="line">	        defaultOptions = &#123;</div><div class="line">	          <span class="attr">animation</span>: <span class="string">'slide-in-up'</span>,</div><div class="line">	          <span class="attr">focusFirstInput</span>: <span class="literal">false</span>,</div><div class="line">	          <span class="attr">backdropClickToClose</span>: <span class="literal">true</span>,</div><div class="line">	          <span class="attr">hardwareBackButtonClose</span>: <span class="literal">true</span>,</div><div class="line">	          <span class="attr">modalCallback</span>: <span class="literal">null</span></div><div class="line">	        &#125;;</div><div class="line">	   options = angular.extend(&#123;&#125;, defaultOptions, options);</div><div class="line">	</div><div class="line">	 $ionicModal.fromTemplateUrl(templeteUrl, &#123;</div><div class="line">	   <span class="attr">scope</span>: modalScope,</div><div class="line">	   <span class="attr">animation</span>: options.animation,</div><div class="line">	   <span class="attr">focusFirstInput</span>: options.focusFirstInput,</div><div class="line">	   <span class="attr">backdropClickToClose</span>: options.backdropClickToClose,</div><div class="line">	   <span class="attr">hardwareBackButtonClose</span>: options.hardwareBackButtonClose</div><div class="line">	 &#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params">modal</span>) </span>&#123;</div><div class="line">	   modalScope.modal = modal;</div><div class="line">	</div><div class="line">	   modalScope.openModal = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	     modalScope.modal.show();</div><div class="line">	   &#125;;</div><div class="line">	   modalScope.closeModal = <span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</div><div class="line">	     deferred.resolve(result);</div><div class="line">	     modalScope.modal.hide();</div><div class="line">	   &#125;;</div><div class="line">	   modalScope.$on(<span class="string">'modal.hidden'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">thisModal</span>) </span>&#123;</div><div class="line">	     <span class="keyword">if</span> (thisModal.currentScope) &#123;</div><div class="line">	       <span class="keyword">var</span> modalScopeId = thisModal.currentScope.$id;</div><div class="line">	       <span class="keyword">if</span> (thisScopeId === modalScopeId) &#123;</div><div class="line">	         deferred.resolve(<span class="literal">null</span>);</div><div class="line">	         _cleanup(thisModal.currentScope);</div><div class="line">	       &#125;</div><div class="line">	     &#125;</div><div class="line">	   &#125;);</div><div class="line">	</div><div class="line">	   <span class="comment">// Invoke the controller</span></div><div class="line">	   <span class="keyword">var</span> locals = &#123; <span class="string">'$scope'</span>: modalScope, <span class="string">'parameters'</span>: parameters &#125;;</div><div class="line">	   <span class="keyword">var</span> ctrlEval = _evalController(controller);</div><div class="line">	   ctrlInstance = $controller(controller, locals);</div><div class="line">	   <span class="keyword">if</span> (ctrlEval.isControllerAs) &#123;</div><div class="line">	     ctrlInstance.openModal = modalScope.openModal;</div><div class="line">	     ctrlInstance.closeModal = modalScope.closeModal;</div><div class="line">	   &#125;</div><div class="line">	</div><div class="line">	   modalScope.modal.show()</div><div class="line">	     .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	     modalScope.$broadcast(<span class="string">'modal.afterShow'</span>, modalScope.modal);</div><div class="line">	   &#125;);</div><div class="line">	</div><div class="line">	   <span class="keyword">if</span> (angular.isFunction(options.modalCallback)) &#123;</div><div class="line">	     options.modalCallback(modal);</div><div class="line">	   &#125;</div><div class="line">	</div><div class="line">	 &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</div><div class="line">	   deferred.reject(err);</div><div class="line">	 &#125;);</div><div class="line">	</div><div class="line">	 <span class="keyword">return</span> deferred.promise;</div><div class="line">	  &#125;</div><div class="line">	</div><div class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_cleanup</span>(<span class="params">scope</span>) </span>&#123;</div><div class="line">	    scope.$destroy();</div><div class="line">	    <span class="keyword">if</span> (scope.modal) &#123;</div><div class="line">	      scope.modal.remove();</div><div class="line">	    &#125;</div><div class="line">	  &#125;</div><div class="line">	</div><div class="line">	  <span class="function"><span class="keyword">function</span> <span class="title">_evalController</span>(<span class="params">ctrlName</span>) </span>&#123;</div><div class="line">	    <span class="keyword">var</span> result = &#123;</div><div class="line">	      <span class="attr">isControllerAs</span>: <span class="literal">false</span>,</div><div class="line">	      <span class="attr">controllerName</span>: <span class="string">''</span>,</div><div class="line">	      <span class="attr">propName</span>: <span class="string">''</span></div><div class="line">	    &#125;;</div><div class="line">	    <span class="keyword">var</span> fragments = (ctrlName || <span class="string">''</span>).trim().split(<span class="regexp">/\s+/</span>);</div><div class="line">	    result.isControllerAs = fragments.length === <span class="number">3</span> &amp;&amp; (fragments[<span class="number">1</span>] || <span class="string">''</span>).toLowerCase() === <span class="string">'as'</span>;</div><div class="line">	    <span class="keyword">if</span> (result.isControllerAs) &#123;</div><div class="line">	      result.controllerName = fragments[<span class="number">0</span>];</div><div class="line">	      result.propName = fragments[<span class="number">2</span>];</div><div class="line">	    &#125; <span class="keyword">else</span> &#123;</div><div class="line">	      result.controllerName = ctrlName;</div><div class="line">	    &#125;</div><div class="line">	</div><div class="line">	    <span class="keyword">return</span> result;</div><div class="line">	  &#125;</div><div class="line">	 </div><div class="line">	&#125;]);</div></pre></td></tr></table></figure>
-<p><em>实现modal方法：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.factory(<span class="string">'myModals'</span>, [<span class="string">'appModalService'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">appModalService</span>)</span>&#123;</div><div class="line">  <span class="comment">// all app modals here</span></div><div class="line">  <span class="keyword">var</span> service = &#123;</div><div class="line">    <span class="attr">showConfirmContact</span>: showConfirmContact,</div><div class="line">    <span class="attr">showContacts</span>: showContacts</div><div class="line">  &#125;;</div><div class="line">  </div><div class="line">  <span class="keyword">return</span> service;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showConfirmContact</span>(<span class="params">contact</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'confirm-contact-modal.html'</span>, <span class="string">'ConfirmContactDialogCtrl as vm'</span>, contact);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showContacts</span>(<span class="params">otherContact</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> appModalService.show(<span class="string">'contacts-modal.html'</span>, <span class="string">'ContactDialogCtrl as vm'</span>, otherContact);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  </div><div class="line">&#125;])</div></pre></td></tr></table></figure></p>
-<p><em>controller调用：</em><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.controller(<span class="string">'AppCtrl'</span>, [<span class="string">'$scope'</span>, <span class="string">'myModals'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, myModals</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> vm = <span class="keyword">this</span>;</div><div class="line">  vm.selectedContact = <span class="string">''</span>;</div><div class="line">  vm.openContactDialog = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    myModals.showContacts(&#123; <span class="attr">name</span>: <span class="string">'Julian Paulozzi'</span> &#125;)</div><div class="line">    .then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</div><div class="line">      <span class="keyword">if</span>(result &amp;&amp; result.name)&#123;</div><div class="line">        vm.selectedContact = result;</div><div class="line">      &#125;</div><div class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</div><div class="line">       alert(err);</div><div class="line">    &#125;);</div><div class="line">  &#125;;</div><div class="line">  </div><div class="line">&#125;])</div></pre></td></tr></table></figure></p>
-<p><em>页面view调用：</em><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">ng-click</span>=<span class="string">"vm.openContactDialog()"</span> <span class="attr">class</span>=<span class="string">"button button-assertive button-block"</span>&gt;</span></div><div class="line">          Open contacts to select</div><div class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -817,7 +819,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

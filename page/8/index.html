@@ -231,6 +231,116 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/15/mac-跳过App-Store-更新系统/" itemprop="url">
+                  mac 跳过App Store 更新系统
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-15T10:55:34+08:00" content="2015-12-15">
+              2015-12-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mac/" itemprop="url" rel="index">
+                    <span itemprop="name">mac</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/15/mac-跳过App-Store-更新系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/mac-跳过App-Store-更新系统/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>sudo softwareupdate -i -a</code><br>应用它就可以跳过臃肿的app store 进行系统更新了。</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/08/ionic-手动清除页面缓存方法/" itemprop="url">
                   ionic 手动清除页面缓存方法
                 </a>
@@ -649,119 +759,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/" itemprop="url">
-                  Rails Migration Multiple(多) Sql Executing(执行) 
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-16T13:46:17+08:00" content="2015-11-16">
-              2015-11-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ROR/" itemprop="url" rel="index">
-                    <span itemprop="name">ROR</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/16/Rails-Migration-Multiple-多-Sql-Executing-执行/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>在migration 里生成的文件写下如下要批量执行的sql:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">execute</span> &lt;&lt;-<span class="keyword">SQL</span></div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> distributors <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> zipchk <span class="keyword">CHECK</span> (<span class="keyword">char_length</span>(zipcode) = <span class="number">5</span>) <span class="keyword">NO</span> INHERIT;</div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> zipchk <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> board_time <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">COLLATE</span> utf8_unicode_ci <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'时间'</span>;      </div><div class="line">   SQL</div></pre></td></tr></table></figure></p>
-<p>执行一直报sql错误，下面是Google Group 社区给出的解决方案：<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sql = &lt;&lt;-SQL </div><div class="line"> &lt;statement_1&gt;; </div><div class="line"> &lt;statement_2&gt;; </div><div class="line"> &lt;statement_3&gt;; </div><div class="line">SQL </div><div class="line"></div><div class="line">sql.strip.<span class="built_in">split</span>(';').each <span class="built_in">do</span> |<span class="type">s</span>| </div><div class="line">  <span class="type">ActiveRecord</span>::Base.connection.execute(s) </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -808,7 +805,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

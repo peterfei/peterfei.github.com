@@ -1,0 +1,788 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="peterfei.me,peterfei" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="背景大数据处理技术现今已广泛应用于各个行业，为业务解决海量存储和海量分析的需求。但数据量的爆发式增长，对数据处理能力提出了更大的挑战，同时对时效性也提出了更高的要求。业务通常已不再满足滞后的分析结果，希望看到更实时的数据，从而在第一时间做出判断和决策。典型的场景如电商大促和金融风控等，基于延迟数据的分析结果已经失去了价值。
+如何构建一个统一的数据湖存储，并在其上进行多种形式的数据分析，成了企业构建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据-实时计算Flink之FlinkSQL">
+<meta property="og:url" content="http://peterfei.me/2022/09/17/大数据-实时计算Flink之FlinkSQL/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="背景大数据处理技术现今已广泛应用于各个行业，为业务解决海量存储和海量分析的需求。但数据量的爆发式增长，对数据处理能力提出了更大的挑战，同时对时效性也提出了更高的要求。业务通常已不再满足滞后的分析结果，希望看到更实时的数据，从而在第一时间做出判断和决策。典型的场景如电商大促和金融风控等，基于延迟数据的分析结果已经失去了价值。
+如何构建一个统一的数据湖存储，并在其上进行多种形式的数据分析，成了企业构建">
+<meta property="og:image" content="https://jiamaoxiang.top/2020/08/12/Flink1-11%E4%B8%AD%E7%9A%84CDC-Connectors%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/%E5%9B%BE1.png">
+<meta property="og:image" content="https://jiamaoxiang.top/2020/08/12/Flink1-11%E4%B8%AD%E7%9A%84CDC-Connectors%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/%E5%9B%BE2.png">
+<meta property="og:updated_time" content="2022-09-19T05:58:53.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大数据-实时计算Flink之FlinkSQL">
+<meta name="twitter:description" content="背景大数据处理技术现今已广泛应用于各个行业，为业务解决海量存储和海量分析的需求。但数据量的爆发式增长，对数据处理能力提出了更大的挑战，同时对时效性也提出了更高的要求。业务通常已不再满足滞后的分析结果，希望看到更实时的数据，从而在第一时间做出判断和决策。典型的场景如电商大促和金融风控等，基于延迟数据的分析结果已经失去了价值。
+如何构建一个统一的数据湖存储，并在其上进行多种形式的数据分析，成了企业构建">
+<meta name="twitter:image" content="https://jiamaoxiang.top/2020/08/12/Flink1-11%E4%B8%AD%E7%9A%84CDC-Connectors%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/%E5%9B%BE1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 大数据-实时计算Flink之FlinkSQL | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                大数据-实时计算Flink之FlinkSQL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-09-17T10:57:30+08:00" content="2022-09-17">
+              2022-09-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2022/09/17/大数据-实时计算Flink之FlinkSQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/09/17/大数据-实时计算Flink之FlinkSQL/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>大数据处理技术现今已广泛应用于各个行业，为业务解决海量存储和海量分析的需求。但数据量的爆发式增长，对数据处理能力提出了更大的挑战，同时对时效性也提出了更高的要求。业务通常已不再满足滞后的分析结果，希望看到更实时的数据，从而在第一时间做出判断和决策。典型的场景如电商大促和金融风控等，基于延迟数据的分析结果已经失去了价值。</p>
+<p>如何构建一个统一的数据湖存储，并在其上进行多种形式的数据分析，成了企业构建大数据生态的一个重要方向。如何快速、一致、原子性地在数据湖存储上构建起 Data Pipeline，成了亟待解决的问题。</p>
+<p>下载<code>flink-sql-connector-mysql-cdc</code>, <code>flink-sql-connector-kafka</code> ,<code>flink-sql-connector-hive</code>到 /usr/lib/flink/lib/</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">wget https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka_2<span class="meta">.12</span>/<span class="number">1.14</span><span class="meta">.2</span>/flink-sql-connector-kafka_2<span class="meta">.12</span>-<span class="number">1.14</span><span class="meta">.2</span>.jar</div><div class="line"></div><div class="line">wget https://repo1.maven.org/maven2/com/ververica/flink-sql-connector-mysql-cdc/<span class="number">2.2</span><span class="meta">.1</span>/flink-sql-connector-mysql-cdc-<span class="number">2.2</span><span class="meta">.1</span>.jar</div><div class="line"></div><div class="line">wget https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-hive-<span class="number">3.1</span><span class="meta">.2_2</span><span class="meta">.12</span>/<span class="number">1.14</span><span class="meta">.2</span>/flink-sql-connector-hive-<span class="number">3.1</span><span class="meta">.2_2</span><span class="meta">.12</span>-<span class="number">1.14</span><span class="meta">.2</span>.jar</div><div class="line"></div><div class="line">wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-jdbc_2<span class="meta">.12</span>/<span class="number">1.14</span><span class="meta">.2</span>/flink-connector-jdbc_2<span class="meta">.12</span>-<span class="number">1.14</span><span class="meta">.2</span>.jar</div></pre></td></tr></table></figure>
+<p>Flink1.11引入了CDC的connector，通过这种方式可以很方便地捕获变化的数据，大大简化了数据处理的流程。Flink1.11的CDC connector主要包括：<code>MySQL CDC</code>和<code>Postgres CDC</code>,同时对Kafka的<strong>Connector</strong>支持<code>canal-json</code>和<code>debezium-json</code>以及<code>changelog-json</code>的format。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Flink CDC Connector 是ApacheFlink的一组数据源连接器，使用<strong>变化数据捕获change data capture (CDC)）</strong>从不同的数据库中提取变更数据。Flink CDC连接器将Debezium集成为引擎来捕获数据变更。因此，它可以充分利用Debezium的功能。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>支持读取数据库快照，并且能够持续读取数据库的变更日志，即使发生故障，也支持<strong>exactly-once</strong> 的处理语义</li>
+<li>对于DataStream API的CDC connector，用户无需部署Debezium和Kafka，即可在单个作业中使用多个数据库和表上的变更数据。</li>
+<li>对于Table/SQL API 的CDC connector，用户可以使用SQL DDL创建CDC数据源，来监视单个表上的数据变更。</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>数据库之间的增量数据同步</li>
+<li>审计日志</li>
+<li>数据库之上的实时物化视图</li>
+<li>基于CDC的维表join</li>
+</ul>
+<h2 id="Flink提供的-table-format"><a href="#Flink提供的-table-format" class="headerlink" title="Flink提供的 table format"></a>Flink提供的 table format</h2><p>Flink提供了一系列可以用于table connector的table format，具体如下：</p>
+<table>
+<thead>
+<tr>
+<th>Formats</th>
+<th>Supported Connectors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/csv.html" target="_blank" rel="external">CSV</a></td>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/kafka.html" target="_blank" rel="external">Apache Kafka</a>, <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/filesystem.html" target="_blank" rel="external">Filesystem</a></td>
+</tr>
+<tr>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/json.html" target="_blank" rel="external">JSON</a></td>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/kafka.html" target="_blank" rel="external">Apache Kafka</a>, <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/filesystem.html" target="_blank" rel="external">Filesystem</a>, <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/elasticsearch.html" target="_blank" rel="external">Elasticsearch</a></td>
+</tr>
+<tr>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/avro.html" target="_blank" rel="external">Apache Avro</a></td>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/kafka.html" target="_blank" rel="external">Apache Kafka</a>, <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/filesystem.html" target="_blank" rel="external">Filesystem</a></td>
+</tr>
+<tr>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/debezium.html" target="_blank" rel="external">Debezium CDC</a></td>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/kafka.html" target="_blank" rel="external">Apache Kafka</a></td>
+</tr>
+<tr>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/canal.html" target="_blank" rel="external">Canal CDC</a></td>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/kafka.html" target="_blank" rel="external">Apache Kafka</a></td>
+</tr>
+<tr>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/parquet.html" target="_blank" rel="external">Apache Parquet</a></td>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/filesystem.html" target="_blank" rel="external">Filesystem</a></td>
+</tr>
+<tr>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/formats/orc.html" target="_blank" rel="external">Apache ORC</a></td>
+<td><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/dev/table/connectors/filesystem.html" target="_blank" rel="external">Filesystem</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用过程中的注意点"><a href="#使用过程中的注意点" class="headerlink" title="使用过程中的注意点"></a>使用过程中的注意点</h2><h3 id="使用MySQL-CDC的注意点"><a href="#使用MySQL-CDC的注意点" class="headerlink" title="使用MySQL CDC的注意点"></a>使用MySQL CDC的注意点</h3><p>如果要使用MySQL CDC connector，对于程序而言，需要添加如下依赖:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.ververica<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-connector-mysql-cdc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果要使用Flink SQL Client，需要添加如下jar包：<strong><a href="https://repo1.maven.org/maven2/com/alibaba/ververica/flink-sql-connector-mysql-cdc/1.0.0/flink-sql-connector-mysql-cdc-1.0.0.jar" target="_blank" rel="external">flink-sql-connector-mysql-cdc-1.0.0.jar</a></strong>，将该jar包放在Flink安装目录的lib文件夹下即可。</p>
+<h2 id="之前，-mysql-中需加入配置"><a href="#之前，-mysql-中需加入配置" class="headerlink" title="之前， mysql 中需加入配置"></a>之前， mysql 中需加入配置</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">server_id</span>=<span class="number">1</span></div><div class="line"><span class="attr">log_bin</span>=mysql-bin</div><div class="line"><span class="attr">binlog_format</span>=ROW</div><div class="line"><span class="attr">binlog_row_image</span>=FULL</div></pre></td></tr></table></figure>
+<p>重启mysql.</p>
+<h2 id="mysql-cdc的操作实践"><a href="#mysql-cdc的操作实践" class="headerlink" title="mysql-cdc的操作实践"></a>mysql-cdc的操作实践</h2><h3 id="创建MySQL数据源表"><a href="#创建MySQL数据源表" class="headerlink" title="创建MySQL数据源表"></a>创建MySQL数据源表</h3><p>在创建MySQL CDC表之前，需要先创建MySQL的数据表，如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- MySQL</span></div><div class="line"><span class="comment">/*Table structure for table `order_info` */</span></div><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`order_info`</span>;</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`order_info`</span> (</div><div class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'编号'</span>,</div><div class="line">  <span class="string">`consignee`</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'收货人'</span>,</div><div class="line">  <span class="string">`consignee_tel`</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'收件人电话'</span>,</div><div class="line">  <span class="string">`total_amount`</span> <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'总金额'</span>,</div><div class="line">  <span class="string">`order_status`</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'订单状态,1表示下单，2表示支付'</span>,</div><div class="line">  <span class="string">`user_id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'用户id'</span>,</div><div class="line">  <span class="string">`payment_way`</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'付款方式'</span>,</div><div class="line">  <span class="string">`delivery_address`</span> <span class="built_in">varchar</span>(<span class="number">1000</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'送货地址'</span>,</div><div class="line">  <span class="string">`order_comment`</span> <span class="built_in">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'订单备注'</span>,</div><div class="line">  <span class="string">`out_trade_no`</span> <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'订单交易编号（第三方支付用)'</span>,</div><div class="line">  <span class="string">`trade_body`</span> <span class="built_in">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'订单描述(第三方支付用)'</span>,</div><div class="line">  <span class="string">`create_time`</span> datetime <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</div><div class="line">  <span class="string">`operate_time`</span> datetime <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'操作时间'</span>,</div><div class="line">  <span class="string">`expire_time`</span> datetime <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'失效时间'</span>,</div><div class="line">  <span class="string">`tracking_no`</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'物流单编号'</span>,</div><div class="line">  <span class="string">`parent_order_id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'父订单编号'</span>,</div><div class="line">  <span class="string">`img_url`</span> <span class="built_in">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'图片路径'</span>,</div><div class="line">  <span class="string">`province_id`</span> <span class="built_in">int</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'地区'</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</div><div class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COMMENT</span>=<span class="string">'订单表'</span>;</div><div class="line"><span class="comment">-- ----------------------------</span></div><div class="line"><span class="comment">-- Records of order_info</span></div><div class="line"><span class="comment">-- ----------------------------</span></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_info`</span> </div><div class="line"><span class="keyword">VALUES</span> (<span class="number">476</span>, <span class="string">'lAXjcL'</span>, <span class="string">'13408115089'</span>, <span class="number">433.00</span>, <span class="string">'2'</span>, <span class="number">10</span>, <span class="string">'2'</span>, <span class="string">'OYyAdSdLxedceqovndCD'</span>, <span class="string">'ihjAYsSjrgJMQVdFQnSy'</span>, <span class="string">'8728720206'</span>, <span class="string">''</span>, <span class="string">'2020-06-18 02:21:38'</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">9</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_info`</span></div><div class="line"><span class="keyword">VALUES</span> (<span class="number">477</span>, <span class="string">'QLiFDb'</span>, <span class="string">'13415139984'</span>, <span class="number">772.00</span>, <span class="string">'1'</span>, <span class="number">90</span>, <span class="string">'2'</span>, <span class="string">'OizYrQbKuWvrvdfpkeSZ'</span>, <span class="string">'wiBhhqhMndCCgXwmWVQq'</span>, <span class="string">'1679381473'</span>, <span class="string">''</span>, <span class="string">'2020-06-18 09:12:25'</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">3</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_info`</span></div><div class="line"><span class="keyword">VALUES</span> (<span class="number">478</span>, <span class="string">'iwKjQD'</span>, <span class="string">'13320383859'</span>, <span class="number">88.00</span>, <span class="string">'1'</span>, <span class="number">107</span>, <span class="string">'1'</span>, <span class="string">'cbXLKtNHWOcWzJVBWdAs'</span>, <span class="string">'njjsnknHxsxhuCCeNDDi'</span>, <span class="string">'0937074290'</span>, <span class="string">''</span>, <span class="string">'2020-06-18 15:56:34'</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">7</span>);</div><div class="line"></div><div class="line"><span class="comment">/*Table structure for table `order_detail` */</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`order_detail`</span> (</div><div class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'编号'</span>,</div><div class="line">  <span class="string">`order_id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'订单编号'</span>,</div><div class="line">  <span class="string">`sku_id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'sku_id'</span>,</div><div class="line">  <span class="string">`sku_name`</span> <span class="built_in">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'sku名称（冗余)'</span>,</div><div class="line">  <span class="string">`img_url`</span> <span class="built_in">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'图片名称（冗余)'</span>,</div><div class="line">  <span class="string">`order_price`</span> <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'购买价格(下单时sku价格）'</span>,</div><div class="line">  <span class="string">`sku_num`</span> <span class="built_in">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'购买个数'</span>,</div><div class="line">  <span class="string">`create_time`</span> datetime <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</div><div class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COMMENT</span>=<span class="string">'订单明细表'</span>;</div><div class="line"></div><div class="line"><span class="comment">-- ----------------------------</span></div><div class="line"><span class="comment">-- Records of order_detail</span></div><div class="line"><span class="comment">-- ----------------------------</span></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_detail`</span> </div><div class="line"><span class="keyword">VALUES</span> (<span class="number">1329</span>, <span class="number">476</span>, <span class="number">8</span>, <span class="string">'Apple iPhone XS Max (A2104) 256GB 深空灰色 移动联通电信4G手机 双卡双待'</span>, <span class="string">'http://XLMByOyZDTJQYxphQHNTgYAFzJJCKTmCbzvEJIpz'</span>, <span class="number">8900.00</span>, <span class="string">'3'</span>, <span class="string">'2020-06-18 02:21:38'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_detail`</span> </div><div class="line"><span class="keyword">VALUES</span> (<span class="number">1330</span>, <span class="number">477</span>, <span class="number">9</span>, <span class="string">'荣耀10 GT游戏加速 AIS手持夜景 6GB+64GB 幻影蓝全网通 移动联通电信'</span>, <span class="string">'http://ixOCtlYmlxEEgUfPLiLdjMftzrleOEIBKSjrhMne'</span>, <span class="number">2452.00</span>, <span class="string">'4'</span>, <span class="string">'2020-06-18 09:12:25'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_detail`</span></div><div class="line"><span class="keyword">VALUES</span> (<span class="number">1331</span>, <span class="number">478</span>, <span class="number">4</span>, <span class="string">'小米Play 流光渐变AI双摄 4GB+64GB 梦幻蓝 全网通4G 双卡双待 小水滴全面屏拍照游戏智能手机'</span>, <span class="string">'http://RqfEFnAOqnqRnNZLFRvBuwXxwNBtptYJCILDKQYv'</span>, <span class="number">1442.00</span>, <span class="string">'1'</span>, <span class="string">'2020-06-18 15:56:34'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_detail`</span> </div><div class="line"><span class="keyword">VALUES</span> (<span class="number">1332</span>, <span class="number">478</span>, <span class="number">8</span>, <span class="string">'Apple iPhone XS Max (A2104) 256GB 深空灰色 移动联通电信4G手机 双卡双待'</span>, <span class="string">'http://IwhuCDlsiLenfKjPzbJrIoxswdfofKhJLMzlJAKV'</span>, <span class="number">8900.00</span>, <span class="string">'3'</span>, <span class="string">'2020-06-18 15:56:34'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`order_detail`</span> </div><div class="line"><span class="keyword">VALUES</span> (<span class="number">1333</span>, <span class="number">478</span>, <span class="number">8</span>, <span class="string">'Apple iPhone XS Max (A2104) 256GB 深空灰色 移动联通电信4G手机 双卡双待'</span>, <span class="string">'http://bbfwTbAzTWapywODzOtDJMJUEqNTeRTUQuCDkqXP'</span>, <span class="number">8900.00</span>, <span class="string">'1'</span>, <span class="string">'2020-06-18 15:56:34'</span>);</div></pre></td></tr></table></figure>
+<h3 id="Flink-SQL-Cli创建CDC数据源"><a href="#Flink-SQL-Cli创建CDC数据源" class="headerlink" title="Flink SQL Cli创建CDC数据源"></a>Flink SQL Cli创建CDC数据源</h3><p>启动 Flink 集群，再启动 SQL CLI,执行下面命令：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 创建订单信息表</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> order_info(</div><div class="line">    <span class="keyword">id</span> <span class="built_in">BIGINT</span>,</div><div class="line">    user_id <span class="built_in">BIGINT</span>,</div><div class="line">    create_time <span class="keyword">TIMESTAMP</span>(<span class="number">0</span>),</div><div class="line">    operate_time <span class="keyword">TIMESTAMP</span>(<span class="number">0</span>),</div><div class="line">    province_id <span class="built_in">INT</span>,</div><div class="line">    order_status <span class="keyword">STRING</span>,</div><div class="line">    total_amount <span class="built_in">DECIMAL</span>(<span class="number">10</span>, <span class="number">5</span>)</div><div class="line">  ) <span class="keyword">WITH</span> (</div><div class="line">    <span class="string">'connector'</span> = <span class="string">'mysql-cdc'</span>,</div><div class="line">    <span class="string">'hostname'</span> = <span class="string">'kms-1'</span>,</div><div class="line">    <span class="string">'port'</span> = <span class="string">'3306'</span>,</div><div class="line">    <span class="string">'username'</span> = <span class="string">'root'</span>,</div><div class="line">    <span class="string">'password'</span> = <span class="string">'123qwe'</span>,</div><div class="line">    <span class="string">'database-name'</span> = <span class="string">'mydw'</span>,</div><div class="line">    <span class="string">'table-name'</span> = <span class="string">'order_info'</span></div><div class="line">);</div></pre></td></tr></table></figure>
+<p>在Flink SQL Cli中查询该表的数据：result-mode: tableau，+表示数据的insert</p>
+<p><a href="https://jiamaoxiang.top/2020/08/12/Flink1-11中的CDC-Connectors操作实践/图1.png" target="_blank" rel="external"><img src="https://jiamaoxiang.top/2020/08/12/Flink1-11%E4%B8%AD%E7%9A%84CDC-Connectors%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/%E5%9B%BE1.png" alt="img"></a></p>
+<p>在SQL CLI中创建订单详情表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> order_detail(</div><div class="line">    <span class="keyword">id</span> <span class="built_in">BIGINT</span>,</div><div class="line">    order_id <span class="built_in">BIGINT</span>,</div><div class="line">    sku_id <span class="built_in">BIGINT</span>,</div><div class="line">    sku_name <span class="keyword">STRING</span>,</div><div class="line">    sku_num <span class="built_in">BIGINT</span>,</div><div class="line">    order_price <span class="built_in">DECIMAL</span>(<span class="number">10</span>, <span class="number">5</span>),</div><div class="line">	create_time <span class="keyword">TIMESTAMP</span>(<span class="number">0</span>)</div><div class="line"> ) <span class="keyword">WITH</span> (</div><div class="line">    <span class="string">'connector'</span> = <span class="string">'mysql-cdc'</span>,</div><div class="line">    <span class="string">'hostname'</span> = <span class="string">'kms-1'</span>,</div><div class="line">    <span class="string">'port'</span> = <span class="string">'3306'</span>,</div><div class="line">    <span class="string">'username'</span> = <span class="string">'root'</span>,</div><div class="line">    <span class="string">'password'</span> = <span class="string">'123qwe'</span>,</div><div class="line">    <span class="string">'database-name'</span> = <span class="string">'mydw'</span>,</div><div class="line">    <span class="string">'table-name'</span> = <span class="string">'order_detail'</span></div><div class="line">);</div></pre></td></tr></table></figure>
+<p>查询结果如下：</p>
+<p><a href="https://jiamaoxiang.top/2020/08/12/Flink1-11中的CDC-Connectors操作实践/图2.png" target="_blank" rel="external"><img src="https://jiamaoxiang.top/2020/08/12/Flink1-11%E4%B8%AD%E7%9A%84CDC-Connectors%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/%E5%9B%BE2.png" alt="img"></a></p>
+<p>执行JOIN操作：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span></div><div class="line">    od.id,</div><div class="line">    oi.id order_id,</div><div class="line">    oi.user_id,</div><div class="line">    oi.province_id,</div><div class="line">    od.sku_id,</div><div class="line">    od.sku_name,</div><div class="line">    od.sku_num,</div><div class="line">    od.order_price,</div><div class="line">    oi.create_time,</div><div class="line">    oi.operate_time</div><div class="line"><span class="keyword">FROM</span></div><div class="line">   (</div><div class="line">    <span class="keyword">SELECT</span> * </div><div class="line">    <span class="keyword">FROM</span> order_info</div><div class="line">    <span class="keyword">WHERE</span> </div><div class="line">	     order_status = <span class="string">'2'</span><span class="comment">-- 已支付</span></div><div class="line">   ) oi</div><div class="line">   <span class="keyword">JOIN</span></div><div class="line">  (</div><div class="line">    <span class="keyword">SELECT</span> *</div><div class="line">    <span class="keyword">FROM</span> order_detail</div><div class="line">  ) od </div><div class="line">  <span class="keyword">ON</span> oi.id = od.order_id;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/05/Headscale-之部署私有-DERP-中继服务器/" rel="next" title="Headscale 之部署私有 DERP 中继服务器">
+                <i class="fa fa-chevron-left"></i> Headscale 之部署私有 DERP 中继服务器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2022/09/17/大数据-实时计算Flink之FlinkSQL/"
+           data-title="大数据-实时计算Flink之FlinkSQL" data-url="http://peterfei.me/2022/09/17/大数据-实时计算Flink之FlinkSQL/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">2.2.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flink提供的-table-format"><span class="nav-number">3.</span> <span class="nav-text">Flink提供的 table format</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用过程中的注意点"><span class="nav-number">4.</span> <span class="nav-text">使用过程中的注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用MySQL-CDC的注意点"><span class="nav-number">4.1.</span> <span class="nav-text">使用MySQL CDC的注意点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#之前，-mysql-中需加入配置"><span class="nav-number">5.</span> <span class="nav-text">之前， mysql 中需加入配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-cdc的操作实践"><span class="nav-number">6.</span> <span class="nav-text">mysql-cdc的操作实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建MySQL数据源表"><span class="nav-number">6.1.</span> <span class="nav-text">创建MySQL数据源表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink-SQL-Cli创建CDC数据源"><span class="nav-number">6.2.</span> <span class="nav-text">Flink SQL Cli创建CDC数据源</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

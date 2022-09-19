@@ -231,6 +231,137 @@
             
               
                 
+                <a class="post-title-link" href="/2019/04/09/使用WPF加载Unity可执行程序/" itemprop="url">
+                  使用WPF加载Unity可执行程序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-09T11:23:31+08:00" content="2019-04-09">
+              2019-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/WPF/" itemprop="url" rel="index">
+                    <span itemprop="name">WPF</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/04/09/使用WPF加载Unity可执行程序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/04/09/使用WPF加载Unity可执行程序/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>  公司有开发wpf需求,模型主要是由Unity开发,导出后是<code>.exe</code>可执行程序,<br>外层是利用react-native编写界面,主要组件为react-native-windows,于是需要融合二者.<br>  首先是写入wpf调用外部<code>exe</code>组件:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Diagnostics;</div><div class="line"><span class="keyword">using</span> System.Runtime.InteropServices;</div><div class="line"><span class="keyword">using</span> System.Windows;</div><div class="line"><span class="keyword">using</span> System.Windows.Interop;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">Vesal_PC</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// GameHost is a FrameworkElement and can be added to controls like so:</span></div><div class="line">    <span class="comment">// var gameHost = new GameHost(container.ActualWidth, container.ActualHeight);</span></div><div class="line">    <span class="comment">// container.Child = gameHost;</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="comment">// Sources:</span></div><div class="line">    <span class="comment">// - https://msdn.microsoft.com/en-us/library/ms752055.aspx</span></div><div class="line">    <span class="comment">// - Another source I can't remember or find, concerning running a standalone Unity process using parentHWND parameter</span></div><div class="line">    </div><div class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">GameHost</span> : <span class="title">HwndHost</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> WS_CHILD = <span class="number">0x40000000</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> WS_VISIBLE = <span class="number">0x10000000</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> HOST_ID = <span class="number">0x00000002</span>;</div><div class="line"></div><div class="line">        <span class="keyword">private</span> IntPtr hwndHost;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">int</span> hostHeight, hostWidth;</div><div class="line"></div><div class="line">        <span class="keyword">private</span> Process process;</div><div class="line">        <span class="keyword">private</span> IntPtr unityHWND = IntPtr.Zero;</div><div class="line"></div><div class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> WM_ACTIVATE = <span class="number">0x0006</span>;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IntPtr WA_ACTIVE = <span class="keyword">new</span> IntPtr(<span class="number">1</span>);</div><div class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IntPtr WA_INACTIVE = <span class="keyword">new</span> IntPtr(<span class="number">0</span>);</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">GameHost</span>(<span class="params"><span class="keyword">double</span> width, <span class="keyword">double</span> height</span>)</span></div><div class="line">        &#123;</div><div class="line">            hostHeight = (<span class="keyword">int</span>)height;</div><div class="line">            hostWidth = (<span class="keyword">int</span>)width;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> HandleRef <span class="title">BuildWindowCore</span>(<span class="params">HandleRef hwndParent</span>)</span></div><div class="line">        &#123;</div><div class="line">            hwndHost = IntPtr.Zero;</div><div class="line"></div><div class="line">            hwndHost = CreateWindowEx(<span class="number">0</span>, <span class="string">"static"</span>, <span class="string">""</span>,</div><div class="line">                                      WS_CHILD | WS_VISIBLE,</div><div class="line">                                      <span class="number">0</span>, <span class="number">0</span>,</div><div class="line">                                      hostWidth, hostHeight,</div><div class="line">                                      hwndParent.Handle,</div><div class="line">                                      (IntPtr)HOST_ID,</div><div class="line">                                      IntPtr.Zero,</div><div class="line">                                      <span class="number">0</span>);</div><div class="line"></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">try</span></div><div class="line">                &#123;</div><div class="line">                    process = <span class="keyword">new</span> Process();</div><div class="line">                    process.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + <span class="string">"win/vesal.exe"</span>;</div><div class="line">                    process.StartInfo.Arguments = <span class="string">"-parentHWND "</span> + hwndHost.ToInt32() + <span class="string">" "</span> + Environment.CommandLine;</div><div class="line">                    process.StartInfo.UseShellExecute = <span class="literal">true</span>;</div><div class="line">                    process.StartInfo.CreateNoWindow = <span class="literal">true</span>;</div><div class="line"></div><div class="line">                    process.Start();</div><div class="line"></div><div class="line">                    process.WaitForInputIdle();</div><div class="line">                    <span class="comment">// Doesn't work for some reason ?!</span></div><div class="line">                    <span class="comment">//unityHWND = process.MainWindowHandle;</span></div><div class="line">                    EnumChildWindows(hwndHost, WindowEnum, IntPtr.Zero);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">catch</span> (Exception ex)</div><div class="line">                &#123;</div><div class="line">                    MessageBox.Show(ex.Message + <span class="string">"GameHost: Could not find game executable."</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> HandleRef(<span class="keyword">this</span>, hwndHost);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DestroyWindowCore</span>(<span class="params">HandleRef hwnd</span>)</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">try</span></div><div class="line">            &#123;</div><div class="line">                process.CloseMainWindow();</div><div class="line"></div><div class="line">                System.Threading.Thread.Sleep(<span class="number">1000</span>);</div><div class="line">                <span class="keyword">while</span> (process.HasExited == <span class="literal">false</span>)</div><div class="line">                    process.Kill();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span> (Exception)</div><div class="line">            &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            DestroyWindow(hwnd.Handle);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ActivateUnityWindow</span>(<span class="params"></span>)</span></div><div class="line">        &#123;</div><div class="line">            SendMessage(unityHWND, WM_ACTIVATE, WA_ACTIVE, IntPtr.Zero);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">DeactivateUnityWindow</span>(<span class="params"></span>)</span></div><div class="line">        &#123;</div><div class="line">            SendMessage(unityHWND, WM_ACTIVATE, WA_INACTIVE, IntPtr.Zero);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> IntPtr <span class="title">WndProc</span>(<span class="params">IntPtr hwnd, <span class="keyword">int</span> msg, IntPtr wParam, IntPtr lParam, <span class="keyword">ref</span> <span class="keyword">bool</span> handled</span>)</span></div><div class="line">        &#123;</div><div class="line">            handled = <span class="literal">false</span>;</div><div class="line">            <span class="keyword">return</span> IntPtr.Zero;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">WindowEnum</span>(<span class="params">IntPtr hwnd, IntPtr lparam</span>)</span></div><div class="line">        &#123;</div><div class="line">            unityHWND = hwnd;</div><div class="line">            ActivateUnityWindow();</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//PInvoke declarations</span></div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>, EntryPoint = <span class="string">"CreateWindowEx"</span>, CharSet = CharSet.Unicode)]</div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">extern</span> IntPtr <span class="title">CreateWindowEx</span>(<span class="params"><span class="keyword">int</span> dwExStyle,</span></span></div><div class="line">                                                      <span class="keyword">string</span> lpszClassName,</div><div class="line">                                                      <span class="keyword">string</span> lpszWindowName,</div><div class="line">                                                      <span class="keyword">int</span> style,</div><div class="line">                                                      <span class="keyword">int</span> x, <span class="keyword">int</span> y,</div><div class="line">                                                      <span class="keyword">int</span> width, <span class="keyword">int</span> height,</div><div class="line">                                                      IntPtr hwndParent,</div><div class="line">                                                      IntPtr hMenu,</div><div class="line">                                                      IntPtr hInst,</div><div class="line">                                                      [MarshalAs(UnmanagedType.AsAny)] <span class="keyword">object</span> pvParam);</div><div class="line"></div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>, EntryPoint = <span class="string">"DestroyWindow"</span>, CharSet = CharSet.Unicode)]</div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">DestroyWindow</span>(<span class="params">IntPtr hwnd</span>)</span>;</div><div class="line"></div><div class="line">        [DllImport(<span class="string">"User32.dll"</span>)]</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">MoveWindow</span>(<span class="params">IntPtr handle, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height, <span class="keyword">bool</span> redraw</span>)</span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">delegate</span> <span class="keyword">int</span> <span class="title">WindowEnumProc</span>(<span class="params">IntPtr hwnd, IntPtr lparam</span>)</span>;</div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>)]</div><div class="line">        <span class="function"><span class="keyword">internal</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">EnumChildWindows</span>(<span class="params">IntPtr hwnd, WindowEnumProc func, IntPtr lParam</span>)</span>;</div><div class="line"></div><div class="line">        [DllImport(<span class="string">"user32.dll"</span>)]</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">SendMessage</span>(<span class="params">IntPtr hWnd, <span class="keyword">int</span> msg, IntPtr wParam, IntPtr lParam</span>)</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编写react-native UnityView组件:</p>
+<blockquote>
+<p>ReactUnityManager.cs</p>
+</blockquote>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Copyright (c) Microsoft Corporation. All rights reserved.</span></div><div class="line"><span class="comment">// Portions derived from React Native:</span></div><div class="line"><span class="comment">// Copyright (c) 2015-present, Facebook, Inc.</span></div><div class="line"><span class="comment">// Licensed under the MIT License.</span></div><div class="line"></div><div class="line"><span class="keyword">using</span> Newtonsoft.Json.Linq;</div><div class="line"><span class="keyword">using</span> ReactNative.Collections;</div><div class="line"><span class="keyword">using</span> ReactNative.Modules.Image;</div><div class="line"><span class="keyword">using</span> ReactNative.UIManager;</div><div class="line"><span class="keyword">using</span> ReactNative.UIManager.Annotations;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Collections.Concurrent;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> System.Threading;</div><div class="line"><span class="keyword">using</span> System.Windows.Controls;</div><div class="line"></div><div class="line">namespace Vesal_PC</div><div class="line">&#123;</div><div class="line">    <span class="comment">/// &lt;summary&gt;</span></div><div class="line">    <span class="comment">/// The view manager responsible for rendering native images.</span></div><div class="line">    <span class="comment">/// &lt;/summary&gt;</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReactUnityManager</span> : <span class="title">SimpleViewManager</span>&lt;<span class="title">Border</span>&gt;</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">private</span> readonly ConcurrentDictionary&lt;Border, List&lt;KeyValuePair&lt;string, double&gt;&gt;&gt; _imageSources =</div><div class="line">            <span class="keyword">new</span> <span class="type">ConcurrentDictionary</span>&lt;Border, List&lt;KeyValuePair&lt;string, double&gt;&gt;&gt;();</div><div class="line">        Border view;</div><div class="line"></div><div class="line">        <span class="comment">/// &lt;summary&gt;</span></div><div class="line">        <span class="comment">/// The view manager name.</span></div><div class="line">        <span class="comment">/// &lt;/summary&gt;</span></div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> string Name</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">get</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">return</span> <span class="string">"RCTUnityView"</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/// &lt;summary&gt;</span></div><div class="line">        <span class="comment">/// The view manager event constants.</span></div><div class="line">        <span class="comment">/// &lt;/summary&gt;</span></div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> JObject CustomDirectEventTypeConstants</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">get</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">JObject</span></div><div class="line">                &#123;</div><div class="line">                    &#123;</div><div class="line">                        <span class="string">"topLoadStart"</span>,</div><div class="line">                        <span class="keyword">new</span> <span class="type">JObject</span></div><div class="line">                        &#123;</div><div class="line">                            &#123; <span class="string">"registrationName"</span>, <span class="string">"onLoadStart"</span> &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;,</div><div class="line">                    &#123;</div><div class="line">                        <span class="string">"topLoad"</span>,</div><div class="line">                        <span class="keyword">new</span> <span class="type">JObject</span></div><div class="line">                        &#123;</div><div class="line">                            &#123; <span class="string">"registrationName"</span>, <span class="string">"onLoad"</span> &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;,</div><div class="line">                    &#123;</div><div class="line">                        <span class="string">"topLoadEnd"</span>,</div><div class="line">                        <span class="keyword">new</span> <span class="type">JObject</span></div><div class="line">                        &#123;</div><div class="line">                            &#123; <span class="string">"registrationName"</span>, <span class="string">"onLoadEnd"</span> &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;,</div><div class="line">                    &#123;</div><div class="line">                        <span class="string">"topError"</span>,</div><div class="line">                        <span class="keyword">new</span> <span class="type">JObject</span></div><div class="line">                        &#123;</div><div class="line">                            &#123; <span class="string">"registrationName"</span>, <span class="string">"onError"</span> &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;,</div><div class="line">                &#125;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        </div><div class="line"></div><div class="line">        <span class="comment">/// &lt;summary&gt;</span></div><div class="line">        <span class="comment">/// Called when view is detached from view hierarchy and allows for </span></div><div class="line">        <span class="comment">/// additional cleanup.</span></div><div class="line">        <span class="comment">/// &lt;/summary&gt;</span></div><div class="line">        <span class="comment">/// &lt;param name="reactContext"&gt;The React context.&lt;/param&gt;</span></div><div class="line">        <span class="comment">/// &lt;param name="view"&gt;The view.&lt;/param&gt;</span></div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> void OnDropViewInstance(ThemedReactContext reactContext, Border view)</div><div class="line">        &#123;</div><div class="line">            base.OnDropViewInstance(reactContext, view);</div><div class="line"></div><div class="line">            _imageSources.TryRemove(view, out <span class="literal">_</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        [ReactPropGroup(</div><div class="line">            ViewProps.BorderWidth,</div><div class="line">            ViewProps.BorderLeftWidth,</div><div class="line">            ViewProps.BorderRightWidth,</div><div class="line">            ViewProps.BorderTopWidth,</div><div class="line">            ViewProps.BorderBottomWidth,</div><div class="line">            DefaultDouble = double.NaN)]</div><div class="line"></div><div class="line">         </div><div class="line">        <span class="keyword">public</span> void SetBorderWidth(Border view, int index, double width)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">var</span> _width = width;</div><div class="line">            <span class="comment">//view.SetBorderWidth(ViewProps.BorderSpacingTypes[index], width);</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">/// &lt;summary&gt;</span></div><div class="line">        <span class="comment">/// Creates the image view instance.</span></div><div class="line">        <span class="comment">/// &lt;/summary&gt;</span></div><div class="line">        <span class="comment">/// &lt;param name="reactContext"&gt;The React context.&lt;/param&gt;</span></div><div class="line">        <span class="comment">/// &lt;returns&gt;The image view instance.&lt;/returns&gt;</span></div><div class="line">        protected <span class="keyword">override</span> Border CreateViewInstance(ThemedReactContext reactContext)</div><div class="line">        &#123;</div><div class="line"></div><div class="line">           </div><div class="line">            <span class="keyword">var</span> border = <span class="keyword">new</span> <span class="type">Border</span></div><div class="line">            &#123;</div><div class="line">                </div><div class="line">            &#125;;</div><div class="line">            <span class="keyword">var</span> gameHost = <span class="keyword">new</span> <span class="type">GameHost</span>((int)MainWindow.mw.ActualWidth, (int)MainWindow.mw.ActualHeight<span class="number">-60</span>);</div><div class="line">            <span class="comment">// container.Child = gameHost;</span></div><div class="line">            border.Child = gameHost;</div><div class="line">            <span class="keyword">var</span> a = view;</div><div class="line">            <span class="keyword">return</span> border;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注册组件:</p>
+<blockquote>
+<p>MyReactPage.cs</p>
+</blockquote>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> ReactNative.Bridge;</div><div class="line"><span class="keyword">using</span> ReactNative.Modules.Core;</div><div class="line"><span class="keyword">using</span> ReactNative.UIManager;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> System.Linq;</div><div class="line"><span class="keyword">using</span> System.Text;</div><div class="line"><span class="keyword">using</span> System.Threading.Tasks;</div><div class="line"><span class="keyword">using</span> Vesal_PC.MyModel;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">Vesal_PC</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyReactPage</span> : <span class="title">IReactPackage</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> ReactContext context;</div><div class="line">        <span class="function"><span class="keyword">public</span> IReadOnlyList&lt;INativeModule&gt; <span class="title">CreateNativeModules</span>(<span class="params">ReactContext reactContext</span>)</span></div><div class="line">        &#123;</div><div class="line">            context = reactContext;</div><div class="line">            MyDialogModel mdm = <span class="keyword">new</span> MyDialogModel(reactContext);</div><div class="line">        </div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> List&lt;INativeModule&gt;</div><div class="line">        &#123;</div><div class="line">               mdm,</div><div class="line">        &#125;;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> IReadOnlyList&lt;IViewManager&gt; <span class="title">CreateViewManagers</span>(<span class="params">ReactContext reactContext</span>)</span></div><div class="line">        &#123;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> List&lt;IViewManager&gt; &#123;</div><div class="line">                    <span class="keyword">new</span> ReactUnityManager()</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>AppReactPage.cs</p>
+</blockquote>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> ReactNative;</div><div class="line"><span class="keyword">using</span> ReactNative.Bridge;</div><div class="line"><span class="keyword">using</span> ReactNative.Modules.Core;</div><div class="line"><span class="keyword">using</span> ReactNative.Shell;</div><div class="line"><span class="keyword">using</span> ReactNative.UIManager;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> ReactNative.Modules.Dialog;</div><div class="line"><span class="keyword">namespace</span> <span class="title">Vesal_PC</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">AppReactPage</span> : <span class="title">ReactPage</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> MainComponentName =&gt; <span class="string">"Vesal_PC"</span>;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> JavaScriptMainModuleName =&gt; <span class="string">"index"</span>;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> BUNDLE</span></div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> JavaScriptBundleFile =&gt; AppDomain.CurrentDomain.BaseDirectory + <span class="string">"ReactAssets/index.wpf.bundle"</span>;</div><div class="line">        </div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> List&lt;IReactPackage&gt; Packages =&gt; <span class="keyword">new</span> List&lt;IReactPackage&gt;</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">new</span> MainReactPackage(),</div><div class="line">            <span class="keyword">new</span> MyReactPage(),</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> UseDeveloperSupport</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">get</span></div><div class="line">            &#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> !BUNDLE || DEBUG</span></div><div class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        </div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>前端:</p>
+<blockquote>
+<p>UnityView.js </p>
+</blockquote>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; <span class="type">PropTypes</span>, <span class="type">Component</span> &#125; from <span class="string">"react"</span>;</div><div class="line"><span class="keyword">import</span> &#123; requireNativeComponent, <span class="type">View</span>, <span class="type">ViewPropTypes</span> &#125; from <span class="string">"react-native"</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnityView</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> &lt;<span class="type">RCTUnityView</span> &#123;...<span class="keyword">this</span>.props&#125; /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">module.exports = requireNativeComponent(<span class="string">"RCTUnityView"</span>, <span class="type">UnityView</span>);</div></pre></td></tr></table></figure>
+<p>使用:<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;UnityView <span class="built_in">style</span>=&#123;&#123;<span class="built_in">width</span>:<span class="number">1680</span>,<span class="built_in">height</span>:<span class="number">1050</span>&#125;&#125;/&gt;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/04/09/服务器监控脚本/" itemprop="url">
                   服务器监控脚本
                 </a>
@@ -674,123 +805,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/20/swift实现代理-通知-闭包传值/" itemprop="url">
-                  swift实现代理,通知,闭包传值
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-20T09:58:21+08:00" content="2016-12-20">
-              2016-12-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/20/swift实现代理-通知-闭包传值/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/20/swift实现代理-通知-闭包传值/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>第一就是代理，这也是很常用的方式，特点是一对一的形式，而且逻辑结构非常清晰。实现起来较为简单：写协议 ，设置代理这个属性， 最好在你想通知代理做事情的方法中调用即可。当然这里面有一些细节，包括 ①协议定义时，请用关键字@required，和@optional来明确代理是否必须实现某些方法 ②代理的类型需用id类型，并写明要遵守的协议 ③就是在调用代理方法的时候需要判断代理是否实现该方法。</p>
-<p>第二就是通知，通知的优点很明显，他是一对多的形式，而且可以在任意对象之间传递，不需要二者有联系，当然他的实现和代理相比较稍微绕一点，注册，发通知，收通知。这里面的注意点就是 ①对于系统没有定义的事件监听时需要自己发通知，这是你就需要定义一个key，字符串类型，这也是通知的一个弊端，你需要拷贝到收通知的对象，避免写错一个字母而无法收通知的尴尬 ②就是注册的通知中心需要手动移除，不然除了性能的问题还会有其他的问题出现，比如说一个控制器消失了之后还有因为某些事件而发出通知，造成不想要的结果。</p>
-<p>第三就是block了，这是苹果后来才加入的，也是目前开发比较常用的一种方式，功能比较强大，但是在理解和使用上可能需要一段时间摸索和熟悉。他的最大特点就是回调，而且回调时可以传入参数，最重要的是，无论在哪调用，block的执行都会回到block创建的地方执行，而非调用的地方。而block本身可以封装一段代码，一段代码你懂的，很多人在初学时会被搞晕，甚至在block的声明上就纠结，其实很正常，多用就好。</p>
-<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><p>如下面代码,我们定义了一个协议方法, 其结构就是protocol关键字+协议的名称 + : + NSObjectProtocol {},注意Swift中的自定义协议其本身必须遵循NSObjectProtocol协议</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">TextViewControllerDelegate</span>: <span class="title">NSObjectProtocol</span></span>&#123;</div><div class="line">    <span class="comment">// 点击delegate按钮回调</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">delegateBtnWillClick</span><span class="params">(message : String)</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>并且在OC中,我们一般会定义一个属性来保存代理如@property (nonatomic,weak)id&lt; TextViewControllerDelegate &gt; delegate;但是在Swift中我们依然要这样做,只不过写法变成了weak var delegate : TextViewControllerDelegate?,注意一定要加上weak关键字,避免循环引用问题.这是我的demo中的代码,回调一段字符串</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/<span class="type">MARK</span>: - 点击代理传值按钮</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">delegateBtnClick</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"代理传值按钮被点击"</span>)</div><div class="line">    <span class="keyword">let</span> str = <span class="string">"代理传值按钮被点击,把上个界面的值传了过来"</span></div><div class="line">    delegate?.delegateBtnWillClick(str)</div><div class="line">    <span class="keyword">self</span>.navigationController?.popViewControllerAnimated(<span class="literal">true</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后就在别的控制器,设置那个控制器为该控制器的代理,去实现协议方法就可以了</p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -837,7 +851,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
