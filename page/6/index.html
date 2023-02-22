@@ -231,6 +231,124 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/09/IOS-swift-UITabBarController-开发/" itemprop="url">
+                  IOS swift UITabBarController 开发
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-09T15:30:42+08:00" content="2016-09-09">
+              2016-09-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/09/IOS-swift-UITabBarController-开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/09/IOS-swift-UITabBarController-开发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Swift 开发中，省去storyboard,应用UITabBarController也可以生成:<br><img src="http://pic.yupoo.com/peterfei_s/FQ13FI9K/Pi7pg.png" alt="效果"><br>首页写<code>AppDelegate.swift</code>:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="meta">@UIApplicationMain</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDelegate</span>: <span class="title">UIResponder</span>, <span class="title">UIApplicationDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> window: <span class="type">UIWindow</span>?</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">        window = <span class="type">UIWindow</span>(frame:<span class="type">UIScreen</span>.mainScreen().bounds)</div><div class="line">        window?.rootViewController = <span class="type">YMTabBarController</span>()</div><div class="line">        window?.makeKeyAndVisible()</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationWillResignActive</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.</span></div><div class="line">        <span class="comment">// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationDidEnterBackground</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.</span></div><div class="line">        <span class="comment">// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationWillEnterForeground</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationDidBecomeActive</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationWillTerminate</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>YMTabBarController.swift:</em></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">YMTabBarController</span>: <span class="title">UITabBarController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        tabBar.tintColor = <span class="type">UIColor</span>(red: <span class="number">245</span> / <span class="number">255</span>, green: <span class="number">80</span> / <span class="number">255</span>, blue: <span class="number">83</span> / <span class="number">255</span>, alpha: <span class="number">1.0</span>)</div><div class="line">        </div><div class="line">        addChildViewControllers()</div><div class="line"></div><div class="line">        <span class="comment">// Do any additional setup after loading the view.</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">addChildViewControllers</span><span class="params">()</span></span>&#123;</div><div class="line">        addChildViewController(<span class="string">"YMDanTangViewController"</span>, title: <span class="string">"单糖"</span>, imageName: <span class="string">"TabBar_home_23x23_"</span>)</div><div class="line"><span class="comment">//        addChildViewController("YMProductViewController", title: "单品", imageName: "TabBar_gift_23x23_")</span></div><div class="line"><span class="comment">//        addChildViewController("YMCategoryViewController", title: "分类", imageName: "TabBar_category_23x23_")</span></div><div class="line">        addChildViewController(<span class="string">"YMMeViewController"</span>, title: <span class="string">"我"</span>, imageName: <span class="string">"TabBar_me_boy_23x23_"</span>)</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     # 初始化子控制器</div><div class="line">     </div><div class="line">     - parameter childControllerName: 需要初始化的控制器</div><div class="line">     - parameter title:               标题</div><div class="line">     - parameter imageName:           图片名称</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">addChildViewController</span><span class="params">(childControllerName: String, title: String, imageName: String)</span></span> &#123;</div><div class="line">        <span class="comment">// 动态获取命名空间</span></div><div class="line">        <span class="keyword">let</span> ns = <span class="type">NSBundle</span>.mainBundle().infoDictionary![<span class="string">"CFBundleExecutable"</span>] <span class="keyword">as</span>! <span class="type">String</span></div><div class="line">        <span class="comment">// 将字符串转化为类，默认情况下命名空间就是项目名称，但是命名空间可以修改</span></div><div class="line">        <span class="keyword">let</span> cls: <span class="type">AnyClass</span>? = <span class="type">NSClassFromString</span>(ns + <span class="string">"."</span> + childControllerName)</div><div class="line">        <span class="keyword">let</span> vcClass = cls <span class="keyword">as</span>! <span class="type">UIViewController</span>.<span class="type">Type</span></div><div class="line">        <span class="keyword">let</span> vc = vcClass.<span class="keyword">init</span>()</div><div class="line">        <span class="comment">// 设置对应的数据</span></div><div class="line">        vc.tabBarItem.image = <span class="type">UIImage</span>(named: imageName)</div><div class="line">        vc.tabBarItem.selectedImage = <span class="type">UIImage</span>(named: imageName + <span class="string">"selected"</span>)</div><div class="line">        vc.title = title</div><div class="line">        <span class="comment">// 给每个控制器包装一个导航控制器</span></div><div class="line">        <span class="keyword">let</span> nav = <span class="type">YMNavigationController</span>()</div><div class="line">        nav.addChildViewController(vc)</div><div class="line">        addChildViewController(nav)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里面有几个知识点：</p>
+<p>###如何通过字符串创建类对象</p>
+<pre><code>1. 在swift中打印对象时，会发现在类型前面总会有命名空间 .+类名
+2. 在swift中用字符串生成类对象就需要拼接成这样的格式，才能成功生成类
+3. 注意，命名空间不要加特殊符号，不然依然无法获取控制器类
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/1370647-d321f25de36b5d2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1370647-c7a027382a6a2048.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/04/swift中闭包使用/" itemprop="url">
                   swift中闭包使用
                 </a>
@@ -680,136 +798,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/13/Ruby-编程风格指南/" itemprop="url">
-                  Ruby 编程风格指南
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-13T10:39:16+08:00" content="2016-05-13">
-              2016-05-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Ruby/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/13/Ruby-编程风格指南/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/13/Ruby-编程风格指南/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="#源代码排版">源代码排版</a></li>
-<li><a href="#语法">语法</a></li>
-<li><a href="#命名">命名</a></li>
-<li><a href="#注释">注释</a><ul>
-<li><a href="#注解">注解</a></li>
-</ul>
-</li>
-<li><a href="#类与模块">类与模块</a></li>
-<li><a href="#异常">异常</a></li>
-<li><a href="#集合">集合</a></li>
-<li><a href="#数值">数值</a></li>
-<li><a href="#字符串">字符串</a></li>
-<li><a href="#正则表达式">正则表达式</a></li>
-<li><a href="#百分号字面量">百分号字面量</a></li>
-<li><a href="#元编程">元编程</a></li>
-<li><a href="#其他">其他</a></li>
-<li><a href="#工具">工具</a></li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/13/Ruby-编程风格指南/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -856,7 +844,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -924,7 +912,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

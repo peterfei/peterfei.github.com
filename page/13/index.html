@@ -231,6 +231,97 @@
             
               
                 
+                <a class="post-title-link" href="/2015/07/03/从octopress折腾果断切到hexo/" itemprop="url">
+                  从octopress折腾果断切到hexo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-03T21:05:40+08:00" content="2015-07-03">
+              2015-07-03
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/03/从octopress折腾果断切到hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/从octopress折腾果断切到hexo/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上次发博文记得是五月，中间mac更新了一次，ruby1.9.3 用不了，缺少组件，于是rebuild and reintall ruby, 折腾了一个钟左右，之后rake 生成文章，deploy 尽然上传不上去，又一个钟pass了。在种种不能忍受的情况下，果断切到hexo.真的是很很力呀！！！</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/07/03/IOS-打包script/" itemprop="url">
                   IOS 打包script
                 </a>
@@ -630,104 +721,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/09/27/2014-09-27-ruby-meta/" itemprop="url">
-                  ruby api设计
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-27T16:09:31+08:00" content="2014-09-27">
-              2014-09-27
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/09/27/2014-09-27-ruby-meta/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/27/2014-09-27-ruby-meta/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#先看一段source code<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">f = File.open(<span class="string">"myfile.txt"</span>, <span class="string">'w'</span>)</div><div class="line">f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</div><div class="line">f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</div><div class="line">f.close</div><div class="line">                <span class="params">||</span></div><div class="line">                \/</div><div class="line"><span class="comment"># using block</span></div><div class="line">File.open(<span class="string">"myfile.txt"</span>, <span class="string">'w'</span>) <span class="keyword">do</span> <span class="params">|f|</span></div><div class="line">  f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</div><div class="line">  f.write(<span class="string">"Lorem ipsum dolor sit amet"</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>#如上，是使用block后的效果，再来一段<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># without code block</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(msg)</span></span></div><div class="line">  socket = TCPSocket.new(@ip, @port) <span class="comment"># Pre-</span></div><div class="line">  socket.puts(msg)</div><div class="line">  response = socket.gets</div><div class="line">  <span class="keyword">ensure</span></div><div class="line">    socket.close <span class="comment"># Post-</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line">            <span class="params">||</span></div><div class="line">            \/</div><div class="line"><span class="comment"># with code block</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span><span class="params">(msg)</span></span></div><div class="line">  connection <span class="keyword">do</span> <span class="params">|socket|</span></div><div class="line">    socket.puts(<span class="string">"foobar"</span>)</div><div class="line">    socket.gets</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">connection</span></span></div><div class="line">  socket = TCPSocket.new(@ip, @port) <span class="comment"># Pre-</span></div><div class="line">    <span class="keyword">yield</span>(socket)</div><div class="line">    <span class="keyword">ensure</span></div><div class="line">      socket.close <span class="comment"># Post-</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>#Module 的使用<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></div><div class="line">   <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></div><div class="line">       puts <span class="string">"foo"</span></div><div class="line">   <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></div><div class="line">    <span class="keyword">include</span> Mixin</div><div class="line"><span class="keyword">end</span></div><div class="line">A.new.foo <span class="comment"># foo</span></div></pre></td></tr></table></figure></p>
-<p>.使用extend(Mod)<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></div><div class="line">        puts <span class="string">"foo"</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">￼<span class="class"><span class="keyword">class</span> <span class="title">A</span></span></div><div class="line">  extend Mixin</div><div class="line"><span class="keyword">end</span></div><div class="line">￼<span class="keyword">end</span></div><div class="line">A.extend(Mixin)</div><div class="line">A.foo <span class="comment"># class method</span></div><div class="line">the same as</div><div class="line">￼<span class="class"><span class="keyword">class</span> &lt;&lt; A</span></div><div class="line">  <span class="keyword">include</span> Mixin</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>.obj.extend(Mod)<br>如下<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></div><div class="line">     <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></div><div class="line">         puts <span class="string">"foo"</span></div><div class="line">     <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line">a = <span class="string">"test"</span></div><div class="line">a.extend(Mixin)</div><div class="line">a.foo <span class="comment"># foo</span></div><div class="line">the same as</div><div class="line"><span class="class"><span class="keyword">class</span> &lt;&lt; a</span></div><div class="line">  <span class="keyword">include</span> Mixin</div><div class="line"><span class="keyword">end</span></div><div class="line">b = <span class="string">"demo"</span></div><div class="line">b.foo <span class="comment"># NoMethodError</span></div></pre></td></tr></table></figure></p>
-<p>.Mixin with class methods<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></div><div class="line">    puts <span class="string">"foo"</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></div><div class="line">      puts <span class="string">"bar"</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span> </div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></div><div class="line">  <span class="keyword">include</span> Mixin</div><div class="line">  extend Mixin::ClassMethods</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>等同于如下代码：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></div><div class="line">  <span class="comment"># self.included is a hook method</span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">included</span><span class="params">(base)</span></span></div><div class="line">    base.extend(ClassMethods)</div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></div><div class="line">    puts <span class="string">"foo"</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></div><div class="line">      puts <span class="string">"bar"</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span> </div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></div><div class="line">  <span class="keyword">include</span> Mixin</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>等同于：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">Mixin</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">included</span><span class="params">(base)</span></span></div><div class="line">    base.extend(ClassMethods)</div><div class="line">    base.send(<span class="symbol">:include</span>, InstanceMethods)</div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="class"><span class="keyword">module</span> <span class="title">InstanceMethods</span></span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span></span></div><div class="line">      puts <span class="string">"foo"</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  <span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span></div><div class="line">      puts <span class="string">"bar"</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span> </div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></div><div class="line">  <span class="keyword">include</span> Mixin</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -774,7 +767,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -842,7 +835,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

@@ -231,6 +231,131 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/20/Swift高级篇/" itemprop="url">
+                  Swift高级篇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-20T13:55:50+08:00" content="2016-12-20">
+              2016-12-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/20/Swift高级篇/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/20/Swift高级篇/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="扩展-Extension"><a href="#扩展-Extension" class="headerlink" title="扩展(Extension)"></a>扩展(Extension)</h2><p>任务： 求数字的平方。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">square</span><span class="params">(x: Int)</span></span> -&gt; <span class="type">Int</span> &#123; <span class="keyword">return</span> x * x &#125;</div><div class="line"><span class="keyword">var</span> squaredOfFive = square(x: <span class="number">5</span>)</div><div class="line">square(x: squaredOfFive) <span class="comment">// 625</span></div></pre></td></tr></table></figure>
+<p>为了求5的四次方我们被迫创建变量 squaredOfFive — 高手可不喜欢被迫定义一个无用的变量。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Int</span> </span>&#123; </div><div class="line"> <span class="keyword">var</span> squared: <span class="type">Int</span> &#123; <span class="keyword">return</span> <span class="keyword">self</span> * <span class="keyword">self</span> &#125;</div><div class="line">&#125;</div><div class="line"><span class="number">5</span>.squared <span class="comment">// 25</span></div><div class="line"><span class="number">5</span>.squared.squared <span class="comment">// 625</span></div></pre></td></tr></table></figure>
+<h2 id="泛型-Generics"><a href="#泛型-Generics" class="headerlink" title="泛型(Generics)"></a>泛型(Generics)</h2><p>任务：打印输出数组内所有的元素。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">var</span> stringArray = [<span class="string">"苍老师"</span>, <span class="string">"范老师"</span>, <span class="string">"优衣库"</span>]</div><div class="line"><span class="selector-tag">var</span> intArray = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</div><div class="line"><span class="selector-tag">var</span> doubleArray = [<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>]</div><div class="line">func printStringArray(<span class="selector-tag">a</span>: [String]) &#123; </div><div class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; </div><div class="line">              print(s) </div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">func printIntArray(<span class="selector-tag">a</span>: [Int]) &#123; <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; print(i) &#125; &#125;</div><div class="line">func printDoubleArray(<span class="selector-tag">a</span>: [Double]) &#123;<span class="keyword">for</span> d <span class="keyword">in</span> <span class="selector-tag">a</span> &#123; print(d) &#125; &#125;</div></pre></td></tr></table></figure></p>
+<p>居然要定义这么多函数？ 菜鸟能忍高手不能忍！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printElementFromArray</span><span class="params">(a: [T])</span></span> &#123;</div><div class="line">        <span class="keyword">for</span> element <span class="keyword">in</span> a &#123; </div><div class="line">            <span class="built_in">print</span>(element) </div><div class="line">        &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="For-遍历-vs-While-遍历"><a href="#For-遍历-vs-While-遍历" class="headerlink" title="For 遍历 vs While 遍历"></a>For 遍历 vs While 遍历</h2><p>任务：打印 5 次 大雁塔</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">var</span> <span class="selector-tag">i</span> = <span class="number">0</span></div><div class="line">while <span class="number">5</span> &gt; <span class="selector-tag">i</span> &#123;</div><div class="line">      print(<span class="string">"大雁塔"</span>)</div><div class="line">      <span class="selector-tag">i</span> += <span class="number">1</span> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>被迫定义了变量 i 来确保打印大雁塔5次</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.5</span> &#123; </div><div class="line">    <span class="built_in">print</span>(<span class="string">"大雁塔"</span>) </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="计算属性-vs-函数"><a href="#计算属性-vs-函数" class="headerlink" title="计算属性 vs 函数"></a>计算属性 vs 函数</h2><p>任务：计算圆的直径<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="selector-tag">funcgetDiameter</span>(<span class="attribute">radius</span>: Double) <span class="selector-tag">-</span>&gt; <span class="selector-tag">Double</span> &#123; <span class="selector-tag">return</span> <span class="selector-tag">radius</span> * <span class="selector-tag">2</span>&#125;</div><div class="line"><span class="selector-tag">funcgetRadius</span>(<span class="attribute">diameter</span>: Double) <span class="selector-tag">-</span>&gt; <span class="selector-tag">Double</span> &#123; <span class="selector-tag">return</span> <span class="selector-tag">diameter</span> / <span class="selector-tag">2</span>&#125;</div><div class="line"><span class="selector-tag">getDiameter</span>(<span class="attribute">radius</span>: <span class="number">10</span>) <span class="comment">// return 20</span></div><div class="line"><span class="selector-tag">getRadius</span>(<span class="attribute">diameter</span>: <span class="number">200</span>) <span class="comment">// return 100</span></div><div class="line"><span class="selector-tag">getRadius</span>(<span class="attribute">diameter</span>: <span class="number">600</span>) <span class="comment">// return 300</span></div></pre></td></tr></table></figure></p>
+<p>上面我们创建了2个毫无关系的函数，可是直径和周长两者真的没有关系吗？<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line"><span class="keyword">var</span> radius: <span class="built_in">Double</span> = <span class="number">10</span></div><div class="line"><span class="keyword">var</span> diameter: <span class="built_in">Double</span> &#123;</div><div class="line">      <span class="keyword">get</span> &#123; <span class="keyword">return</span> radius * <span class="number">2</span>&#125;</div><div class="line">      <span class="keyword">set</span> &#123; radius = newValue / <span class="number">2</span>&#125; </div><div class="line">&#125;</div><div class="line">radius <span class="comment">// 10</span></div><div class="line">diameter <span class="comment">// 20</span></div><div class="line">diameter = <span class="number">1000</span></div><div class="line">radius <span class="comment">// 500</span></div></pre></td></tr></table></figure></p>
+<h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2><p>任务： 获取偶数。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 菜鸟版</span></div><div class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Evens</span> = [<span class="keyword">Int</span>]()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.10</span> &#123;</div><div class="line">  <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span> &#123; </div><div class="line">      <span class="keyword">new</span><span class="type">Evens</span>.append(i) </div><div class="line">    &#125; </div><div class="line">&#125;</div><div class="line">print(<span class="keyword">new</span><span class="type">Evens</span>) <span class="comment">// [2, 4, 6, 8, 10]</span></div></pre></td></tr></table></figure>
+<p>这种for循环真是冗长，让人看的昏昏欲睡。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 高手版</span></div><div class="line">var evens = (<span class="number">1.</span>.<span class="number">.10</span>).filter &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; </div><div class="line">print(evens) </div><div class="line"><span class="comment">// [2, 4, 6, 8, 10]</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/20/swift实现代理-通知-闭包传值/" itemprop="url">
                   swift实现代理,通知,闭包传值
                 </a>
@@ -663,124 +788,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/09/IOS-swift-UITabBarController-开发/" itemprop="url">
-                  IOS swift UITabBarController 开发
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-09T15:30:42+08:00" content="2016-09-09">
-              2016-09-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/09/IOS-swift-UITabBarController-开发/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/09/IOS-swift-UITabBarController-开发/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Swift 开发中，省去storyboard,应用UITabBarController也可以生成:<br><img src="http://pic.yupoo.com/peterfei_s/FQ13FI9K/Pi7pg.png" alt="效果"><br>首页写<code>AppDelegate.swift</code>:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="meta">@UIApplicationMain</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDelegate</span>: <span class="title">UIResponder</span>, <span class="title">UIApplicationDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> window: <span class="type">UIWindow</span>?</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">        window = <span class="type">UIWindow</span>(frame:<span class="type">UIScreen</span>.mainScreen().bounds)</div><div class="line">        window?.rootViewController = <span class="type">YMTabBarController</span>()</div><div class="line">        window?.makeKeyAndVisible()</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationWillResignActive</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.</span></div><div class="line">        <span class="comment">// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationDidEnterBackground</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.</span></div><div class="line">        <span class="comment">// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationWillEnterForeground</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationDidBecomeActive</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationWillTerminate</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><em>YMTabBarController.swift:</em></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">YMTabBarController</span>: <span class="title">UITabBarController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        tabBar.tintColor = <span class="type">UIColor</span>(red: <span class="number">245</span> / <span class="number">255</span>, green: <span class="number">80</span> / <span class="number">255</span>, blue: <span class="number">83</span> / <span class="number">255</span>, alpha: <span class="number">1.0</span>)</div><div class="line">        </div><div class="line">        addChildViewControllers()</div><div class="line"></div><div class="line">        <span class="comment">// Do any additional setup after loading the view.</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">addChildViewControllers</span><span class="params">()</span></span>&#123;</div><div class="line">        addChildViewController(<span class="string">"YMDanTangViewController"</span>, title: <span class="string">"单糖"</span>, imageName: <span class="string">"TabBar_home_23x23_"</span>)</div><div class="line"><span class="comment">//        addChildViewController("YMProductViewController", title: "单品", imageName: "TabBar_gift_23x23_")</span></div><div class="line"><span class="comment">//        addChildViewController("YMCategoryViewController", title: "分类", imageName: "TabBar_category_23x23_")</span></div><div class="line">        addChildViewController(<span class="string">"YMMeViewController"</span>, title: <span class="string">"我"</span>, imageName: <span class="string">"TabBar_me_boy_23x23_"</span>)</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     # 初始化子控制器</div><div class="line">     </div><div class="line">     - parameter childControllerName: 需要初始化的控制器</div><div class="line">     - parameter title:               标题</div><div class="line">     - parameter imageName:           图片名称</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">addChildViewController</span><span class="params">(childControllerName: String, title: String, imageName: String)</span></span> &#123;</div><div class="line">        <span class="comment">// 动态获取命名空间</span></div><div class="line">        <span class="keyword">let</span> ns = <span class="type">NSBundle</span>.mainBundle().infoDictionary![<span class="string">"CFBundleExecutable"</span>] <span class="keyword">as</span>! <span class="type">String</span></div><div class="line">        <span class="comment">// 将字符串转化为类，默认情况下命名空间就是项目名称，但是命名空间可以修改</span></div><div class="line">        <span class="keyword">let</span> cls: <span class="type">AnyClass</span>? = <span class="type">NSClassFromString</span>(ns + <span class="string">"."</span> + childControllerName)</div><div class="line">        <span class="keyword">let</span> vcClass = cls <span class="keyword">as</span>! <span class="type">UIViewController</span>.<span class="type">Type</span></div><div class="line">        <span class="keyword">let</span> vc = vcClass.<span class="keyword">init</span>()</div><div class="line">        <span class="comment">// 设置对应的数据</span></div><div class="line">        vc.tabBarItem.image = <span class="type">UIImage</span>(named: imageName)</div><div class="line">        vc.tabBarItem.selectedImage = <span class="type">UIImage</span>(named: imageName + <span class="string">"selected"</span>)</div><div class="line">        vc.title = title</div><div class="line">        <span class="comment">// 给每个控制器包装一个导航控制器</span></div><div class="line">        <span class="keyword">let</span> nav = <span class="type">YMNavigationController</span>()</div><div class="line">        nav.addChildViewController(vc)</div><div class="line">        addChildViewController(nav)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里面有几个知识点：</p>
-<p>###如何通过字符串创建类对象</p>
-<pre><code>1. 在swift中打印对象时，会发现在类型前面总会有命名空间 .+类名
-2. 在swift中用字符串生成类对象就需要拼接成这样的格式，才能成功生成类
-3. 注意，命名空间不要加特殊符号，不然依然无法获取控制器类
-</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/1370647-d321f25de36b5d2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1370647-c7a027382a6a2048.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -827,7 +834,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -895,7 +902,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
