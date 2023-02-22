@@ -231,6 +231,118 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/09/swift中的单例/" itemprop="url">
+                  swift中的单例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-09T17:51:27+08:00" content="2016-09-09">
+              2016-09-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/09/swift中的单例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/09/swift中的单例/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##关于单例<br>. 单例必须是唯一的，所以它才被称为单例。在一个应用程序的生命周期里，有且只有一个实例存在。单例的存在给我们提供了一个唯一的全局状态。比如我们熟悉的NSNotification，UIApplication和NSUserDefaults都是单例。<br>. 为了保持一个单例的唯一性，单例的构造器必须是私有的。这防止其他对象也能创建出单例类的实例。感谢所有帮我指出这点的人<br>. 为了确保单例在应用程序的整个生命周期是唯一的，它就必须是线程安全的。当你一想到并发肯定一阵恶心，简单来说，如果你写单例的方式是错误的，就有可能会有两个线程尝试在同一时间初始化同一个单例，这样你就有潜在的风险得到两个不同的单例。这就意味着我们需要用GCD的dispatch_once来确保初始化单例的代码在运行时只执行一次。</p>
+<h2 id="swift-中单例写法"><a href="#swift-中单例写法" class="headerlink" title="swift 中单例写法"></a>swift 中单例写法</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> <span class="title">TheOneAndOnlyKraken</span> &#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">let</span> sharedInstance = TheOneAndOnlyKraken()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="项目中的应用"><a href="#项目中的应用" class="headerlink" title="项目中的应用"></a>项目中的应用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">YMNetworkTool</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="comment">/// 单例</span></div><div class="line">    <span class="keyword">static</span> <span class="keyword">let</span> shareNetworkTool = <span class="type">YMNetworkTool</span>()</div><div class="line">    </div><div class="line">    <span class="comment">/// 获取首页数据</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">loadHomeInfo</span><span class="params">(id: Int, finished:<span class="params">(homeItems: [YMHomeItem])</span></span></span> -&gt; ()) &#123;</div><div class="line"><span class="comment">//        SVProgressHUD.showWithStatus("正在加载...")</span></div><div class="line">        <span class="keyword">let</span> url = <span class="type">BASE_URL</span> + <span class="string">"v1/channels/"</span> + <span class="type">String</span>(id) + <span class="string">"/items?gender=1&amp;generation=1&amp;limit=20&amp;offset=0"</span></div><div class="line">        <span class="type">Alamofire</span></div><div class="line">            .request(.<span class="type">GET</span>, url)</div><div class="line">            .responseJSON &#123; (response) <span class="keyword">in</span></div><div class="line">                <span class="keyword">guard</span> response.result.isSuccess <span class="keyword">else</span> &#123;</div><div class="line"><span class="comment">//                    SVProgressHUD.showErrorWithStatus("加载失败...")</span></div><div class="line">                    <span class="keyword">return</span></div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> <span class="keyword">let</span> value = response.result.value &#123;</div><div class="line">                    <span class="keyword">let</span> dict = <span class="type">JSON</span>(value)</div><div class="line">                    <span class="keyword">let</span> code = dict[<span class="string">"code"</span>].intValue</div><div class="line">                    <span class="keyword">let</span> message = dict[<span class="string">"message"</span>].stringValue</div><div class="line">                    <span class="keyword">guard</span> code == <span class="type">RETURN_OK</span> <span class="keyword">else</span> &#123;</div><div class="line"><span class="comment">//                        SVProgressHUD.showInfoWithStatus(message)</span></div><div class="line">                        <span class="keyword">return</span></div><div class="line">                    &#125;</div><div class="line">                    <span class="comment">// 移除加载提示</span></div><div class="line"><span class="comment">//                    SVProgressHUD.dismiss()</span></div><div class="line">                    <span class="keyword">let</span> data = dict[<span class="string">"data"</span>].dictionary</div><div class="line">                    <span class="comment">//  字典转成模型</span></div><div class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> items = data![<span class="string">"items"</span>]?.arrayObject &#123;</div><div class="line">                        <span class="keyword">var</span> homeItems = [<span class="type">YMHomeItem</span>]()</div><div class="line">                        <span class="keyword">for</span> item <span class="keyword">in</span> items &#123;</div><div class="line">                            <span class="keyword">let</span> homeItem = <span class="type">YMHomeItem</span>(dict: item <span class="keyword">as</span>! [<span class="type">String</span>: <span class="type">AnyObject</span>])</div><div class="line">                            homeItems.append(homeItem)</div><div class="line">                        &#125;</div><div class="line">                        finished(homeItems: homeItems)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/// 获取首页顶部选择数据</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">loadHomeTopData</span><span class="params">(finished:<span class="params">(ym_channels: [YMChannel])</span></span></span> -&gt; ()) &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> url = <span class="type">BASE_URL</span> + <span class="string">"v2/channels/preset?gender=1&amp;generation=1"</span></div><div class="line">        <span class="type">Alamofire</span></div><div class="line">            .request(.<span class="type">GET</span>, url)</div><div class="line">            .responseJSON &#123; (response) <span class="keyword">in</span></div><div class="line">                <span class="keyword">guard</span> response.result.isSuccess <span class="keyword">else</span> &#123;</div><div class="line"><span class="comment">//                    SVProgressHUD.showErrorWithStatus("加载失败...")</span></div><div class="line">                    <span class="keyword">return</span></div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> <span class="keyword">let</span> value = response.result.value &#123;</div><div class="line">                    <span class="keyword">let</span> dict = <span class="type">JSON</span>(value)</div><div class="line">                    <span class="keyword">let</span> code = dict[<span class="string">"code"</span>].intValue</div><div class="line">                    <span class="keyword">let</span> message = dict[<span class="string">"message"</span>].stringValue</div><div class="line">                    <span class="keyword">guard</span> code == <span class="type">RETURN_OK</span> <span class="keyword">else</span> &#123;</div><div class="line"><span class="comment">//                        SVProgressHUD.showInfoWithStatus(message)</span></div><div class="line">                        <span class="keyword">return</span></div><div class="line">                    &#125;</div><div class="line"><span class="comment">//                    SVProgressHUD.dismiss()</span></div><div class="line">                    <span class="keyword">let</span> data = dict[<span class="string">"data"</span>].dictionary</div><div class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> channels = data![<span class="string">"channels"</span>]?.arrayObject &#123;</div><div class="line">                        <span class="keyword">var</span> ym_channels = [<span class="type">YMChannel</span>]()</div><div class="line">                        <span class="keyword">for</span> channel <span class="keyword">in</span> channels &#123;</div><div class="line">                            <span class="keyword">let</span> ym_channel = <span class="type">YMChannel</span>(dict: channel <span class="keyword">as</span>! [<span class="type">String</span>: <span class="type">AnyObject</span>])</div><div class="line">                            ym_channels.append(ym_channel)</div><div class="line">                        &#125;</div><div class="line">                        finished(ym_channels: ym_channels)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/09/IOS-swift-UITabBarController-开发/" itemprop="url">
                   IOS swift UITabBarController 开发
                 </a>
@@ -687,117 +799,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="url">
-                  ionic 加载app,页面空白解决方案
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-21T10:55:25+08:00" content="2016-05-21">
-              2016-05-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Ionic/" itemprop="url" rel="index">
-                    <span itemprop="name">Ionic</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/21/ionic-加载app-页面空白解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"AutoHideSplashScreen"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"ShowSplashScreenSpinner"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"SplashMaintainAspectRatio"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"SplashShowOnlyFirstTime"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"SplashScreenDelay"</span> <span class="attr">value</span>=<span class="string">"10000"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"FadeSplashScreen"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">feature</span> <span class="attr">name</span>=<span class="string">"SplashScreen"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"android-package"</span> <span class="attr">value</span>=<span class="string">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">feature</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>在app.js里加入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.cordova &amp;&amp; <span class="built_in">window</span>.cordova.plugins &amp;&amp; <span class="built_in">window</span>.cordova.plugins.Keyboard) &#123;</div><div class="line">            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(<span class="literal">true</span>);</div><div class="line">            cordova.plugins.Keyboard.disableScroll(<span class="literal">true</span>);</div><div class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                navigator.splashscreen.hide();</div><div class="line">            &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -844,7 +845,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

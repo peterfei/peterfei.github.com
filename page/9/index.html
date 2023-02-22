@@ -231,6 +231,122 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/04/ionic-Jpush-IOS-配置/" itemprop="url">
+                  ionic jpush  IOS 配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-04T13:24:17+08:00" content="2015-12-04">
+              2015-12-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/04/ionic-Jpush-IOS-配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/ionic-Jpush-IOS-配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###添加 IOS 平台<br><code>$ ionic platform add ios</code></p>
+<p>###安装插件<br><code>ionic plugin add https://github.com/DongHongfei/jpush-phonegap-plugin.git</code></p>
+<p>###修改配置<br>修改: ionic_jpush\plugins\cn.jpush.phonegap.JPushPlugin\src\ios\PushConfig.plist 修改对应的APP_KEY和CHANNEL<br>确保有如下代码，不然后面 Xcode 运行会警告：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="type">key</span>&gt;APS_FOR_PRODUCTION&lt;/<span class="type">key</span>&gt;</div><div class="line">&lt;<span class="type">string</span>&gt;<span class="number">0</span>&lt;/<span class="type">string</span>&gt;</div></pre></td></tr></table></figure>
+<p>###编译 IOS 项目<br><code>$ ionic build ios</code></p>
+<p>###修改配置 IOS 项目<br>修改 AppDelegate.m</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> Licensed to the Apache Software Foundation (ASF) under one</div><div class="line"> or more contributor license agreements.  See the NOTICE file</div><div class="line"> distributed with this work for additional information</div><div class="line"> regarding copyright ownership.  The ASF licenses this file</div><div class="line"> to you under the Apache License, Version 2.0 (the</div><div class="line"> "License"); you may not use this file except in compliance</div><div class="line"> with the License.  You may obtain a copy of the License at</div><div class="line"> </div><div class="line"> http://www.apache.org/licenses/LICENSE-2.0</div><div class="line"> </div><div class="line"> Unless required by applicable law or agreed to in writing,</div><div class="line"> software distributed under the License is distributed on an</div><div class="line"> "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</div><div class="line"> KIND, either express or implied.  See the License for the</div><div class="line"> specific language governing permissions and limitations</div><div class="line"> under the License.</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  AppDelegate.m</span></div><div class="line"><span class="comment">//  ionic_jpush</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by ___FULLUSERNAME___ on ___DATE___.</span></div><div class="line"><span class="comment">//  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"MainViewController.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"APService.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"JPushPlugin.h"</span>  //viper</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Cordova/CDVPlugin.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AppDelegate</span></span></div><div class="line"></div><div class="line"><span class="keyword">@synthesize</span> window, viewController;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)init</div><div class="line">&#123;</div><div class="line">    <span class="comment">/** If you need to do any extra app-specific initialization, you can do it here</span></div><div class="line">     *  -jm</div><div class="line">     **/</div><div class="line">    <span class="built_in">NSHTTPCookieStorage</span>* cookieStorage = [<span class="built_in">NSHTTPCookieStorage</span> sharedHTTPCookieStorage];</div><div class="line">    </div><div class="line">    [cookieStorage setCookieAcceptPolicy:<span class="built_in">NSHTTPCookieAcceptPolicyAlways</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">int</span> cacheSizeMemory = <span class="number">8</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 8MB</span></div><div class="line">    <span class="keyword">int</span> cacheSizeDisk = <span class="number">32</span> * <span class="number">1024</span> * <span class="number">1024</span>; <span class="comment">// 32MB</span></div><div class="line"><span class="meta">#if __has_feature(objc_arc)</span></div><div class="line">    <span class="built_in">NSURLCache</span>* sharedCache = [[<span class="built_in">NSURLCache</span> alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:<span class="string">@"nsurlcache"</span>];</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="built_in">NSURLCache</span>* sharedCache = [[[<span class="built_in">NSURLCache</span> alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:<span class="string">@"nsurlcache"</span>] autorelease];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    [<span class="built_in">NSURLCache</span> setSharedURLCache:sharedCache];</div><div class="line">    </div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark UIApplicationDelegate implementation</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * This is main kick off after the app inits, the views and Settings are setup here. (preferred - iOS4 and up)</div><div class="line"> */</div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span>*)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span>*)launchOptions</div><div class="line">&#123;</div><div class="line">    <span class="built_in">CGRect</span> screenBounds = [[<span class="built_in">UIScreen</span> mainScreen] bounds];</div><div class="line">    </div><div class="line"><span class="meta">#if __has_feature(objc_arc)</span></div><div class="line">    <span class="keyword">self</span>.window = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:screenBounds];</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="keyword">self</span>.window = [[[<span class="built_in">UIWindow</span> alloc] initWithFrame:screenBounds] autorelease];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    <span class="keyword">self</span>.window.autoresizesSubviews = <span class="literal">YES</span>;</div><div class="line">    </div><div class="line"><span class="meta">#if __has_feature(objc_arc)</span></div><div class="line">    <span class="keyword">self</span>.viewController = [[MainViewController alloc] init];</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="keyword">self</span>.viewController = [[[MainViewController alloc] init] autorelease];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    </div><div class="line">    <span class="comment">// Set your app's start page by setting the &lt;content src='foo.html' /&gt; tag in config.xml.</span></div><div class="line">    <span class="comment">// If necessary, uncomment the line below to override it.</span></div><div class="line">    <span class="comment">// self.viewController.startPage = @"index.html";</span></div><div class="line">    </div><div class="line">    <span class="comment">// <span class="doctag">NOTE:</span> To customize the view's frame size (which defaults to full screen), override</span></div><div class="line">    <span class="comment">// [self.viewController viewWillAppear:] in your view controller.</span></div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.window.rootViewController = <span class="keyword">self</span>.viewController;</div><div class="line">    [<span class="keyword">self</span>.window makeKeyAndVisible];</div><div class="line">    </div><div class="line">    <span class="comment">// Required</span></div><div class="line"><span class="meta">#if __IPHONE_OS_VERSION_MAX_ALLOWED &gt; __IPHONE_7_1</span></div><div class="line">    <span class="keyword">if</span> ([[<span class="built_in">UIDevice</span> currentDevice].systemVersion floatValue] &gt;= <span class="number">8.0</span>) &#123;</div><div class="line">        <span class="comment">//可以添加自定义categories</span></div><div class="line">        [APService registerForRemoteNotificationTypes:(<span class="built_in">UIUserNotificationTypeBadge</span> |</div><div class="line">                                                       <span class="built_in">UIUserNotificationTypeSound</span> |</div><div class="line">                                                       <span class="built_in">UIUserNotificationTypeAlert</span>)</div><div class="line">                                           categories:<span class="literal">nil</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//categories 必须为nil</span></div><div class="line">        [APService registerForRemoteNotificationTypes:(<span class="built_in">UIRemoteNotificationTypeBadge</span> |</div><div class="line">                                                       <span class="built_in">UIRemoteNotificationTypeSound</span> |</div><div class="line">                                                       <span class="built_in">UIRemoteNotificationTypeAlert</span>)</div><div class="line">                                           categories:<span class="literal">nil</span>];</div><div class="line">    &#125;</div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="comment">//categories 必须为nil</span></div><div class="line">    [APService registerForRemoteNotificationTypes:(<span class="built_in">UIRemoteNotificationTypeBadge</span> |</div><div class="line">                                                   <span class="built_in">UIRemoteNotificationTypeSound</span> |</div><div class="line">                                                   <span class="built_in">UIRemoteNotificationTypeAlert</span>)</div><div class="line">                                       categories:<span class="literal">nil</span>];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    <span class="comment">// Required</span></div><div class="line">    [APService setupWithOption:launchOptions];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// this happens while we are running ( in the background, or from within our own app )</span></div><div class="line"><span class="comment">// only valid if ionic_jpush-Info.plist specifies a protocol to handle</span></div><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span>*)application openURL:(<span class="built_in">NSURL</span>*)url sourceApplication:(<span class="built_in">NSString</span>*)sourceApplication annotation:(<span class="keyword">id</span>)annotation</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!url) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// all plugins will get the notification, and their handlers will be called</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotification:[<span class="built_in">NSNotification</span> notificationWithName:CDVPluginHandleOpenURLNotification object:url]];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// repost all remote and local notification using the default NSNotificationCenter so multiple plugins may respond</span></div><div class="line">- (<span class="keyword">void</span>)            application:(<span class="built_in">UIApplication</span>*)application</div><div class="line">    didReceiveLocalNotification:(<span class="built_in">UILocalNotification</span>*)notification</div><div class="line">&#123;</div><div class="line">    <span class="comment">// re-post ( broadcast )</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVLocalNotification object:notification];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#ifndef DISABLE_PUSH_NOTIFICATIONS</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)                                 application:(<span class="built_in">UIApplication</span>*)application</div><div class="line">    didRegisterForRemoteNotificationsWithDeviceToken:(<span class="built_in">NSData</span>*)deviceToken</div><div class="line">&#123;</div><div class="line">    <span class="comment">// re-post ( broadcast )</span></div><div class="line">    <span class="built_in">NSString</span>* token = [[[[deviceToken description]</div><div class="line">                         stringByReplacingOccurrencesOfString:<span class="string">@"&lt;"</span> withString:<span class="string">@""</span>]</div><div class="line">                        stringByReplacingOccurrencesOfString:<span class="string">@"&gt;"</span> withString:<span class="string">@""</span>]</div><div class="line">                       stringByReplacingOccurrencesOfString:<span class="string">@" "</span> withString:<span class="string">@""</span>];</div><div class="line">    </div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVRemoteNotification object:token];</div><div class="line">    </div><div class="line">    <span class="comment">// Required</span></div><div class="line">    [APService registerDeviceToken:deviceToken];</div><div class="line">    [APService setDebugMode];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)                                 application:(<span class="built_in">UIApplication</span>*)application</div><div class="line">    didFailToRegisterForRemoteNotificationsWithError:(<span class="built_in">NSError</span>*)error</div><div class="line">&#123;</div><div class="line">    <span class="comment">// re-post ( broadcast )</span></div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:CDVRemoteNotificationError object:error];</div><div class="line">&#125;</div><div class="line"><span class="meta">#endif</span></div><div class="line"></div><div class="line">- (<span class="built_in">NSUInteger</span>)application:(<span class="built_in">UIApplication</span>*)application supportedInterfaceOrientationsForWindow:(<span class="built_in">UIWindow</span>*)window</div><div class="line">&#123;</div><div class="line">    <span class="comment">// iPhone doesn't support upside down by default, while the iPad does.  Override to allow all orientations always, and let the root view controller decide what's allowed (the supported orientations mask gets intersected).</span></div><div class="line">    <span class="built_in">NSUInteger</span> supportedInterfaceOrientations = (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationPortrait</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationLandscapeLeft</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationLandscapeRight</span>) | (<span class="number">1</span> &lt;&lt; <span class="built_in">UIInterfaceOrientationPortraitUpsideDown</span>);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> supportedInterfaceOrientations;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)applicationDidReceiveMemoryWarning:(<span class="built_in">UIApplication</span>*)application</div><div class="line">&#123;</div><div class="line">    [[<span class="built_in">NSURLCache</span> sharedURLCache] removeAllCachedResponses];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)application:(<span class="built_in">UIApplication</span> *)application didReceiveRemoteNotification:(<span class="built_in">NSDictionary</span> *)userInfo &#123;</div><div class="line">    <span class="comment">// Required</span></div><div class="line">    [APService handleRemoteNotification:userInfo];</div><div class="line">    <span class="built_in">BOOL</span> isActive;</div><div class="line">    <span class="keyword">if</span> (application.applicationState == <span class="built_in">UIApplicationStateActive</span>) &#123;</div><div class="line">        isActive = <span class="literal">TRUE</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        isActive = <span class="literal">FALSE</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">NSDictionary</span> *dict=[[<span class="built_in">NSMutableDictionary</span> alloc] initWithDictionary:userInfo];</div><div class="line">    </div><div class="line">    [dict setValue: [[<span class="built_in">NSNumber</span> alloc] initWithBool:isActive] forKey:<span class="string">@"isActive"</span> ];</div><div class="line">    </div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:kJPushPluginReceiveNotification</div><div class="line">                                                        object:dict] ;<span class="comment">//viper</span></div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/11/16/Ionic-ActionSheet-Android-样式/" itemprop="url">
                   Ionic ActionSheet Android 样式
                 </a>
@@ -412,7 +528,7 @@
           
             <blockquote>
 <p>在migration 里生成的文件写下如下要批量执行的sql:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">execute</span> &lt;&lt;-<span class="keyword">SQL</span></div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> distributors <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> zipchk <span class="keyword">CHECK</span> (<span class="keyword">char_length</span>(zipcode) = <span class="number">5</span>) <span class="keyword">NO</span> INHERIT;</div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> zipchk <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> board_time <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">COLLATE</span> utf8_unicode_ci <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'时间'</span>;      </div><div class="line">   SQL</div></pre></td></tr></table></figure></p>
-<p>执行一直报sql错误，下面是Google Group 社区给出的解决方案：<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sql = &lt;&lt;-SQL </div><div class="line"> &lt;statement_1&gt;; </div><div class="line"> &lt;statement_2&gt;; </div><div class="line"> &lt;statement_3&gt;; </div><div class="line">SQL </div><div class="line"></div><div class="line">sql.strip.<span class="built_in">split</span>(';').each <span class="built_in">do</span> |<span class="type">s</span>| </div><div class="line">  <span class="type">ActiveRecord</span>::Base.connection.execute(s) </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>执行一直报sql错误，下面是Google Group 社区给出的解决方案：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sql = &lt;&lt;-SQL </div><div class="line"> &lt;statement_1&gt;; </div><div class="line"> &lt;statement_2&gt;; </div><div class="line"> &lt;statement_3&gt;; </div><div class="line">SQL </div><div class="line"></div><div class="line">sql.strip.split(<span class="string">';'</span>).each <span class="keyword">do</span> <span class="params">|s|</span> </div><div class="line">  ActiveRecord::Base.connection.execute(s) </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
 </blockquote>
 
           
@@ -680,121 +796,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/04/Ionic-更新默认图标/" itemprop="url">
-                  Ionic 更新默认图标
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-04T13:52:01+08:00" content="2015-11-04">
-              2015-11-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Ionic/" itemprop="url" rel="index">
-                    <span itemprop="name">Ionic</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/04/Ionic-更新默认图标/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/04/Ionic-更新默认图标/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>项目中要替换ionic 默认的icon 图标，<code>Google</code> 一下，大多是让图标生成svg的格式，下面有一种比较容易的方式去实现：</p>
-<blockquote>
-<p>e.g. 在浏览器的调试模式，选中需要替换的图标，找到如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ion-ios-home-outline</span><span class="selector-pseudo">:before</span> &#123;</div><div class="line">    <span class="attribute">content</span>: <span class="string">"\f447"</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>在/img/找出要替换的icon图，如<code>car.png</code><br>在样式表里写入如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ion-ios-home-outline</span><span class="selector-pseudo">:before</span> &#123;</div><div class="line">    <span class="comment">/*content: "\f447";*/</span></div><div class="line">    <span class="attribute">content</span>: <span class="built_in">url</span>(<span class="string">'../img/car.png'</span>) <span class="meta">!important</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><img src="http://7xjzsc.com1.z0.glb.clouddn.com/icon-finsih.png" alt="效果图"></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -841,7 +842,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

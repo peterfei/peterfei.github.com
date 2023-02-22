@@ -231,6 +231,98 @@
             
               
                 
+                <a class="post-title-link" href="/2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="url">
+                  ROR layout+content_for 配合用法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-18T14:29:09+08:00" content="2014-09-18">
+              2014-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/18/2014-09-18-layout-plus-content-for/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/18/2014-09-18-layout-plus-content-for/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>content_for 一般要这样用才好<br>在view先找个地方声明</em><br><figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby"> content_for <span class="symbol">:head</span> <span class="keyword">do</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line">	 <span class="tag">&lt;<span class="name">%=</span></span><span class="ruby"> stylesheet_link_tag <span class="string">'projects'</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span><span class="ruby"> <span class="keyword">end</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>之后</p>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></div><div class="line"> 	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Todo List<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"> 	<span class="tag">&lt;<span class="name">%=</span></span><span class="ruby"> stylesheet_link_tag <span class="string">'application'</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"> 	<span class="tag">&lt;<span class="name">%=</span></span><span class="ruby"> <span class="keyword">yield</span> <span class="symbol">:head</span> </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/06/14/2013-06-14-jian-li-lei-fang-fa/" itemprop="url">
                   建立类方法
                 </a>
@@ -530,7 +622,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

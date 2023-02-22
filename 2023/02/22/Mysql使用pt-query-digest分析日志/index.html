@@ -1,0 +1,802 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="peterfei.me,peterfei" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="1. 开启慢查询日志（1）首先我们要创建一个文件夹用于保存慢查询日志文件，并且设置 mysql 有权读写该目录：
+1mkdir` `/``var``/log/mysql``sudo ``chown` `mysql:mysql -R /``var``/log/mysql
+（2）我们可以登入 mysql 命令行后执行如下命令，使用 set 设置变量来临时开启。注意这种方式重启服务即失效。
+1set `">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql使用pt-query-digest分析日志">
+<meta property="og:url" content="http://peterfei.me/2023/02/22/Mysql使用pt-query-digest分析日志/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="1. 开启慢查询日志（1）首先我们要创建一个文件夹用于保存慢查询日志文件，并且设置 mysql 有权读写该目录：
+1mkdir` `/``var``/log/mysql``sudo ``chown` `mysql:mysql -R /``var``/log/mysql
+（2）我们可以登入 mysql 命令行后执行如下命令，使用 set 设置变量来临时开启。注意这种方式重启服务即失效。
+1set `">
+<meta property="og:updated_time" content="2023-02-22T07:21:03.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql使用pt-query-digest分析日志">
+<meta name="twitter:description" content="1. 开启慢查询日志（1）首先我们要创建一个文件夹用于保存慢查询日志文件，并且设置 mysql 有权读写该目录：
+1mkdir` `/``var``/log/mysql``sudo ``chown` `mysql:mysql -R /``var``/log/mysql
+（2）我们可以登入 mysql 命令行后执行如下命令，使用 set 设置变量来临时开启。注意这种方式重启服务即失效。
+1set `">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Mysql使用pt-query-digest分析日志 | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mysql使用pt-query-digest分析日志
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2023-02-22T15:16:20+08:00" content="2023-02-22">
+              2023-02-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2023/02/22/Mysql使用pt-query-digest分析日志/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2023/02/22/Mysql使用pt-query-digest分析日志/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-开启慢查询日志"><a href="#1-开启慢查询日志" class="headerlink" title="1. 开启慢查询日志"></a>1. 开启慢查询日志</h3><p>（1）首先我们要创建一个文件夹用于保存慢查询日志文件，并且设置 <strong>mysql</strong> 有权读写该目录：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir` `/``var``/log/mysql``sudo ``chown` `mysql:mysql -R /``var``/log/mysql</div></pre></td></tr></table></figure>
+<p>（2）我们可以登入 <strong>mysql</strong> 命令行后执行如下命令，使用 <strong>set</strong> 设置变量来临时开启。注意这种方式重启服务即失效。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>slow_query_log=<span class="keyword">on</span>; ``//开启慢查询功能``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>slow_query_log_file=<span class="string">``</span><span class="string">'/var/log/mysql/mysql-slow.log'</span><span class="string">``</span>; ``//指定慢查询日志文件位置``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>log_queries_not_using_indexes=<span class="keyword">on</span>;  ``//记录没有使用索引的查询（非必须）``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>long_query_time=<span class="number">1</span>;  ``//只记录处理时间1s以上的慢查询</div></pre></td></tr></table></figure>
+<p>（3）或者我们也可以通过修改配置文件来永久开启慢查询日志功能，首先编辑配置文件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">vi</span> /etc/my.<span class="keyword">cnf</span></div></pre></td></tr></table></figure>
+<ul>
+<li>然后在里面添加如下高亮配置：</li>
+</ul>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[mysqld]``slow_query_log=on #开启慢查询功能``slow_query_log_file=``<span class="string">'/var/log/mysql/mysql-slow.log'</span>` `#指定慢查询日志文件位置``log_queries_not_using_indexes=on  #记录没有使用索引的查询（非必须）``long_query_time=<span class="number">1</span>  #只记录处理时间<span class="number">1</span>s以上的慢查询</div></pre></td></tr></table></figure>
+<ul>
+<li>保存关闭文件后，执行如下命令重启 <strong>mysql</strong> 即可：</li>
+</ul>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">service mysqld restart</span></div></pre></td></tr></table></figure>
+<h3 id="2-查看慢查询功能是否开启"><a href="#2-查看慢查询功能是否开启" class="headerlink" title="2. 查看慢查询功能是否开启"></a>2. 查看慢查询功能是否开启</h3><p>（1）登入 <strong>mysql</strong> 命令行后执行如下命令可以查看慢查询开启状态，以及慢查询日志存放的位置：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">``</span><span class="string">'slow_query%'</span><span class="string">``</span>;</div></pre></td></tr></table></figure>
+<p>（2）执行如下命令可以查看查询超过多少秒才记录：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">``</span><span class="string">'long_query_time'</span><span class="string">``</span>;</div></pre></td></tr></table></figure>
+<h3 id="3-慢查询测试"><a href="#3-慢查询测试" class="headerlink" title="3. 慢查询测试"></a>3. 慢查询测试</h3><p>（1）首先我们执行一个如下的 <strong>sql</strong>，模拟一个 <strong>2</strong> 秒的慢查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">sleep</span>(<span class="number">2</span>);</div></pre></td></tr></table></figure>
+<p>（2）查看日志可以发现这个慢查询已经被记录：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /``var``/log/mysql/mysql-slow.log</div></pre></td></tr></table></figure>
+<h2 id="使用-pt-query-digest-工具分析慢查询日志"><a href="#使用-pt-query-digest-工具分析慢查询日志" class="headerlink" title="使用 pt-query-digest 工具分析慢查询日志"></a>使用 pt-query-digest 工具分析慢查询日志</h2><h3 id="1，工具安装"><a href="#1，工具安装" class="headerlink" title="1，工具安装"></a>1，工具安装</h3><p>（1）首先我们执行如下命令将 <strong>rpm</strong> 包下载到本地：</p>
+<p><strong>注意</strong>：如果下载不下来也可访问其官网（<a href="https://www.percona.com/downloads/percona-toolkit/3.2.1/binary/redhat/7/" target="_blank" rel="external">点击打开</a>），手动下载下来再上传到服务器上。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https:``<span class="regexp">//</span>downloads.percona.com<span class="regexp">/downloads/</span>percona-toolkit<span class="regexp">/3.2.1/</span>binary<span class="regexp">/redhat/</span><span class="number">7</span><span class="regexp">/x86_64/</span>percona-toolkit-<span class="number">3.2</span>.<span class="number">1</span>-<span class="number">1</span>.el7.x86_64.rpm</div></pre></td></tr></table></figure>
+<p>（2）接着使用 <strong>yum</strong> 命令进行安装：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">yum</span> <span class="selector-tag">install</span> <span class="selector-tag">-y</span> <span class="selector-tag">percona-toolkit-3</span><span class="selector-class">.2</span><span class="selector-class">.1-1</span><span class="selector-class">.el7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></div></pre></td></tr></table></figure>
+<h3 id="2-分析慢查询日志"><a href="#2-分析慢查询日志" class="headerlink" title="2. 分析慢查询日志"></a>2. 分析慢查询日志</h3><p>（1）执行如下命令可以分析指定的慢查询日志文件：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest /``var``/log/mysql/mysql-slow.log</div></pre></td></tr></table></figure>
+<p>（2）分析结果分为三部分，第一部分是总体统计结果：</p>
+<ul>
+<li><strong>Overall</strong>：总共有多少条查询</li>
+<li><strong>Time range</strong>：查询执行的时间范围</li>
+<li><strong>unique</strong>：唯一查询数量，即对查询条件进行参数化以后，总共有多少个不同的查询</li>
+<li><strong>total</strong>：所有查询总计时长</li>
+<li><strong>min</strong>：所有查询最小时长</li>
+<li><strong>max</strong>：所有查询最大时长</li>
+<li><strong>avg</strong>：所有查询平均时长</li>
+<li><strong>95%</strong>：把所有时长值从小到大排列，位置位于 <strong>95%</strong> 的那个时长数，这个数一般最具有参考价值</li>
+<li><strong>median</strong>：中位数，把所有时长值从小到大排列，位置位于中间那个时长数</li>
+</ul>
+<p>（3）第二部分是查询分组统计结果：</p>
+<ul>
+<li><strong>Rank</strong>：所有语句的排名，默认按查询时间降序排列，通过 <strong>–order-by</strong> 指定</li>
+<li><strong>Query ID</strong>：语句的 <strong>ID</strong>（去掉多余空格和文本字符，计算 <strong>hash</strong> 值）</li>
+<li><strong>Response</strong>：总的响应时间</li>
+<li><strong>time</strong>：该查询在本次分析中总的时间占比</li>
+<li><strong>Calls</strong>：执行次数，即本次分析总共有多少条这种类型的查询语句</li>
+<li><strong>R/Call</strong>：平均每次执行的响应时间</li>
+<li><strong>V/M</strong>：响应时间 <strong>Variance-to-mean</strong> 的比率</li>
+<li><strong>Item</strong>：查询对象</li>
+</ul>
+<p>（4）第三部分是每一种查询比较慢的 <strong>sql</strong> 的详细统计结果：</p>
+<ul>
+<li><strong>pct</strong>：该 <strong>sql</strong> 语句某执行属性占所有慢查询语句某执行属性的百分比</li>
+<li><strong>total</strong>：该 <strong>sql</strong> 语句某执行属性的所有属性时间。</li>
+<li><strong>Count</strong>：<strong>sql</strong> 语句执行的次数。对应的 <strong>pct</strong> 表示此 <strong>sql</strong> 语句执行次数占所有慢查询语句执行次数的 <strong>%</strong> 比（下图为 <strong>10%</strong>），对应的 <strong>total</strong> 表示总共执行了 <strong>3</strong> 次。</li>
+<li><strong>Exec time</strong>：<strong>sql</strong> 执行时间</li>
+<li><strong>Lock time</strong>：<strong>sql</strong> 执行期间被锁定的时间</li>
+<li><strong>Rows sent</strong>：传输的有效数据，在 <strong>select</strong> 查询语句中才有值</li>
+<li><strong>Rows examine</strong>：总共查询的数据，非目标数据。</li>
+<li><strong>Query_time distribution</strong>：查询时间分布</li>
+<li><strong>SQL</strong> 语句：下图中为 <strong>select sleep(7)\G</strong></li>
+</ul>
+<h3 id="3-进阶用法"><a href="#3-进阶用法" class="headerlink" title="3. 进阶用法"></a>3. 进阶用法</h3><p>（1）分析 <strong>slow.log</strong> 日志，并将分析报告输入到 <strong>slow_report.log</strong> 中：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest slow.<span class="keyword">log</span> &gt; slow_report.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p>（2）分析最近 <strong>12</strong> 小时内的查询：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --since=12h slow.<span class="keyword">log</span> &gt; slow_report2.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p>（3）分析指定时间范围内的查询：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest slow.log --since ``<span class="string">'2020-04-17 09:30:00'</span>` `--until ``<span class="string">'2020-04-17 10:00:00'</span>` `&gt; slow_report3.log</div></pre></td></tr></table></figure>
+<p>（4）分析指含有 <strong>select</strong> 语句的慢查询：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest --<span class="keyword">filter</span> <span class="string">``</span><span class="string">'$event-&gt;&#123;fingerprint&#125; =~ m/^select/i'</span><span class="string">` `</span>slow.<span class="keyword">log</span>&gt; slow_report4.<span class="keyword">log</span></div></pre></td></tr></table></figure>
+<p>（5）针对某个用户的慢查询：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest --<span class="keyword">filter</span> <span class="string">``</span><span class="string">'($event-&gt;&#123;user&#125; || "") =~ m/^root/i'</span><span class="string">` `</span>slow.<span class="keyword">log</span>&gt; slow_report5.<span class="keyword">log</span></div></pre></td></tr></table></figure>
+<p>（6）查询所有的全表扫描或 <strong>full join</strong> 的慢查询：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --filter ``'((<span class="variable">$event</span>-&gt;&#123;Full_scan&#125; || <span class="string">""</span>) <span class="keyword">eq</span> <span class="string">"yes"</span>) ||((<span class="variable">$event</span>-&gt;&#123;Full_join&#125; || <span class="string">""</span>) <span class="keyword">eq</span> <span class="string">"yes"</span>)'` `slow.<span class="keyword">log</span>&gt; slow_report6.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p>（7）把查询保存到 <strong>query_review</strong> 表：</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">pt-query-</span><span class="string">digest </span><span class="built_in">--user=root</span> –<span class="string">password=</span><span class="string">abc123 </span><span class="built_in">--review</span> h=<span class="string">localhost,</span>D=<span class="string">test,</span>t=<span class="string">query_review-</span>-<span class="built_in">create-review-table</span> <span class="string">slow.</span><span class="string">log</span></div></pre></td></tr></table></figure>
+<p>（8）通过 <strong>tcpdump</strong> 抓取 <strong>mysql</strong> 的 <strong>tcp</strong> 协议数据，然后再分析：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpdump -s <span class="number">65535</span> -x -nn -<span class="selector-tag">q</span> -tttt -<span class="selector-tag">i</span> any -c <span class="number">1000</span> port <span class="number">3306</span> &gt; mysql<span class="selector-class">.tcp</span><span class="selector-class">.txt</span>``pt-query-digest --type tcpdump mysql<span class="selector-class">.tcp</span><span class="selector-class">.txt</span>&gt; slow_report9.log</div></pre></td></tr></table></figure>
+<p>（9）分析 <strong>binlog</strong>：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqlbinlog mysql-<span class="keyword">bin.000093 </span>&gt; mysql-<span class="keyword">bin000093.sql``pt-query-digest </span>--type=<span class="keyword">binlog </span>mysql-<span class="keyword">bin000093.sql </span>&gt; slow_report10.log</div></pre></td></tr></table></figure>
+<p>（10）分析 <strong>general log</strong>：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --<span class="keyword">type</span>=genlog localhost.<span class="keyword">log</span> &gt; slow_report11.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/02/09/Elastic-使用极限网关进行数据双向切换/" rel="next" title="Elastic 使用极限网关进行数据双向切换">
+                <i class="fa fa-chevron-left"></i> Elastic 使用极限网关进行数据双向切换
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2023/02/22/Mysql使用pt-query-digest分析日志/"
+           data-title="Mysql使用pt-query-digest分析日志" data-url="http://peterfei.me/2023/02/22/Mysql使用pt-query-digest分析日志/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-开启慢查询日志"><span class="nav-number">1.</span> <span class="nav-text">1. 开启慢查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看慢查询功能是否开启"><span class="nav-number">2.</span> <span class="nav-text">2. 查看慢查询功能是否开启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-慢查询测试"><span class="nav-number">3.</span> <span class="nav-text">3. 慢查询测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-pt-query-digest-工具分析慢查询日志"><span class="nav-number"></span> <span class="nav-text">使用 pt-query-digest 工具分析慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1，工具安装"><span class="nav-number">1.</span> <span class="nav-text">1，工具安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分析慢查询日志"><span class="nav-number">2.</span> <span class="nav-text">2. 分析慢查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-进阶用法"><span class="nav-number">3.</span> <span class="nav-text">3. 进阶用法</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>
