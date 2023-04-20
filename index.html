@@ -231,6 +231,166 @@
             
               
                 
+                <a class="post-title-link" href="/2023/04/18/Kafka入门及进阶/" itemprop="url">
+                  Kafka入门及进阶段
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2023-04-18T09:19:14+08:00" content="2023-04-18">
+              2023-04-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2023/04/18/Kafka入门及进阶/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2023/04/18/Kafka入门及进阶/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-1-Kafka入门"><a href="#1-1-Kafka入门" class="headerlink" title="1.1 Kafka入门"></a>1.1 Kafka入门</h2><h2 id="一、Kafka-是什么？"><a href="#一、Kafka-是什么？" class="headerlink" title="一、Kafka 是什么？"></a>一、Kafka 是什么？</h2><p>有人说世界上有三个伟大的发明：火，轮子，以及 Kafka。</p>
+<p>发展到现在，Apache Kafka 无疑是很成功的，Confluent 公司曾表示世界五百强中有三分之一的企业在使用 Kafka。在流式计算中，Kafka 一般用来缓存数据，例如 Flink 通过消费 Kafka 的数据进行计算。</p>
+<p><img src="https://ucc.alicdn.com/images/user-upload-01/20200915160628313.png#pic_center" alt="image"></p>
+<p>关于Kafka，我们最开始需要了解的是以下四点：</p>
+<p>1.Apache Kafka 是一个开源 消息 系统，由 Scala 写成。是由 Apache 软件基金会开发的 一个开源消息系统项目。</p>
+<p>2.Kafka 最初是由 LinkedIn 公司开发，用作 LinkedIn 的活动流（Activity Stream）和运营数据处理管道（Pipeline）的基础，现在它已被多家不同类型的公司作为多种类型的数据管道和消息系统使用。</p>
+<p>3.Kafka 是一个分布式消息队列。Kafka 对消息保存时根据 Topic 进行归类，发送消息 者称为 Producer，消息接受者称为 Consumer，此外 kafka 集群有多个 kafka 实例组成，每个 实例(server)称为 broker。</p>
+<p>4.无论是 kafka 集群，还是 consumer 都依赖于 Zookeeper 集群保存一些 meta 信息， 来保证系统可用性。</p>
+<h2 id="二、为什么要有-Kafka"><a href="#二、为什么要有-Kafka" class="headerlink" title="二、为什么要有 Kafka?"></a>二、为什么要有 Kafka?</h2><p>kafka 之所以受到越来越多的青睐，与它所扮演的三大角色是分不开的的：</p>
+<p>消息系统：kafka与传统的消息中间件都具备系统解耦、冗余存储、流量削峰、缓冲、异步通信、扩展性、可恢复性等功能。与此同时，kafka还提供了大多数消息系统难以实现的消息顺序性保障及回溯性消费的功能。</p>
+<p>存储系统：kafka把消息持久化到磁盘，相比于其他基于内存存储的系统而言，有效的降低了消息丢失的风险。这得益于其消息持久化和多副本机制。也可以将kafka作为长期的存储系统来使用，只需要把对应的数据保留策略设置为“永久”或启用主题日志压缩功能。</p>
+<p>流式处理平台：kafka为流行的流式处理框架提供了可靠的数据来源，还提供了一个完整的流式处理框架，比如窗口、连接、变换和聚合等各类操作。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/2c447e5d62fc4332a6da3eca019f25c2.png" alt="image.png"></p>
+<h2 id="三、Kafka-基本概念"><a href="#三、Kafka-基本概念" class="headerlink" title="三、Kafka 基本概念"></a>三、Kafka 基本概念</h2><p>在深入理解 Kafka 之前，可以先了解下 Kafka 的基本概念。</p>
+<p>一个典型的 Kafka 包含若干Producer、若干 Broker、若干 Consumer 以及一个 Zookeeper 集群。Zookeeper 是 Kafka 用来负责集群元数据管理、控制器选举等操作的。Producer 是负责将消息发送到 Broker 的，Broker 负责将消息持久化到磁盘，而 Consumer 是负责从Broker 订阅并消费消息。Kafka体系结构如下所示：</p>
+<p><img src="https://ucc.alicdn.com/images/user-upload-01/20200915162242149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JlaWlzQmVp,size_1,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<h3 id="概念一：生产者（Producer）与消费者（Consumer）"><a href="#概念一：生产者（Producer）与消费者（Consumer）" class="headerlink" title="概念一：生产者（Producer）与消费者（Consumer）"></a>概念一：生产者（Producer）与消费者（Consumer）</h3><p><img src="https://ucc.alicdn.com/images/user-upload-01/20200210223638108.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JlaWlzQmVp,size_1,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>对于 Kafka 来说客户端有两种基本类型：生产者（Producer）和 消费者（Consumer）。除此之外，还有用来做数据集成的 Kafka Connect API 和流式处理的 Kafka Streams 等高阶客户端，但这些高阶客户端底层仍然是生产者和消费者API，只不过是在上层做了封装。</p>
+<p>Producer ：消息生产者，就是向 Kafka broker 发消息的客户端；</p>
+<p>Consumer ：消息消费者，向 Kafka broker 取消息的客户端；</p>
+<h3 id="概念二：Broker-和集群（Cluster）"><a href="#概念二：Broker-和集群（Cluster）" class="headerlink" title="概念二：Broker 和集群（Cluster）"></a>概念二：Broker 和集群（Cluster）</h3><p>一个 Kafka 服务器也称为 Broker，它接受生产者发送的消息并存入磁盘；Broker 同时服务消费者拉取分区消息的请求，返回目前已经提交的消息。使用特定的机器硬件，一个 Broker 每秒可以处理成千上万的分区和百万量级的消息。</p>
+<p>若干个 Broker 组成一个 集群（Cluster），其中集群内某个 Broker 会成为集群控制器（Cluster Controller），它负责管理集群，包括分配分区到 Broker、监控 Broker 故障等。在集群内，一个分区由一个 Broker 负责，这个 Broker 也称为这个分区的 Leader；当然一个分区可以被复制到多个 Broker 上来实现冗余，这样当存在 Broker 故障时可以将其分区重新分配到其他 Broker 来负责。下图是一个样例：</p>
+<p><img src="https://ucc.alicdn.com/images/user-upload-01/20200210224455549.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JlaWlzQmVp,size_1,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<h3 id="概念三：主题（Topic）与分区（Partition）"><a href="#概念三：主题（Topic）与分区（Partition）" class="headerlink" title="概念三：主题（Topic）与分区（Partition）"></a>概念三：主题（Topic）与分区（Partition）</h3><p><img src="https://ucc.alicdn.com/images/user-upload-01/20200210223912550.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JlaWlzQmVp,size_1,color_FFFFFF,t_70#pic_center" alt="image"></p>
+<p>在 Kafka 中，消息以 主题（Topic）来分类，每一个主题都对应一个「消息队列」，这有点儿类似于数据库中的表。但是如果我们把所有同类的消息都塞入到一个“中心”队列中，势必缺少可伸缩性，无论是生产者/消费者数目的增加，还是消息数量的增加，都可能耗尽系统的性能或存储。</p>
+<p><strong>Kafka是天然分布式的</strong>。</p>
+<p><strong>备份分区仅仅用作于备份，不做读写。</strong>如果某个Broker挂了，那就会选举出其他Broker的partition来作为主分区，这就实现了<strong>高可用</strong>。</p>
+<p>另外值得一提的是：当生产者把数据丢进topic时，我们知道是写在partition上的，那partition是怎么将其持久化的呢？（不持久化如果Broker中途挂了，那肯定会丢数据嘛)。</p>
+<p>Kafka是将partition的数据写在<strong>磁盘</strong>的(消息日志)，不过Kafka只允许<strong>追加写入</strong>(顺序访问)，避免缓慢的随机 I/O 操作。</p>
+<ul>
+<li>Kafka也不是partition一有数据就立马将数据写到磁盘上，它会先<strong>缓存</strong>一部分，等到足够多数据量或等待一定的时间再批量写入(flush)。</li>
+</ul>
+<p>消费者在读的时候也很有讲究：正常的读磁盘数据是需要将内核态数据拷贝到用户态的，而Kafka 通过调用<code>sendfile()</code>直接从内核空间（DMA的）到内核空间（Socket的），<strong>少做了一步拷贝</strong>的操作。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-ecf911716b70f836b2a607157bbf11eb_1440w.webp" alt="img"></p>
+<blockquote>
+<p>附docker-compose.yml 脚本</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div></pre></td><td class="code"><pre><div class="line"><span class="attr">version:</span> <span class="string">"3"</span></div><div class="line"><span class="attr">services:</span></div><div class="line"><span class="attr">  zookeeper:</span></div><div class="line"><span class="attr">    image:</span> <span class="string">'confluentinc/cp-zookeeper:6.2.0'</span></div><div class="line"><span class="attr">    hostname:</span> zookeeper</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">'2181:2181'</span></div><div class="line"><span class="attr">    environment:</span></div><div class="line">      <span class="comment"># 匿名登录--必须开启</span></div><div class="line"><span class="bullet">      -</span> ALLOW_ANONYMOUS_LOGIN=<span class="literal">yes</span></div><div class="line"><span class="bullet">      -</span> ZOOKEEPER_CLIENT_PORT=<span class="number">2181</span></div><div class="line"><span class="bullet">      -</span> ZOOKEEPER_TICK_TIME=<span class="number">2000</span></div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="bullet">      -</span> ./zookeeper/data:/var/lib/zookeeper/data:Z</div><div class="line"><span class="bullet">      -</span> ./zookeeper/log:/var/lib/zookeeper/log:Z</div><div class="line">  <span class="comment"># 该镜像具体配置参考 https://github.com/bitnami/bitnami-docker-kafka/blob/master/README.md</span></div><div class="line"><span class="attr">  broker:</span></div><div class="line"><span class="attr">    image:</span> <span class="string">'confluentinc/cp-kafka:6.2.0'</span></div><div class="line"><span class="attr">    hostname:</span> broker</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">'9092:9092'</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"29092:29092"</span></div><div class="line">      <span class="comment">#- '9999:9999'</span></div><div class="line"><span class="attr">    environment:</span></div><div class="line"><span class="bullet">      -</span> KAFKA_BROKER_ID=<span class="number">1</span></div><div class="line"><span class="bullet">      -</span> KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT</div><div class="line"><span class="bullet">      -</span> KAFKA_CFG_LISTENERS=PLAINTEXT://:<span class="number">9092</span></div><div class="line"><span class="bullet">      -</span> KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://<span class="number">192.168</span><span class="number">.3</span><span class="number">.92</span>:<span class="number">9092</span>,PLAINTEXT_HOST://localhost:<span class="number">29092</span></div><div class="line">      <span class="comment">#- KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT</span></div><div class="line">      <span class="comment"># 客户端访问地址，更换成自己的</span></div><div class="line">      <span class="comment">#- KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://192.168.3.92:9092</span></div><div class="line"><span class="bullet">      -</span> KAFKA_ZOOKEEPER_CONNECT=zookeeper:<span class="number">2181</span></div><div class="line"><span class="bullet">      -</span> KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=<span class="number">0</span></div><div class="line">      <span class="comment"># 允许使用PLAINTEXT协议(镜像中默认为关闭,需要手动开启)</span></div><div class="line"><span class="bullet">      -</span> ALLOW_PLAINTEXT_LISTENER=<span class="literal">yes</span></div><div class="line">      <span class="comment"># 关闭自动创建 topic 功能</span></div><div class="line">      <span class="comment">#- KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false</span></div><div class="line">      <span class="comment"># 全局消息过期时间 6 小时(测试时可以设置短一点)</span></div><div class="line"><span class="bullet">      -</span> KAFKA_CFG_LOG_RETENTION_HOURS=<span class="number">6</span></div><div class="line"><span class="bullet">      -</span> KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=<span class="number">1</span></div><div class="line"><span class="bullet">      -</span> KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=<span class="number">1</span></div><div class="line"><span class="bullet">      -</span> KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=<span class="number">1</span></div><div class="line"><span class="bullet">      -</span> KAFKA_HEAP_OPTS=-Xmx256M -Xms128M</div><div class="line">      <span class="comment"># 开启JMX监控</span></div><div class="line">      <span class="comment">#- JMX_PORT=9999</span></div><div class="line">      <span class="comment">#- KAFKA_JMX_OPTS= -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=192.168.3.92 -Dcom.sun.management.jmxremote.rmi.port=9999  -Dcom.sun.management.jmxremote.port=9999</span></div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="bullet">      -</span> ./kafka/data:/var/lib/kafka/data:Z</div><div class="line"><span class="bullet">      -</span> ./kafka/config:/var/lib/kafka/config:Z</div><div class="line"><span class="attr">    depends_on:</span></div><div class="line"><span class="bullet">      -</span> zookeeper</div><div class="line"><span class="attr">  schema-registry:</span></div><div class="line"><span class="attr">    image:</span> confluentinc/cp-schema-registry:<span class="number">6.2</span><span class="number">.0</span></div><div class="line"><span class="attr">    hostname:</span> schema-registry</div><div class="line"><span class="attr">    container_name:</span> schema-registry</div><div class="line"><span class="attr">    depends_on:</span></div><div class="line"><span class="bullet">      -</span> zookeeper</div><div class="line"><span class="bullet">      -</span> broker</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"8081:8081"</span></div><div class="line"><span class="attr">    environment:</span></div><div class="line"><span class="attr">      SCHEMA_REGISTRY_HOST_NAME:</span> schema-registry</div><div class="line"><span class="attr">      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL:</span> zookeeper:<span class="number">2181</span></div><div class="line">      </div><div class="line"><span class="attr">  connect:</span></div><div class="line"><span class="attr">    image:</span> confluentinc/cp-kafka-connect:latest</div><div class="line"><span class="attr">    hostname:</span> connect</div><div class="line"><span class="attr">    container_name:</span> connect</div><div class="line"><span class="attr">    depends_on:</span></div><div class="line"><span class="bullet">      -</span> zookeeper</div><div class="line"><span class="bullet">      -</span> broker</div><div class="line"><span class="bullet">      -</span> schema-registry</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"8083:8083"</span></div><div class="line"><span class="attr">    environment:</span></div><div class="line"><span class="attr">      CONNECT_BOOTSTRAP_SERVERS:</span> broker:<span class="number">29092</span></div><div class="line"><span class="attr">      CONNECT_REST_ADVERTISED_HOST_NAME:</span> localhost</div><div class="line"><span class="attr">      CONNECT_REST_PORT:</span> <span class="number">8083</span></div><div class="line"><span class="attr">      CONNECT_GROUP_ID:</span> ksql-connect-cluster</div><div class="line"><span class="attr">      CONNECT_OFFSET_STORAGE_TOPIC:</span> ksql-connect-configs</div><div class="line"><span class="attr">      CONNECT_CONFIG_STORAGE_TOPIC:</span> ksql-connect-topics</div><div class="line"><span class="attr">      CONNECT_STATUS_STORAGE_TOPIC:</span> ksql-connect-statuses</div><div class="line"><span class="attr">      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR:</span> <span class="number">1</span></div><div class="line"><span class="attr">      CONNECT_OFFSET_FLUSH_INTERVAL_MS:</span> <span class="number">10000</span></div><div class="line"><span class="attr">      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR:</span> <span class="number">1</span></div><div class="line"><span class="attr">      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR:</span> <span class="number">1</span></div><div class="line"><span class="attr">      CONNECT_KEY_CONVERTER:</span> org.apache.kafka.connect.storage.StringConverter</div><div class="line"><span class="attr">      CONNECT_VALUE_CONVERTER:</span> io.confluent.connect.avro.AvroConverter</div><div class="line"><span class="attr">      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL:</span> http://schema-registry:<span class="number">8081</span></div><div class="line"><span class="attr">      CONNECT_INTERNAL_KEY_CONVERTER:</span> <span class="string">"org.apache.kafka.connect.json.JsonConverter"</span></div><div class="line"><span class="attr">      CONNECT_INTERNAL_VALUE_CONVERTER:</span> <span class="string">"org.apache.kafka.connect.json.JsonConverter"</span></div><div class="line"><span class="attr">      CONNECT_ZOOKEEPER_CONNECT:</span> <span class="string">'zookeeper:2181'</span></div><div class="line"><span class="attr">  ksqldb-server:</span></div><div class="line"><span class="attr">    image:</span> confluentinc/ksqldb-server:latest</div><div class="line"><span class="attr">    hostname:</span> ksqldb-server</div><div class="line"><span class="attr">    depends_on:</span></div><div class="line"><span class="bullet">      -</span> broker</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"8088:8088"</span></div><div class="line">    <span class="comment">#healthcheck:</span></div><div class="line">    <span class="comment">#  test: curl -f http://ksqldb-server:8088/ || exit 1</span></div><div class="line"><span class="attr">    environment:</span></div><div class="line"><span class="attr">      KSQL_LISTENERS:</span> http://<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8088</span></div><div class="line"><span class="attr">      KSQL_BOOTSTRAP_SERVERS:</span> <span class="number">192.168</span><span class="number">.3</span><span class="number">.92</span>:<span class="number">9092</span></div><div class="line"><span class="attr">      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE:</span> <span class="string">"true"</span></div><div class="line"><span class="attr">      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE:</span> <span class="string">"true"</span></div><div class="line"><span class="attr">      KSQL_KSQL_CONNECT_URL:</span> http://connect:<span class="number">8083</span></div><div class="line"></div><div class="line"><span class="attr">  ksqldb-cli:</span></div><div class="line"><span class="attr">    image:</span> confluentinc/ksqldb-cli:latest</div><div class="line"><span class="attr">    container_name:</span> ksqldb-cli</div><div class="line"><span class="attr">    depends_on:</span></div><div class="line"><span class="bullet">      -</span> ksqldb-server</div><div class="line"><span class="bullet">      -</span> broker</div><div class="line"><span class="attr">    entrypoint:</span> /bin/sh</div><div class="line"><span class="attr">    tty:</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>Kafka topic CLI:</p>
+</blockquote>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">kafka</span><span class="literal">-</span><span class="comment">topics</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">bootstrap</span><span class="literal">-</span><span class="comment">server</span> <span class="comment">localhost:9092</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">list</span></div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418103634592.png" alt="image-20230418103634592"></p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">producer</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">broker</span><span class="literal">-</span><span class="comment">list</span> <span class="comment">localhost:9092</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span></div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418103936415.png" alt="image-20230418103936415"></p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">kafka</span><span class="literal">-</span><span class="comment">console</span><span class="literal">-</span><span class="comment">consumer</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">bootstrap</span><span class="literal">-</span><span class="comment">server</span> <span class="comment">localhost:9092</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">topic</span> <span class="comment">test</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">from</span><span class="literal">-</span><span class="comment">beginning</span></div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418104000562.png" alt="image-20230418104000562"></p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker <span class="built_in">exec</span> -it ksqldb-cli ksql http:<span class="comment">//ksqldb-server:8088</span></div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418110419615.png" alt="image-20230418110419615"></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show </span>topics<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418110443996.png" alt="image-20230418110443996"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> STREAM riderLocations (profileId <span class="built_in">VARCHAR</span>, latitude <span class="keyword">DOUBLE</span>, longitude <span class="keyword">DOUBLE</span>)</div><div class="line">  <span class="keyword">WITH</span> (kafka_topic=<span class="string">'locations'</span>, value_format=<span class="string">'json'</span>, <span class="keyword">partitions</span>=<span class="number">1</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> riderLocations (profileId, latitude, longitude) <span class="keyword">VALUES</span> (<span class="string">'c2309eec'</span>, <span class="number">37.7877</span>, <span class="number">-122.4205</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> riderLocations (profileId, latitude, longitude) <span class="keyword">VALUES</span> (<span class="string">'18f4ea86'</span>, <span class="number">37.3903</span>, <span class="number">-122.0643</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> riderLocations (profileId, latitude, longitude) <span class="keyword">VALUES</span> (<span class="string">'4ab5cbad'</span>, <span class="number">37.3952</span>, <span class="number">-122.0813</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> riderLocations (profileId, latitude, longitude) <span class="keyword">VALUES</span> (<span class="string">'8b6eae59'</span>, <span class="number">37.3944</span>, <span class="number">-122.0813</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> riderLocations (profileId, latitude, longitude) <span class="keyword">VALUES</span> (<span class="string">'4a7c7b41'</span>, <span class="number">37.4049</span>, <span class="number">-122.0822</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> riderLocations (profileId, latitude, longitude) <span class="keyword">VALUES</span> (<span class="string">'4ddad000'</span>, <span class="number">37.7857</span>, <span class="number">-122.4011</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>select * from riderLocations;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ksql&gt; select * from riderLocations;</div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418111709787.png" alt="image-20230418111709787"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> myNearDemo <span class="keyword">AS</span> \</div><div class="line">&gt;<span class="keyword">select</span> profileId,la,lo <span class="keyword">from</span> currentLocation ;</div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418151308205.png" alt="image-20230418151308205"></p>
+<blockquote>
+<p>监测变化</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> myNearDemo EMIT CHANGES;</div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418151345474.png" alt="image-20230418151345474"></p>
+<blockquote>
+<p>原始流 stream 里插入元数据</p>
+</blockquote>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418151452071.png" alt="image-20230418151452071"></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="selector-tag">ksql</span>&gt; <span class="selector-tag">INSERT</span> <span class="selector-tag">INTO</span> <span class="selector-tag">riderLocations</span> (profileId, latitude, longitude) <span class="selector-tag">VALUES</span> (<span class="string">'4ddad000'</span>, <span class="number">38.7857</span>, -<span class="number">122.4012</span>);</div></pre></td></tr></table></figure>
+<p><img src="/Users/mac/Library/Application Support/typora-user-images/image-20230418151605116.png" alt="image-20230418151605116"></p>
+<blockquote>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2023/02/22/Mysql使用pt-query-digest分析日志/" itemprop="url">
                   Mysql使用pt-query-digest分析日志
                 </a>
@@ -817,237 +977,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2022/09/05/使用Tailscale搭建VPN专线/" itemprop="url">
-                  使用Tailscale搭建VPN专线
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2022-09-05T19:16:18+08:00" content="2022-09-05">
-              2022-09-05
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2022/09/05/使用Tailscale搭建VPN专线/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/09/05/使用Tailscale搭建VPN专线/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Tailscale-是什么"><a href="#Tailscale-是什么" class="headerlink" title="Tailscale 是什么"></a>Tailscale 是什么</h2><p>Tailscale 是一种基于 WireGuard 的虚拟组网工具.</p>
-<p>与 OpenVPN 之流相比还是能甩好几十条街的，Tailscale 虽然在性能上做了些许取舍，但在功能和易用性上绝对是完爆其他工具：</p>
-<ol>
-<li>开箱即用</li>
-</ol>
-<ul>
-<li>无需配置防火墙</li>
-<li>没有额外的配置</li>
-</ul>
-<ol>
-<li>高安全性/私密性</li>
-</ol>
-<ul>
-<li>自动密钥轮换</li>
-<li>点对点连接</li>
-<li>支持用户审查端到端的访问记录</li>
-</ul>
-<ol>
-<li>在原有的 ICE、STUN 等 UDP 协议外，实现了 DERP TCP 协议来实现 NAT 穿透</li>
-<li>基于公网的控制服务器下发 ACL 和配置，实现节点动态更新</li>
-<li>通过第三方（如 Google） SSO 服务生成用户和私钥，实现身份认证</li>
-</ol>
-<p>简而言之，我们可以将 Tailscale 看成是更为易用、功能更完善的 WireGuard。</p>
-<h2 id="Headscale-是什么"><a href="#Headscale-是什么" class="headerlink" title="Headscale 是什么"></a>Headscale 是什么</h2><p>Tailscale 的控制服务器是不开源的，而且对免费用户有诸多限制，这是人家的摇钱树，可以理解。好在目前有一款开源的实现叫 <a href="https://github.com/juanfont/headscale" target="_blank" rel="external">Headscale</a>，这也是唯一的一款，希望能发展壮大。</p>
-<p>Headscale 由欧洲航天局的 Juan Font 使用 Go 语言开发，在 BSD 许可下发布，实现了 Tailscale 控制服务器的所有主要功能，可以部署在企业内部，没有任何设备数量的限制，且所有的网络流量都由自己控制</p>
-<h2 id="Headscale-部署"><a href="#Headscale-部署" class="headerlink" title="Headscale 部署"></a>Headscale 部署</h2><p>Headscale 部署很简单，推荐直接在 Linux 主机上安装</p>
-<p>首先需要到其 GitHub 仓库的 Release 页面下载最新版的二进制文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ wget --output-document=/usr/<span class="built_in">local</span>/bin/headscale \</div><div class="line">   https://github.com/juanfont/headscale/releases/download/v&lt;HEADSCALE VERSION&gt;/headscale_&lt;HEADSCALE VERSION&gt;_linux_&lt;ARCH&gt;</div><div class="line"></div><div class="line">$ chmod +x /usr/<span class="built_in">local</span>/bin/headscale</div></pre></td></tr></table></figure>
-<p>创建配置目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /etc/headscale</div></pre></td></tr></table></figure>
-<p>创建目录用来存储数据与证书：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /var/lib/headscale</div></pre></td></tr></table></figure>
-<p>创建空的 SQLite 数据库文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch /var/lib/headscale/db.sqlite</div></pre></td></tr></table></figure>
-<p>创建 Headscale 配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https://github.com/juanfont/headscale/raw/main/config-example.yaml -O /etc/headscale/config.yaml</div></pre></td></tr></table></figure>
-<ul>
-<li><p>修改配置文件，将 <code>server_url</code> 改为公网 IP 或域名。<strong>如果是国内服务器，域名必须要备案</strong>。我的域名无法备案，所以我就直接用公网 IP 了。</p>
-</li>
-<li><p>如果暂时用不到 DNS 功能，可以先将 <code>magic_dns</code> 设为 false。</p>
-</li>
-<li><p><code>server_url</code> 设置为 <code>http://&lt;PUBLIC_IP&gt;:8080</code>，将 <code>&lt;PUBLIC_IP&gt;</code> 替换为公网 IP 或者域名。</p>
-</li>
-<li><p>可自定义私有网段，也可同时开启 IPv4 和 IPv6：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">ip_prefixes:</span></div><div class="line">  <span class="comment"># - fd7a:115c:a1e0::/48</span></div><div class="line"><span class="bullet">  -</span> <span class="number">10.1</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">16</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>创建 SystemD service 配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># /etc/systemd/system/headscale.service</span></div><div class="line">[Unit]</div><div class="line">Description=headscale controller</div><div class="line">After=syslog.target</div><div class="line">After=network.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">Type=simple</div><div class="line">User=headscale</div><div class="line">Group=headscale</div><div class="line">ExecStart=/usr/<span class="built_in">local</span>/bin/headscale serve</div><div class="line">Restart=always</div><div class="line">RestartSec=5</div><div class="line"></div><div class="line"><span class="comment"># Optional security enhancements</span></div><div class="line">NoNewPrivileges=yes</div><div class="line">PrivateTmp=yes</div><div class="line">ProtectSystem=strict</div><div class="line">ProtectHome=yes</div><div class="line">ReadWritePaths=/var/lib/headscale /var/run/headscale</div><div class="line">AmbientCapabilities=CAP_NET_BIND_SERVICE</div><div class="line">RuntimeDirectory=headscale</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
-<p>创建 headscale 用户：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ useradd headscale <span class="_">-d</span> /home/headscale -m</div></pre></td></tr></table></figure>
-<p>修改 /var/lib/headscale 目录的 owner：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chown -R headscale:headscale /var/lib/headscale</div></pre></td></tr></table></figure>
-<p>修改配置文件中的 <code>unix_socket</code>：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">unix_socket:</span> /var/run/headscale/headscale.sock</div></pre></td></tr></table></figure>
-<p>Reload SystemD 以加载新的配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl daemon-reload</div></pre></td></tr></table></figure>
-<p>启动 Headscale 服务并设置开机自启：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl <span class="built_in">enable</span> --now headscale</div></pre></td></tr></table></figure>
-<p>查看运行状态：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl status headscale</div></pre></td></tr></table></figure>
-<p>查看占用端口：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ ss -tulnp|grep headscale</div><div class="line"></div><div class="line">tcp LISTEN 0 1024 [::]:9090 [::]:* users:((<span class="string">"headscale"</span>,pi</div><div class="line"></div><div class="line">d=10899,fd=13))</div><div class="line"></div><div class="line">tcp LISTEN 0 1024 [::]:50443 [::]:* users:((<span class="string">"headscale"</span>,pi</div><div class="line"></div><div class="line">d=10899,fd=10))</div><div class="line"></div><div class="line">tcp LISTEN 0 1024 [::]:8080 [::]:* users:((<span class="string">"headscale"</span>,pi</div><div class="line"></div><div class="line">d=10899,fd=12))</div></pre></td></tr></table></figure>
-<p>ailscale 中有一个概念叫 tailnet，你可以理解成租户，租户与租户之间是相互隔离的，具体看参考 Tailscale 的官方文档： <a href="https://tailscale.com/kb/1136/tailnet/" target="_blank" rel="external">What is a tailnet</a>。Headscale 也有类似的实现叫 namespace，即命名空间。我们需要先创建一个 namespace，以便后续客户端接入，例如</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">headscale namespaces create vpn</div></pre></td></tr></table></figure>
-<p>查看命名空间：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ headscale namespaces list</div><div class="line"></div><div class="line">ID | Name | Created</div><div class="line"></div><div class="line">1 | vpn | 2022-03-09 06:12:06</div></pre></td></tr></table></figure>
-<h2 id="Tailscale-客户端接入"><a href="#Tailscale-客户端接入" class="headerlink" title="Tailscale 客户端接入"></a>Tailscale 客户端接入</h2><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Tailscale 官方提供了各种 Linux 发行版的软件包，但国内的网络你懂得，软件源根本用不了。好在官方还提供了 <a href="https://tailscale.com/download/linux/static" target="_blank" rel="external">静态编译的二进制文件</a>，我们可以直接下载。例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https://pkgs.tailscale.com/stable/tailscale_1.22.2_amd64.tgz</div></pre></td></tr></table></figure>
-<p>解压：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ tar zxvf tailscale_1.22.2_amd64.tgz</div><div class="line">x tailscale_1.22.2_amd64/</div><div class="line">x tailscale_1.22.2_amd64/tailscale</div><div class="line">x tailscale_1.22.2_amd64/tailscaled</div><div class="line">x tailscale_1.22.2_amd64/systemd/</div><div class="line">x tailscale_1.22.2_amd64/systemd/tailscaled.defaults</div><div class="line">x tailscale_1.22.2_amd64/systemd/tailscaled.service</div></pre></td></tr></table></figure>
-<p>将二进制文件复制到官方软件包默认的路径下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp tailscale_1.22.2_amd64/tailscaled /usr/sbin/tailscaled</div><div class="line">$ cp tailscale_1.22.2_amd64/tailscale /usr/bin/tailscale</div></pre></td></tr></table></figure>
-<p>将 systemD service 配置文件复制到系统路径下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp tailscale_1.22.2_amd64/systemd/tailscaled.service /lib/systemd/system/tailscaled.service</div></pre></td></tr></table></figure>
-<p>将环境变量配置文件复制到系统路径下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp tailscale_1.22.2_amd64/systemd/tailscaled.defaults /etc/default/tailscaled</div></pre></td></tr></table></figure>
-<p>启动 tailscaled.service 并设置开机自启：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl <span class="built_in">enable</span> --now tailscaled</div></pre></td></tr></table></figure>
-<p>查看服务状态：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl status tailscaled</div></pre></td></tr></table></figure>
-<p>Tailscale 接入 Headscale：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 将 &lt;HEADSCALE_PUB_IP&gt; 换成你的 Headscale 公网 IP 或域名</span></div><div class="line">$ tailscale up --login-server=http://xx.xx.xx.xx:8080 --accept-dns=<span class="literal">false</span> --advertise-routes=192.168.xx.0/24</div></pre></td></tr></table></figure>
-<p>这里推荐将 DNS 功能关闭，因为它会覆盖系统的默认 DNS。如果你对 DNS 有需求，可自己研究官方文档，这里不再赘述。</p>
-<p>执行完上面的命令后，会出现下面的信息：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">To authenticate, visit:</div><div class="line"></div><div class="line">http://xxxxxx:8080/register?key=905cf165204800247fbd33989dbc22be95c987286c45aac303393704</div><div class="line"></div><div class="line">1150d846</div></pre></td></tr></table></figure>
-<p>在浏览器中打开该链接，就会出现如下的界面</p>
-<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-06-08qWbz.png" alt=""></p>
-<p>将其中的命令复制粘贴到 headscale 所在机器的终端中，并将 NAMESPACE 替换为前面所创建的 namespace。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ headscale -n vpn nodes register --key 905cf165204800247fbd33989dbc22be95c987286c45aac3033937041150d846</div><div class="line">Machine register</div></pre></td></tr></table></figure>
-<p>注册成功，查看注册的节点：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ headscale nodes list</div><div class="line"></div><div class="line">ID | Name | NodeKey | Namespace | IP addresses | Ephemeral | Last seen | Onlin</div><div class="line"></div><div class="line">e | Expired</div><div class="line"></div><div class="line">1 | coredns | [Ew3RB] | vpn | 10.1.0.1 | <span class="literal">false</span> | 2022-03-20 09:08:58 | onlin</div><div class="line"></div><div class="line">e | no</div></pre></td></tr></table></figure>
-<p>回到 Tailscale 客户端所在的 Linux 主机，可以看到 Tailscale 会自动创建相关的路由表和 iptables 规则。路由表可通过以下命令查看</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ip route show table 52</div></pre></td></tr></table></figure>
-<h3 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h3><p>macOS 有 3 种安装方法：</p>
-<ul>
-<li>直接通过应用商店安装，地址： <a href="https://apps.apple.com/ca/app/tailscale/id1475387142。前提是你**需要一个美区" target="_blank" rel="external">https://apps.apple.com/ca/app/tailscale/id1475387142。前提是你**需要一个美区</a> ID**。。。</li>
-<li>下载 <a href="https://pkgs.tailscale.com/stable/#macos" target="_blank" rel="external">安装包</a>直接安装，绕过应用商店。</li>
-<li>安装开源的命令行工具 <code>tailscale</code> 和 <code>tailscaled</code>。相关链接： <a href="https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS。" target="_blank" rel="external">https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS。</a></li>
-</ul>
-<p>这三种安装包的核心数据包处理代码是相同的，唯一的区别在于在于打包方式以及与系统的交互方式</p>
-<p>安装完 GUI 版应用后还需要做一些骚操作，才能让 Tailscale 使用 Headscale 作为控制服务器。当然，Headscale 已经给我们提供了详细的操作步骤，你只需要在浏览器中打开 URL：<code>http://&lt;HEADSCALE_PUB_IP&gt;:8080/apple</code>，便会出现如下的界面：</p>
-<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-39-arYdfv.png" alt=""></p>
-<blockquote>
-<p>非应用商店版本的 macOS 客户端需要将 <code>io.tailscale.ipn.macos</code> 替换为 <code>io.tailscale.ipn.macsys</code>。即：<code>defaults write io.tailscale.ipn.macsys ControlURL http://&lt;HEADSCALE_PUB_IP&gt;:8080</code></p>
-</blockquote>
-<p>修改完成后重启 Tailscale 客户端，在 macOS 顶部状态栏中找到 Tailscale 并点击，然后再点击 <code>Log in</code></p>
-<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-43-pTW3r7.png" alt=""></p>
-<p>然后立马就会跳转到浏览器并打开一个页面。</p>
-<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-17-46-AbzngB.png" alt=""></p>
-<p>接下来与之前 Linux 客户端相同，回到 Headscale 所在的机器执行浏览器中的命令即可，注册成功</p>
-<p>回到 Headscale 所在主机，查看注册的节点：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ headscale nodes list</div><div class="line"></div><div class="line">ID | Name | NodeKey | Namespace | IP addresses | Ephemeral | Last seen | Onlin</div><div class="line"></div><div class="line">e | Expired</div><div class="line"></div><div class="line">1 | coredns | [Ew3RB] | default | 10.1.0.1 | <span class="literal">false</span> | 2022-03-20 09:08:58 | onlin</div><div class="line"></div><div class="line">e | no</div><div class="line">2 | carsondemacbook-pro | [k7bzX] | default   | 10.1.0.2     | <span class="literal">false</span>     | 2022-03-20 09:48:30 | online  | no</div></pre></td></tr></table></figure>
-<p>回到 macOS，测试是否能 ping 通对端节点：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ ping -c 2 10.1.0.1</div><div class="line">PING 10.1.0.1 (10.1.0.1): 56 data bytes</div><div class="line">64 bytes from 10.1.0.1: icmp_seq=0 ttl=64 time=37.025 ms</div><div class="line">64 bytes from 10.1.0.1: icmp_seq=1 ttl=64 time=38.181 ms</div><div class="line"></div><div class="line">--- 10.1.0.1 ping statistics ---</div><div class="line">2 packets transmitted, 2 packets received, 0.0% packet loss</div><div class="line">round-trip min/avg/max/stddev = 37.025/37.603/38.181/0.578 ms</div></pre></td></tr></table></figure>
-<p>也可以使用 Tailscale CLI 来测试：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ /Applications/Tailscale.app/Contents/MacOS/Tailscale ping 10.1.0.1</div><div class="line">pong from coredns (10.1.0.1) via xxxx:41641 <span class="keyword">in</span> 36ms</div></pre></td></tr></table></figure>
-<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows Tailscale 客户端想要使用 Headscale 作为控制服务器，只需在浏览器中打开 URL：<code>http://&lt;HEADSCALE_PUB_IP&gt;:8080/windows</code>，便会出现如下的界面</p>
-<p><img src="https://jsdelivr.icloudnative.io/gh/yangchuansheng/imghosting3@main/uPic/2022-03-20-23-30-zcQX3F.png" alt=""></p>
-<p>按照其中的步骤操作即可。</p>
-<h3 id="通过-Pre-Authkeys-接入"><a href="#通过-Pre-Authkeys-接入" class="headerlink" title="通过 Pre-Authkeys 接入"></a>通过 Pre-Authkeys 接入</h3><p>前面的接入方法都需要服务端同意，步骤比较烦琐，其实还有更简单的方法，可以直接接入，不需要服务端同意。</p>
-<p>首先在服务端生成 pre-authkey 的 token，有效期可以设置为 24 小时：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ headscale preauthkeys create <span class="_">-e</span> 24h -n default</div></pre></td></tr></table></figure>
-<p>查看已经生成的 key：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ headscale -n default preauthkeys list</div><div class="line">ID | Key                                              | Reusable | Ephemeral | Used  | Expiration          | Created            </div><div class="line">1  | 57e419c40e30b0dxxxxxxxf15562c18a8c6xxxx28ae76f57 | <span class="literal">false</span>    | <span class="literal">false</span>     | <span class="literal">false</span> | 2022-05-30 07:14:17 | 2022-05-29 07:14:17</div></pre></td></tr></table></figure>
-<p>现在新节点就可以无需服务端同意直接接入了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tailscale up --login-server=http://&lt;HEADSCALE_PUB_IP&gt;:8080 --accept-routes=<span class="literal">true</span> --accept-dns=<span class="literal">false</span> --authkey <span class="variable">$KEY</span></div></pre></td></tr></table></figure>
-<h2 id="打通局域网"><a href="#打通局域网" class="headerlink" title="打通局域网"></a>打通局域网</h2><p>到目前为止我们只是打造了一个点对点的 Mesh 网络，各个节点之间都可以通过 WireGuard 的私有网络 IP 进行直连。但我们可以更大胆一点，还记得我在文章开头提到的访问家庭内网的资源吗？我们可以通过适当的配置让每个节点都能访问其他节点的局域网 IP。这个使用场景就比较多了，你可以直接访问家庭内网的 NAS，或者内网的任何一个服务，<strong>更高级的玩家可以使用这个方法来访问云上 Kubernetes 集群的 Pod IP 和 Service IP。</strong></p>
-<p>假设你的家庭内网有一台 Linux 主机（比如 OpenWrt）安装了 Tailscale 客户端，我们希望其他 Tailscale 客户端可以直接通过家中的局域网 IP（例如 <strong>192.168.100.0/24</strong>） 访问家庭内网的任何一台设备。</p>
-<p>配置方法很简单，首先需要设置 IPv4 与 IPv6 路由转发：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> <span class="string">'net.ipv4.ip_forward = 1'</span> | tee /etc/sysctl.d/ipforwarding.conf</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'net.ipv6.conf.all.forwarding = 1'</span> | tee <span class="_">-a</span> /etc/sysctl.d/ipforwarding.conf</div><div class="line">$ sysctl -p /etc/sysctl.d/ipforwarding.conf</div></pre></td></tr></table></figure>
-<p>客户端修改注册节点的命令，在原来命令的基础上加上参数 <code>--advertise-routes=192.168.100.0/24</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tailscale up --login-server=http://&lt;HEADSCALE_PUB_IP&gt;:8080 --accept-routes=<span class="literal">true</span> --accept-dns=<span class="literal">false</span> --advertise-routes=192.168.100.0/24</div></pre></td></tr></table></figure>
-<p>在 Headscale 端查看路由，可以看到相关路由是关闭的。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ headscale nodes list|grep openwrt</div><div class="line"></div><div class="line">6 | openwrt | [7LdVc] | default | 10.1.0.6 | <span class="literal">false</span> | 2022-03-20 15:50:46 | onlin</div><div class="line"></div><div class="line">e | no</div><div class="line"></div><div class="line">$ headscale routes list -i 6</div><div class="line"></div><div class="line">Route | Enabled</div><div class="line"></div><div class="line">192.168.100.0/24 | <span class="literal">false</span></div></pre></td></tr></table></figure>
-<p>开启路由：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ headscale routes <span class="built_in">enable</span> -i 6 -r <span class="string">"192.168.100.0/24"</span></div><div class="line"></div><div class="line">Route | Enabled</div><div class="line"></div><div class="line">192.168.100.0/24 | <span class="literal">true</span></div></pre></td></tr></table></figure>
-<p>其他节点查看路由结果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ip route show table 52|grep <span class="string">"192.168.100.0/24"</span></div><div class="line">192.168.100.0/24 dev tailscale0</div></pre></td></tr></table></figure>
-<p>现在你在任何一个 Tailscale 客户端所在的节点都可以 ping 通家庭内网的机器.</p>
-<hr>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1094,7 +1023,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

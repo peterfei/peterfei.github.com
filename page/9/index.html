@@ -231,6 +231,108 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/07/angular-directive-ng-click-not-work/" itemprop="url">
+                  angular directive ng-click not work
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-07T15:32:14+08:00" content="2015-12-07">
+              2015-12-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/07/angular-directive-ng-click-not-work/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/07/angular-directive-ng-click-not-work/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###隔离事件<br>中午在项目里遇到angular directive 里加入click事件，不能正常工作，查询API后，基本可以通过angularjs 的隔离scope 完成，具体实现如下：</p>
+<blockquote>
+<p>html</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mobi</span> <span class="attr">edit-click</span>=<span class="string">"selectMobiFlag(1)"</span> <span class="attr">item</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">mobi</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>html 端定义了<code>mobi</code>的指令， 具体点击事件方法如<code>selectMobileFlat</code>,</p>
+<blockquote>
+<p>指令（Directive）</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">.directive(<span class="string">'mobi'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> &#123;</div><div class="line">		<span class="attr">restrict</span>: <span class="string">'EA'</span>,</div><div class="line">		<span class="attr">scope</span>: &#123;</div><div class="line">			<span class="string">'item'</span>:<span class="string">'='</span>,</div><div class="line">			<span class="string">'editClick'</span>: <span class="string">'&amp;'</span></div><div class="line">		&#125;,</div><div class="line">		<span class="attr">template</span>: <span class="string">'&lt;div ng-click="toggleState(item)" &gt;111&lt;/div&gt;'</span>,</div><div class="line">		<span class="attr">link</span>: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, attrs</span>) </span>&#123;</div><div class="line">			$scope.toggleState = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</div><div class="line">				<span class="built_in">console</span>.log(item);</div><div class="line">				$scope.editClick(item);</div><div class="line">			&#125;;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>指令里绑定了item,传入的是点击 <code>HTML</code>片段本身，在<code>directive</code>里渲染了<code>template</code> 模板，主要负责点击的声明，在隔离作用域里，应用<code>editClick:&quot;&amp;&quot;</code> 和 <code>$scope.toggleState</code> 实现关联。</p>
+<p>###最后<br>实现<code>selectMobiFlag</code>的具体实现:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$scope.selectMobiFlag = <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</div><div class="line">	</div><div class="line">	$scope.mobiFlag = item;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/04/ionic-Jpush-IOS-配置/" itemprop="url">
                   ionic jpush  IOS 配置
                 </a>
@@ -664,138 +766,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/12/rails-minitest自动化测试/" itemprop="url">
-                  rails minitest自动化测试
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-12T09:32:09+08:00" content="2015-11-12">
-              2015-11-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Ruby/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/12/rails-minitest自动化测试/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/12/rails-minitest自动化测试/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##Gemfile加入相关测试驱动：</p>
-<blockquote>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">#测试组</span></div><div class="line">group <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">    gem <span class="string">"minitest"</span></div><div class="line">    gem <span class="string">'minitest-spec-rails'</span></div><div class="line">    gem <span class="string">'minitest-reporters'</span></div><div class="line">    gem <span class="string">'spring'</span></div><div class="line">    gem <span class="string">'guard'</span></div><div class="line">    gem <span class="string">'guard-minitest'</span></div><div class="line">    <span class="comment"># 添加调用跟踪静默程序</span></div><div class="line">    <span class="comment"># gem 'mini_backtrace'</span></div><div class="line">    gem <span class="string">'ruby-prof'</span></div><div class="line">    gem <span class="string">'minitest-rails-capybara'</span></div><div class="line">    gem <span class="string">'autotest-standalone'</span> <span class="comment"># The file '.autotest' makes sure the tests are run via test server (spork).</span></div><div class="line">    gem <span class="string">'autotest-rails-pure'</span> <span class="comment"># -pure gives us autotest without ZenTest gem.</span></div><div class="line">    gem <span class="string">'autotest-growl'</span>      <span class="comment"># growl notifications, complains a little bit if growl isn't installed</span></div><div class="line">    gem <span class="string">'autotest-fsevent'</span>    <span class="comment"># react to filesystem events, save your CPU</span></div><div class="line">    gem <span class="string">'spork-minitest'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-</blockquote>
-<p>##初始化guard:</p>
-<blockquote>
-<p><code>guard init minitest</code></p>
-</blockquote>
-<p>##配置guard:<br>    <figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># A sample Guardfile</span></div><div class="line"><span class="comment"># More info at https://github.com/guard/guard#readme</span></div><div class="line"></div><div class="line"><span class="comment">## Uncomment and set this to only include directories you want to watch</span></div><div class="line"><span class="comment"># directories %w(app lib config test spec features) \</span></div><div class="line"><span class="comment">#  .select&#123;|d| Dir.exists?(d) ? d : UI.warning("Directory #&#123;d&#125; does not exist")&#125;</span></div><div class="line"></div><div class="line"><span class="comment">## Note: if you are using the `directories` clause above and you are not</span></div><div class="line"><span class="comment">## watching the project directory ('.'), then you will want to move</span></div><div class="line"><span class="comment">## the Guardfile to a watched dir and symlink it back, e.g.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#  $ mkdir config</span></div><div class="line"><span class="comment">#  $ mv Guardfile config/</span></div><div class="line"><span class="comment">#  $ ln -s config/Guardfile .</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># and, you'll have to watch "config/Guardfile" instead of "Guardfile"</span></div><div class="line"></div><div class="line">guard <span class="symbol">:minitest</span>, <span class="symbol">spring:</span> <span class="literal">true</span>, <span class="symbol">all_on_start:</span> <span class="literal">false</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># with Minitest::Unit</span></div><div class="line">  watch(<span class="regexp">%r&#123;^test/(.*)\/?test_(.*)\.rb$&#125;</span>)</div><div class="line">  watch(<span class="regexp">%r&#123;^lib/(.*/)?([^/]+)\.rb$&#125;</span>)     &#123; <span class="params">|m|</span> <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>test_<span class="subst">#&#123;m[<span class="number">2</span>]&#125;</span>.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^test/test_helper\.rb$&#125;</span>)      &#123; <span class="string">'test'</span> &#125;</div><div class="line"></div><div class="line">  <span class="comment"># with Minitest::Spec</span></div><div class="line">  <span class="comment"># watch(%r&#123;^spec/(.*)_spec\.rb$&#125;)</span></div><div class="line">  <span class="comment"># watch(%r&#123;^lib/(.+)\.rb$&#125;)         &#123; |m| "spec/#&#123;m[1]&#125;_spec.rb" &#125;</span></div><div class="line">  <span class="comment"># watch(%r&#123;^spec/spec_helper\.rb$&#125;) &#123; 'spec' &#125;</span></div><div class="line"></div><div class="line">  <span class="comment"># Rails 4</span></div><div class="line">  watch(<span class="regexp">%r&#123;^app/(.+)\.rb$&#125;</span>)                               &#123; <span class="params">|m|</span> <span class="string">"test/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^app/controllers/application_controller\.rb$&#125;</span>) &#123; <span class="string">'test/controllers'</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^app/controllers/(.+)_controller\.rb$&#125;</span>)        &#123; <span class="params">|m|</span> <span class="string">"test/integration/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^app/views/(.+)_mailer/.+&#125;</span>)                   &#123; <span class="params">|m|</span> <span class="string">"test/mailers/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_mailer_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^lib/(.+)\.rb$&#125;</span>)                               &#123; <span class="params">|m|</span> <span class="string">"test/lib/<span class="subst">#&#123;m[<span class="number">1</span>]&#125;</span>_test.rb"</span> &#125;</div><div class="line">  watch(<span class="regexp">%r&#123;^test/.+_test\.rb$&#125;</span>)</div><div class="line">  watch(<span class="regexp">%r&#123;^test/test_helper\.rb$&#125;</span>) &#123; <span class="string">'test'</span> &#125;</div><div class="line"></div><div class="line">  <span class="comment"># Rails &lt; 4</span></div><div class="line">  <span class="comment"># watch(%r&#123;^app/controllers/(.*)\.rb$&#125;) &#123; |m| "test/functional/#&#123;m[1]&#125;_test.rb" &#125;</span></div><div class="line">  <span class="comment"># watch(%r&#123;^app/helpers/(.*)\.rb$&#125;)     &#123; |m| "test/helpers/#&#123;m[1]&#125;_test.rb" &#125;</span></div><div class="line">  <span class="comment"># watch(%r&#123;^app/models/(.*)\.rb$&#125;)      &#123; |m| "test/unit/#&#123;m[1]&#125;_test.rb" &#125;</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>##运行Guard:</p>
-<blockquote>
-<p>输入 <code>guard</code> 命令运行测试</p>
-</blockquote>
-<p>##例外</p>
-<blockquote>
-<p>如果database不用默认的数据库迁移，测试时可以在db下放入<code>structure.sql</code>, 该配置为数据库结构，然后更改配置文件 <code>application.rb</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config<span class="selector-class">.active_record</span><span class="selector-class">.schema_format</span> = :sql</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>运行：<code>rake db:test:prepare</code></p>
-<p>##生成集成化测试文件 </p>
-<blockquote>
-<p><code>rails g test_unit:integration testName</code></p>
-<p>##生成model测试文件<br><code>rails g test_unit:model</code></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -842,7 +812,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

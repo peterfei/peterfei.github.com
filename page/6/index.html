@@ -231,6 +231,119 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/11/Swift-学习之tableView实现/" itemprop="url">
+                  Swift 学习之tableView实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-11T00:20:12+08:00" content="2016-09-11">
+              2016-09-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/11/Swift-学习之tableView实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/Swift-学习之tableView实现/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在做移动端开发时，难免会用到tableview 来渲染列表数据，像这样:<br><img src="http://pic.yupoo.com/peterfei_s/FQ13FI9K/Pi7pg.png" alt=""></p>
+<p>实现也很简单，先贴出code:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">let</span> homeCellID = <span class="string">"homeCellID"</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">YMTopicViewController</span>: <span class="title">YMBaseViewController</span>, <span class="title">UITableViewDelegate</span>, <span class="title">UITableViewDataSource</span>, <span class="title">YMHomeCellDelegate</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> type = <span class="type">Int</span>()</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> tableView = <span class="type">UITableView</span>()</div><div class="line">    <span class="comment">/// 首页列表数据</span></div><div class="line">    <span class="keyword">var</span> items = [<span class="type">YMHomeItem</span>]()</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        </div><div class="line">        view.backgroundColor = <span class="type">YMGlobalColor</span>()</div><div class="line">        setupTableView()</div><div class="line">        <span class="comment">// 获取首页数据</span></div><div class="line">        <span class="keyword">weak</span> <span class="keyword">var</span> weakSelf = <span class="keyword">self</span></div><div class="line">        <span class="type">YMNetworkTool</span>.shareNetworkTool.loadHomeInfo(type) &#123; (homeItems) <span class="keyword">in</span></div><div class="line">            weakSelf!.items = homeItems</div><div class="line">            weakSelf?.tableView.reloadData()</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> items.<span class="built_in">count</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line">        <span class="keyword">let</span> homeCell = tableView.dequeueReusableCellWithIdentifier(homeCellID) <span class="keyword">as</span>! <span class="type">YMHomeCell</span></div><div class="line">        homeCell.homeItem = items[indexPath.row]</div><div class="line">        homeCell.delegate = <span class="keyword">self</span></div><div class="line">        <span class="keyword">return</span> homeCell</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> detailVC = <span class="type">YMDetailViewController</span>()</div><div class="line">        detailVC.homeItem = items[indexPath.row]</div><div class="line">        detailVC.title = <span class="string">"攻略详情"</span></div><div class="line">        navigationController?.pushViewController(detailVC, animated: <span class="literal">true</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">homeCellDidClickedFavoriteButton</span><span class="params">(button: UIButton)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"favorite button click"</span>)</div><div class="line">        <span class="keyword">let</span> loginVC = <span class="type">YMLoginViewController</span>()</div><div class="line">        loginVC.title = <span class="string">"登录"</span></div><div class="line">        <span class="keyword">let</span> nav = <span class="type">YMNavigationController</span>(rootViewController: loginVC)</div><div class="line">        presentViewController(nav, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setupTableView</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> tableView = <span class="type">UITableView</span>()</div><div class="line">        tableView.frame = view.bounds</div><div class="line">        tableView.delegate = <span class="keyword">self</span></div><div class="line">        tableView.dataSource = <span class="keyword">self</span></div><div class="line">        tableView.rowHeight = <span class="number">160</span></div><div class="line">        tableView.separatorStyle = .<span class="type">None</span></div><div class="line">        tableView.contentInset = <span class="type">UIEdgeInsetsMake</span>(kTitlesViewY + kTitlesViewH, <span class="number">0</span>, tabBarController!.tabBar.height, <span class="number">0</span>)</div><div class="line">        tableView.scrollIndicatorInsets = tableView.contentInset</div><div class="line">        <span class="keyword">let</span> nib = <span class="type">UINib</span>(nibName: <span class="type">String</span>(<span class="type">YMHomeCell</span>), bundle: <span class="literal">nil</span>)</div><div class="line">        tableView.registerNib(nib, forCellReuseIdentifier: homeCellID)</div><div class="line">        view.addSubview(tableView)</div><div class="line">        <span class="keyword">self</span>.tableView = tableView</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">/*</div><div class="line">     // MARK: - Navigation</div><div class="line">     </div><div class="line">     // In a storyboard-based application, you will often want to do a little preparation before navigation</div><div class="line">     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) &#123;</div><div class="line">     // Get the new view controller using segue.destinationViewController.</div><div class="line">     // Pass the selected object to the new view controller.</div><div class="line">     &#125;</div><div class="line">     */</span></div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/11/Swift-学习之tableView实现/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/09/swift中的单例/" itemprop="url">
                   swift中的单例
                 </a>
@@ -689,116 +802,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/16/rails-page-no-cache/" itemprop="url">
-                  rails page no cache
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T15:21:21+08:00" content="2016-08-16">
-              2016-08-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ROR/" itemprop="url" rel="index">
-                    <span itemprop="name">ROR</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/16/rails-page-no-cache/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/rails-page-no-cache/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">before_filter :set_cache_headers</div><div class="line"></div><div class="line">def set_cache_headers</div><div class="line">  response.headers["<span class="keyword">Cache</span>-Control<span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span>, <span class="keyword">no</span>-<span class="keyword">store</span><span class="string">"</span></div><div class="line">  response.headers["<span class="keyword">Pragma</span><span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span><span class="string">"</span></div><div class="line">  response.headers["Expires<span class="string">"] = "</span>Fri, <span class="number">01</span> Jan <span class="number">2016</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> GMT<span class="string">"</span></div><div class="line">end</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -845,7 +848,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -231,6 +231,116 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/16/rails-page-no-cache/" itemprop="url">
+                  rails page no cache
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T15:21:21+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ROR/" itemprop="url" rel="index">
+                    <span itemprop="name">ROR</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/rails-page-no-cache/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/rails-page-no-cache/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Rails 页面在完成权限时总是出现加载缓存页，导致加载出admin权限json渲染页。查看了浏览器请求，是页面cache引起，以下是解决方案:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">before_filter :set_cache_headers</div><div class="line"></div><div class="line">def set_cache_headers</div><div class="line">  response.headers["<span class="keyword">Cache</span>-Control<span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span>, <span class="keyword">no</span>-<span class="keyword">store</span><span class="string">"</span></div><div class="line">  response.headers["<span class="keyword">Pragma</span><span class="string">"] = "</span><span class="keyword">no</span>-<span class="keyword">cache</span><span class="string">"</span></div><div class="line">  response.headers["Expires<span class="string">"] = "</span>Fri, <span class="number">01</span> Jan <span class="number">2016</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> GMT<span class="string">"</span></div><div class="line">end</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="url">
                   ionic 加载app,页面空白解决方案
                 </a>
@@ -687,127 +797,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/07/rails-angularjs-kaminari-分页/" itemprop="url">
-                  rails 使用angularjs 中完成分页
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-07T13:09:48+08:00" content="2016-04-07">
-              2016-04-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ROR/" itemprop="url" rel="index">
-                    <span itemprop="name">ROR</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/07/rails-angularjs-kaminari-分页/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/rails-angularjs-kaminari-分页/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>rails 使用angularjs 中完成分页:<br>Base 插件：<code>kaminari</code> ,<code>angular-paginate-anything</code></p>
-<blockquote>
-<p><bgf-pagination collection="users" url="users_url" per-page="50"></bgf-pagination></p>
-</blockquote>
-<p>使用angular resource 请求列表，如：<br><code>User = $resource($scope.users_url)
-      User.query((results)-&gt;
-          $scope.users = results
-        )</code></p>
-<p>实现一个完成分页controller方法,如base_controller.rb：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Api::BaseController</span> &lt; ApplicationController</span></div><div class="line">    <span class="comment"># respond_to :json</span></div><div class="line"></div><div class="line">    private</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">paginated_action</span><span class="params">(options = &#123;&#125;)</span></span></div><div class="line">        before_filter(options) <span class="keyword">do</span> <span class="params">|controller|</span></div><div class="line">            <span class="keyword">if</span> request.headers[<span class="string">'Range-Unit'</span>] == <span class="string">'items'</span> &amp;&amp;</div><div class="line">                    request.headers[<span class="string">'Range'</span>].present?</div><div class="line"></div><div class="line">                requested_from = <span class="literal">nil</span></div><div class="line">                requested_to = <span class="literal">nil</span></div><div class="line"></div><div class="line">                <span class="keyword">if</span> request.headers[<span class="string">'Range'</span>] =~ <span class="regexp">/(\d+)-(\d*)/</span></div><div class="line">                    requested_from, requested_to = $1.to_i, ($2.present? ? $2.to_i : Float::INFINITY)</div><div class="line">                <span class="keyword">end</span></div><div class="line"></div><div class="line">                <span class="keyword">if</span> (requested_from &gt; requested_to)</div><div class="line">                  response.status = <span class="number">416</span></div><div class="line">                  headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/<span class="subst">#&#123;total_items&#125;</span>"</span></div><div class="line">                  render <span class="symbol">text:</span> <span class="string">'invalid pagination range'</span></div><div class="line">                  <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">                <span class="keyword">end</span></div><div class="line"></div><div class="line">                @kp_per_page = requested_to - requested_from + <span class="number">1</span></div><div class="line">                @kp_page = requested_to / @kp_per_page + <span class="number">1</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        after_filter(options) <span class="keyword">do</span> <span class="params">|controller|</span></div><div class="line">            results = instance_variable_get(<span class="string">"@<span class="subst">#&#123;controller_name&#125;</span>"</span>) <span class="comment"># ex <span class="doctag">@users</span></span></div><div class="line">            <span class="keyword">if</span>(results.length &gt; <span class="number">0</span>)</div><div class="line">                response.status = <span class="number">206</span></div><div class="line">                headers[<span class="string">'Accept-Ranges'</span>] = <span class="string">'items'</span></div><div class="line">                headers[<span class="string">'Range-Unit'</span>] = <span class="string">'items'</span></div><div class="line"></div><div class="line">                total_items = results.total_count</div><div class="line">                current_page = results.current_page</div><div class="line">                per = @kp_per_page</div><div class="line">                unless per.present?</div><div class="line">                    per = <span class="number">25</span></div><div class="line">                <span class="keyword">end</span></div><div class="line">                <span class="comment"># binding.pry</span></div><div class="line">                requested_from = (results.current_page - <span class="number">1</span>) * per</div><div class="line">                available_to = (results.length - <span class="number">1</span>) + requested_from</div><div class="line"></div><div class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"<span class="subst">#&#123;requested_from&#125;</span>-<span class="subst">#&#123;available_to&#125;</span>/<span class="subst">#&#123;total_items &lt; Float::INFINITY ? total_items : <span class="string">'*'</span>&#125;</span>"</span></div><div class="line">            <span class="keyword">else</span></div><div class="line">                response.status = <span class="number">204</span></div><div class="line">                headers[<span class="string">'Content-Range'</span>] = <span class="string">"*/0"</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>同时让UserController 继承BaseController:</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserController</span> &lt; Api::BaseController</span></div><div class="line">    paginated_action <span class="symbol">only:</span> [<span class="symbol">:user_data</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span></span></div><div class="line"></div><div class="line">     <span class="comment"># render json:<span class="doctag">@area</span>_user</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">user_data</span></span></div><div class="line">      @user =  User.page(@kp_page).per(@kp_per_page)</div><div class="line">      render <span class="symbol">json:</span> @user</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create</span></span></div><div class="line"></div><div class="line">        L.debug <span class="string">"提交上来的数据是<span class="subst">#&#123;area_user_param&#125;</span>"</span></div><div class="line">        @user = User.new area_user_param</div><div class="line">        <span class="keyword">if</span> @user.save</div><div class="line">          render <span class="symbol">json:</span> @user,<span class="symbol">status:</span> <span class="symbol">:created</span></div><div class="line">        <span class="keyword">else</span></div><div class="line">          render <span class="symbol">json:</span>@user.errors,<span class="symbol">status:</span> <span class="symbol">:unprocessable_entity</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">end</span></div><div class="line">private</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">area_user_param</span></span></div><div class="line">    <span class="comment"># binding.pry</span></div><div class="line">    params.<span class="keyword">require</span>(<span class="symbol">:user</span>).permit(<span class="symbol">:email</span>,<span class="symbol">:mobile_phone</span>,<span class="symbol">:password</span>,<span class="symbol">:password_confirmation</span>,<span class="symbol">:truename</span>,<span class="symbol">:card_number</span>) <span class="keyword">rescue</span> <span class="literal">nil</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -854,7 +843,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
