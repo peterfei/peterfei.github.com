@@ -292,7 +292,7 @@
 <p>消息系统：kafka与传统的消息中间件都具备系统解耦、冗余存储、流量削峰、缓冲、异步通信、扩展性、可恢复性等功能。与此同时，kafka还提供了大多数消息系统难以实现的消息顺序性保障及回溯性消费的功能。</p>
 <p>存储系统：kafka把消息持久化到磁盘，相比于其他基于内存存储的系统而言，有效的降低了消息丢失的风险。这得益于其消息持久化和多副本机制。也可以将kafka作为长期的存储系统来使用，只需要把对应的数据保留策略设置为“永久”或启用主题日志压缩功能。</p>
 <p>流式处理平台：kafka为流行的流式处理框架提供了可靠的数据来源，还提供了一个完整的流式处理框架，比如窗口、连接、变换和聚合等各类操作。</p>
-<p><img src="https://ucc.alicdn.com/pic/developer-ecology/2c447e5d62fc4332a6da3eca019f25c2.png" alt="image.png"></p>
+<p><img src="http://image-peterfei-blog.test.upcdn.net/2c447e5d62fc4332a6da3eca019f25c2.png" alt="image.png"></p>
 <h2 id="三、Kafka-基本概念"><a href="#三、Kafka-基本概念" class="headerlink" title="三、Kafka 基本概念"></a>三、Kafka 基本概念</h2><p>在深入理解 Kafka 之前，可以先了解下 Kafka 的基本概念。</p>
 <p>一个典型的 Kafka 包含若干Producer、若干 Broker、若干 Consumer 以及一个 Zookeeper 集群。Zookeeper 是 Kafka 用来负责集群元数据管理、控制器选举等操作的。Producer 是负责将消息发送到 Broker 的，Broker 负责将消息持久化到磁盘，而 Consumer 是负责从Broker 订阅并消费消息。Kafka体系结构如下所示：</p>
 <p><img src="http://image-peterfei-blog.test.upcdn.net//watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JlaWlzQmVp,size_1,color_FFFFFF,t_70.png" alt="image"></p>
