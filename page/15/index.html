@@ -236,6 +236,97 @@
             
               
                 
+                <a class="post-title-link" href="/2014/09/22/2014-09-22-rails-subselect/" itemprop="url">
+                  Rails中的子查询
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-09-22T14:16:16+08:00" content="2014-09-22">
+              2014-09-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/09/22/2014-09-22-rails-subselect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/22/2014-09-22-rails-subselect/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###大致是这样子的<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">favarate_post</span> <span class="title">options=</span>&#123;&#125;</span></div><div class="line">        subselect = Favarate.send(</div><div class="line">                <span class="symbol">:construct_finder_sql</span>,</div><div class="line">                    <span class="symbol">:select</span> =&gt;<span class="string">"post_id"</span>,</div><div class="line">                    <span class="symbol">:conditions=&gt;</span>&#123;<span class="symbol">:blog_id=&gt;self</span>.id&#125;,</div><div class="line">                    <span class="symbol">:order=&gt;<span class="string">"published_at desc"</span></span>,</div><div class="line">                    <span class="symbol">:limit</span> =&gt; option[<span class="symbol">:limit</span>]<span class="params">||</span><span class="number">10</span>,<span class="symbol">:offset=&gt;option</span>[<span class="symbol">:offset</span>]</div><div class="line">            )</div><div class="line">        Post.find(<span class="symbol">:all</span>,<span class="symbol">:conditions</span> =&gt;<span class="string">'posts.id in <span class="subst">#&#123;subselect&#125;</span>'</span>,<span class="symbol">:order</span> =&gt;<span class="string">"published_at DESC"</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="string">``</span><span class="string">`    </span></div><div class="line">construct_finder_sql 同下句SQL类似：</div><div class="line">`<span class="string">``</span>sql</div><div class="line">    SELECT * FROM posts WHERE posts.id IN (</div><div class="line">    SELECT post_id FROM favorites WHERE blog_id = <span class="number">42</span> ORDER BY published_at DESC LIMIT <span class="number">10</span> OFFSET <span class="number">10</span></div><div class="line">  ) ORDER BY published_at DESC</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/09/18/2014-09-18-bible-plus-everyday/" itemprop="url">
                   圣经金句分享
                 </a>
@@ -597,104 +688,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/02/28/2013-02-28-helloworkd/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-28T09:30:00+08:00" content="2013-02-28">
-              2013-02-28
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/02/28/2013-02-28-helloworkd/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/28/2013-02-28-helloworkd/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>重拾失失去博客的日子</em> </p>
-<p><img src="http://i50.tinypic.com/21lmlxj.jpg" alt="小家伙一岁半了"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/6acbc97djw1e1sx6qtj90j_zps3cdae9d5.jpg" alt="2013春节"><br><img src="http://i1320.photobucket.com/albums/u526/peterfei/psu_zpsda9949d5.jpg" alt="那些年我的她"></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -735,7 +734,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">76</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

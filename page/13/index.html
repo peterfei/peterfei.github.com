@@ -236,6 +236,136 @@
             
               
                 
+                <a class="post-title-link" href="/2015/07/09/ionic-socket-io-开发/" itemprop="url">
+                  ionic socket.io 开发
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-09T00:48:44+08:00" content="2015-07-09">
+              2015-07-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Ionic/" itemprop="url" rel="index">
+                    <span itemprop="name">Ionic</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/09/ionic-socket-io-开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/09/ionic-socket-io-开发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>这两天一直在做</em>ionic<em>开发，期间有个诉求是要完成ionic与socket.io对接，中间绕了不少弯子，故留下笔记。</em></p>
+<p><em>先叙述下基本的诉求：</em></p>
+<ul>
+<li>Nodejs 做为服务端，主要做服务端消息的监听与发送</li>
+<li>客户端App 为服务端发送消息</li>
+<li>主要协议TCP</li>
+</ul>
+<p>服务端代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http= <span class="built_in">require</span>(<span class="string">'http'</span>), io= <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</div><div class="line"><span class="keyword">var</span> app = http.createServer(), io = io.listen(app);</div><div class="line"></div><div class="line"></div><div class="line">app.listen(<span class="number">10010</span>);</div><div class="line"></div><div class="line">io.sockets.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</div><div class="line">  socket.emit(<span class="string">'news'</span>, &#123; <span class="attr">hello</span>: <span class="string">'world'</span> &#125;);<span class="comment">//监听，一旦客户端连接上，即发送数据，第一个参数'new'为数据名，第二个参数既为数据</span></div><div class="line">  socket.on(<span class="string">'my new event'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获客户端发送名为'my other event'的数据</span></div><div class="line">    <span class="built_in">console</span>.log(data.my);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  socket.emit(<span class="string">'other'</span>, &#123; <span class="attr">hello</span>: <span class="string">'other world'</span> &#125;);<span class="comment">//发送另一个数据</span></div><div class="line">  socket.on(<span class="string">'event1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//捕获另外一个数据</span></div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><em>Ionic 部分：</em></p>
+<ul>
+<li>生成新项目：<code>ionic start chat-app blank</code></li>
+<li>引入angular-socket-io 库:<code>bower install angular-socket-io</code></li>
+<li><img src="http://pic.yupoo.com/peterfei/EMOPKcas/Veffo.png" alt="folder"></li>
+<li>注入socket.io在项目里：<code>var app=angular.module(&#39;ionic-socketio-chat-client&#39;, [&#39;ionic&#39;,&#39;btford.socket-io&#39;])</code></li>
+<li><p>在index.html导入socket.io，<strong>注：socket.io/socket.io.js是服务端动态生成</strong></p>
+<pre><code> &lt;script src=&quot;http://192.168.0.101:10010/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;lib/angular-socket-io/socket.js&quot;&gt;&lt;/script&gt;
+</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://192.168.0.101:10010'</span>);</div><div class="line">      <span class="comment">// io.set('origins', '*:*');</span></div><div class="line">      socket.on(<span class="string">'news'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">          <span class="built_in">console</span>.log(data.hello);</div><div class="line">      &#125;);</div><div class="line">      socket.on(<span class="string">'other'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123; <span class="comment">//接收另一个名为'other'数据，  </span></div><div class="line">          <span class="built_in">console</span>.log(data.hello);</div><div class="line">          socket.emit(<span class="string">'event1'</span>, &#123;</div><div class="line">              <span class="attr">my</span>: <span class="string">'other data'</span></div><div class="line">          &#125;);</div><div class="line">      &#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如此，客户端调用成功。</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/07/06/windows-ionic-环境配置/" itemprop="url">
                   windows ionic 环境配置
                 </a>
@@ -409,7 +539,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_clgoysdhp004w2tmvzu0a2yqi"
+                 href="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" rel="gallery_clhj4bevo0067dumvw577aupj"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7LkSZd/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -417,7 +547,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_clgoysdhp004w2tmvzu0a2yqi"
+                 href="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" rel="gallery_clhj4bevo0067dumvw577aupj"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7LbHwO/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -425,7 +555,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_clgoysdhp004w2tmvzu0a2yqi"
+                 href="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" rel="gallery_clhj4bevo0067dumvw577aupj"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7L4U9h/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -433,7 +563,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_clgoysdhp004w2tmvzu0a2yqi"
+                 href="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" rel="gallery_clhj4bevo0067dumvw577aupj"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7L1BYo/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -441,7 +571,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_clgoysdhp004w2tmvzu0a2yqi"
+                 href="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" rel="gallery_clhj4bevo0067dumvw577aupj"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7KWcdW/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -449,7 +579,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_clgoysdhp004w2tmvzu0a2yqi"
+                 href="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" rel="gallery_clhj4bevo0067dumvw577aupj"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://pic.yupoo.com/peterfei/EM7KPbd3/medium.jpg" itemprop="contentUrl"/>
               </a>
@@ -686,105 +816,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" itemprop="url">
-                  ionic学习笔记1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-03T09:24:56+08:00" content="2015-07-03">
-              2015-07-03
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#Ionic Add Platform EACCES Error 解决办法<br>*当出现<code>platform add [platformname]</code></p>
-<p>Error: spawn EACCES<br>at exports._errnoException (util.js:746:11)<br>at ChildProcess.spawn (child_process.js:1155:11)<br>at Object.exports.spawn (child_process.js:988:9)<br>at Object.exports.spawn (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/cordova/superspawn.js:100:31)<br>at runScriptViaChildProcessSpawn (/usr/local/lib/node_modules/cordova/node_modules/cordova-<br>lib/src/hooks/HooksRunner.js:188:23)<br>at runScript (/usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:131:16)<br>at /usr/local/lib/node_modules/cordova/node_modules/cordova- lib/src/hooks/HooksRunner.js:114:20<br>at _fulfilled (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:787:54)<br>at self.promiseDispatch.done (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:816:30)<br>at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/cordova/node_modules/q/q.js:749:13)<br>*</p>
-<p>加入<code>ionic hooks add</code><br>then<br><code>ionic platform add ios</code></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -825,7 +862,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">76</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
