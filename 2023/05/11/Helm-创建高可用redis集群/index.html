@@ -69,16 +69,16 @@
 <meta property="og:description" content="数据 在多个Redis节点之间自动分片
  sentinel特点：
 12345它的主要功能有以下几点不时地监控redis是否按照预期良好地运行;如果发现某个redis节点运行出现状况，能够通知另外一个进程(例如它的客户端);能够进行自动切换。当一个master节点不可用时，能够选举出master的多个slave(如果有超过一个slave的话)中的一个来作为新的master,其它的slave节点会将它">
+<meta property="og:image" content="http://image-peterfei-blog.test.upcdn.net/copycode-20230511205316397.gif">
 <meta property="og:image" content="http://image-peterfei-blog.test.upcdn.net/copycode.gif">
-<meta property="og:image" content="http://image-peterfei-blog.test.upcdn.net/copycode.gif">
-<meta property="og:image" content="http://image-peterfei-blog.test.upcdn.net/972749-20190327150510717-1641374811.png">
-<meta property="og:updated_time" content="2023-05-11T12:43:41.459Z">
+<meta property="og:image" content="http://image-peterfei-blog.test.upcdn.net/972749-20190327150510717-1641374811-20230511205209692.png">
+<meta property="og:updated_time" content="2023-05-11T12:53:22.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Helm 创建高可用redis集群">
 <meta name="twitter:description" content="数据 在多个Redis节点之间自动分片
  sentinel特点：
 12345它的主要功能有以下几点不时地监控redis是否按照预期良好地运行;如果发现某个redis节点运行出现状况，能够通知另外一个进程(例如它的客户端);能够进行自动切换。当一个master节点不可用时，能够选举出master的多个slave(如果有超过一个slave的话)中的一个来作为新的master,其它的slave节点会将它">
-<meta name="twitter:image" content="http://image-peterfei-blog.test.upcdn.net/copycode.gif">
+<meta name="twitter:image" content="http://image-peterfei-blog.test.upcdn.net/copycode-20230511205316397.gif">
 
 
 
@@ -306,11 +306,11 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#部署 Service</span></div><div class="line">kubectl apply <span class="_">-f</span> service.yaml</div><div class="line"></div><div class="line"><span class="comment">#查看部署结果</span></div><div class="line">kubectl get svc</div><div class="line">执行结果</div><div class="line">NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                       AGE</div><div class="line">kubernetes            ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP                       2d21h</div><div class="line">redis-ha              ClusterIP   None             &lt;none&gt;        6379/TCP,26379/TCP,9121/TCP   5h47m</div><div class="line">redis-ha-announce-0   ClusterIP   10.99.18.87      &lt;none&gt;        6379/TCP,26379/TCP,9121/TCP   5h47m</div><div class="line">redis-ha-announce-1   ClusterIP   10.100.130.186   &lt;none&gt;        6379/TCP,26379/TCP,9121/TCP   5h47m</div><div class="line">redis-ha-service      NodePort    10.109.28.12     &lt;none&gt;        26379:30379/TCP               3h25m</div><div class="line"></div><div class="line"><span class="comment">#此时可以通过 k8s 任意 master 节点 IP:30379 端口进行连接</span></div></pre></td></tr></table></figure>
 <p><strong>故障转移实验</strong></p>
 <p><strong>停止主redis：</strong></p>
-<p><a href=""><img src="http://image-peterfei-blog.test.upcdn.net/copycode.gif" alt="复制代码"></a></p>
+<p><a href=""><img src="http://image-peterfei-blog.test.upcdn.net/copycode-20230511205316397.gif" alt="复制代码"></a></p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">#<span class="number">1</span>、在主上故障转移测试，使主down掉</div><div class="line">redis-cli -h redis-ha-announce<span class="number">-0</span> -p <span class="number">6379</span> debug segfault</div><div class="line"></div><div class="line">#<span class="number">2</span>、然后进入redis容器或sentinel容器</div><div class="line">kubectl exec -it redis-ha-server<span class="number">-2</span> -c redis sh</div><div class="line">kubectl exec -it redis-ha-server<span class="number">-0</span> -c sentinel sh</div><div class="line"></div><div class="line">#<span class="number">3</span>、容器里面使用redis客户端连接redis服务端</div><div class="line">redis-cli -h redis-ha-announce<span class="number">-1</span> -p <span class="number">6379</span> </div><div class="line">redis-cli -h redis-ha-announce<span class="number">-2</span> -p <span class="number">6379</span></div><div class="line">#容器里面使用redis客户端连接Sentinel服务端</div><div class="line">redis-cli -h redis-ha-announce<span class="number">-0</span> -p <span class="number">26379</span></div><div class="line"></div><div class="line"></div><div class="line">#<span class="number">4</span>、redis查看主从状态</div><div class="line">info replication</div><div class="line">#sentinel查看状态 </div><div class="line">INFO Sentinel</div><div class="line"></div><div class="line">#<span class="number">5</span>、查看日志</div><div class="line">kubectl logs -f  redis-ha-server<span class="number">-0</span> -c redis</div><div class="line">kubectl logs -f  redis-ha-server<span class="number">-1</span> -c redis</div><div class="line">kubectl logs -f  redis-ha-server<span class="number">-2</span> -c redis</div></pre></td></tr></table></figure>
 <p><a href=""><img src="http://image-peterfei-blog.test.upcdn.net/copycode.gif" alt="复制代码"></a></p>
 <p>#主前任主上查看redis主从状态如下，10.106.29.241是第三台redis的ip，说转换成功了</p>
-<p><img src="http://image-peterfei-blog.test.upcdn.net/972749-20190327150510717-1641374811.png" alt="img"></p>
+<p><img src="http://image-peterfei-blog.test.upcdn.net/972749-20190327150510717-1641374811-20230511205209692.png" alt="img"></p>
 
       
     </div>

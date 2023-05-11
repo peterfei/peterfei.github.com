@@ -208,11 +208,6 @@
 
     
     
-      
-      
-
-      
-    
 
     
       
@@ -745,7 +740,7 @@
           
             <blockquote>
 <p>在migration 里生成的文件写下如下要批量执行的sql:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">execute</span> &lt;&lt;-<span class="keyword">SQL</span></div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> distributors <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> zipchk <span class="keyword">CHECK</span> (<span class="keyword">char_length</span>(zipcode) = <span class="number">5</span>) <span class="keyword">NO</span> INHERIT;</div><div class="line">    <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> zipchk <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> board_time <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">COLLATE</span> utf8_unicode_ci <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'时间'</span>;      </div><div class="line">   SQL</div></pre></td></tr></table></figure></p>
-<p>执行一直报sql错误，下面是Google Group 社区给出的解决方案：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sql = &lt;&lt;-SQL </div><div class="line"> &lt;statement_1&gt;; </div><div class="line"> &lt;statement_2&gt;; </div><div class="line"> &lt;statement_3&gt;; </div><div class="line">SQL </div><div class="line"></div><div class="line">sql.strip.split(<span class="string">';'</span>).each <span class="keyword">do</span> <span class="params">|s|</span> </div><div class="line">  ActiveRecord::Base.connection.execute(s) </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>执行一直报sql错误，下面是Google Group 社区给出的解决方案：<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sql = &lt;&lt;-SQL </div><div class="line"> &lt;statement_1&gt;; </div><div class="line"> &lt;statement_2&gt;; </div><div class="line"> &lt;statement_3&gt;; </div><div class="line">SQL </div><div class="line"></div><div class="line">sql.strip.<span class="built_in">split</span>(';').each <span class="built_in">do</span> |<span class="type">s</span>| </div><div class="line">  <span class="type">ActiveRecord</span>::Base.connection.execute(s) </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
 </blockquote>
 
           
