@@ -231,6 +231,116 @@
             
               
                 
+                <a class="post-title-link" href="/2015/07/03/IOS-打包script/" itemprop="url">
+                  IOS 打包script
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-03T19:47:03+08:00" content="2015-07-03">
+              2015-07-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/IOS/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/03/IOS-打包script/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/IOS-打包script/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>无签名打包命令</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate</div><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"iphoneos"</span> ] || [ <span class="string">"<span class="variable">$&#123;PLATFORM_NAME&#125;</span>"</span> == <span class="string">"ipados"</span> ]; <span class="keyword">then</span></div><div class="line">/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py <span class="string">"my.company.<span class="variable">$&#123;PROJECT_NAME&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span>;</div><div class="line">codesign <span class="_">-f</span> <span class="_">-s</span> <span class="string">"iPhone Developer"</span> --entitlements <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/<span class="variable">$&#123;PROJECT_NAME&#125;</span>.xcent"</span> <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>/"</span></div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/07/03/2015-07-03-ionicxue-xi-bi-ji-1/" itemprop="url">
                   ionic学习笔记1
                 </a>
@@ -618,98 +728,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/09/25/2014-09-25-php-magento-productions/" itemprop="url">
-                  Magento 该如何多语言翻译
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-09-25T20:09:54+08:00" content="2014-09-25">
-              2014-09-25
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/09/25/2014-09-25-php-magento-productions/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/25/2014-09-25-php-magento-productions/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一般的，登陆后台，e.g.选择[目录]-&gt;[管理产品]-&gt;[choose store view],如图示：<br><img src="http://pic.yupoo.com/peterfei/E5hJuyQ6/wTouJ.jpg" alt="choose store view"></p>
-<p>就可以编辑中文内容，同理，选择[目录]-&gt;[管理产品]-&gt;[choose store view]，选择英文，就可以编辑英文产品。<br>编辑’CMS’,如[页面]，选择一静态页面，如[About Us],点编辑后，按”ctrl”健，在商店界面，点’英文’，界面会着色，之后选内容项，就可以编辑英文内容，同理，再新建一页面，复制’About Us’的页面信息，如标题，网址等，按”ctrl”健，在商店界面，点’中文’，界面会着色，之后选内容项，就可以编辑中文内容，前台就已经对应生成中英文双语的关于我们了，是不是很Cool。<br><img src="http://pic.yupoo.com/peterfei/E5hOg1K0/D2nZQ.jpg" alt="choose store view"></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -756,7 +774,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">76</span>
+              <span class="site-state-item-count">77</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

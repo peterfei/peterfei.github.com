@@ -231,6 +231,151 @@
             
               
                 
+                <a class="post-title-link" href="/2015/10/29/Sublime-中自定义snippets/" itemprop="url">
+                  Sublime 中自定义snippets
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-10-29T10:00:20+08:00" content="2015-10-29">
+              2015-10-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/29/Sublime-中自定义snippets/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/29/Sublime-中自定义snippets/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##选择<code>tool</code>-&gt;<code>new snippet</code><br>内容如下：<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">snippet</span>&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">content</span>&gt;</span>&lt;![CDATA[</div><div class="line">Hello, $<span class="template-variable">&#123;1:this&#125;</span><span class="xml"> is a $</span><span class="template-variable">&#123;2:snippet&#125;</span><span class="xml">.</span></div><div class="line">]]&gt;<span class="tag">&lt;/<span class="name">content</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">snippet</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<ol>
+<li>Hello, ${1:this} is a ${2:snippet} 这正是你要插入到文档中的文本。在此节放入的任何片段都会被插入到你的文档中。</li>
+<li>tabTrigger 此节是可选的配置，默认是被注释掉的。默认 hello 的意思是：如果你在某个文档里输入了单词 hello ，然后按下 Tab 键，接着 hello 就会被替换为1中定义的代码片段。再次按下Tab键，接着snippet会被替换为2中定义的代码片段</li>
+<li>scope 此节也是可选配置，默认是被注释掉的。默认 source.php 的意思是：只有在编辑 php 源码的时候，才能用此代码片段</li>
+</ol>
+<p>##保存代码片段文件<br>在能自定义代码片段之前，应该首先保存。在保存文件对话框里，需要明确的指定文件的扩展名为.sublime-snippet，然后把文件保存到默认目录（当前用户主目录下的\Sublime Text 3\Packages\User目录中）。</p>
+<p>保存文件之后，就可以测试上面提到的tabTrigger功能了。如果不再使用此功能，可以在此注释掉.</p>
+<p>##修改代码片段文件<br>在创建新代码片段中提到过 Hello, ${1:this} is a ${2:snippet} ，其中 ${1:this} 和 ${2:snippet} 是占位符。在插入代码片段后，单词 this 被选中，如果键入内容，this 将会被替换掉，接着按下 Tab 键，将会选中单词 snippet，如果键入内容，snippet 将会被替换掉。</p>
+<p>##绑定快捷键</p>
+<p>可以将上述的操作绑定到一个快捷键，在不键入任何文本的情况下，直接按快捷键插入代码片段。</p>
+<p>点击菜单栏的 Preferences 的子菜单 Key Binding – User，在打开的文件的方括号内部粘贴如下配置：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; “keys”: [“ctrl+1″], “command”: “insert_snippet”, “args”: &#123;“name”: “Packages/User/example.sublime-snippet”&#125; &#125;</div></pre></td></tr></table></figure>
+<p>现在简单介绍一下这段配置：</p>
+<ol>
+<li><p>“keys”: [“ctrl+1″] 这个定义了触发此命令的快捷键。</p>
+</li>
+<li><p>“command”: “insert_snippet” 这个是需要触发的命令的名字。</p>
+</li>
+<li><p>“args”: {“name”: “Packages/User/example.sublime-snippet”} 这个是需要传入到上述命令的参数。这里把代码片段文件的相对路径传递过去。</p>
+</li>
+</ol>
+<p>保存配置文件，现在就可以用快捷键插入代码片段了。</p>
+<blockquote>
+<p>以下是我Ruby的注释代码：</p>
+</blockquote>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;snippet&gt;</div><div class="line">	&lt;content&gt;&lt;![CDATA[</div><div class="line"># ########################################################</div><div class="line"># | Software: $&#123;<span class="number">1</span>&#125;</div><div class="line"># | Version: <span class="number">2015.10</span></div><div class="line"># | Site: http:<span class="comment">//peterfei.me</span></div><div class="line"># |--------------------------------------------------------</div><div class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</div><div class="line"># | Copyright (c) <span class="number">2012</span><span class="number">-2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></div><div class="line">#Reserved.</div><div class="line"># | Time:  $&#123;<span class="number">2</span>&#125; </div><div class="line"># ########################################################</div><div class="line">$&#123;<span class="number">3</span>&#125;</div><div class="line">]]&gt;&lt;/content&gt;</div><div class="line">	&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</div><div class="line">	&lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</div><div class="line">	&lt;!-- Optional: Set a scope to limit <span class="keyword">where</span> the snippet will trigger --&gt;</div><div class="line">	&lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</div><div class="line">&lt;/snippet&gt;</div></pre></td></tr></table></figure>
+<p>因为上例中有写Time 获取当前时间的，于是写个获取当前时间的：</p>
+<blockquote>
+<p>创建插件：<code>Tools → New Plugin:</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> datetime</div><div class="line"><span class="keyword">import</span> sublime_plugin</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCurrentTimeCommand</span><span class="params">(sublime_plugin.TextCommand)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, edit)</span>:</span></div><div class="line">        self.view.run_command(<span class="string">"insert_snippet"</span>, </div><div class="line">            &#123;</div><div class="line">                <span class="string">"contents"</span>: <span class="string">"%s"</span> % datetime.datetime.now().strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>) </div><div class="line">            &#125;</div><div class="line">        )</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>保存为Sublime Text 2\Packages\User\addCurrentTime.py</p>
+<blockquote>
+<p>创建快捷键：<code>Preference → Key Bindings - User:</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    &#123;</div><div class="line">        <span class="attr">"command"</span>: <span class="string">"add_current_time"</span>,</div><div class="line">        <span class="attr">"keys"</span>: [</div><div class="line">            <span class="string">"ctrl+shift+."</span></div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>此时使用快捷键ctrl+shift+.即可在当前光标处插入当前时间，如下:</p>
+</blockquote>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># ########################################################</div><div class="line"># | Software: test</div><div class="line"># | Version: <span class="number">2015.10</span></div><div class="line"># | Site: http:<span class="comment">//peterfei.me</span></div><div class="line"># |--------------------------------------------------------</div><div class="line"># | Author: peterfei &lt;peterfeispace@gmail.com&gt;</div><div class="line"># | Copyright (c) <span class="number">2012</span><span class="number">-2015</span>, http:<span class="comment">//peterfei.me. All Rights</span></div><div class="line">#Reserved.</div><div class="line"># | Time:  <span class="number">2015</span><span class="number">-10</span><span class="number">-29</span> <span class="number">09</span>:<span class="number">58</span>:<span class="number">53</span> </div><div class="line"># ########################################################</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/10/27/angularjs-mobiscroll-日期用例/" itemprop="url">
                   angularjs mobiscroll 日期用例
                 </a>
@@ -643,128 +788,11 @@
 <p>##加入<code>gem mina</code><br><code>mina init</code>, 生成config/deploy.rb<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require</span> <span class="string">'mina/rails'</span></div><div class="line"><span class="keyword">require</span> <span class="string">'mina/git'</span></div><div class="line"><span class="keyword">require</span> <span class="string">'mina/bundler'</span></div><div class="line"><span class="keyword">require</span> <span class="string">'mina/rvm'</span></div><div class="line"><span class="comment">#服务器地址,是使用ssh的方式登录服务器</span></div><div class="line">set <span class="symbol">:domain</span>, <span class="string">'deploy@yourIPServer'</span></div><div class="line"><span class="comment">#服务器中项目部署位置</span></div><div class="line">set <span class="symbol">:deploy_to</span>, <span class="string">'/home/deploy/api'</span></div><div class="line"><span class="comment">#git代码仓库</span></div><div class="line">set <span class="symbol">:repository</span>, <span class="string">'git@XXX.git'</span></div><div class="line"><span class="comment">#git分支</span></div><div class="line">set <span class="symbol">:branch</span>, <span class="string">'master'</span></div><div class="line">set <span class="symbol">:rvm_path</span>, <span class="string">'/usr/local/rvm/bin/rvm'</span></div><div class="line">set <span class="symbol">:bundle_gemfile</span>, <span class="string">"app/Gemfile"</span></div><div class="line"><span class="comment"># 中括号里的文件 会出现在服务器项目附录的shared文件夹中，这里加入了secrets.yml，环境密钥无需跟开发计算机一样</span></div><div class="line">set <span class="symbol">:shared_paths</span>, [<span class="string">'config/database.yml'</span>, <span class="string">'log'</span>, <span class="string">'config/secrets.yml'</span>]</div><div class="line">set <span class="symbol">:rails_env</span>, <span class="string">'development'</span></div><div class="line">task <span class="symbol">:environment</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># 如果使用的是rbenv,这么设置,但需确保.rbenv-version(rbenv local 1.9.3-p374)已经存在于你的项目中</span></div><div class="line">  invoke <span class="symbol">:<span class="string">'rvm:use[ruby-2.1.2@default]'</span></span></div><div class="line">  <span class="comment"># 如果使用rvm，可以这样加载一个RVM version<span class="doctag">@gemset</span></span></div><div class="line">  <span class="comment"># invoke :'rvm:use[ruby-1.9.3-p374<span class="doctag">@default</span>]'</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="comment"># 这个块里面的代码表示运行 mina setup时运行的命令</span></div><div class="line">task <span class="symbol">:setup</span> =&gt; <span class="symbol">:environment</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># 在服务器项目目录的shared中创建log文件夹</span></div><div class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/log"]</span></div><div class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/log"]</span></div><div class="line">  <span class="comment"># 在服务器项目目录的shared中创建config文件夹 下同</span></div><div class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config"]</span></div><div class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config"]</span></div><div class="line"></div><div class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/database.yml"]</span></div><div class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/secrets.yml"]</span></div><div class="line"></div><div class="line">  <span class="comment"># puma.rb 配置puma必须得文件夹及文件</span></div><div class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/pids"]</span></div><div class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/pids"]</span></div><div class="line"></div><div class="line">  queue! <span class="string">%[mkdir -p "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets"]</span></div><div class="line">  queue! <span class="string">%[chmod g+rx,u+rwx "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets"]</span></div><div class="line"></div><div class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/config/puma.rb"]</span></div><div class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/config/puma.rb'."]</span></div><div class="line"></div><div class="line">  <span class="comment"># tmp/sockets/puma.state</span></div><div class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/tmp/sockets/puma.state"]</span></div><div class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/tmp/sockets/puma.state'."]</span></div><div class="line"></div><div class="line">  <span class="comment"># log/puma.stdout.log</span></div><div class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/log/puma.stdout.log"]</span></div><div class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/log/puma.stdout.log'."]</span></div><div class="line"></div><div class="line">  <span class="comment"># log/puma.stdout.log</span></div><div class="line">  queue! <span class="string">%[touch "<span class="subst">#&#123;deploy_to&#125;</span>/shared/log/puma.stderr.log"]</span></div><div class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit 'shared/log/puma.stderr.log'."]</span></div><div class="line"></div><div class="line">  queue  <span class="string">%[echo "-----&gt; Be sure to edit '<span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;shared_path&#125;</span>/config/database.yml'."]</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">#这个代码块表示运行 mina deploy时执行的命令</span></div><div class="line">desc <span class="string">"Deploys the current version to the server."</span></div><div class="line">task <span class="symbol">:deploy</span> =&gt; <span class="symbol">:environment</span> <span class="keyword">do</span></div><div class="line">  to <span class="symbol">:before_hook</span> <span class="keyword">do</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  deploy <span class="keyword">do</span></div><div class="line">    <span class="comment">#重新拉git服务器上的最新版本，即使没有改变</span></div><div class="line">    invoke <span class="symbol">:<span class="string">'git:clone'</span></span></div><div class="line"></div><div class="line">    <span class="comment">#重新设定shared_path位置</span></div><div class="line">    invoke <span class="symbol">:<span class="string">'deploy:link_shared_paths'</span></span></div><div class="line">    invoke <span class="symbol">:<span class="string">'bundle:install'</span></span></div><div class="line">    <span class="comment"># invoke :'rails:db_migrate'</span></div><div class="line">    invoke <span class="symbol">:<span class="string">'rails:assets_precompile'</span></span></div><div class="line">    invoke <span class="symbol">:<span class="string">'deploy:cleanup'</span></span></div><div class="line"></div><div class="line">    to <span class="symbol">:launch</span> <span class="keyword">do</span></div><div class="line">      queue <span class="string">"mkdir -p <span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;current_path&#125;</span>/tmp/"</span></div><div class="line">      <span class="comment"># queue "chown -R www-data #&#123;deploy_to&#125;"</span></div><div class="line">      queue <span class="string">"touch <span class="subst">#&#123;deploy_to&#125;</span>/<span class="subst">#&#123;current_path&#125;</span>/tmp/restart.txt"</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
 <p>这样一来mina的基本配置就完成，接下来只要将你开发环境的项目上传到git服务器，然后运行下面的命令就完成了</p>
 <p><code>mina deploy</code></p>
-<p>##puma配置<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env puma</span></div><div class="line"></div><div class="line"><span class="comment">#rails的运行环境</span></div><div class="line"><span class="comment"># environment 'production'</span></div><div class="line">environment <span class="string">'development'</span></div><div class="line">threads <span class="number">2</span>, <span class="number">64</span></div><div class="line">workers <span class="number">4</span></div><div class="line"></div><div class="line"><span class="comment">#项目名</span></div><div class="line">app_name = <span class="string">"api"</span></div><div class="line"><span class="comment">#项目路径</span></div><div class="line">application_path = <span class="string">"/home/deploy/<span class="subst">#&#123;app_name&#125;</span>"</span></div><div class="line"><span class="comment">#这里一定要配置为项目路径下地current</span></div><div class="line">directory <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/current"</span></div><div class="line"></div><div class="line"><span class="comment">#下面都是 puma的配置项</span></div><div class="line">pidfile <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/pids/puma.pid"</span></div><div class="line">state_path <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/puma.state"</span></div><div class="line">stdout_redirect <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stdout.log"</span>, <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stderr.log"</span></div><div class="line">bind <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/<span class="subst">#&#123;app_name&#125;</span>.sock"</span></div><div class="line">activate_control_app <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/pumactl.sock"</span></div><div class="line"></div><div class="line"><span class="comment">#后台运行</span></div><div class="line">daemonize <span class="keyword">true</span></div><div class="line">on_restart <span class="keyword">do</span></div><div class="line">  puts <span class="string">'On restart...'</span></div><div class="line"><span class="keyword">end</span></div><div class="line">preload_app!</div></pre></td></tr></table></figure></p>
+<p>##puma配置<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env puma</span></div><div class="line"></div><div class="line"><span class="comment">#rails的运行环境</span></div><div class="line"><span class="comment"># environment 'production'</span></div><div class="line">environment <span class="string">'development'</span></div><div class="line">threads <span class="number">2</span>, <span class="number">64</span></div><div class="line">workers <span class="number">4</span></div><div class="line"></div><div class="line"><span class="comment">#项目名</span></div><div class="line">app_name = <span class="string">"api"</span></div><div class="line"><span class="comment">#项目路径</span></div><div class="line">application_path = <span class="string">"/home/deploy/<span class="subst">#&#123;app_name&#125;</span>"</span></div><div class="line"><span class="comment">#这里一定要配置为项目路径下地current</span></div><div class="line">directory <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/current"</span></div><div class="line"></div><div class="line"><span class="comment">#下面都是 puma的配置项</span></div><div class="line">pidfile <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/pids/puma.pid"</span></div><div class="line">state_path <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/puma.state"</span></div><div class="line">stdout_redirect <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stdout.log"</span>, <span class="string">"<span class="subst">#&#123;application_path&#125;</span>/shared/log/puma.stderr.log"</span></div><div class="line">bind <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/<span class="subst">#&#123;app_name&#125;</span>.sock"</span></div><div class="line">activate_control_app <span class="string">"unix://<span class="subst">#&#123;application_path&#125;</span>/shared/tmp/sockets/pumactl.sock"</span></div><div class="line"></div><div class="line"><span class="comment">#后台运行</span></div><div class="line">daemonize <span class="literal">true</span></div><div class="line">on_restart <span class="keyword">do</span></div><div class="line">  puts <span class="string">'On restart...'</span></div><div class="line"><span class="keyword">end</span></div><div class="line">preload_app!</div></pre></td></tr></table></figure></p>
 <p>##启动puma<br>进入/yourprj/config<br><code>pumactl -F puma.rb start</code></p>
 <p>##Nginx 配置<br><figure class="highlight puppet"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">worker_processes  1;</div><div class="line">	</div><div class="line">    error_log  /var/log/nginx/error.log warn;</div><div class="line">    pid        /var/run/nginx.pid;</div><div class="line">	</div><div class="line">    <span class="keyword">events</span> &#123;</div><div class="line">        worker_connections  <span class="number">1024</span>;</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    <span class="keyword">http</span> &#123;</div><div class="line">        <span class="literal">include</span>       /etc/nginx/mime.types;</div><div class="line">        default_type  application/octet-stream;</div><div class="line">	</div><div class="line">        log_format  <span class="keyword">main</span>  <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] "<span class="variable">$request</span>" '</span></div><div class="line">                          <span class="string">'<span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> "<span class="variable">$http_referer</span>" '</span></div><div class="line">                          <span class="string">'"<span class="variable">$http_user_agent</span>" "<span class="variable">$http_x_forwarded_for</span>"'</span>;</div><div class="line">	</div><div class="line">        access_log  /var/log/nginx/access.log  <span class="keyword">main</span>;</div><div class="line">	</div><div class="line">        sendfile        on;</div><div class="line">        <span class="comment">#tcp_nopush     on;</span></div><div class="line">	</div><div class="line">        keepalive_timeout  <span class="number">65</span>;</div><div class="line">	</div><div class="line">        <span class="comment">#gzip  on;</span></div><div class="line">	</div><div class="line">        <span class="comment">#include /etc/nginx/conf.d/*.conf;</span></div><div class="line">        upstream deploy &#123;</div><div class="line">                server unix:///var/www/ruby_sample/<span class="literal">shared</span>/tmp/sockets/ruby_sample.sock;</div><div class="line">        &#125;</div><div class="line">	</div><div class="line">        <span class="keyword">server</span> &#123;</div><div class="line">            listen <span class="number">80</span>;</div><div class="line">            server_name your.server.<span class="built_in">domain</span>.<span class="literal">ip</span>; <span class="comment"># change to match your URL</span></div><div class="line">            <span class="literal">root</span> /var/www/ruby_sample/current/public; <span class="comment"># I assume your app is located at this location</span></div><div class="line">	</div><div class="line">            location / &#123;</div><div class="line">                proxy_pass http://deploy; <span class="comment"># match the name of upstream directive which is defined above</span></div><div class="line">                proxy_set_header Host <span class="variable">$host</span>;</div><div class="line">                proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">            &#125;</div><div class="line">	</div><div class="line">            <span class="keyword">location</span> ~* ^/assets/ &#123;</div><div class="line">                <span class="comment"># Per RFC2616 - 1 year maximum expiry</span></div><div class="line">                expires 1y;</div><div class="line">                add_header Cache-Control public;</div><div class="line">                        <span class="comment"># Some browsers still send conditional-GET requests if there's a</span></div><div class="line">                <span class="comment"># Last-Modified header or an ETag header even if they haven't</span></div><div class="line">                <span class="comment"># reached the expiry date sent in the Expires header.</span></div><div class="line">                add_header Last-Modified <span class="string">""</span>;</div><div class="line">                add_header ETag <span class="string">""</span>;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">     &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p>接下里只需要重启nginx服务器，整个rails的环境就搭建完成了<br><code>nginx -s reload</code></p>
 
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/08/05/ionic-android-打包/" itemprop="url">
-                  ionic android 打包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-05T10:54:14+08:00" content="2015-08-05">
-              2015-08-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/08/05/ionic-android-打包/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/05/ionic-android-打包/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>生成证书</em></p>
-<pre><code>`keytool -genkey -v -keystore **-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000`
-</code></pre><p><em>生成release 版本:</em></p>
-<pre><code>cordova build --release android
-</code></pre><p><em>jarsinger:</em></p>
-<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ezu110-release-key.keystore /Users/liufei/ionic/yongche/platforms/android/build/outputs/apk/android-release-unsigned.apk  alias_name
-</code></pre><p><em>生成apk:</em></p>
-<pre><code>/Library/Android/android-sdk-macosx/build-tools/22.0.1/zipalign -v 4 /Users/liufei/ionic/yongche/platforms/android/build/outputs/apk/android-release-unsigned.apk ezu110.apk
-</code></pre>
           
         
       
@@ -830,7 +858,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">76</span>
+              <span class="site-state-item-count">77</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

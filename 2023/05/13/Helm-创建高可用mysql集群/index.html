@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="peterfei.me,peterfei" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Peterfei" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="helm 安装 MySQL 1主2从#1. 添加 bitnami 的仓库#1Copy$ helm repo add kubegemsapp https://charts.kubegems.io/kubegemsapp
+2. 查询 MySQL 资源#12345678$ helm repo update$ helm search repo mysqlNAME                   	CH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Helm 创建高可用mysql集群">
+<meta property="og:url" content="http://peterfei.me/2023/05/13/Helm-创建高可用mysql集群/index.html">
+<meta property="og:site_name" content="Peterfei">
+<meta property="og:description" content="helm 安装 MySQL 1主2从#1. 添加 bitnami 的仓库#1Copy$ helm repo add kubegemsapp https://charts.kubegems.io/kubegemsapp
+2. 查询 MySQL 资源#12345678$ helm repo update$ helm search repo mysqlNAME                   	CH">
+<meta property="og:updated_time" content="2023-05-13T01:47:07.709Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Helm 创建高可用mysql集群">
+<meta name="twitter:description" content="helm 安装 MySQL 1主2从#1. 添加 bitnami 的仓库#1Copy$ helm repo add kubegemsapp https://charts.kubegems.io/kubegemsapp
+2. 查询 MySQL 资源#12345678$ helm repo update$ helm search repo mysqlNAME                   	CH">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Helm 创建高可用mysql集群 | Peterfei </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Peterfei</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">上主是我的牧者，我实在一无所缺</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'PqEYgqEwUwFoXjgtngj9','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Helm 创建高可用mysql集群
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2023-05-13T09:35:27+08:00" content="2023-05-13">
+              2023-05-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2023/05/13/Helm-创建高可用mysql集群/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2023/05/13/Helm-创建高可用mysql集群/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="helm-安装-MySQL-1主2从"><a href="#helm-安装-MySQL-1主2从" class="headerlink" title="helm 安装 MySQL 1主2从#"></a><code>helm</code> 安装 <code>MySQL 1主2从</code><a href="https://www.cnblogs.com/evescn/p/16249207.html#237848894" target="_blank" rel="external">#</a></h2><h3 id="1-添加-bitnami-的仓库"><a href="#1-添加-bitnami-的仓库" class="headerlink" title="1. 添加 bitnami 的仓库#"></a>1. 添加 <code>bitnami</code> 的仓库<a href="https://www.cnblogs.com/evescn/p/16249207.html#1990877426" target="_blank" rel="external">#</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Copy$ helm repo add kubegemsapp https://charts.kubegems.io/kubegemsapp</div></pre></td></tr></table></figure>
+<h3 id="2-查询-MySQL-资源"><a href="#2-查询-MySQL-资源" class="headerlink" title="2. 查询 MySQL 资源#"></a>2. 查询 <code>MySQL</code> 资源<a href="https://www.cnblogs.com/evescn/p/16249207.html#1955462305" target="_blank" rel="external">#</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ helm repo update</div><div class="line">$ helm search repo mysql</div><div class="line">NAME                   	CHART VERSION	APP VERSION	DESCRIPTION                                       </div><div class="line">bitnami/mysql          	8.9.6        	8.0.29     	MySQL is a fast, reliable, scalable, and easy t...</div><div class="line">bitnami/phpmyadmin     	10.0.1       	5.1.3      	phpMyAdmin is a free software tool written in P...</div><div class="line">bitnami/mariadb        	11.0.2       	10.6.7     	MariaDB is an open source, community-developed ...</div><div class="line">bitnami/mariadb-cluster	1.0.2        	10.2.14    	DEPRECATED Chart to create a Highly available M...</div><div class="line">bitnami/mariadb-galera 	7.1.8        	10.6.7     	MariaDB Galera is a multi-primary database clus...</div></pre></td></tr></table></figure>
+<h3 id="3-拉取-MySQL-chart-到本地"><a href="#3-拉取-MySQL-chart-到本地" class="headerlink" title="3. 拉取 MySQL chart 到本地#"></a>3. 拉取 <code>MySQL chart</code> 到本地<a href="https://www.cnblogs.com/evescn/p/16249207.html#2359108108" target="_blank" rel="external">#</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ mkdir /root/mysql &amp;&amp; cd /root/mysql</div><div class="line"></div><div class="line"># 拉取 chart 到本地 /root/mysql 目录</div><div class="line">$ helm pull kubegemsapp/mysql --version 4.5.2</div><div class="line"></div><div class="line"></div><div class="line">$ tar -xvf mysql-4.5.2.tgz</div><div class="line">$ cp mysql/values.yaml ./values.yaml</div><div class="line"></div><div class="line"># 查看当前目录层级</div><div class="line">$ tree -L 2</div><div class="line">.</div><div class="line">├── mysql</div><div class="line">│   ├── Chart.yaml</div><div class="line">│   ├── files</div><div class="line">│   ├── README.md</div><div class="line">│   ├── templates</div><div class="line">│   ├── values-production.yaml</div><div class="line">│   └── values.yaml</div><div class="line">├── mysql-4.5.2.tgz</div><div class="line">└── values.yaml</div></pre></td></tr></table></figure>
+<h3 id="4-对本地-values-test-yaml-修改"><a href="#4-对本地-values-test-yaml-修改" class="headerlink" title="4. 对本地 values-test.yaml 修改#"></a>4. 对本地 <code>values-test.yaml</code> 修改<a href="https://www.cnblogs.com/evescn/p/16249207.html#2791212695" target="_blank" rel="external">#</a></h3><ul>
+<li>查看集群 <code>storageclasses</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ kubectl get storageclasses.storage.k8s.io </div><div class="line">NAME                   PROVISIONER           RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE</div><div class="line">openebs-device         openebs.io/local      Delete          WaitForFirstConsumer   false                  34d</div><div class="line">openebs-hostpath       openebs.io/local      Delete          WaitForFirstConsumer   false                  34d</div><div class="line">openebs-jiva-default   jiva.csi.openebs.io   Delete          Immediate              true                   33d</div></pre></td></tr></table></figure>
+<ul>
+<li>修改配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div></pre></td><td class="code"><pre><div class="line">$ cat values.yaml </div><div class="line"></div><div class="line">nameOverride: mysql</div><div class="line">fullnameOverride: mysql</div><div class="line"></div><div class="line">image:</div><div class="line">  registry: registry.cn-beijing.aliyuncs.com</div><div class="line">  repository: kubegemsapp/mysql</div><div class="line">  tag: 5.7.26</div><div class="line">  pullPolicy: IfNotPresent</div><div class="line"></div><div class="line">service:</div><div class="line">  type: ClusterIP</div><div class="line">  port: 3306</div><div class="line"></div><div class="line">securityContext:</div><div class="line">  enabled: true</div><div class="line">  fsGroup: 1001</div><div class="line">  runAsUser: 1001</div><div class="line"></div><div class="line">root:</div><div class="line">  password: Huazhu@2021</div><div class="line">  forcePassword: true</div><div class="line"></div><div class="line">db:</div><div class="line">  user:  huazhu</div><div class="line">  password: Huazhu@2021</div><div class="line">  name: my_database</div><div class="line">  forcePassword: true</div><div class="line"></div><div class="line">replication:</div><div class="line">  enabled: true</div><div class="line">  #user: huazhu_replicator</div><div class="line">  user: root</div><div class="line">  password: Huazhu@2021</div><div class="line">  forcePassword: true</div><div class="line"></div><div class="line">master:</div><div class="line">  antiAffinity: soft</div><div class="line">  updateStrategy:</div><div class="line">    type: RollingUpdate</div><div class="line">  persistence:</div><div class="line">    enabled: true</div><div class="line">    storageClass: &quot;managed-nfs-storage&quot;</div><div class="line">    mountPath: /bitnami/mysql</div><div class="line"></div><div class="line">    annotations:</div><div class="line">    accessModes:</div><div class="line">    - ReadWriteOnce</div><div class="line">    size: 5Gi</div><div class="line"></div><div class="line">  config: |-</div><div class="line">    [mysqld]</div><div class="line">    default_authentication_plugin=mysql_native_password</div><div class="line">    skip-name-resolve</div><div class="line">    explicit_defaults_for_timestamp</div><div class="line">    basedir=/opt/bitnami/mysql</div><div class="line">    port=3306</div><div class="line">    socket=/opt/bitnami/mysql/tmp/mysql.sock</div><div class="line">    tmpdir=/opt/bitnami/mysql/tmp</div><div class="line">    max_allowed_packet=16M</div><div class="line">    bind-address=0.0.0.0</div><div class="line">    pid-file=/opt/bitnami/mysql/tmp/mysqld.pid</div><div class="line">    log-error=/opt/bitnami/mysql/logs/mysqld.log</div><div class="line">    character-set-server=UTF8</div><div class="line">    collation-server=utf8_general_ci</div><div class="line"></div><div class="line">    [client]</div><div class="line">    port=3306</div><div class="line">    socket=/opt/bitnami/mysql/tmp/mysql.sock</div><div class="line">    default-character-set=UTF8</div><div class="line"></div><div class="line">    [manager]</div><div class="line">    port=3306</div><div class="line">    socket=/opt/bitnami/mysql/tmp/mysql.sock</div><div class="line">    pid-file=/opt/bitnami/mysql/tmp/mysqld.pid</div><div class="line"></div><div class="line">  resources: &#123;&#125;</div><div class="line">  livenessProbe:</div><div class="line">    enabled: true</div><div class="line">    initialDelaySeconds: 120</div><div class="line">    periodSeconds: 10</div><div class="line">    timeoutSeconds: 1</div><div class="line">    successThreshold: 1</div><div class="line">    failureThreshold: 3</div><div class="line">  readinessProbe:</div><div class="line">    enabled: true</div><div class="line">    initialDelaySeconds: 15</div><div class="line">    periodSeconds: 10</div><div class="line">    timeoutSeconds: 1</div><div class="line">    successThreshold: 1</div><div class="line">    failureThreshold: 3</div><div class="line"></div><div class="line">slave:</div><div class="line">  replicas: 1</div><div class="line">  antiAffinity: soft</div><div class="line">  updateStrategy:</div><div class="line">    type: RollingUpdate</div><div class="line">  persistence:</div><div class="line">    enabled: true</div><div class="line">    storageClass: &quot;managed-nfs-storage&quot;</div><div class="line">    mountPath: /bitnami/mysql</div><div class="line">    annotations:</div><div class="line">    accessModes:</div><div class="line">    - ReadWriteOnce</div><div class="line">    size: 5Gi</div><div class="line"></div><div class="line">  config: |-</div><div class="line">    [mysqld]</div><div class="line">    default_authentication_plugin=mysql_native_password</div><div class="line">    skip-name-resolve</div><div class="line">    explicit_defaults_for_timestamp</div><div class="line">    basedir=/opt/bitnami/mysql</div><div class="line">    port=3306</div><div class="line">    socket=/opt/bitnami/mysql/tmp/mysql.sock</div><div class="line">    tmpdir=/opt/bitnami/mysql/tmp</div><div class="line">    max_allowed_packet=16M</div><div class="line">    bind-address=0.0.0.0</div><div class="line">    pid-file=/opt/bitnami/mysql/tmp/mysqld.pid</div><div class="line">    log-error=/opt/bitnami/mysql/logs/mysqld.log</div><div class="line">    character-set-server=UTF8</div><div class="line">    collation-server=utf8_general_ci</div><div class="line"></div><div class="line">    [client]</div><div class="line">    port=3306</div><div class="line">    socket=/opt/bitnami/mysql/tmp/mysql.sock</div><div class="line">    default-character-set=UTF8</div><div class="line"></div><div class="line">    [manager]</div><div class="line">    port=3306</div><div class="line">    socket=/opt/bitnami/mysql/tmp/mysql.sock</div><div class="line">    pid-file=/opt/bitnami/mysql/tmp/mysqld.pid</div><div class="line"></div><div class="line">  resources: &#123;&#125;</div><div class="line">  livenessProbe:</div><div class="line">    enabled: true</div><div class="line">    initialDelaySeconds: 120</div><div class="line">    periodSeconds: 30</div><div class="line">    timeoutSeconds: 1</div><div class="line">    successThreshold: 1</div><div class="line">    failureThreshold: 3</div><div class="line">  readinessProbe:</div><div class="line">    enabled: true</div><div class="line">    initialDelaySeconds: 15</div><div class="line">    periodSeconds: 30</div><div class="line">    timeoutSeconds: 1</div><div class="line">    successThreshold: 1</div><div class="line">    failureThreshold: 3</div><div class="line"></div><div class="line">metrics:</div><div class="line">  enabled: false</div><div class="line">  image:</div><div class="line">    registry: registry.cn-beijing.aliyuncs.com</div><div class="line">    repository: kubegemsapp/mysqld-exporter</div><div class="line">    tag: v0.10.0</div><div class="line">    pullPolicy: IfNotPresent</div><div class="line">  resources: &#123;&#125;</div><div class="line">  annotations:</div><div class="line">    prometheus.io/scrape: &quot;true&quot;</div><div class="line">    prometheus.io/port: &quot;9104&quot;</div></pre></td></tr></table></figure>
+<h3 id="6-安装-MySQL-集群"><a href="#6-安装-MySQL-集群" class="headerlink" title="6. 安装 MySQL 集群"></a>6. 安装 <code>MySQL 集群</code></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">helm <span class="keyword">install</span> <span class="comment">--namespace mysql mysql-ha -f ./values.yaml ./mysql  --set auth.rootPassword=Huazhu@2021</span></div><div class="line"></div><div class="line"><span class="keyword">NAME</span>: mysql-cluster</div><div class="line"><span class="keyword">LAST</span> DEPLOYED: Mon May  <span class="number">9</span> <span class="number">01</span>:<span class="number">54</span>:<span class="number">38</span> <span class="number">2022</span></div><div class="line">NAMESPACE: <span class="keyword">test</span>-middleware</div><div class="line"><span class="keyword">STATUS</span>: deployed</div><div class="line">REVISION: <span class="number">1</span></div><div class="line"><span class="keyword">TEST</span> SUITE: <span class="keyword">None</span></div><div class="line">NOTES:</div><div class="line">Please be patient <span class="keyword">while</span> the chart <span class="keyword">is</span> being deployed</div><div class="line"></div><div class="line">Tip:</div><div class="line"></div><div class="line">  Watch the deployment <span class="keyword">status</span> <span class="keyword">using</span> the command: kubectl <span class="keyword">get</span> pods -w <span class="comment">--namespace test-middleware</span></div><div class="line"></div><div class="line">Services:</div><div class="line"></div><div class="line">  echo <span class="keyword">Master</span>: mysql-cluster-mysql.test-middleware.svc.cluster.local:<span class="number">3306</span></div><div class="line">  echo <span class="keyword">Slave</span>:  mysql-cluster-mysql-slave.test-middleware.svc.cluster.local:<span class="number">3306</span></div><div class="line"></div><div class="line">Administrator credentials:</div><div class="line"></div><div class="line">  echo Username: root</div><div class="line">  echo <span class="keyword">Password</span> : $(kubectl <span class="keyword">get</span> secret <span class="comment">--namespace test-middleware mysql-cluster-mysql -o jsonpath="&#123;.data.mysql-root-password&#125;" | base64 --decode)</span></div><div class="line"></div><div class="line"><span class="keyword">To</span> <span class="keyword">connect</span> <span class="keyword">to</span> your <span class="keyword">database</span>:</div><div class="line"></div><div class="line">  <span class="number">1.</span> Run a pod that you can <span class="keyword">use</span> <span class="keyword">as</span> a <span class="keyword">client</span>:</div><div class="line"></div><div class="line">      kubectl run mysql-cluster-mysql-<span class="keyword">client</span> <span class="comment">--rm --tty -i --restart='Never' --image  docker.io/bitnami/mysql:5.7.26 --namespace test-middleware --command -- bash</span></div><div class="line"></div><div class="line">  <span class="number">2.</span> <span class="keyword">To</span> <span class="keyword">connect</span> <span class="keyword">to</span> <span class="keyword">master</span> service (<span class="keyword">read</span>/write):</div><div class="line"></div><div class="line">      mysql -h mysql-cluster-mysql.test-middleware.svc.cluster.local -uroot -p my_database</div><div class="line"></div><div class="line">  <span class="number">3.</span> <span class="keyword">To</span> <span class="keyword">connect</span> <span class="keyword">to</span> <span class="keyword">slave</span> service (<span class="keyword">read</span>-<span class="keyword">only</span>):</div><div class="line"></div><div class="line">      mysql -h mysql-cluster-mysql-slave.test-middleware.svc.cluster.local -uroot -p my_database</div><div class="line"></div><div class="line"><span class="keyword">To</span> <span class="keyword">upgrade</span> this helm chart:</div><div class="line"></div><div class="line">  <span class="number">1.</span> Obtain the <span class="keyword">password</span> <span class="keyword">as</span> described <span class="keyword">on</span> the <span class="string">'Administrator credentials'</span> <span class="keyword">section</span> <span class="keyword">and</span> <span class="keyword">set</span> the <span class="string">'root.password'</span> parameter <span class="keyword">as</span> shown below:</div><div class="line"></div><div class="line">      ROOT_PASSWORD=$(kubectl <span class="keyword">get</span> secret <span class="comment">--namespace test-middleware mysql-cluster-mysql -o jsonpath="&#123;.data.mysql-root-password&#125;" | base64 --decode)</span></div><div class="line">      helm <span class="keyword">upgrade</span> mysql-cluster bitnami/mysql <span class="comment">--set root.password=$ROOT_PASSWORD</span></div></pre></td></tr></table></figure>
+<h3 id="7-查看部署的-MySQL-集群"><a href="#7-查看部署的-MySQL-集群" class="headerlink" title="7. 查看部署的 MySQL 集群#"></a>7. 查看部署的 <code>MySQL</code> 集群<a href="https://www.cnblogs.com/evescn/p/16249207.html#3339831180" target="_blank" rel="external">#</a></h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ helm -<span class="keyword">n</span> mysql <span class="keyword">list</span></div><div class="line">NAME         	NAMESPACE      	REVISION	UPDATED                                	STATUS  	CHART      	<span class="keyword">APP</span> <span class="keyword">VERSION</span></div><div class="line">mysql-<span class="keyword">cluster</span>	<span class="keyword">test</span>-middleware	1       	2022-05-09 01:54:38.848559008 -0400 EDT	deployed	mysql-4.5.2	5.7.26</div><div class="line"></div><div class="line">$ kubectl -<span class="keyword">n</span> mysql get pods -<span class="keyword">l</span> <span class="keyword">app</span>=mysql</div><div class="line">NAME                           READY   STATUS    RESTARTS   AGE</div><div class="line">mysql-<span class="keyword">cluster</span>-mysql-master-0   1/1     Running   0          16m</div><div class="line">mysql-<span class="keyword">cluster</span>-mysql-slave-0    1/1     Running   0          16m</div><div class="line">mysql-<span class="keyword">cluster</span>-mysql-slave-1    1/1     Running   0          14m</div><div class="line"></div><div class="line"></div><div class="line">&gt; mysql-<span class="keyword">cluster</span>-mysql-master-0 为主，mysql-<span class="keyword">cluster</span>-mysql-slave-0 和 mysql-<span class="keyword">cluster</span>-mysql-slave-1 为从</div><div class="line"></div><div class="line">&gt; default名称空间如何访问此 MySQL 集群</div><div class="line"></div><div class="line">&gt; MySQL主节点：mysql-<span class="keyword">cluster</span>-mysql.<span class="keyword">test</span>-middleware</div><div class="line">&gt; MySQL从节点0：mysql-<span class="keyword">cluster</span>-mysql-slave-0.mysql-<span class="keyword">cluster</span>-mysql-slave.<span class="keyword">test</span>-middleware</div><div class="line">&gt; MySQL从节点1：mysql-<span class="keyword">cluster</span>-mysql-slave-1.mysql-<span class="keyword">cluster</span>-mysql-slave.<span class="keyword">test</span>-middleware</div></pre></td></tr></table></figure>
+<ul>
+<li>查看服务使用的 <code>storageclass</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Copy# 查看 pvc</div><div class="line">$ kubectl -n test-middleware get pvc</div><div class="line">NAME                                STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS           AGE</div><div class="line">data-mysql-cluster-mysql-master-0   Bound    pvc-b9a1d1ca-44d3-4292-af45-e6f3b3063395   8Gi        RWO            openebs-jiva-default   31m</div><div class="line">data-mysql-cluster-mysql-slave-0    Bound    pvc-0d234b12-26eb-4e07-9dc0-ef9f0230e9fa   8Gi        RWO            openebs-jiva-default   31m</div><div class="line">data-mysql-cluster-mysql-slave-1    Bound    pvc-16531f4b-41ac-4a04-9d90-04b92aab7b49   8Gi        RWO            openebs-jiva-default   29m</div><div class="line"></div><div class="line"># 查看 pv</div><div class="line">$ kubectl get pv</div><div class="line">NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                                                                 STORAGECLASS           REASON   AGE</div><div class="line">pvc-b9a1d1ca-44d3-4292-af45-e6f3b3063395   8Gi        RWO            Delete           Bound    test-middleware/data-mysql-cluster-mysql-master-0                     openebs-jiva-default            33m</div><div class="line">pvc-0d234b12-26eb-4e07-9dc0-ef9f0230e9fa   8Gi        RWO            Delete           Bound    test-middleware/data-mysql-cluster-mysql-slave-0                      openebs-jiva-default            33m</div><div class="line">pvc-16531f4b-41ac-4a04-9d90-04b92aab7b49   8Gi        RWO            Delete           Bound    test-middleware/data-mysql-cluster-mysql-slave-1                      openebs-jiva-default            31m</div></pre></td></tr></table></figure>
+<h3 id="8-连接-MySQL-集群-验证服务"><a href="#8-连接-MySQL-集群-验证服务" class="headerlink" title="8. 连接 MySQL 集群 验证服务#"></a>8. 连接 <code>MySQL 集群</code> 验证服务<a href="https://www.cnblogs.com/evescn/p/16249207.html#3772543246" target="_blank" rel="external">#</a></h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">Copy<span class="comment"># 获取 MySQL 集群的密码</span></div><div class="line">$ kubectl get secret --namespace mysql mysql -o jsonpath=<span class="string">"&#123;.data.mysql-root-password&#125;"</span> | base64 --decode</div><div class="line">Huazhu@<span class="number">2021</span></div><div class="line"></div><div class="line"><span class="comment"># 启动一个临时容器</span></div><div class="line">$ kubectl run mysql-cluster-mysql-client --rm --tty -i --restart=<span class="string">'Never'</span> --image  docker.io/bitnami/mysql:<span class="number">5.7</span><span class="number">.26</span> --namespace mysql --command -- bash</div><div class="line"></div><div class="line"><span class="comment">## 登陆 MySQL Master节点</span></div><div class="line">$ mysql -h mysql.mysql -uroot -p</div><div class="line">Enter password: <span class="comment"># Huazhu@2021</span></div><div class="line"></div><div class="line">mysql&gt; show databases;</div><div class="line">+--------------------+</div><div class="line">| Database           <span class="string">|</span></div><div class="line">+--------------------+</div><div class="line">| information_schema |</div><div class="line">| my_database        |</div><div class="line">| mysql              |</div><div class="line">| performance_schema |</div><div class="line">| sys                |</div><div class="line">+--------------------+</div><div class="line">5 rows in set (0.00 sec)</div><div class="line"></div><div class="line"># 查看主从状态</div><div class="line"># 查看File和Position的值，在从库配置中会显示。</div><div class="line">&gt; show master status\G;</div><div class="line">*************************** 1. row ***************************</div><div class="line"><span class="attr">             File:</span> mysql-bin<span class="number">.000002</span></div><div class="line"><span class="attr">         Position:</span> <span class="number">154</span></div><div class="line"><span class="attr">     Binlog_Do_DB:</span> </div><div class="line"><span class="attr"> Binlog_Ignore_DB:</span> </div><div class="line"><span class="attr">Executed_Gtid_Set:</span> </div><div class="line"><span class="number">1</span> row in set (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"><span class="attr">ERROR:</span> </div><div class="line"><span class="literal">No</span> query specified</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## 登陆从库，查看主从同步状态</span></div><div class="line">$ mysql -h mysql-mysql-slave.mysql -uroot -p</div><div class="line">Enter password:  <span class="comment"># root123</span></div><div class="line"></div><div class="line">mysql&gt; show slave status\G;</div><div class="line">*************************** <span class="number">1.</span> row ***************************</div><div class="line"><span class="attr">               Slave_IO_State:</span> Waiting for master to send event</div><div class="line"><span class="attr">                  Master_Host:</span> mysql-cluster-mysql</div><div class="line"><span class="attr">                  Master_User:</span> replicator</div><div class="line"><span class="attr">                  Master_Port:</span> <span class="number">3306</span></div><div class="line"><span class="attr">                Connect_Retry:</span> <span class="number">10</span></div><div class="line"><span class="attr">              Master_Log_File:</span> mysql-bin<span class="number">.000002</span>  <span class="comment"># File: mysql-bin.000002</span></div><div class="line"><span class="attr">          Read_Master_Log_Pos:</span> <span class="number">154</span>  <span class="comment"># Position: 154</span></div><div class="line"><span class="attr">               Relay_Log_File:</span> mysql-relay-bin<span class="number">.000004</span></div><div class="line"><span class="attr">                Relay_Log_Pos:</span> <span class="number">367</span></div><div class="line"><span class="attr">        Relay_Master_Log_File:</span> mysql-bin<span class="number">.000002</span></div><div class="line"><span class="attr">             Slave_IO_Running:</span> <span class="literal">Yes</span></div><div class="line"><span class="attr">            Slave_SQL_Running:</span> <span class="literal">Yes</span></div><div class="line"><span class="attr">              Replicate_Do_DB:</span> </div><div class="line"><span class="attr">          Replicate_Ignore_DB:</span> </div><div class="line"><span class="attr">           Replicate_Do_Table:</span> </div><div class="line"><span class="attr">       Replicate_Ignore_Table:</span> </div><div class="line"><span class="attr">      Replicate_Wild_Do_Table:</span> </div><div class="line"><span class="attr">  Replicate_Wild_Ignore_Table:</span> </div><div class="line"><span class="attr">                   Last_Errno:</span> <span class="number">0</span></div><div class="line"><span class="attr">                   Last_Error:</span> </div><div class="line"><span class="attr">                 Skip_Counter:</span> <span class="number">0</span></div><div class="line"><span class="attr">          Exec_Master_Log_Pos:</span> <span class="number">154</span></div><div class="line"><span class="attr">              Relay_Log_Space:</span> <span class="number">2236</span></div><div class="line"><span class="attr">              Until_Condition:</span> None</div><div class="line"><span class="attr">               Until_Log_File:</span> </div><div class="line"><span class="attr">                Until_Log_Pos:</span> <span class="number">0</span></div><div class="line"><span class="attr">           Master_SSL_Allowed:</span> <span class="literal">No</span></div><div class="line"><span class="attr">           Master_SSL_CA_File:</span> </div><div class="line"><span class="attr">           Master_SSL_CA_Path:</span> </div><div class="line"><span class="attr">              Master_SSL_Cert:</span> </div><div class="line"><span class="attr">            Master_SSL_Cipher:</span> </div><div class="line"><span class="attr">               Master_SSL_Key:</span> </div><div class="line"><span class="attr">        Seconds_Behind_Master:</span> <span class="number">0</span></div><div class="line"><span class="attr">Master_SSL_Verify_Server_Cert:</span> <span class="literal">No</span></div><div class="line"><span class="attr">                Last_IO_Errno:</span> <span class="number">0</span></div><div class="line"><span class="attr">                Last_IO_Error:</span> </div><div class="line"><span class="attr">               Last_SQL_Errno:</span> <span class="number">0</span></div><div class="line"><span class="attr">               Last_SQL_Error:</span> </div><div class="line"><span class="attr">  Replicate_Ignore_Server_Ids:</span> </div><div class="line"><span class="attr">             Master_Server_Id:</span> <span class="number">641</span></div><div class="line"><span class="attr">                  Master_UUID:</span> aa7a516b-cf5c<span class="bullet">-11</span>ec-b974-a2ee403fe88f</div><div class="line"><span class="attr">             Master_Info_File:</span> mysql.slave_master_info</div><div class="line"><span class="attr">                    SQL_Delay:</span> <span class="number">0</span></div><div class="line"><span class="attr">          SQL_Remaining_Delay:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">      Slave_SQL_Running_State:</span> Slave has read all relay log; waiting for more updates</div><div class="line"><span class="attr">           Master_Retry_Count:</span> <span class="number">86400</span></div><div class="line"><span class="attr">                  Master_Bind:</span> </div><div class="line"><span class="attr">      Last_IO_Error_Timestamp:</span> </div><div class="line"><span class="attr">     Last_SQL_Error_Timestamp:</span> </div><div class="line"><span class="attr">               Master_SSL_Crl:</span> </div><div class="line"><span class="attr">           Master_SSL_Crlpath:</span> </div><div class="line"><span class="attr">           Retrieved_Gtid_Set:</span> </div><div class="line"><span class="attr">            Executed_Gtid_Set:</span> </div><div class="line"><span class="attr">                Auto_Position:</span> <span class="number">0</span></div><div class="line"><span class="attr">         Replicate_Rewrite_DB:</span> </div><div class="line"><span class="attr">                 Channel_Name:</span> </div><div class="line"><span class="attr">           Master_TLS_Version:</span> </div><div class="line"><span class="number">1</span> row in set (<span class="number">0.00</span> sec)</div><div class="line"></div><div class="line"><span class="attr">ERROR:</span> </div><div class="line"><span class="literal">No</span> query specified</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/05/11/Helm-创建高可用redis集群/" rel="next" title="Helm 创建高可用redis集群">
+                <i class="fa fa-chevron-left"></i> Helm 创建高可用redis集群
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+  <div class="ds-recent-visitors" data-num-items="28" data-avatar-size="42" id="ds-recent-visitors"></div>
+    
+      <div class="ds-thread" data-thread-key="2023/05/13/Helm-创建高可用mysql集群/"
+           data-title="Helm 创建高可用mysql集群" data-url="http://peterfei.me/2023/05/13/Helm-创建高可用mysql集群/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ruby-china-files.b0.upaiyun.com/user/big_avatar/5575.jpg"
+               alt="peterfei" />
+          <p class="site-author-name" itemprop="name">peterfei</p>
+          <p class="site-description motion-element" itemprop="description">peterfei|技术|上主是我的牧者</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">77</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterfei" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#helm-安装-MySQL-1主2从"><span class="nav-number">1.</span> <span class="nav-text">helm 安装 MySQL 1主2从#</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-添加-bitnami-的仓库"><span class="nav-number">1.1.</span> <span class="nav-text">1. 添加 bitnami 的仓库#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查询-MySQL-资源"><span class="nav-number">1.2.</span> <span class="nav-text">2. 查询 MySQL 资源#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-拉取-MySQL-chart-到本地"><span class="nav-number">1.3.</span> <span class="nav-text">3. 拉取 MySQL chart 到本地#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-对本地-values-test-yaml-修改"><span class="nav-number">1.4.</span> <span class="nav-text">4. 对本地 values-test.yaml 修改#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-安装-MySQL-集群"><span class="nav-number">1.5.</span> <span class="nav-text">6. 安装 MySQL 集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-查看部署的-MySQL-集群"><span class="nav-number">1.6.</span> <span class="nav-text">7. 查看部署的 MySQL 集群#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-连接-MySQL-集群-验证服务"><span class="nav-number">1.7.</span> <span class="nav-text">8. 连接 MySQL 集群 验证服务#</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">peterfei</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"peterfei"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+</body>
+</html>

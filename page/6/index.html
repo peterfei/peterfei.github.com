@@ -231,6 +231,123 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/20/swift实现代理-通知-闭包传值/" itemprop="url">
+                  swift实现代理,通知,闭包传值
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-20T09:58:21+08:00" content="2016-12-20">
+              2016-12-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/20/swift实现代理-通知-闭包传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/20/swift实现代理-通知-闭包传值/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>第一就是代理，这也是很常用的方式，特点是一对一的形式，而且逻辑结构非常清晰。实现起来较为简单：写协议 ，设置代理这个属性， 最好在你想通知代理做事情的方法中调用即可。当然这里面有一些细节，包括 ①协议定义时，请用关键字@required，和@optional来明确代理是否必须实现某些方法 ②代理的类型需用id类型，并写明要遵守的协议 ③就是在调用代理方法的时候需要判断代理是否实现该方法。</p>
+<p>第二就是通知，通知的优点很明显，他是一对多的形式，而且可以在任意对象之间传递，不需要二者有联系，当然他的实现和代理相比较稍微绕一点，注册，发通知，收通知。这里面的注意点就是 ①对于系统没有定义的事件监听时需要自己发通知，这是你就需要定义一个key，字符串类型，这也是通知的一个弊端，你需要拷贝到收通知的对象，避免写错一个字母而无法收通知的尴尬 ②就是注册的通知中心需要手动移除，不然除了性能的问题还会有其他的问题出现，比如说一个控制器消失了之后还有因为某些事件而发出通知，造成不想要的结果。</p>
+<p>第三就是block了，这是苹果后来才加入的，也是目前开发比较常用的一种方式，功能比较强大，但是在理解和使用上可能需要一段时间摸索和熟悉。他的最大特点就是回调，而且回调时可以传入参数，最重要的是，无论在哪调用，block的执行都会回到block创建的地方执行，而非调用的地方。而block本身可以封装一段代码，一段代码你懂的，很多人在初学时会被搞晕，甚至在block的声明上就纠结，其实很正常，多用就好。</p>
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><p>如下面代码,我们定义了一个协议方法, 其结构就是protocol关键字+协议的名称 + : + NSObjectProtocol {},注意Swift中的自定义协议其本身必须遵循NSObjectProtocol协议</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">TextViewControllerDelegate</span>: <span class="title">NSObjectProtocol</span></span>&#123;</div><div class="line">    <span class="comment">// 点击delegate按钮回调</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">delegateBtnWillClick</span><span class="params">(message : String)</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>并且在OC中,我们一般会定义一个属性来保存代理如@property (nonatomic,weak)id&lt; TextViewControllerDelegate &gt; delegate;但是在Swift中我们依然要这样做,只不过写法变成了weak var delegate : TextViewControllerDelegate?,注意一定要加上weak关键字,避免循环引用问题.这是我的demo中的代码,回调一段字符串</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/<span class="type">MARK</span>: - 点击代理传值按钮</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">delegateBtnClick</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"代理传值按钮被点击"</span>)</div><div class="line">    <span class="keyword">let</span> str = <span class="string">"代理传值按钮被点击,把上个界面的值传了过来"</span></div><div class="line">    delegate?.delegateBtnWillClick(str)</div><div class="line">    <span class="keyword">self</span>.navigationController?.popViewControllerAnimated(<span class="literal">true</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后就在别的控制器,设置那个控制器为该控制器的代理,去实现协议方法就可以了</p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/14/使用SnapKit作应用新手上路导览/" itemprop="url">
                   使用SnapKit作应用新手上路导览
                 </a>
@@ -664,126 +781,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/04/swift中闭包使用/" itemprop="url">
-                  swift中闭包使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-04T23:02:24+08:00" content="2016-09-04">
-              2016-09-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/04/swift中闭包使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/04/swift中闭包使用/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>闭包是自包含的函数代码块,可以在代码中被传递和使用。
-闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量,俗称 闭包。Swift 会为您管理在捕获过程中涉及到的所有内存操作。
-</code></pre><p>Swift 的闭包表达式拥有简洁的风格,并鼓励在常见场景中进行语法优化,主要优化如下:</p>
-<ol>
-<li>利用上下文推断参数和返回值类型</li>
-<li>隐式返回单表达式闭包,即单表达式闭包可以省略 return 关键字</li>
-<li>参数名称缩写</li>
-<li>尾随(Trailing)闭包语法</li>
-</ol>
-<p>##闭包表达式语法(Closure Expression Syntax)<br>闭包表达式语法有如下一般形式:<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123; <span class="function"><span class="params">(parameters)</span> -&gt;</span> returnType <span class="keyword">in</span></div><div class="line">    statements</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>demo:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">operate</span><span class="params">(sender: UIButton)</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> operate = sender.currentTitle!</div><div class="line">        <span class="built_in">print</span>(<span class="string">"current operate is <span class="subst">\(operate)</span>"</span>)</div><div class="line">        <span class="keyword">switch</span> operate &#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">"+"</span>: performOperation(&#123;$<span class="number">0</span>+$<span class="number">1</span>&#125;)</div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="string">"−"</span>: performOperation(&#123;$<span class="number">1</span>-$<span class="number">0</span>&#125;)</div><div class="line">        <span class="keyword">case</span> <span class="string">"×"</span>: performOperation(&#123;$<span class="number">0</span>*$<span class="number">1</span>&#125;)</div><div class="line">        <span class="keyword">case</span> <span class="string">"÷"</span>: performOperation(&#123;$<span class="number">1</span>/$<span class="number">0</span>&#125;)</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">performOperation</span><span class="params">(operation:<span class="params">(Double, Double)</span></span></span> -&gt; <span class="type">Double</span>) &#123;</div><div class="line">        <span class="keyword">if</span> operandStack.<span class="built_in">count</span>&gt;=<span class="number">2</span> &#123;</div><div class="line">                displayValue = operation(operandStack.removeLast(),operandStack.removeLast())</div><div class="line">                <span class="built_in">print</span>(<span class="string">"displayValue is <span class="subst">\(displayValue)</span>"</span>)</div><div class="line">                enter()</div><div class="line">            &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -830,7 +827,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">76</span>
+              <span class="site-state-item-count">77</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
