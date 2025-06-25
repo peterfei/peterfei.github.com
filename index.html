@@ -231,6 +231,124 @@
             
               
                 
+                <a class="post-title-link" href="/2025/06/25/鲲鹏（ARM64）-麒麟（Kylin-v10）离线部署-KubeSphere/" itemprop="url">
+                  鲲鹏（ARM64）+麒麟（Kylin v10）离线部署 KubeSphere
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2025-06-25T10:54:13+08:00" content="2025-06-25">
+              2025-06-25
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2025/06/25/鲲鹏（ARM64）-麒麟（Kylin-v10）离线部署-KubeSphere/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2025/06/25/鲲鹏（ARM64）-麒麟（Kylin-v10）离线部署-KubeSphere/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="确认操作系统配置"><a href="#确认操作系统配置" class="headerlink" title="确认操作系统配置"></a>确认操作系统配置</h3><ul>
+<li>操作系统类型</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="section">[root@localhost ~]</span><span class="comment"># cat /etc/os-release</span></div><div class="line"><span class="attr">NAME</span>=<span class="string">"Kylin Linux Advanced Server"</span></div><div class="line"><span class="attr">VERSION</span>=<span class="string">"V10 (Halberd)"</span></div><div class="line"><span class="attr">ID</span>=<span class="string">"kylin"</span></div><div class="line"><span class="attr">VERSION_ID</span>=<span class="string">"V10"</span></div><div class="line"><span class="attr">PRETTY_NAME</span>=<span class="string">"Kylin Linux Advanced Server V10 (Halberd)"</span></div><div class="line"><span class="attr">ANSI_COLOR</span>=<span class="string">"0;31</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>操作系统内核</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[root@node1 ~]</span># <span class="selector-tag">uname</span> <span class="selector-tag">-r</span></div><div class="line"><span class="selector-tag">Linux</span> <span class="selector-tag">node1</span> 4<span class="selector-class">.19</span><span class="selector-class">.90-52</span><span class="selector-class">.22</span><span class="selector-class">.v2207</span><span class="selector-class">.ky10</span><span class="selector-class">.aarch64</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>服务器 CPU 信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">[root@node1 ~]<span class="comment"># lscpu</span></div><div class="line">Architecture:                    aarch64</div><div class="line">CPU op-mode(s):                  64-bit</div><div class="line">Byte Order:                      Little Endian</div><div class="line">CPU(s):                          32</div><div class="line">On-line CPU(s) list:             0-31</div><div class="line">Thread(s) per core:              1</div><div class="line">Core(s) per socket:              1</div><div class="line">Socket(s):                       32</div><div class="line">NUMA node(s):                    2</div><div class="line">Vendor ID:                       HiSilicon</div><div class="line">Model:                           0</div><div class="line">Model name:                      Kunpeng-920</div><div class="line">Stepping:                        0x1</div><div class="line">BogoMIPS:                        200.00</div><div class="line">NUMA node0 CPU(s):               0-15</div><div class="line">NUMA node1 CPU(s):               16-31</div><div class="line">Vulnerability Itlb multihit:     Not affected</div><div class="line">Vulnerability L1tf:              Not affected</div><div class="line">Vulnerability Mds:               Not affected</div><div class="line">Vulnerability Meltdown:          Not affected</div><div class="line">Vulnerability Spec store bypass: Not affected</div><div class="line">Vulnerability Spectre v1:        Mitigation; __user pointer sanitization</div><div class="line">Vulnerability Spectre v2:        Not affected</div><div class="line">Vulnerability Srbds:             Not affected</div><div class="line">Vulnerability Tsx async abort:   Not affected</div><div class="line">Flags:                           fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma dcpop asimddp asimdfhm</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="安装-K8s-依赖服务"><a href="#安装-K8s-依赖服务" class="headerlink" title="安装 K8s 依赖服务"></a>安装 K8s 依赖服务</h2><p>下载相关: <a href="https://pan.baidu.com/s/1UnKJyu3oA_MImCTOsL-wDg?pwd=by92" target="_blank" rel="external">https://pan.baidu.com/s/1UnKJyu3oA_MImCTOsL-wDg?pwd=by92</a> 提取码: by92 </p>
+<h2 id="使用-KubeKey-部署-KubeSphere"><a href="#使用-KubeKey-部署-KubeSphere" class="headerlink" title="使用 KubeKey 部署 KubeSphere"></a>使用 KubeKey 部署 KubeSphere</h2><h3 id="移除麒麟系统自带的-podman"><a href="#移除麒麟系统自带的-podman" class="headerlink" title="移除麒麟系统自带的 podman"></a>移除麒麟系统自带的 podman</h3><p>podman 是麒麟系统自带的容器引擎，为避免后续与 Docker 冲突，直接卸载。否则后续 CoreDNS/NodelocalDNS 也会受影响无法启动以及各种 Docker 权限问题。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum <span class="keyword">remove</span> podman</div></pre></td></tr></table></figure>
+<h3 id="下载-KubeKey"><a href="#下载-KubeKey" class="headerlink" title="下载 KubeKey"></a>下载 KubeKey</h3><p>下载 <strong>kubekey-v2.3.1-linux-arm64.tar.gz</strong>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~</div><div class="line">mkdir kubesphere</div><div class="line"><span class="built_in">cd</span> kubesphere/</div><div class="line"></div><div class="line"><span class="comment"># 选择中文区下载(访问 GitHub 受限时使用)</span></div><div class="line"><span class="built_in">export</span> KKZONE=cn</div><div class="line"></div><div class="line"><span class="comment"># 执行下载命令，获取最新版的 kk（受限于网络，有时需要执行多次）</span></div><div class="line">curl -sfL https://get-kk.kubesphere.io/v2.3.1/kubekey-v2.3.1-linux-arm64.tar.gz | tar xzf -</div></pre></td></tr></table></figure>
+<h3 id="生成集群创建配置文件"><a href="#生成集群创建配置文件" class="headerlink" title="生成集群创建配置文件"></a>生成集群创建配置文件</h3><p>创建集群配置文件</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./kk create config -f kubesphere-v331-v12212.yaml --with-kubernetes v1<span class="number">.22</span><span class="number">.12</span> --with-kubesphere v3<span class="number">.3</span><span class="number">.1</span></div></pre></td></tr></table></figure>
+<p>命令执行成功后，在当前目录会生成文件名为 kubesphere-v331-v12212.yaml 配置文件:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> kubekey.kubesphere.io/v1alpha2</div><div class="line"><span class="attr">kind:</span> Cluster</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> sample</div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  hosts:</span></div><div class="line"><span class="bullet">    -</span> &#123;name: master, address: xxx.xxx.xxx.xxx, internalAddress: xxx.xxx.xxx.xxx,port: xxxxxx, user: root, password: <span class="string">"xxxxxxx"</span>,arch: arm64&#125;</div><div class="line"><span class="attr">  roleGroups:</span></div><div class="line"><span class="attr">    etcd:</span></div><div class="line"><span class="bullet">    -</span> master</div><div class="line"><span class="attr">    control-plane:</span></div><div class="line"><span class="bullet">    -</span> master</div><div class="line"><span class="attr">    worker:</span></div><div class="line"><span class="bullet">    -</span> master</div><div class="line"><span class="attr">  controlPlaneEndpoint:</span></div><div class="line">    <span class="comment">## Internal loadbalancer for apiservers</span></div><div class="line">    <span class="comment"># internalLoadbalancer: haproxy</span></div><div class="line"></div><div class="line"><span class="attr">    domain:</span> lb.kubesphere.local</div><div class="line"><span class="attr">    address:</span> <span class="string">""</span></div><div class="line"><span class="attr">    port:</span> <span class="number">6443</span></div><div class="line"><span class="attr">  kubernetes:</span></div><div class="line"><span class="attr">    version:</span> v1<span class="number">.22</span><span class="number">.12</span></div><div class="line"><span class="attr">    clusterName:</span> cluster.local</div><div class="line"><span class="attr">    autoRenewCerts:</span> <span class="literal">true</span></div><div class="line"><span class="attr">    containerManager:</span> docker</div><div class="line"><span class="attr">  etcd:</span></div><div class="line"><span class="attr">    type:</span> kubekey</div><div class="line"><span class="attr">  network:</span></div><div class="line"><span class="attr">    plugin:</span> calico</div><div class="line"><span class="attr">    kubePodsCIDR:</span> <span class="number">10.233</span><span class="number">.64</span><span class="number">.0</span>/<span class="number">18</span></div><div class="line"><span class="attr">    kubeServiceCIDR:</span> <span class="number">10.233</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">18</span></div><div class="line">    <span class="comment">## multus support. https://github.com/k8snetworkplumbingwg/multus-cni</span></div><div class="line"><span class="attr">    multusCNI:</span></div><div class="line"><span class="attr">      enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  registry:</span></div><div class="line"><span class="attr">    type:</span> harbor</div><div class="line"><span class="attr">    auths:</span></div><div class="line">      <span class="string">"dockerhub.kubekey.local"</span>:</div><div class="line"><span class="attr">        username:</span> admin</div><div class="line"><span class="attr">        password:</span> Harbor12345</div><div class="line"><span class="attr">    privateRegistry:</span> <span class="string">"dockerhub.kubekey.local"</span></div><div class="line"><span class="attr">    namespaceOverride:</span> <span class="string">"kubesphereio"</span></div><div class="line"><span class="attr">    registryMirrors:</span> []</div><div class="line"><span class="attr">    insecureRegistries:</span> []</div><div class="line"><span class="attr">  addons:</span> []</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">---</span></div><div class="line"><span class="attr">apiVersion:</span> installer.kubesphere.io/v1alpha1</div><div class="line"><span class="attr">kind:</span> ClusterConfiguration</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> ks-installer</div><div class="line"><span class="attr">  namespace:</span> kubesphere-system</div><div class="line"><span class="attr">  labels:</span></div><div class="line"><span class="attr">    version:</span> v3<span class="number">.3</span><span class="number">.1</span></div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  persistence:</span></div><div class="line"><span class="attr">    storageClass:</span> <span class="string">""</span></div><div class="line"><span class="attr">  authentication:</span></div><div class="line"><span class="attr">    jwtSecret:</span> <span class="string">""</span></div><div class="line"><span class="attr">  zone:</span> <span class="string">""</span></div><div class="line"><span class="attr">  local_registry:</span> <span class="string">""</span></div><div class="line"><span class="attr">  namespace_override:</span> <span class="string">""</span></div><div class="line">  <span class="comment"># dev_tag: ""</span></div><div class="line"><span class="attr">  etcd:</span></div><div class="line"><span class="attr">    monitoring:</span> <span class="literal">true</span></div><div class="line"><span class="attr">    endpointIps:</span> localhost</div><div class="line"><span class="attr">    port:</span> <span class="number">2379</span></div><div class="line"><span class="attr">    tlsEnable:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  common:</span></div><div class="line"><span class="attr">    core:</span></div><div class="line"><span class="attr">      console:</span></div><div class="line"><span class="attr">        enableMultiLogin:</span> <span class="literal">true</span></div><div class="line"><span class="attr">        port:</span> <span class="number">30880</span></div><div class="line"><span class="attr">        type:</span> NodePort</div><div class="line">    <span class="comment"># apiserver:</span></div><div class="line">    <span class="comment">#  resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># controllerManager:</span></div><div class="line">    <span class="comment">#  resources: &#123;&#125;</span></div><div class="line"><span class="attr">    redis:</span></div><div class="line"><span class="attr">      enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">      volumeSize:</span> <span class="number">2</span>Gi</div><div class="line"><span class="attr">    openldap:</span></div><div class="line"><span class="attr">      enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">      volumeSize:</span> <span class="number">2</span>Gi</div><div class="line"><span class="attr">    minio:</span></div><div class="line"><span class="attr">      volumeSize:</span> <span class="number">20</span>Gi</div><div class="line"><span class="attr">    monitoring:</span></div><div class="line">      <span class="comment"># type: external</span></div><div class="line"><span class="attr">      endpoint:</span> http://prometheus-operated.kubesphere-monitoring-system.svc:<span class="number">9090</span></div><div class="line"><span class="attr">      GPUMonitoring:</span></div><div class="line"><span class="attr">        enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    gpu:</span></div><div class="line"><span class="attr">      kinds:</span></div><div class="line"><span class="attr">      - resourceName:</span> <span class="string">"nvidia.com/gpu"</span></div><div class="line"><span class="attr">        resourceType:</span> <span class="string">"GPU"</span></div><div class="line"><span class="attr">        default:</span> <span class="literal">true</span></div><div class="line"><span class="attr">    es:</span></div><div class="line">      <span class="comment"># master:</span></div><div class="line">      <span class="comment">#   volumeSize: 4Gi</span></div><div class="line">      <span class="comment">#   replicas: 1</span></div><div class="line">      <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">      <span class="comment"># data:</span></div><div class="line">      <span class="comment">#   volumeSize: 20Gi</span></div><div class="line">      <span class="comment">#   replicas: 1</span></div><div class="line">      <span class="comment">#   resources: &#123;&#125;</span></div><div class="line"><span class="attr">      logMaxAge:</span> <span class="number">7</span></div><div class="line"><span class="attr">      elkPrefix:</span> logstash</div><div class="line"><span class="attr">      basicAuth:</span></div><div class="line"><span class="attr">        enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">        username:</span> <span class="string">""</span></div><div class="line"><span class="attr">        password:</span> <span class="string">""</span></div><div class="line"><span class="attr">      externalElasticsearchHost:</span> <span class="string">""</span></div><div class="line"><span class="attr">      externalElasticsearchPort:</span> <span class="string">""</span></div><div class="line"><span class="attr">  alerting:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line">    <span class="comment"># thanosruler:</span></div><div class="line">    <span class="comment">#   replicas: 1</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line"><span class="attr">  auditing:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line">    <span class="comment"># operator:</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># webhook:</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line"><span class="attr">  devops:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line">    <span class="comment"># resources: &#123;&#125;</span></div><div class="line"><span class="attr">    jenkinsMemoryLim:</span> <span class="number">8</span>Gi</div><div class="line"><span class="attr">    jenkinsMemoryReq:</span> <span class="number">4</span>Gi</div><div class="line"><span class="attr">    jenkinsVolumeSize:</span> <span class="number">8</span>Gi</div><div class="line"><span class="attr">  events:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line">    <span class="comment"># operator:</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># exporter:</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># ruler:</span></div><div class="line">    <span class="comment">#   enabled: true</span></div><div class="line">    <span class="comment">#   replicas: 2</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line"><span class="attr">  logging:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    logsidecar:</span></div><div class="line"><span class="attr">      enabled:</span> <span class="literal">true</span></div><div class="line"><span class="attr">      replicas:</span> <span class="number">2</span></div><div class="line">      <span class="comment"># resources: &#123;&#125;</span></div><div class="line"><span class="attr">  metrics_server:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  monitoring:</span></div><div class="line"><span class="attr">    storageClass:</span> <span class="string">""</span></div><div class="line"><span class="attr">    node_exporter:</span></div><div class="line"><span class="attr">      port:</span> <span class="number">9100</span></div><div class="line">      <span class="comment"># resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># kube_rbac_proxy:</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># kube_state_metrics:</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># prometheus:</span></div><div class="line">    <span class="comment">#   replicas: 1</span></div><div class="line">    <span class="comment">#   volumeSize: 20Gi</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment">#   operator:</span></div><div class="line">    <span class="comment">#     resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># alertmanager:</span></div><div class="line">    <span class="comment">#   replicas: 1</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment"># notification_manager:</span></div><div class="line">    <span class="comment">#   resources: &#123;&#125;</span></div><div class="line">    <span class="comment">#   operator:</span></div><div class="line">    <span class="comment">#     resources: &#123;&#125;</span></div><div class="line">    <span class="comment">#   proxy:</span></div><div class="line">    <span class="comment">#     resources: &#123;&#125;</span></div><div class="line"><span class="attr">    gpu:</span></div><div class="line"><span class="attr">      nvidia_dcgm_exporter:</span></div><div class="line"><span class="attr">        enabled:</span> <span class="literal">false</span></div><div class="line">        <span class="comment"># resources: &#123;&#125;</span></div><div class="line"><span class="attr">  multicluster:</span></div><div class="line"><span class="attr">    clusterRole:</span> none</div><div class="line"><span class="attr">  network:</span></div><div class="line"><span class="attr">    networkpolicy:</span></div><div class="line"><span class="attr">      enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    ippool:</span></div><div class="line"><span class="attr">      type:</span> none</div><div class="line"><span class="attr">    topology:</span></div><div class="line"><span class="attr">      type:</span> none</div><div class="line"><span class="attr">  openpitrix:</span></div><div class="line"><span class="attr">    store:</span></div><div class="line"><span class="attr">      enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  servicemesh:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    istio:</span></div><div class="line"><span class="attr">      components:</span></div><div class="line"><span class="attr">        ingressGateways:</span></div><div class="line"><span class="attr">        - name:</span> istio-ingressgateway</div><div class="line"><span class="attr">          enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">        cni:</span></div><div class="line"><span class="attr">          enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  edgeruntime:</span></div><div class="line"><span class="attr">    enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    kubeedge:</span></div><div class="line"><span class="attr">      enabled:</span> <span class="literal">false</span></div><div class="line"><span class="attr">      cloudCore:</span></div><div class="line"><span class="attr">        cloudHub:</span></div><div class="line"><span class="attr">          advertiseAddress:</span></div><div class="line"><span class="bullet">            -</span> <span class="string">""</span></div><div class="line"><span class="attr">        service:</span></div><div class="line"><span class="attr">          cloudhubNodePort:</span> <span class="string">"30000"</span></div><div class="line"><span class="attr">          cloudhubQuicNodePort:</span> <span class="string">"30001"</span></div><div class="line"><span class="attr">          cloudhubHttpsNodePort:</span> <span class="string">"30002"</span></div><div class="line"><span class="attr">          cloudstreamNodePort:</span> <span class="string">"30003"</span></div><div class="line"><span class="attr">          tunnelNodePort:</span> <span class="string">"30004"</span></div><div class="line">        <span class="comment"># resources: &#123;&#125;</span></div><div class="line">        <span class="comment"># hostNetWork: false</span></div><div class="line"><span class="attr">      iptables-manager:</span></div><div class="line"><span class="attr">        enabled:</span> <span class="literal">true</span></div><div class="line"><span class="attr">        mode:</span> <span class="string">"external"</span></div><div class="line">        <span class="comment"># resources: &#123;&#125;</span></div><div class="line">      <span class="comment"># edgeService:</span></div><div class="line">      <span class="comment">#   resources: &#123;&#125;</span></div><div class="line"><span class="attr">  terminal:</span></div><div class="line"><span class="attr">    timeout:</span> <span class="number">600</span></div></pre></td></tr></table></figure>
+<h3 id="执行安装"><a href="#执行安装" class="headerlink" title="执行安装"></a>执行安装</h3><figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">.</span>/kk create cluster -f kubesphere-v331-v12212.yaml</div></pre></td></tr></table></figure>
+<p>说明</p>
+<blockquote>
+<p> 修改 <strong>kind: Cluster</strong> 小节中 hosts 和 roleGroups 等信息，修改说明如下：</p>
+<p>hosts：指定节点的 IP、ssh 用户、ssh 密码、ssh 端口。</p>
+<p><strong>特别注意：</strong> 一定要手工指定 <strong>arch: arm64</strong>，否则部署的时候会安装 X86 架构的软件包</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2025/06/25/k8s环境流量不走apisix/" itemprop="url">
                   k8s环境流量不走apisix
                 </a>
@@ -736,180 +854,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2023/02/22/Mysql使用pt-query-digest分析日志/" itemprop="url">
-                  Mysql使用pt-query-digest分析日志
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2023-02-22T15:16:20+08:00" content="2023-02-22">
-              2023-02-22
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2023/02/22/Mysql使用pt-query-digest分析日志/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2023/02/22/Mysql使用pt-query-digest分析日志/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-开启慢查询日志"><a href="#1-开启慢查询日志" class="headerlink" title="1. 开启慢查询日志"></a>1. 开启慢查询日志</h3><p>（1）首先我们要创建一个文件夹用于保存慢查询日志文件，并且设置 <strong>mysql</strong> 有权读写该目录：</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir` `/``var``/log/mysql``sudo ``chown` `mysql:mysql -R /``var``/log/mysql</div></pre></td></tr></table></figure>
-<p>（2）我们可以登入 <strong>mysql</strong> 命令行后执行如下命令，使用 <strong>set</strong> 设置变量来临时开启。注意这种方式重启服务即失效。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>slow_query_log=<span class="keyword">on</span>; ``//开启慢查询功能``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>slow_query_log_file=<span class="string">``</span><span class="string">'/var/log/mysql/mysql-slow.log'</span><span class="string">``</span>; ``//指定慢查询日志文件位置``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>log_queries_not_using_indexes=<span class="keyword">on</span>;  ``//记录没有使用索引的查询（非必须）``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>long_query_time=<span class="number">1</span>;  ``//只记录处理时间1s以上的慢查询</div></pre></td></tr></table></figure>
-<p>（3）或者我们也可以通过修改配置文件来永久开启慢查询日志功能，首先编辑配置文件：</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">vi</span> /etc/my.<span class="keyword">cnf</span></div></pre></td></tr></table></figure>
-<ul>
-<li>然后在里面添加如下高亮配置：</li>
-</ul>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[mysqld]``slow_query_log=on #开启慢查询功能``slow_query_log_file=``<span class="string">'/var/log/mysql/mysql-slow.log'</span>` `#指定慢查询日志文件位置``log_queries_not_using_indexes=on  #记录没有使用索引的查询（非必须）``long_query_time=<span class="number">1</span>  #只记录处理时间<span class="number">1</span>s以上的慢查询</div></pre></td></tr></table></figure>
-<ul>
-<li>保存关闭文件后，执行如下命令重启 <strong>mysql</strong> 即可：</li>
-</ul>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">service mysqld restart</span></div></pre></td></tr></table></figure>
-<h3 id="2-查看慢查询功能是否开启"><a href="#2-查看慢查询功能是否开启" class="headerlink" title="2. 查看慢查询功能是否开启"></a>2. 查看慢查询功能是否开启</h3><p>（1）登入 <strong>mysql</strong> 命令行后执行如下命令可以查看慢查询开启状态，以及慢查询日志存放的位置：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">``</span><span class="string">'slow_query%'</span><span class="string">``</span>;</div></pre></td></tr></table></figure>
-<p>（2）执行如下命令可以查看查询超过多少秒才记录：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">``</span><span class="string">'long_query_time'</span><span class="string">``</span>;</div></pre></td></tr></table></figure>
-<h3 id="3-慢查询测试"><a href="#3-慢查询测试" class="headerlink" title="3. 慢查询测试"></a>3. 慢查询测试</h3><p>（1）首先我们执行一个如下的 <strong>sql</strong>，模拟一个 <strong>2</strong> 秒的慢查询：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">sleep</span>(<span class="number">2</span>);</div></pre></td></tr></table></figure>
-<p>（2）查看日志可以发现这个慢查询已经被记录：</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /``var``/log/mysql/mysql-slow.log</div></pre></td></tr></table></figure>
-<h2 id="使用-pt-query-digest-工具分析慢查询日志"><a href="#使用-pt-query-digest-工具分析慢查询日志" class="headerlink" title="使用 pt-query-digest 工具分析慢查询日志"></a>使用 pt-query-digest 工具分析慢查询日志</h2><h3 id="1，工具安装"><a href="#1，工具安装" class="headerlink" title="1，工具安装"></a>1，工具安装</h3><p>（1）首先我们执行如下命令将 <strong>rpm</strong> 包下载到本地：</p>
-<p><strong>注意</strong>：如果下载不下来也可访问其官网（<a href="https://www.percona.com/downloads/percona-toolkit/3.2.1/binary/redhat/7/" target="_blank" rel="external">点击打开</a>），手动下载下来再上传到服务器上。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https:``<span class="regexp">//</span>downloads.percona.com<span class="regexp">/downloads/</span>percona-toolkit<span class="regexp">/3.2.1/</span>binary<span class="regexp">/redhat/</span><span class="number">7</span><span class="regexp">/x86_64/</span>percona-toolkit-<span class="number">3.2</span>.<span class="number">1</span>-<span class="number">1</span>.el7.x86_64.rpm</div></pre></td></tr></table></figure>
-<p>（2）接着使用 <strong>yum</strong> 命令进行安装：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">yum</span> <span class="selector-tag">install</span> <span class="selector-tag">-y</span> <span class="selector-tag">percona-toolkit-3</span><span class="selector-class">.2</span><span class="selector-class">.1-1</span><span class="selector-class">.el7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></div></pre></td></tr></table></figure>
-<h3 id="2-分析慢查询日志"><a href="#2-分析慢查询日志" class="headerlink" title="2. 分析慢查询日志"></a>2. 分析慢查询日志</h3><p>（1）执行如下命令可以分析指定的慢查询日志文件：</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest /``var``/log/mysql/mysql-slow.log</div></pre></td></tr></table></figure>
-<p>（2）分析结果分为三部分，第一部分是总体统计结果：</p>
-<ul>
-<li><strong>Overall</strong>：总共有多少条查询</li>
-<li><strong>Time range</strong>：查询执行的时间范围</li>
-<li><strong>unique</strong>：唯一查询数量，即对查询条件进行参数化以后，总共有多少个不同的查询</li>
-<li><strong>total</strong>：所有查询总计时长</li>
-<li><strong>min</strong>：所有查询最小时长</li>
-<li><strong>max</strong>：所有查询最大时长</li>
-<li><strong>avg</strong>：所有查询平均时长</li>
-<li><strong>95%</strong>：把所有时长值从小到大排列，位置位于 <strong>95%</strong> 的那个时长数，这个数一般最具有参考价值</li>
-<li><strong>median</strong>：中位数，把所有时长值从小到大排列，位置位于中间那个时长数</li>
-</ul>
-<p>（3）第二部分是查询分组统计结果：</p>
-<ul>
-<li><strong>Rank</strong>：所有语句的排名，默认按查询时间降序排列，通过 <strong>–order-by</strong> 指定</li>
-<li><strong>Query ID</strong>：语句的 <strong>ID</strong>（去掉多余空格和文本字符，计算 <strong>hash</strong> 值）</li>
-<li><strong>Response</strong>：总的响应时间</li>
-<li><strong>time</strong>：该查询在本次分析中总的时间占比</li>
-<li><strong>Calls</strong>：执行次数，即本次分析总共有多少条这种类型的查询语句</li>
-<li><strong>R/Call</strong>：平均每次执行的响应时间</li>
-<li><strong>V/M</strong>：响应时间 <strong>Variance-to-mean</strong> 的比率</li>
-<li><strong>Item</strong>：查询对象</li>
-</ul>
-<p>（4）第三部分是每一种查询比较慢的 <strong>sql</strong> 的详细统计结果：</p>
-<ul>
-<li><strong>pct</strong>：该 <strong>sql</strong> 语句某执行属性占所有慢查询语句某执行属性的百分比</li>
-<li><strong>total</strong>：该 <strong>sql</strong> 语句某执行属性的所有属性时间。</li>
-<li><strong>Count</strong>：<strong>sql</strong> 语句执行的次数。对应的 <strong>pct</strong> 表示此 <strong>sql</strong> 语句执行次数占所有慢查询语句执行次数的 <strong>%</strong> 比（下图为 <strong>10%</strong>），对应的 <strong>total</strong> 表示总共执行了 <strong>3</strong> 次。</li>
-<li><strong>Exec time</strong>：<strong>sql</strong> 执行时间</li>
-<li><strong>Lock time</strong>：<strong>sql</strong> 执行期间被锁定的时间</li>
-<li><strong>Rows sent</strong>：传输的有效数据，在 <strong>select</strong> 查询语句中才有值</li>
-<li><strong>Rows examine</strong>：总共查询的数据，非目标数据。</li>
-<li><strong>Query_time distribution</strong>：查询时间分布</li>
-<li><strong>SQL</strong> 语句：下图中为 <strong>select sleep(7)\G</strong></li>
-</ul>
-<h3 id="3-进阶用法"><a href="#3-进阶用法" class="headerlink" title="3. 进阶用法"></a>3. 进阶用法</h3><p>（1）分析 <strong>slow.log</strong> 日志，并将分析报告输入到 <strong>slow_report.log</strong> 中：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest slow.<span class="keyword">log</span> &gt; slow_report.<span class="built_in">log</span></div></pre></td></tr></table></figure>
-<p>（2）分析最近 <strong>12</strong> 小时内的查询：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --since=12h slow.<span class="keyword">log</span> &gt; slow_report2.<span class="built_in">log</span></div></pre></td></tr></table></figure>
-<p>（3）分析指定时间范围内的查询：</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest slow.log --since ``<span class="string">'2020-04-17 09:30:00'</span>` `--until ``<span class="string">'2020-04-17 10:00:00'</span>` `&gt; slow_report3.log</div></pre></td></tr></table></figure>
-<p>（4）分析指含有 <strong>select</strong> 语句的慢查询：</p>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest --<span class="keyword">filter</span> <span class="string">``</span><span class="string">'$event-&gt;&#123;fingerprint&#125; =~ m/^select/i'</span><span class="string">` `</span>slow.<span class="keyword">log</span>&gt; slow_report4.<span class="keyword">log</span></div></pre></td></tr></table></figure>
-<p>（5）针对某个用户的慢查询：</p>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest --<span class="keyword">filter</span> <span class="string">``</span><span class="string">'($event-&gt;&#123;user&#125; || "") =~ m/^root/i'</span><span class="string">` `</span>slow.<span class="keyword">log</span>&gt; slow_report5.<span class="keyword">log</span></div></pre></td></tr></table></figure>
-<p>（6）查询所有的全表扫描或 <strong>full join</strong> 的慢查询：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --filter ``'((<span class="variable">$event</span>-&gt;&#123;Full_scan&#125; || <span class="string">""</span>) <span class="keyword">eq</span> <span class="string">"yes"</span>) ||((<span class="variable">$event</span>-&gt;&#123;Full_join&#125; || <span class="string">""</span>) <span class="keyword">eq</span> <span class="string">"yes"</span>)'` `slow.<span class="keyword">log</span>&gt; slow_report6.<span class="built_in">log</span></div></pre></td></tr></table></figure>
-<p>（7）把查询保存到 <strong>query_review</strong> 表：</p>
-<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">pt-query-</span><span class="string">digest </span><span class="built_in">--user=root</span> –<span class="string">password=</span><span class="string">abc123 </span><span class="built_in">--review</span> h=<span class="string">localhost,</span>D=<span class="string">test,</span>t=<span class="string">query_review-</span>-<span class="built_in">create-review-table</span> <span class="string">slow.</span><span class="string">log</span></div></pre></td></tr></table></figure>
-<p>（8）通过 <strong>tcpdump</strong> 抓取 <strong>mysql</strong> 的 <strong>tcp</strong> 协议数据，然后再分析：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpdump -s <span class="number">65535</span> -x -nn -<span class="selector-tag">q</span> -tttt -<span class="selector-tag">i</span> any -c <span class="number">1000</span> port <span class="number">3306</span> &gt; mysql<span class="selector-class">.tcp</span><span class="selector-class">.txt</span>``pt-query-digest --type tcpdump mysql<span class="selector-class">.tcp</span><span class="selector-class">.txt</span>&gt; slow_report9.log</div></pre></td></tr></table></figure>
-<p>（9）分析 <strong>binlog</strong>：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqlbinlog mysql-<span class="keyword">bin.000093 </span>&gt; mysql-<span class="keyword">bin000093.sql``pt-query-digest </span>--type=<span class="keyword">binlog </span>mysql-<span class="keyword">bin000093.sql </span>&gt; slow_report10.log</div></pre></td></tr></table></figure>
-<p>（10）分析 <strong>general log</strong>：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --<span class="keyword">type</span>=genlog localhost.<span class="keyword">log</span> &gt; slow_report11.<span class="built_in">log</span></div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -956,7 +900,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">78</span>
+              <span class="site-state-item-count">79</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

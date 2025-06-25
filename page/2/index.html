@@ -231,6 +231,180 @@
             
               
                 
+                <a class="post-title-link" href="/2023/02/22/Mysql使用pt-query-digest分析日志/" itemprop="url">
+                  Mysql使用pt-query-digest分析日志
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2023-02-22T15:16:20+08:00" content="2023-02-22">
+              2023-02-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2023/02/22/Mysql使用pt-query-digest分析日志/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2023/02/22/Mysql使用pt-query-digest分析日志/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-开启慢查询日志"><a href="#1-开启慢查询日志" class="headerlink" title="1. 开启慢查询日志"></a>1. 开启慢查询日志</h3><p>（1）首先我们要创建一个文件夹用于保存慢查询日志文件，并且设置 <strong>mysql</strong> 有权读写该目录：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir` `/``var``/log/mysql``sudo ``chown` `mysql:mysql -R /``var``/log/mysql</div></pre></td></tr></table></figure>
+<p>（2）我们可以登入 <strong>mysql</strong> 命令行后执行如下命令，使用 <strong>set</strong> 设置变量来临时开启。注意这种方式重启服务即失效。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>slow_query_log=<span class="keyword">on</span>; ``//开启慢查询功能``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>slow_query_log_file=<span class="string">``</span><span class="string">'/var/log/mysql/mysql-slow.log'</span><span class="string">``</span>; ``//指定慢查询日志文件位置``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>log_queries_not_using_indexes=<span class="keyword">on</span>;  ``//记录没有使用索引的查询（非必须）``<span class="keyword">set</span> <span class="string">``</span><span class="keyword">global</span><span class="string">` `</span>long_query_time=<span class="number">1</span>;  ``//只记录处理时间1s以上的慢查询</div></pre></td></tr></table></figure>
+<p>（3）或者我们也可以通过修改配置文件来永久开启慢查询日志功能，首先编辑配置文件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">vi</span> /etc/my.<span class="keyword">cnf</span></div></pre></td></tr></table></figure>
+<ul>
+<li>然后在里面添加如下高亮配置：</li>
+</ul>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[mysqld]``slow_query_log=on #开启慢查询功能``slow_query_log_file=``<span class="string">'/var/log/mysql/mysql-slow.log'</span>` `#指定慢查询日志文件位置``log_queries_not_using_indexes=on  #记录没有使用索引的查询（非必须）``long_query_time=<span class="number">1</span>  #只记录处理时间<span class="number">1</span>s以上的慢查询</div></pre></td></tr></table></figure>
+<ul>
+<li>保存关闭文件后，执行如下命令重启 <strong>mysql</strong> 即可：</li>
+</ul>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">service mysqld restart</span></div></pre></td></tr></table></figure>
+<h3 id="2-查看慢查询功能是否开启"><a href="#2-查看慢查询功能是否开启" class="headerlink" title="2. 查看慢查询功能是否开启"></a>2. 查看慢查询功能是否开启</h3><p>（1）登入 <strong>mysql</strong> 命令行后执行如下命令可以查看慢查询开启状态，以及慢查询日志存放的位置：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">``</span><span class="string">'slow_query%'</span><span class="string">``</span>;</div></pre></td></tr></table></figure>
+<p>（2）执行如下命令可以查看查询超过多少秒才记录：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">``</span><span class="string">'long_query_time'</span><span class="string">``</span>;</div></pre></td></tr></table></figure>
+<h3 id="3-慢查询测试"><a href="#3-慢查询测试" class="headerlink" title="3. 慢查询测试"></a>3. 慢查询测试</h3><p>（1）首先我们执行一个如下的 <strong>sql</strong>，模拟一个 <strong>2</strong> 秒的慢查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">sleep</span>(<span class="number">2</span>);</div></pre></td></tr></table></figure>
+<p>（2）查看日志可以发现这个慢查询已经被记录：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /``var``/log/mysql/mysql-slow.log</div></pre></td></tr></table></figure>
+<h2 id="使用-pt-query-digest-工具分析慢查询日志"><a href="#使用-pt-query-digest-工具分析慢查询日志" class="headerlink" title="使用 pt-query-digest 工具分析慢查询日志"></a>使用 pt-query-digest 工具分析慢查询日志</h2><h3 id="1，工具安装"><a href="#1，工具安装" class="headerlink" title="1，工具安装"></a>1，工具安装</h3><p>（1）首先我们执行如下命令将 <strong>rpm</strong> 包下载到本地：</p>
+<p><strong>注意</strong>：如果下载不下来也可访问其官网（<a href="https://www.percona.com/downloads/percona-toolkit/3.2.1/binary/redhat/7/" target="_blank" rel="external">点击打开</a>），手动下载下来再上传到服务器上。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https:``<span class="regexp">//</span>downloads.percona.com<span class="regexp">/downloads/</span>percona-toolkit<span class="regexp">/3.2.1/</span>binary<span class="regexp">/redhat/</span><span class="number">7</span><span class="regexp">/x86_64/</span>percona-toolkit-<span class="number">3.2</span>.<span class="number">1</span>-<span class="number">1</span>.el7.x86_64.rpm</div></pre></td></tr></table></figure>
+<p>（2）接着使用 <strong>yum</strong> 命令进行安装：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">yum</span> <span class="selector-tag">install</span> <span class="selector-tag">-y</span> <span class="selector-tag">percona-toolkit-3</span><span class="selector-class">.2</span><span class="selector-class">.1-1</span><span class="selector-class">.el7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></div></pre></td></tr></table></figure>
+<h3 id="2-分析慢查询日志"><a href="#2-分析慢查询日志" class="headerlink" title="2. 分析慢查询日志"></a>2. 分析慢查询日志</h3><p>（1）执行如下命令可以分析指定的慢查询日志文件：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest /``var``/log/mysql/mysql-slow.log</div></pre></td></tr></table></figure>
+<p>（2）分析结果分为三部分，第一部分是总体统计结果：</p>
+<ul>
+<li><strong>Overall</strong>：总共有多少条查询</li>
+<li><strong>Time range</strong>：查询执行的时间范围</li>
+<li><strong>unique</strong>：唯一查询数量，即对查询条件进行参数化以后，总共有多少个不同的查询</li>
+<li><strong>total</strong>：所有查询总计时长</li>
+<li><strong>min</strong>：所有查询最小时长</li>
+<li><strong>max</strong>：所有查询最大时长</li>
+<li><strong>avg</strong>：所有查询平均时长</li>
+<li><strong>95%</strong>：把所有时长值从小到大排列，位置位于 <strong>95%</strong> 的那个时长数，这个数一般最具有参考价值</li>
+<li><strong>median</strong>：中位数，把所有时长值从小到大排列，位置位于中间那个时长数</li>
+</ul>
+<p>（3）第二部分是查询分组统计结果：</p>
+<ul>
+<li><strong>Rank</strong>：所有语句的排名，默认按查询时间降序排列，通过 <strong>–order-by</strong> 指定</li>
+<li><strong>Query ID</strong>：语句的 <strong>ID</strong>（去掉多余空格和文本字符，计算 <strong>hash</strong> 值）</li>
+<li><strong>Response</strong>：总的响应时间</li>
+<li><strong>time</strong>：该查询在本次分析中总的时间占比</li>
+<li><strong>Calls</strong>：执行次数，即本次分析总共有多少条这种类型的查询语句</li>
+<li><strong>R/Call</strong>：平均每次执行的响应时间</li>
+<li><strong>V/M</strong>：响应时间 <strong>Variance-to-mean</strong> 的比率</li>
+<li><strong>Item</strong>：查询对象</li>
+</ul>
+<p>（4）第三部分是每一种查询比较慢的 <strong>sql</strong> 的详细统计结果：</p>
+<ul>
+<li><strong>pct</strong>：该 <strong>sql</strong> 语句某执行属性占所有慢查询语句某执行属性的百分比</li>
+<li><strong>total</strong>：该 <strong>sql</strong> 语句某执行属性的所有属性时间。</li>
+<li><strong>Count</strong>：<strong>sql</strong> 语句执行的次数。对应的 <strong>pct</strong> 表示此 <strong>sql</strong> 语句执行次数占所有慢查询语句执行次数的 <strong>%</strong> 比（下图为 <strong>10%</strong>），对应的 <strong>total</strong> 表示总共执行了 <strong>3</strong> 次。</li>
+<li><strong>Exec time</strong>：<strong>sql</strong> 执行时间</li>
+<li><strong>Lock time</strong>：<strong>sql</strong> 执行期间被锁定的时间</li>
+<li><strong>Rows sent</strong>：传输的有效数据，在 <strong>select</strong> 查询语句中才有值</li>
+<li><strong>Rows examine</strong>：总共查询的数据，非目标数据。</li>
+<li><strong>Query_time distribution</strong>：查询时间分布</li>
+<li><strong>SQL</strong> 语句：下图中为 <strong>select sleep(7)\G</strong></li>
+</ul>
+<h3 id="3-进阶用法"><a href="#3-进阶用法" class="headerlink" title="3. 进阶用法"></a>3. 进阶用法</h3><p>（1）分析 <strong>slow.log</strong> 日志，并将分析报告输入到 <strong>slow_report.log</strong> 中：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest slow.<span class="keyword">log</span> &gt; slow_report.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p>（2）分析最近 <strong>12</strong> 小时内的查询：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --since=12h slow.<span class="keyword">log</span> &gt; slow_report2.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p>（3）分析指定时间范围内的查询：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest slow.log --since ``<span class="string">'2020-04-17 09:30:00'</span>` `--until ``<span class="string">'2020-04-17 10:00:00'</span>` `&gt; slow_report3.log</div></pre></td></tr></table></figure>
+<p>（4）分析指含有 <strong>select</strong> 语句的慢查询：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest --<span class="keyword">filter</span> <span class="string">``</span><span class="string">'$event-&gt;&#123;fingerprint&#125; =~ m/^select/i'</span><span class="string">` `</span>slow.<span class="keyword">log</span>&gt; slow_report4.<span class="keyword">log</span></div></pre></td></tr></table></figure>
+<p>（5）针对某个用户的慢查询：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-query-digest --<span class="keyword">filter</span> <span class="string">``</span><span class="string">'($event-&gt;&#123;user&#125; || "") =~ m/^root/i'</span><span class="string">` `</span>slow.<span class="keyword">log</span>&gt; slow_report5.<span class="keyword">log</span></div></pre></td></tr></table></figure>
+<p>（6）查询所有的全表扫描或 <strong>full join</strong> 的慢查询：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --filter ``'((<span class="variable">$event</span>-&gt;&#123;Full_scan&#125; || <span class="string">""</span>) <span class="keyword">eq</span> <span class="string">"yes"</span>) ||((<span class="variable">$event</span>-&gt;&#123;Full_join&#125; || <span class="string">""</span>) <span class="keyword">eq</span> <span class="string">"yes"</span>)'` `slow.<span class="keyword">log</span>&gt; slow_report6.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p>（7）把查询保存到 <strong>query_review</strong> 表：</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">pt-query-</span><span class="string">digest </span><span class="built_in">--user=root</span> –<span class="string">password=</span><span class="string">abc123 </span><span class="built_in">--review</span> h=<span class="string">localhost,</span>D=<span class="string">test,</span>t=<span class="string">query_review-</span>-<span class="built_in">create-review-table</span> <span class="string">slow.</span><span class="string">log</span></div></pre></td></tr></table></figure>
+<p>（8）通过 <strong>tcpdump</strong> 抓取 <strong>mysql</strong> 的 <strong>tcp</strong> 协议数据，然后再分析：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpdump -s <span class="number">65535</span> -x -nn -<span class="selector-tag">q</span> -tttt -<span class="selector-tag">i</span> any -c <span class="number">1000</span> port <span class="number">3306</span> &gt; mysql<span class="selector-class">.tcp</span><span class="selector-class">.txt</span>``pt-query-digest --type tcpdump mysql<span class="selector-class">.tcp</span><span class="selector-class">.txt</span>&gt; slow_report9.log</div></pre></td></tr></table></figure>
+<p>（9）分析 <strong>binlog</strong>：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqlbinlog mysql-<span class="keyword">bin.000093 </span>&gt; mysql-<span class="keyword">bin000093.sql``pt-query-digest </span>--type=<span class="keyword">binlog </span>mysql-<span class="keyword">bin000093.sql </span>&gt; slow_report10.log</div></pre></td></tr></table></figure>
+<p>（10）分析 <strong>general log</strong>：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pt-<span class="keyword">query</span>-digest --<span class="keyword">type</span>=genlog localhost.<span class="keyword">log</span> &gt; slow_report11.<span class="built_in">log</span></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2023/02/09/Elastic-使用极限网关进行数据双向切换/" itemprop="url">
                   Elastic 使用极限网关进行数据双向切换
                 </a>
@@ -874,196 +1048,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2022/08/26/Elasticsearch-之Data-stream/" itemprop="url">
-                  Elasticsearch 之Data stream
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2022-08-26T17:05:46+08:00" content="2022-08-26">
-              2022-08-26
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2022/08/26/Elasticsearch-之Data-stream/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/08/26/Elasticsearch-之Data-stream/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>数据流</li>
-<li>Elasticsearch</li>
-</ul>
-<h2 id="Data-stream-的概念"><a href="#Data-stream-的概念" class="headerlink" title="Data stream 的概念"></a>Data stream 的概念</h2><h3 id="时序性数据"><a href="#时序性数据" class="headerlink" title="时序性数据"></a>时序性数据</h3><p>时间序列数据（ time series data ）是在不同时间上收集到的数据，用于所描述现象随时间变化的情况。这类数据反映了某一事物、现象等，随时间的变化状态或程度。</p>
-<p>总的来说，这类数据主要基于时间特性明显，随着时间的流逝，往往过去时间的数据没有现在时间的重要或者敏感。</p>
-<p>对于 Elastisearch 处理时序性数据，有人总结了主要有以下特点：</p>
-<ul>
-<li>由时间戳 + 数据组成。基于时间的事件，可以是服务器日志或者社交媒体流。</li>
-<li>通常搜索最近事件，旧文件变得不太重要。</li>
-<li>索引的使用主要基于时间，但是数据并不一定随着时间均衡分布。</li>
-<li>时序性数据一旦存入后很少修改。</li>
-<li>时序性数据随着时间的增加，数据量会很大。</li>
-</ul>
-<p>Elastisearch 在时序性数据的使用中，往往会有以下的缺点：</p>
-<ul>
-<li>索引随着时间增加而数目较多。</li>
-<li>索引大小无法均衡。</li>
-<li>管理索引成本较高，需要维护 merge 合并删除等一系列任务。</li>
-<li>节点资源与冷热数据分布不匹配。</li>
-</ul>
-<p>在这样的一个场景下，数据流 Data stream 应运而生。</p>
-<p>Data stream （数据流）是 Elastic Stack 7.9 的一个新的功能。Data stream 可以跨多个索引存储只追加时序性数据，同时为查询写入等请求提供唯一的一个命名资源。Data stream 非常适合日志，事件，指标以及其他持续生成的数据。</p>
-<p>简单来说，Data stream 根据模板生成存储数据的后备索引，然后自动将搜索或者索引请求路由到存储流数据的后备索引。而这些后备索引则根据索引生命周期管理（ ILM ）来自动管理。</p>
-<h2 id="Data-stream-的组成"><a href="#Data-stream-的组成" class="headerlink" title="Data stream 的组成"></a>Data stream 的组成</h2><p>数据流在 Elasticsearch 集群中由一个或多个隐藏的、自动生成的后备索引组成。</p>
-<p><img src="https://ucc.alicdn.com/pic/developer-ecology/2a1db1d79f6448398201a833be2e1d6c.png" alt=""></p>
-<p>在实际的 Elasticsearch 操作中，数据流依靠索引模板来设定数据流实体的后备索引。</p>
-<ul>
-<li>模板包含用于配置流的后备索引的映射和设置。</li>
-<li>同一个索引模板可用于多个数据流。</li>
-<li>不能删除数据流正在使用的索引模板。</li>
-</ul>
-<p>每个索引到数据流的文档，必须包含一个 @timestamp 字段，映射为 date 或 date_nanos 字段类型。如果索引模板没有为 @timestamp 字段指定映射，Elasticsearch 将 @timestamp 映射为带有默认选项的日期字段。</p>
-<p>Data stream 的读请求主要如下图，数据流自动将请求路由到其所有后备索引。</p>
-<p><img src="https://ucc.alicdn.com/pic/developer-ecology/7f9c38c3deb84f3cb919e8581d69770b.png" alt=""></p>
-<p>而对于写请求，数据流则将该请求自动转发给最新的后备索引。</p>
-<p><img src="https://ucc.alicdn.com/pic/developer-ecology/6d00171f1af04002b72ef6f9d263f192.png" alt=""></p>
-<h2 id="Data-stream-的特性"><a href="#Data-stream-的特性" class="headerlink" title="Data stream 的特性"></a>Data stream 的特性</h2><h3 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h3><p>每个 Data stream 的后备索引都有一个 generation 数，一个六位数，零填充的整数，从 000001 开始，用作该流的 rollover 的计数。</p>
-<p>后备索引名主要依照以下格式：</p>
-<p>.ds–</p>
-<p>Generation 越大，后备索引包含的数据越新。 例如，web-server-logs 数据流最新的 generation 为 34。该流的最新后备索引名为 .ds-web-server-logs-000034。</p>
-<p>注意：某些操作（例如 shrink 或 restore ）可以更改后备索引的名称。 这些名称更改不会从其数据流中删除后备索引。</p>
-<h3 id="Rollover"><a href="#Rollover" class="headerlink" title="Rollover"></a>Rollover</h3><p>在 Data stream 的使用中，rollover 是必不可少的条件。</p>
-<p>创建数据流时，Elasticsearch 会自动为该 Data stream 根据 template 创建一个后备索引。 该索引还充当流的第一个写入索引。当满足一定条件时， rollover 会创建一个新的后备索引，该后备索引将成为 Data stream 的新写入索引。</p>
-<p>当然 rollover 的条件设置主要依靠 ILM。 如果需要，你还可以手动将数据 rollover 。</p>
-<h3 id="追加"><a href="#追加" class="headerlink" title="追加"></a>追加</h3><p>由于时序性数据的特征，Data stream 的设计场景中，数据是只追加的，极少需要修改删除。如果实际需要修改删除，则可以考虑以下操作：</p>
-<ul>
-<li>对于数据流只能通过 update by query 或者 delete by query 操作，不能进行 update 或者 delete 文档。</li>
-<li>需要 delete 或者 update 文档，则直接对后备索引操作。</li>
-<li>需要经常删除或者修改文档的，请使用索引别名或者索引模板，不要对 Data stream 操作。</li>
-</ul>
-<h2 id="Data-stream-的使用"><a href="#Data-stream-的使用" class="headerlink" title="Data stream 的使用"></a>Data stream 的使用</h2><h3 id="创建索引生命周期管理策略-ILM"><a href="#创建索引生命周期管理策略-ILM" class="headerlink" title="创建索引生命周期管理策略 ILM"></a>创建索引生命周期管理策略 ILM</h3><p>索引生命周期管理策略 ILM 的主要配置细节见索引周期管理一章，此处主要做 hot 和 delete 阶段的设置，用于 rollover 的引用。</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">PUT /_ilm/policy/my-data-stream-policy</div><div class="line">&#123;</div><div class="line">  <span class="string">"policy"</span>: &#123;</div><div class="line">    <span class="string">"phases"</span>: &#123;</div><div class="line">      <span class="string">"hot"</span>: &#123;</div><div class="line">        <span class="string">"actions"</span>: &#123;</div><div class="line">          <span class="string">"rollover"</span>: &#123;</div><div class="line">            <span class="string">"max_size"</span>: <span class="string">"10mb"</span></div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="创建索引模板"><a href="#创建索引模板" class="headerlink" title="创建索引模板"></a>创建索引模板</h3><p>索引模板是后备索引设置，以及 mapping 的主要配置来源，此处不展开延伸。主要设置 Data stream 相关的部分。</p>
-<p>相关命令：</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">PUT /_index_template/my-data-stream-template</div><div class="line">&#123;</div><div class="line">  <span class="string">"index_patterns"</span>: [ <span class="string">"my-data-stream*"</span> ],</div><div class="line">  <span class="string">"data_stream"</span>: &#123; &#125;,</div><div class="line">  <span class="string">"priority"</span>: <span class="number">200</span>,</div><div class="line">  <span class="string">"template"</span>: &#123;</div><div class="line">    <span class="string">"settings"</span>: &#123;</div><div class="line">      <span class="string">"index.lifecycle.name"</span>: <span class="string">"my-data-stream-policy"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>注意：</p>
-<ol>
-<li>定义 data_stream 为一个空的 object ，这是必要的。</li>
-<li>Template 中使用了上一步创建的 ILM 策略 my-data-stream-policy。</li>
-</ol>
-<p>此外，还需要注意两点：</p>
-<ol>
-<li>Elasticsearch 有一些内置索引模板如 metric-<strong>-</strong> 和 logs-<strong>-</strong> ，默认优先级 priority 是 100。如果有重名使用，则可以调高优先级，防止被默认的覆盖。</li>
-<li>索引模板默认将 @timestamp 字段设置为 date 属性</li>
-</ol>
-<h3 id="创建-Data-stream"><a href="#创建-Data-stream" class="headerlink" title="创建 Data stream"></a>创建 Data stream</h3><p>可以自动利用 template 的匹配模式新增文档创建</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">PUT</span> /_data_stream/my-<span class="class"><span class="keyword">data</span>-stream</span></div></pre></td></tr></table></figure>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除命令：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">DELETE</span> <span class="regexp">/_data_stream/my</span>-data-stream</div></pre></td></tr></table></figure>
-<p>删除数据流会将数据流的后备索引一起删除。</p>
-<h2 id="使用-Data-stream"><a href="#使用-Data-stream" class="headerlink" title="使用 Data stream"></a>使用 Data stream</h2><p>此处对数据流的操作主要以命令为主</p>
-<h3 id="新增数据"><a href="#新增数据" class="headerlink" title="新增数据"></a>新增数据</h3><p>Data stream 在新增数据时是只追加的模式，因此在固定 id 和 bulk 的模式下，op_type 是指定 create 的。</p>
-<p>如下面命令：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">POST</span> my-<span class="meta">data</span>-<span class="keyword">stream/_create/1</span></div><div class="line">&#123;<span class="string">"@timestamp"</span>:<span class="string">"2020-12-07T11:06:07.000Z"</span>,<span class="string">"test"</span>:<span class="number">1</span>&#125;</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">PUT /my-data-stream/_bulk?refresh</div><div class="line">&#123;<span class="string">"create"</span>:&#123; &#125;&#125;</div><div class="line">&#123; <span class="string">"@timestamp"</span>: <span class="string">"2020-12-08T11:04:05.000Z"</span>, <span class="string">"user"</span>: &#123; <span class="string">"id"</span>: <span class="string">"vlb44hny"</span> &#125;, <span class="string">"message"</span>: <span class="string">"Login attempt failed"</span> &#125;</div><div class="line">&#123;<span class="string">"create"</span>:&#123; &#125;&#125;</div><div class="line">&#123; <span class="string">"@timestamp"</span>: <span class="string">"2020-12-08T11:06:07.000Z"</span>, <span class="string">"user"</span>: &#123; <span class="string">"id"</span>: <span class="string">"8a4f500d"</span> &#125;, <span class="string">"message"</span>: <span class="string">"Login successful"</span> &#125;</div><div class="line">&#123;<span class="string">"create"</span>:&#123; &#125;&#125;</div><div class="line">&#123; <span class="string">"@timestamp"</span>: <span class="string">"2020-12-09T11:07:08.000Z"</span>, <span class="string">"user"</span>: &#123; <span class="string">"id"</span>: <span class="string">"l7gk7f82"</span> &#125;, <span class="string">"message"</span>: <span class="string">"Logout successful"</span> &#125;</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">POST /_reindex</div><div class="line">&#123;</div><div class="line">  <span class="string">"source"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"kibana_sample_data_logs_new"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"dest"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"my-data-stream"</span>,</div><div class="line">    <span class="string">"op_type"</span>: <span class="string">"create"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>因字段中<code>@timestamp</code>是必填，实验数据如下改动：</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">POST _reindex</div><div class="line">&#123;</div><div class="line">  <span class="string">"source"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"kibana_sample_data_logs"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"dest"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"kibana_sample_data_logs_new"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"script"</span>: &#123;</div><div class="line">    <span class="string">"source"</span>: <span class="string">"ctx._source['@timestamp'] = ctx._source.remove(\"</span>timestamp\<span class="string">")"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="获取-Data-stream-状态"><a href="#获取-Data-stream-状态" class="headerlink" title="获取 Data stream 状态"></a>获取 Data stream 状态</h3><p>使用 Data stream stats API 查看 Data stream 的状态。</p>
-<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET /<span class="variable">_data_stream</span>/my-data-stream/<span class="variable">_stats</span>?human=<span class="literal">true</span></div></pre></td></tr></table></figure>
-<p>同时需要用 _ilm/explain 获取 Data stream 后备索引所在的 ILM 策略状态。</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">GET</span> my-<span class="class"><span class="keyword">data</span>-stream/_ilm/explain</span></div></pre></td></tr></table></figure>
-<h3 id="手动-rollover-Data-stream"><a href="#手动-rollover-Data-stream" class="headerlink" title="手动 rollover Data stream"></a>手动 rollover Data stream</h3><p>使用 rollover API，手动 rollover Data stream。</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">POST</span> my-<span class="class"><span class="keyword">data</span>-stream/_rollover</span></div></pre></td></tr></table></figure>
-<p>Response:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"acknowledged"</span> : <span class="literal">true</span>,</div><div class="line">  <span class="attr">"shards_acknowledged"</span> : <span class="literal">true</span>,</div><div class="line">  <span class="attr">"old_index"</span> : <span class="string">".ds-my-data-stream-000001"</span>,</div><div class="line">  <span class="attr">"new_index"</span> : <span class="string">".ds-my-data-stream-000002"</span>,</div><div class="line">  <span class="attr">"rolled_over"</span> : <span class="literal">true</span>,</div><div class="line">  <span class="attr">"dry_run"</span> : <span class="literal">false</span>,</div><div class="line">  <span class="attr">"conditions"</span> : &#123; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>再 GET 相关 Data stream 状态，后备索引增加。</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">GET</span> /_data_stream/my-<span class="class"><span class="keyword">data</span>-stream/</span></div></pre></td></tr></table></figure>
-<p>Response:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"data_streams"</span> : [</div><div class="line">    &#123;</div><div class="line">      <span class="attr">"name"</span> : <span class="string">"my-data-stream"</span>,</div><div class="line">      <span class="attr">"timestamp_field"</span> : &#123;</div><div class="line">        <span class="attr">"name"</span> : <span class="string">"@timestamp"</span></div><div class="line">      &#125;,</div><div class="line">      <span class="attr">"indices"</span> : [</div><div class="line">        &#123;</div><div class="line">          <span class="attr">"index_name"</span> : <span class="string">".ds-my-data-stream-000001"</span>,</div><div class="line">          <span class="attr">"index_uuid"</span> : <span class="string">"AJBi0g3fRyG8-1tiH2UD2Q"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">          <span class="attr">"index_name"</span> : <span class="string">".ds-my-data-stream-000002"</span>,</div><div class="line">          <span class="attr">"index_uuid"</span> : <span class="string">"AgOLGMSBSYWb4X-ID8uwtg"</span></div><div class="line">        &#125;</div><div class="line">      ],</div><div class="line">      <span class="attr">"generation"</span> : <span class="number">2</span>,</div><div class="line">      <span class="attr">"status"</span> : <span class="string">"GREEN"</span>,</div><div class="line">      <span class="attr">"template"</span> : <span class="string">"my-data-stream-template"</span>,</div><div class="line">      <span class="attr">"ilm_policy"</span> : <span class="string">"my-data-stream-policy"</span>,</div><div class="line">      <span class="attr">"hidden"</span> : <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Reindex-Data-stream"><a href="#Reindex-Data-stream" class="headerlink" title="Reindex Data stream"></a>Reindex Data stream</h3><p>使用 reindex API 去复制数据到一个 Data stream。由于 Data stream 的只追加特性，在 op_type 中要选择为 create 。</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">POST /_reindex</div><div class="line">&#123;</div><div class="line">  <span class="string">"source"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"test"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"dest"</span>: &#123;</div><div class="line">    <span class="string">"index"</span>: <span class="string">"my-data-stream"</span>,</div><div class="line">    <span class="string">"op_type"</span>: <span class="string">"create"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Response:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"took"</span> : <span class="number">80</span>,</div><div class="line">  <span class="attr">"timed_out"</span> : <span class="literal">false</span>,</div><div class="line">  <span class="attr">"total"</span> : <span class="number">1</span>,</div><div class="line">  <span class="attr">"updated"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"created"</span> : <span class="number">1</span>,</div><div class="line">  <span class="attr">"deleted"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"batches"</span> : <span class="number">1</span>,</div><div class="line">  <span class="attr">"version_conflicts"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"noops"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"retries"</span> : &#123;</div><div class="line">    <span class="attr">"bulk"</span> : <span class="number">0</span>,</div><div class="line">    <span class="attr">"search"</span> : <span class="number">0</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"throttled_millis"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"requests_per_second"</span> : <span class="number">-1.0</span>,</div><div class="line">  <span class="attr">"throttled_until_millis"</span> : <span class="number">0</span>,</div><div class="line">  <span class="attr">"failures"</span> : [ ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Delete-Update-by-query"><a href="#Delete-Update-by-query" class="headerlink" title="Delete/Update by query"></a>Delete/Update by query</h3><p>针对 Data stream 只能 delete/update by query 。</p>
-<p>相关命令：</p>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">POST /my-data-stream/_update_by_query</div><div class="line">&#123;</div><div class="line">  <span class="string">"query"</span>: &#123;</div><div class="line">    <span class="string">"match"</span>: &#123;</div><div class="line">      <span class="string">"user.id"</span>: <span class="string">"l7gk7f82"</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="string">"script"</span>: &#123;</div><div class="line">    <span class="string">"source"</span>: <span class="string">"ctx._source.user.id = params.new_id"</span>,</div><div class="line">    <span class="string">"params"</span>: &#123;</div><div class="line">      <span class="string">"new_id"</span>: <span class="string">"XgdX0NoX"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">POST /my-data-stream/_delete_by_query</div><div class="line">&#123;</div><div class="line">  <span class="string">"query"</span>: &#123;</div><div class="line">    <span class="string">"match"</span>: &#123;</div><div class="line">      <span class="string">"user.id"</span>: <span class="string">"vlb44hny"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1110,7 +1094,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">78</span>
+              <span class="site-state-item-count">79</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

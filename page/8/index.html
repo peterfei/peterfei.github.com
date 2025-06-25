@@ -231,6 +231,117 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="url">
+                  ionic 加载app,页面空白解决方案
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-21T10:55:25+08:00" content="2016-05-21">
+              2016-05-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Ionic/" itemprop="url" rel="index">
+                    <span itemprop="name">Ionic</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/21/ionic-加载app-页面空白解决方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/21/ionic-加载app-页面空白解决方案/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>给公司开发的app 经常会遇到打开加载空白页问题，虽然已经装了<code>cordova.splashscreen.SplashScreen</code>,但问题依然存在。<br>Google之后得到如下解决方案：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"AutoHideSplashScreen"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"ShowSplashScreenSpinner"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"SplashMaintainAspectRatio"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"SplashShowOnlyFirstTime"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"SplashScreenDelay"</span> <span class="attr">value</span>=<span class="string">"10000"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">preference</span> <span class="attr">name</span>=<span class="string">"FadeSplashScreen"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">feature</span> <span class="attr">name</span>=<span class="string">"SplashScreen"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"android-package"</span> <span class="attr">value</span>=<span class="string">"org.apache.cordova.splashscreen.SplashScreen"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">feature</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在app.js里加入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.cordova &amp;&amp; <span class="built_in">window</span>.cordova.plugins &amp;&amp; <span class="built_in">window</span>.cordova.plugins.Keyboard) &#123;</div><div class="line">            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(<span class="literal">true</span>);</div><div class="line">            cordova.plugins.Keyboard.disableScroll(<span class="literal">true</span>);</div><div class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                navigator.splashscreen.hide();</div><div class="line">            &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/13/Ruby-编程风格指南/" itemprop="url">
                   Ruby 编程风格指南
                 </a>
@@ -697,121 +808,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="url">
-                  ionic 生成动态生成右拉城市菜单
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-30T09:59:35+08:00" content="2015-12-30">
-              2015-12-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Ionic/" itemprop="url" rel="index">
-                    <span itemprop="name">Ionic</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/30/ionic-生成动态生成右拉城市菜单/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/ionic-生成动态生成右拉城市菜单/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>昨天有时间想重写下之前技术部小黄写的城市右拉， 主要用的功能是<code>ionic</code> 自带的 <code>ion-side-menus</code> 和 <code>ionicSideMenuDelegate</code>。<br>配置路由：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">.state(<span class="string">'choosePovince'</span>,&#123;</div><div class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</div><div class="line">  url:<span class="string">'/choose_port'</span>,</div><div class="line">  abstract:<span class="literal">true</span>,</div><div class="line">  templateUrl:<span class="string">'templates/jiesongji/choose_porvince_main.html'</span>,</div><div class="line">  controller:<span class="string">'JiejiCtrl'</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 右侧滑动</div><div class="line"> * @type &#123;应用框架自带的滑动更好解决&#125;</div><div class="line"> */</div><div class="line">.state(<span class="string">'choosePovince.city'</span>,&#123;</div><div class="line">  <span class="keyword">cache</span>:<span class="literal">false</span>,</div><div class="line">  url:<span class="string">'/city'</span>,</div><div class="line">  views:&#123;</div><div class="line">    <span class="string">'menuContent'</span> :</div><div class="line">    &#123;</div><div class="line">      templateUrl: <span class="string">"templates/jiesongji/porvince_main.html"</span>,</div><div class="line">      controller:<span class="string">'JiejiCtrl'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">'right-menu'</span>:</div><div class="line">    &#123;</div><div class="line">      templateUrl : <span class="string">"templates/jiesongji/city_right.html"</span>,</div><div class="line">      controller:<span class="string">'JiejiCtrl'</span></div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="keyword">params</span>: &#123;</div><div class="line">    p_obj: <span class="built_in">null</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>第一层路由是声明右拉的父级关联模板。<br><code>Html</code>模板<code>choose_porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ion-side-menus</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ion-pane</span> <span class="attr">ion-side-menu-content</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">ion-nav-bar</span> <span class="attr">class</span>=<span class="string">"bar bar-header top-header"</span>&gt;</span></div><div class="line"></div><div class="line">              <span class="tag">&lt;<span class="name">ion-nav-buttons</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"button button-clear"</span> <span class="attr">ng-click</span>=<span class="string">"goBack()"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">ion-nav-buttons</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">ion-nav-back-button</span> <span class="attr">class</span>=<span class="string">"button-clear"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"icon ion-chevron-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Back<span class="tag">&lt;/<span class="name">ion-nav-back-button</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">ion-nav-bar</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">ion-nav-view</span> <span class="attr">name</span>=<span class="string">"menuContent"</span> <span class="attr">animation</span>=<span class="string">"slide-left-right"</span>&gt;</span><span class="tag">&lt;/<span class="name">ion-nav-view</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ion-pane</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ion-side-menu</span> <span class="attr">side</span>=<span class="string">"right"</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"bar bar-header top-header"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>选择城市<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">ion-content</span> <span class="attr">class</span>=<span class="string">"has-header"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">ion-nav-view</span> <span class="attr">name</span>=<span class="string">"right-menu"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">ion-nav-view</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">ion-content</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ion-side-menu</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">ion-side-menus</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>第二层路由声明右拉的模板与主模板。<br><code>Html</code> 模板 <code>porvince_main.html</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ion-view</span> <span class="attr">title</span>=<span class="string">"选择城市"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ion-content</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ion-list</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ion-item</span> <span class="attr">ng-click</span>=<span class="string">"right_menu(province.pro_id);"</span> <span class="attr">ng-repeat</span>=<span class="string">"province in ProvinceList"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- &lt;ion-item ng-click="show_province();"&gt; --&gt;</span></div><div class="line"></div><div class="line">             <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;province.province&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;/<span class="name">ion-item</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">ion-list</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ion-content</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ion-view</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><code>Html</code> 模板 <code>city_right.html</code><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ion-item</span> <span class="attr">ng-repeat</span>=<span class="string">"city in citys"</span> <span class="attr">style</span>=<span class="string">"height:50px;"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;city.city_name&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ion-item</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><code>Javascript</code>:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * [show_province 加载省份]</div><div class="line"> * @return &#123;[type]&#125; [description]</div><div class="line"> */</div><div class="line">$scope.show_province = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> param = &#123;</div><div class="line">        <span class="attr">code</span>: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span></div><div class="line">    &#125;;</div><div class="line">    chaXunProvinceFactory.getChaXunProvince(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</div><div class="line">            <span class="comment">// debugger</span></div><div class="line">            $state.go(<span class="string">'choosePovince.city'</span>,&#123;<span class="attr">p_obj</span>:callback.data.content&#125;);</div><div class="line">            <span class="comment">// $scope.ProvinceList = callback.data.content;</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 通过路由的对象传值，渲染ProvinceList显示数据</div><div class="line"> * @param  &#123;[type]&#125; angular.isObject($stateParams.p_obj) [description]</div><div class="line"> * @return &#123;[type]&#125;                                      [description]</div><div class="line"> */</div><div class="line"><span class="keyword">if</span> (angular.isObject($stateParams.p_obj)) &#123;</div><div class="line">    $scope.ProvinceList=$stateParams.p_obj;</div><div class="line">&#125;;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 这里是重点，当点击事件发生时，向父级scope对象发送监听对象请求，传值。</div><div class="line"> * @param  &#123;[type]&#125; obj [description]</div><div class="line"> * @return &#123;[type]&#125;     [description]</div><div class="line"> */</div><div class="line">$scope.right_menu = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">    $ionicSideMenuDelegate.toggleRight();</div><div class="line">    $scope.$emit(<span class="string">'cities'</span>,obj);</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 父页面监听，如果接收到点击请求，则通过接口获取动态数据，同时赋值给$scope对象。</div><div class="line"> * @param  &#123;[type]&#125; e    [description]</div><div class="line"> * @param  &#123;Object&#125; d)&#123;                var param [description]</div><div class="line"> * @return &#123;[type]&#125;      [description]</div><div class="line"> */</div><div class="line">$scope.$on(<span class="string">'cities'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e,d</span>)</span>&#123;</div><div class="line">   <span class="keyword">var</span> param = &#123;</div><div class="line">        <span class="attr">code</span>: <span class="string">"25c85dd791fd81f528eb550d6c107dcf"</span>,</div><div class="line">        <span class="attr">pro_id</span>: d</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    chaXunProvinceFactory.getChaXunCity(param).then(<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (callback.status == <span class="number">200</span>) &#123;</div><div class="line">            $scope.citys = callback.data.content;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>最终效果：<br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.47.50.png" alt="效果图"><br><img src="http://7xjzsc.com1.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-30%20%E4%B8%8B%E5%8D%881.48.15.png" alt="效果图"></p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -858,7 +854,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">78</span>
+              <span class="site-state-item-count">79</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
