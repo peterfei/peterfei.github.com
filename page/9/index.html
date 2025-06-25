@@ -231,6 +231,118 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/28/ionic-页面对象传值/" itemprop="url">
+                  ionic 页面对象传值
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-28T16:13:15+08:00" content="2015-12-28">
+              2015-12-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Ionic/" itemprop="url" rel="index">
+                    <span itemprop="name">Ionic</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/28/ionic-页面对象传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/28/ionic-页面对象传值/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>ionic 项目里常常遇到页面间传值的情况，一般是这样的：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.state</span>(<span class="string">'tab.chat-detail'</span>, &#123;</div><div class="line">				<span class="attribute">url</span>: <span class="string">'/chats/:chatId'</span>,</div><div class="line">				<span class="attribute">views</span>: &#123;</div><div class="line">					<span class="string">'tab-chats'</span>: &#123;</div><div class="line">						<span class="attribute">templateUrl</span>: <span class="string">'templates/chat-detail.html'</span>,</div><div class="line">						<span class="attribute">controller</span>: <span class="string">'ChatDetailCtrl'</span></div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;)</div></pre></td></tr></table></figure></p>
+<p>但遇到对象时,应做如下处理:<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$stateProvider.state(<span class="string">'users'</span>, &#123;</div><div class="line">    url: <span class="string">'/users'</span>,</div><div class="line">    controller: <span class="string">'UsersCtrl'</span>,</div><div class="line">    <span class="keyword">params</span>: &#123;</div><div class="line">        obj: <span class="built_in">null</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">UserCtrl</span><span class="params">($stateParams)</span> </span>&#123;</div><div class="line">    conrole.log($stateParams);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$state.go(<span class="string">'users'</span>, &#123;obj:yourObj&#125;);</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/15/mac-跳过App-Store-更新系统/" itemprop="url">
                   mac 跳过App Store 更新系统
                 </a>
@@ -648,117 +760,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/16/Ionic-ActionSheet-Android-样式/" itemprop="url">
-                  Ionic ActionSheet Android 样式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-16T14:37:16+08:00" content="2015-11-16">
-              2015-11-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/16/Ionic-ActionSheet-Android-样式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/16/Ionic-ActionSheet-Android-样式/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###Ionic ActionSheet Android 样式<br>在<code>style.css</code>拷贝如下样式表：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Action Sheets for Android</div><div class="line"> * --------------------------------------------------</div><div class="line"> */</div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-backdrop</span> &#123;</div><div class="line">    <span class="attribute">-webkit-transition</span>: background-color <span class="number">150ms</span> ease-in-out;</div><div class="line">    <span class="attribute">transition</span>: background-color <span class="number">150ms</span> ease-in-out;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">z-index</span>: <span class="number">11</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(0, 0, 0, 0);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-backdrop</span><span class="selector-class">.active</span> &#123;</div><div class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(0, 0, 0, 0.4);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-wrapper</span> &#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0, 100%, 0);</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate3d</span>(0, 100%, 0);</div><div class="line">    <span class="attribute">-webkit-transition</span>: all <span class="built_in">cubic-bezier</span>(0.36, 0.66, 0.04, 1) <span class="number">500ms</span>;</div><div class="line">    <span class="attribute">transition</span>: all <span class="built_in">cubic-bezier</span>(0.36, 0.66, 0.04, 1) <span class="number">500ms</span>;</div><div class="line">    <span class="attribute">position</span>: absolute;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">right</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">500px</span>;</div><div class="line">    <span class="attribute">margin</span>: auto;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-up</span> &#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> &#123;</div><div class="line">    <span class="attribute">margin-left</span>: <span class="number">8px</span>;</div><div class="line">    <span class="attribute">margin-right</span>: <span class="number">8px</span>;</div><div class="line">    <span class="attribute">width</span>: auto;</div><div class="line">    <span class="attribute">z-index</span>: <span class="number">11</span>;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.button</span> &#123;</div><div class="line">    <span class="attribute">display</span>: block;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">1px</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">border-radius</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">border-color</span>: <span class="number">#d1d3d6</span>;</div><div class="line">    <span class="attribute">background-color</span>: transparent;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#007aff</span>;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">21px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.button</span><span class="selector-pseudo">:hover</span> &#123;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#007aff</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.button</span><span class="selector-class">.destructive</span> &#123;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#ff3b30</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.button</span><span class="selector-class">.destructive</span><span class="selector-pseudo">:hover</span> &#123;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#ff3b30</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.button</span><span class="selector-class">.active</span>, <span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.button</span><span class="selector-class">.activated</span> &#123;</div><div class="line">    <span class="attribute">box-shadow</span>: none;</div><div class="line">    <span class="attribute">border-color</span>: <span class="number">#d1d3d6</span>;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#007aff</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#e4e5e7</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-has-icons</span> <span class="selector-class">.icon</span> &#123;</div><div class="line">    <span class="attribute">position</span>: absolute;</div><div class="line">    <span class="attribute">left</span>: <span class="number">16px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-title</span> &#123;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">16px</span>;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#8f8f8f</span>;</div><div class="line">    <span class="attribute">text-align</span>: center;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">13px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-group</span> &#123;</div><div class="line">    <span class="attribute">margin-bottom</span>: <span class="number">8px</span>;</div><div class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</div><div class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-group</span> <span class="selector-class">.button</span> &#123;</div><div class="line">    <span class="attribute">border-width</span>: <span class="number">1px</span> <span class="number">0px</span> <span class="number">0px</span> <span class="number">0px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-group</span> <span class="selector-class">.button</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:last-child</span> &#123;</div><div class="line">    <span class="attribute">border-width</span>: <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-options</span> &#123;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#f1f2f3</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-cancel</span> <span class="selector-class">.button</span> &#123;</div><div class="line">    <span class="attribute">font-weight</span>: <span class="number">500</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-open</span> &#123;</div><div class="line">    <span class="attribute">pointer-events</span>: none;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-open</span><span class="selector-class">.modal-open</span> <span class="selector-class">.modal</span> &#123;</div><div class="line">    <span class="attribute">pointer-events</span>: none;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-open</span> <span class="selector-class">.action-sheet-backdrop</span> &#123;</div><div class="line">    <span class="attribute">pointer-events</span>: auto;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.action-sheet-title</span>, <span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet</span> <span class="selector-class">.button</span> &#123;</div><div class="line">    <span class="attribute">text-align</span>: center;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.platform-android</span> <span class="selector-class">.action-sheet-cancel</span> &#123;</div><div class="line">    <span class="attribute">display</span>: block;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在android 下样式可以正常运行。</p>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -805,7 +806,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">77</span>
+              <span class="site-state-item-count">78</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -873,7 +874,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

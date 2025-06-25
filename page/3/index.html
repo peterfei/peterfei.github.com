@@ -231,6 +231,117 @@
             
               
                 
+                <a class="post-title-link" href="/2022/08/26/ES-ReIndex迁移数据/" itemprop="url">
+                  ES ReIndex迁移数据
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-08-26T10:56:55+08:00" content="2022-08-26">
+              2022-08-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2022/08/26/ES-ReIndex迁移数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/08/26/ES-ReIndex迁移数据/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、给目标集群新增白名单"><a href="#一、给目标集群新增白名单" class="headerlink" title="一、给目标集群新增白名单"></a><strong>一、</strong>给目标集群新增白名单</h1><h4 id="1、elasticsearch-yml中添加reindex-remote-whitelist-“xx-xx-xx-xx-9200”-，不加http，重启ES服务；"><a href="#1、elasticsearch-yml中添加reindex-remote-whitelist-“xx-xx-xx-xx-9200”-，不加http，重启ES服务；" class="headerlink" title="1、elasticsearch.yml中添加reindex.remote.whitelist: [“xx.xx.xx.xx:9200”]，不加http，重启ES服务；"></a>1、<a href="https://so.csdn.net/so/search?q=elasticsearch&amp;spm=1001.2101.3001.7020" target="_blank" rel="external">elasticsearch</a>.yml中添加reindex.remote.whitelist: [“xx.xx.xx.xx:9200”]，不加http，重启ES服务；</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">http.host: 0.0.0.0</div><div class="line">http.cors.enabled: true</div><div class="line">http.cors.allow-origin: &quot;*&quot;</div><div class="line">http.cors.allow-headers: Authorization</div><div class="line">xpack.security.enabled: true</div><div class="line">xpack.security.transport.ssl.enabled: true</div><div class="line">reindex.remote.whitelist: [&quot;124.70.107.101:30997&quot;,&quot;47.94.255.84:30997&quot;]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker ps|grep elasticsearch</div><div class="line"></div><div class="line">docker exec -it elasticsearch /bin/bash</div><div class="line"></div><div class="line">vi config/elasticsearch.yml</div><div class="line"></div><div class="line">docker restart elasticsearch</div></pre></td></tr></table></figure>
+<h1 id="二、使用PostMan修改目标主机ES参数"><a href="#二、使用PostMan修改目标主机ES参数" class="headerlink" title="二、使用PostMan修改目标主机ES参数"></a><strong>二、使用PostMan修改目标主机ES参数</strong></h1><h4 id="1、PUT-settings-pretty"><a href="#1、PUT-settings-pretty" class="headerlink" title="1、PUT _settings?pretty"></a>1、PUT _settings?pretty</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;index.refresh_interval&quot;: -1,</div><div class="line">  &quot;index.number_of_replicas&quot;: 0</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="三、使用reindex同步数据"><a href="#三、使用reindex同步数据" class="headerlink" title="三、使用reindex同步数据"></a><strong>三、使用reindex同步数据</strong></h1><h4 id="1、同步数据，POST-reindex-wait-for-completion-false"><a href="#1、同步数据，POST-reindex-wait-for-completion-false" class="headerlink" title="1、同步数据，POST _reindex?wait_for_completion=false"></a>1、同步数据，POST _reindex?wait_for_completion=false</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"># 1、过滤数据</div><div class="line">&#123;</div><div class="line">    &quot;source&quot;: &#123;</div><div class="line">        &quot;remote&quot;: &#123;</div><div class="line">            &quot;host&quot;: &quot;http://47.94.255.84:30997&quot;,</div><div class="line">            &quot;username&quot;: &quot;elastic&quot;,</div><div class="line">            &quot;password&quot;: &quot;IQsMLRniP5BcYfoNzTBT&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;size&quot;: 10000,</div><div class="line">        &quot;index&quot;: &quot;aiot_towercrane_realtime_master&quot;,</div><div class="line">        &quot;query&quot;: &#123;</div><div class="line">            &quot;bool&quot;: &#123;</div><div class="line">                &quot;filter&quot;: [</div><div class="line">                    &#123;</div><div class="line">                        &quot;range&quot;: &#123;</div><div class="line">                            &quot;createTime&quot;: &#123;</div><div class="line">                                &quot;gte&quot;: 1652262590167,</div><div class="line">                                &quot;lte&quot;: 1652262590346</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;,</div><div class="line">                    &#123;</div><div class="line">                        &quot;term&quot;: &#123;</div><div class="line">                            &quot;tenantId&quot;: &quot;1441953685304872961&quot;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;dest&quot;: &#123;</div><div class="line">        &quot;index&quot;: &quot;aiot_towercrane_realtime_master&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"># 2 查询数据</div><div class="line">&#123;</div><div class="line">  &quot;source&quot;: &#123;</div><div class="line">    &quot;remote&quot;: &#123;</div><div class="line">      &quot;host&quot;: &quot;http://47.94.255.84:30997&quot;,</div><div class="line">      &quot;username&quot;: &quot;elastic&quot;,</div><div class="line">      &quot;password&quot;: &quot;IQsMLRniP5BcYfoNzTBT&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;index&quot;: &quot;aiot_deeppit_mesure_day_record_master&quot;,</div><div class="line">    &quot;query&quot;: &#123;</div><div class="line">      &quot;match&quot;: &#123;</div><div class="line">        &quot;projectId&quot;: &quot;1447476989099610114&quot;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  &quot;dest&quot;: &#123;</div><div class="line">    &quot;index&quot;: &quot;aiot_deeppit_mesure_day_record_xiongan&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p> <strong>注：</strong></p>
+<ul>
+<li><strong>同步之前，需要删除目标主机中已存在索引，否则同步不成功。</strong></li>
+<li><strong>同步ES数据时，如果需要认证，目标主机添加Basic auth认证，源主机添加username和password;</strong></li>
+</ul>
+</blockquote>
+<h4 id="2、批量修改数据-POST-aiot-towercrane-param-xiongan-update-by-query"><a href="#2、批量修改数据-POST-aiot-towercrane-param-xiongan-update-by-query" class="headerlink" title="2、批量修改数据 POST aiot_towercrane_param_xiongan/_update_by_query"></a>2、批量修改数据 POST aiot_towercrane_param_xiongan/_update_by_query</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">http://144.7.110.56:9200/aiot_towercrane_param_xiongan/_update_by_query</div><div class="line">&#123;</div><div class="line">  &quot;query&quot;: &#123; </div><div class="line">    &quot;match_all&quot;: &#123;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  &quot;script&quot;: &#123;</div><div class="line">    &quot;source&quot;: &quot;ctx._source.tenantId = 1504718344228839425L &quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>注意：Long类型更新需要添加L</li>
+</ul>
+</blockquote>
+<h1 id="四、查看迁移状况"><a href="#四、查看迁移状况" class="headerlink" title="四、查看迁移状况"></a>四、查看迁移状况</h1><h4 id="1、查看所有task"><a href="#1、查看所有task" class="headerlink" title="1、查看所有task"></a>1、查看所有task</h4><p>GET _tasks?detailed=true&amp;actions=*reindex<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://144.7.110.56:9200/_tasks?detailed=true&amp;actions=*reindex</div></pre></td></tr></table></figure></p>
+<p>GET _tasks/xxx?pretty<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://144.7.110.56:9200/_tasks/6kPnJej0SZKt4Y5THf6TuQ:697134?pretty</div></pre></td></tr></table></figure></p>
+<h1 id="五、恢复新es设置"><a href="#五、恢复新es设置" class="headerlink" title="五、恢复新es设置"></a>五、恢复新es设置</h1><h4 id="1、PUT-settings-pretty-1"><a href="#1、PUT-settings-pretty-1" class="headerlink" title="1、PUT _settings?pretty"></a>1、PUT _settings?pretty</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;index.refresh_interval&quot;: &quot;10m&quot;,</div><div class="line">  &quot;index.number_of_replicas&quot;: 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">bool查询总结</div><div class="line"></div><div class="line">must：与关系，相当于关系型数据库中的 and。</div><div class="line"></div><div class="line">should：或关系，相当于关系型数据库中的 or。</div><div class="line"></div><div class="line">must_not：非关系，相当于关系型数据库中的 not。</div><div class="line"></div><div class="line">filter：过滤条件。</div><div class="line"></div><div class="line">range：条件筛选范围。</div><div class="line"></div><div class="line">gt：大于，相当于关系型数据库中的 &gt;。</div><div class="line"></div><div class="line">gte：大于等于，相当于关系型数据库中的 &gt;=。</div><div class="line"></div><div class="line">lt：小于，相当于关系型数据库中的 &lt;。</div><div class="line"></div><div class="line">lte：小于等于，相当于关系型数据库中的 &lt;=。</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2021/04/30/kubectl-备忘单/" itemprop="url">
                   kubectl 备忘单
                 </a>
@@ -769,139 +880,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2020/10/29/记k8s在公网部署/" itemprop="url">
-                  记k8s在公网部署
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2020-10-29T10:26:59+08:00" content="2020-10-29">
-              2020-10-29
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2020/10/29/记k8s在公网部署/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/10/29/记k8s在公网部署/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="1-安装必备软件"><a href="#1-安装必备软件" class="headerlink" title="1. 安装必备软件"></a>1. 安装必备软件</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum <span class="keyword">install</span> -y wget vim net-tools epel-<span class="keyword">release</span></div></pre></td></tr></table></figure>
-<h3 id="2-关闭swap"><a href="#2-关闭swap" class="headerlink" title="2. 关闭swap"></a>2. 关闭swap</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">swapoff -a</div><div class="line"></div><div class="line"><span class="comment"># 永久禁用，打开/etc/fstab注释掉swap那一行。</span></div><div class="line">sed -i <span class="string">'s/.*swap.*/#&amp;/'</span> <span class="regexp">/etc/</span>fstab</div></pre></td></tr></table></figure>
-<h3 id="3-关闭selinux"><a href="#3-关闭selinux" class="headerlink" title="3. 关闭selinux"></a>3. 关闭selinux</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># 临时禁用selinux</span></div><div class="line">setenforce <span class="number">0</span></div><div class="line"><span class="meta"># 永久关闭 修改/etc/sysconfig/selinux文件设置</span></div><div class="line">sed -i <span class="string">'s/SELINUX=permissive/SELINUX=disabled/'</span> /etc/sysconfig/selinux</div><div class="line">sed -i <span class="string">"s/SELINUX=enforcing/SELINUX=disabled/g"</span> /etc/selinux/config</div></pre></td></tr></table></figure>
-<h3 id="4-关闭防火墙"><a href="#4-关闭防火墙" class="headerlink" title="4. 关闭防火墙"></a>4. 关闭防火墙</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl <span class="keyword">disable</span> firewalld</div><div class="line">systemctl <span class="keyword">stop</span> firewalld</div></pre></td></tr></table></figure>
-<h2 id="安装Docker和配置代理"><a href="#安装Docker和配置代理" class="headerlink" title="安装Docker和配置代理"></a>安装Docker和配置代理</h2><h3 id="1-配置yum源"><a href="#1-配置yum源" class="headerlink" title="1. 配置yum源"></a>1. 配置yum源</h3><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">## 配置默认源</div><div class="line">## 备份</div><div class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</div><div class="line"></div><div class="line">## 下载阿里源</div><div class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http:<span class="comment">//mirrors.aliyun.com/repo/Centos-7.repo</span></div><div class="line"></div><div class="line">## 刷新</div><div class="line">yum makecache fast</div><div class="line"></div><div class="line">## 配置k8s源</div><div class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</div><div class="line">[kubernetes]</div><div class="line">name=Kubernetes</div><div class="line">baseurl=https:<span class="comment">//mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span></div><div class="line">enabled=<span class="number">1</span></div><div class="line">gpgcheck=<span class="number">0</span></div><div class="line">EOF</div><div class="line"></div><div class="line">## 重建yum缓存</div><div class="line">yum clean all</div><div class="line">yum makecache fast</div><div class="line">yum -y update</div></pre></td></tr></table></figure>
-<h3 id="2-安装docker"><a href="#2-安装docker" class="headerlink" title="2. 安装docker"></a>2. 安装docker</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> yum-utils device-mapper-persistent-<span class="keyword">data</span> lvm2</div><div class="line">yum-config-manager <span class="comment">--add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span></div><div class="line">yum -y <span class="keyword">install</span> docker-ce</div><div class="line">systemctl <span class="keyword">enable</span> docker</div><div class="line">systemctl <span class="keyword">start</span> docker</div></pre></td></tr></table></figure>
-<h3 id="3-确保kubelet使用的cgroup-driver-与-Docker的一致"><a href="#3-确保kubelet使用的cgroup-driver-与-Docker的一致" class="headerlink" title="3. 确保kubelet使用的cgroup driver 与 Docker的一致"></a>3. 确保kubelet使用的cgroup driver 与 Docker的一致</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">cat &gt; /etc/docker/daemon.json &lt;&lt;<span class="built_in">EOF</span></div><div class="line">&#123;</div><div class="line">  <span class="string">"exec-opts"</span>: [<span class="string">"native.cgroupdriver=systemd"</span>],</div><div class="line">  <span class="string">"log-driver"</span>: <span class="string">"json-file"</span>,</div><div class="line">  <span class="string">"log-opts"</span>: &#123;</div><div class="line">    <span class="string">"max-size"</span>: <span class="string">"100m"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"storage-driver"</span>: <span class="string">"overlay2"</span>,</div><div class="line">  <span class="string">"storage-opts"</span>: [</div><div class="line">    <span class="string">"overlay2.override_kernel_check=true"</span></div><div class="line">  ]</div><div class="line">&#125;</div><div class="line"><span class="built_in">EOF</span></div><div class="line"></div><div class="line">sudo systemctl daemon-reload sudo systemctl restart docker</div></pre></td></tr></table></figure>
-<h3 id="4-设置docker代理（核心步骤-如果有代理）"><a href="#4-设置docker代理（核心步骤-如果有代理）" class="headerlink" title="4. 设置docker代理（核心步骤-如果有代理）"></a>4. 设置docker代理（核心步骤-如果有代理）</h3><blockquote>
-<p>没有代理执行步骤5</p>
-</blockquote>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mkdir /etc/systemd/system/docker<span class="selector-class">.service</span><span class="selector-class">.d</span></div><div class="line">touch /etc/systemd/system/docker<span class="selector-class">.service</span><span class="selector-class">.d</span>/http-proxy<span class="selector-class">.conf</span></div><div class="line"></div><div class="line">[Service]</div><div class="line">Environment=<span class="string">"HTTP_PROXY=http://xxx"</span></div><div class="line">Environment=<span class="string">"HTTPS_PROXY=http://xxx"</span></div><div class="line">Environment=<span class="string">"NO_PROXY=localhost,127.0.0.1,localaddress,.localdomain.com"</span></div><div class="line"></div><div class="line">systemctl daemon-reload &amp;&amp; systemctl restart docker</div></pre></td></tr></table></figure>
-<h3 id="5-从国内仓库拉取镜像（核心步骤-如果没有代理）"><a href="#5-从国内仓库拉取镜像（核心步骤-如果没有代理）" class="headerlink" title="5. 从国内仓库拉取镜像（核心步骤-如果没有代理）"></a>5. 从国内仓库拉取镜像（核心步骤-如果没有代理）</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## 查看集群初始化所需镜像及对应依赖版本号，列出的就是需要下载的镜像</span></div><div class="line">kubeadm config images <span class="built_in">list</span></div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">images=(</div><div class="line">kube-apiserver:v1.18.0</div><div class="line">kube-controller-manager:v1.18.0</div><div class="line">kube-scheduler:v1.18.0</div><div class="line">kube-proxy:v1.18.0</div><div class="line">pause:3.2</div><div class="line">etcd:3.4.3-0</div><div class="line">coredns:1.6.7</div><div class="line">kubernetes-dashboard-amd64:v1.10.1</div><div class="line">)</div><div class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> <span class="variable">$&#123;images[@]&#125;</span>;<span class="keyword">do</span></div><div class="line">        docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span></div><div class="line">        docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span> k8s.gcr.io/<span class="variable">$imageName</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
-<h2 id="开始安装k8s"><a href="#开始安装k8s" class="headerlink" title="开始安装k8s"></a>开始安装k8s</h2><h3 id="1-安装kubeadm，kubelet等"><a href="#1-安装kubeadm，kubelet等" class="headerlink" title="1. 安装kubeadm，kubelet等"></a>1. 安装kubeadm，kubelet等</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> kubelet kubeadm kubectl kubernetes-cni</div><div class="line">systemctl <span class="keyword">enable</span> kubelet &amp;&amp; systemctl <span class="keyword">start</span> kubelet</div></pre></td></tr></table></figure>
-<h3 id="2-集群初始化"><a href="#2-集群初始化" class="headerlink" title="2. 集群初始化"></a>2. 集群初始化</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">## master节点执行：</div><div class="line">sudo kubeadm init \</div><div class="line"> --apiserver-advertise-address <span class="number">10.1</span><span class="number">.69</span><span class="number">.101</span> \</div><div class="line"> --kubernetes-version=v1<span class="number">.15</span><span class="number">.0</span> \</div><div class="line"> --pod-network-cidr=<span class="number">10.244</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">16</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>公网会卡在:</p>
-</blockquote>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[wait-control-plane] Waiting <span class="keyword">for</span> the kubelet <span class="keyword">to</span> boot up the control plane <span class="keyword">as</span> <span class="keyword">static</span> Pods <span class="keyword">from</span> directory <span class="string">"/etc/kubernetes/manifests"</span>. This can <span class="keyword">take</span> up <span class="keyword">to</span> <span class="number">4</span>m0s</div><div class="line">[kubelet-check] Initial timeout <span class="keyword">of</span> <span class="number">40</span>s passed.</div></pre></td></tr></table></figure>
-<h2 id="修改etcd-yaml"><a href="#修改etcd-yaml" class="headerlink" title="修改etcd.yaml"></a>修改etcd.yaml</h2><blockquote>
-<p>文件路径”/etc/kubernetes/manifests/etcd.yaml”</p>
-</blockquote>
-<h5 id="修改前"><a href="#修改前" class="headerlink" title="修改前"></a>修改前</h5><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g90yzxelfhj30m00f8ac2.jpg" alt=""></p>
-<h5 id="修改后"><a href="#修改后" class="headerlink" title="修改后"></a>修改后</h5><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g90z0cev0kj30m00f8dhs.jpg" alt=""></p>
-<blockquote>
-<p>此处”xxx”为公网ip，要关注的是”–listen-client-urls”和”–listen-peer-urls”。需要把–listen-client-urls 和 –listen-peer-urls 都改成0.0.0.0：xxx</p>
-</blockquote>
-<p><a href="https://my.oschina.net/u/4389078/blog/3233116" target="_blank" rel="external">来源</a></p>
-<p>得到回复：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">(...省略)</div><div class="line"><span class="keyword">mkdir</span> -p <span class="variable">$HOME</span>/.kube</div><div class="line">sudo cp -i /etc/kubernetes/admin.<span class="keyword">conf</span> <span class="variable">$HOME</span>/.kube/config</div><div class="line">sudo chown $(id -<span class="keyword">u</span>):$(id -<span class="keyword">g</span>) <span class="variable">$HOME</span>/.kube/config</div><div class="line"></div><div class="line">## 保存好该命令，丢了不好找回。节点加入时需要</div><div class="line">kubeadm join 10.1.69.101:6443 --<span class="keyword">token</span> ou5pvo.qseafc4s8licblzy \</div><div class="line">    --discovery-<span class="keyword">token</span>-<span class="keyword">ca</span>-cert-hash sha256:de9c10f11c50c074f212698b9d514fc12a9c1c4ffe70961aff89ac5e585f0663</div></pre></td></tr></table></figure>
-<h3 id="3-拷贝配置，给kubectl使用"><a href="#3-拷贝配置，给kubectl使用" class="headerlink" title="3. 拷贝配置，给kubectl使用"></a>3. 拷贝配置，给kubectl使用</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir -<span class="selector-tag">p</span> <span class="variable">$HOME</span>/<span class="selector-class">.kube</span></div><div class="line">sudo cp -<span class="selector-tag">i</span> /etc/kubernetes/admin<span class="selector-class">.conf</span> <span class="variable">$HOME</span>/.kube/config</div><div class="line">sudo chown $(id -u):$(id -g) <span class="variable">$HOME</span>/.kube/config</div></pre></td></tr></table></figure>
-<h3 id="4-安装flannel网络"><a href="#4-安装flannel网络" class="headerlink" title="4. 安装flannel网络"></a>4. 安装flannel网络</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sudo kubectl apply -<span class="keyword">f</span> http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/coreos/flannel/master/Documentation/kube-flannel.yml</div><div class="line"></div><div class="line">## 查看flannal是否安装成功</div><div class="line"></div><div class="line">sudo kubectl -n kube-<span class="built_in">system</span> <span class="built_in">get</span> <span class="keyword">po</span> -<span class="keyword">l</span> app=flannel -<span class="keyword">o</span> wide</div></pre></td></tr></table></figure>
-<h2 id="5-node节点加入集群"><a href="#5-node节点加入集群" class="headerlink" title="5. node节点加入集群"></a>5. node节点加入集群</h2><p>其他节点执行：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">kubeadm</span> <span class="selector-tag">join</span> 39<span class="selector-class">.99</span><span class="selector-class">.xxx</span><span class="selector-class">.xxx</span><span class="selector-pseudo">:6443</span>   <span class="selector-tag">--token</span> <span class="selector-tag">w4tx2r</span><span class="selector-class">.0dm194h24wlw8m8t</span> <span class="selector-tag">--discovery-token-ca-cert-hash</span> <span class="selector-tag">sha256</span><span class="selector-pseudo">:caae3b178b4172839269254f373b6eaa14514173b01e129e0b0fe7d64694dc39</span></div></pre></td></tr></table></figure>
-<h2 id="清理安装"><a href="#清理安装" class="headerlink" title="清理安装"></a>清理安装</h2><blockquote>
-<p> 如果安装过程中出任何问题，可以重置后重新安装</p>
-</blockquote>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">sudo kubeadm reset</span></div></pre></td></tr></table></figure>
-<h1 id="Dashboard安装"><a href="#Dashboard安装" class="headerlink" title="Dashboard安装"></a>Dashboard安装</h1><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 安装dashboard，国内可以使用别的yaml源</span></div><div class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.<span class="number">10.1</span>/src/deploy/recommended/kubernetes-dashboard.yaml</div><div class="line"></div><div class="line"><span class="comment"># 修改node为NodePort模式</span></div><div class="line">kubectl patch svc -n kube-system kubernetes-dashboard -p '&#123;<span class="string">"spec"</span>:&#123;<span class="string">"type"</span>:<span class="string">"NodePort"</span>&#125;&#125;'</div><div class="line"></div><div class="line"><span class="comment"># 查看服务(得知dashboard运行在443:32383/TCP端口)</span></div><div class="line">kubectl get svc -n kube-system </div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line">NAME                   <span class="keyword">TYPE</span>        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE</div><div class="line">kube-dns               ClusterIP   <span class="number">10.96</span>.<span class="number">0.10</span>      <span class="tag">&lt;none&gt;</span>        <span class="number">53</span>/UDP,<span class="number">53</span>/TCP,<span class="number">9153</span>/TCP   <span class="number">7h</span>40m</div><div class="line">kubernetes-dashboard   NodePort    <span class="number">10.111</span>.<span class="number">77.210</span>   <span class="tag">&lt;none&gt;</span>        <span class="number">443</span>:<span class="number">32383</span>/TCP            <span class="number">3h</span>42m</div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line"></div><div class="line"><span class="comment"># 查看dashboard运行在哪个node(得知dashboard运行在192.168.20.4)</span></div><div class="line">kubectl get pods -A -o wide</div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line">NAMESPACE     NAME                                    READY   STATUS    RESTARTS   AGE     IP             <span class="keyword">NODE</span>     <span class="title">NOMINATED</span> <span class="keyword">NODE</span>   <span class="title">READINESS</span> GATES</div><div class="line">kube-system   coredns-fb8b8dccf-rn8kd                 <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>43m   <span class="number">10.244</span>.<span class="number">0.2</span>     <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   coredns-fb8b8dccf-slwr4                 <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>43m   <span class="number">10.244</span>.<span class="number">0.3</span>     <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   etcd-<span class="keyword">master</span>                             <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-apiserver-<span class="keyword">master</span>                   <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-controller-manager-<span class="keyword">master</span>          <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-flannel-ds-amd64-l8c7c             <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>3m    <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-flannel-ds-amd64-lcmxw             <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">1</span>          <span class="number">6h</span>50m   <span class="number">192.168</span>.<span class="number">20.4</span>   node1    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-flannel-ds-amd64-pqnln             <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">1</span>          <span class="number">6h</span>5m    <span class="number">192.168</span>.<span class="number">20.3</span>   node2    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-proxy-<span class="number">4</span>kcqb                        <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>43m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-proxy-jcqjd                        <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">6h</span>5m    <span class="number">192.168</span>.<span class="number">20.3</span>   node2    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-proxy-vm9sj                        <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">6h</span>50m   <span class="number">192.168</span>.<span class="number">20.4</span>   node1    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kube-scheduler-<span class="keyword">master</span>                   <span class="title">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">7h</span>42m   <span class="number">192.168</span>.<span class="number">20.5</span>   <span class="keyword">master</span>   <span class="title">&lt;none</span>&gt;           <span class="tag">&lt;none&gt;</span></div><div class="line">kube-system   kubernetes-dashboard-<span class="number">5</span>f7b999d65-<span class="number">2</span>ltmv   <span class="number">1</span>/<span class="number">1</span>     Running   <span class="number">0</span>          <span class="number">3h</span>45m   <span class="number">10.244</span>.<span class="number">1.2</span>     node1    <span class="tag">&lt;none&gt;</span>           <span class="tag">&lt;none&gt;</span></div><div class="line"><span class="comment"># --- 输出 ---</span></div><div class="line"><span class="comment"># 如果无法变成Running状态，可以使用以下命令排错</span></div><div class="line">journalctl -f -u kubelet  <span class="comment"># 只看当前的kubelet进程日志</span></div><div class="line"><span class="comment">### 提示拉取镜像失败，无法翻墙的可以使用以下方法预先拉取镜像</span></div><div class="line"><span class="comment">### 请在kubernetes-dashboard的节点上操作：</span></div><div class="line">docker pull mirrorgooglecontainers/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span></div><div class="line">docker <span class="keyword">tag</span> <span class="title">mirrorgooglecontainers</span>/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span> k8s.gcr.io/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span></div><div class="line">docker rmi  mirrorgooglecontainers/kubernetes-dashboard-amd64:v1.<span class="number">10.1</span></div></pre></td></tr></table></figure>
-<p>获取token命令</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## 获取登陆界面token</span></div><div class="line">kubectl -n kube-<span class="keyword">system</span> describe $(kubectl -n kube-<span class="keyword">system</span> \</div><div class="line"><span class="built_in">get</span> secret -n kube-<span class="keyword">system</span> -o name | grep namespace) | grep <span class="keyword">token</span></div></pre></td></tr></table></figure>
-<p>如果dashboard的token过期，以下脚本重新生成config文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">TOKEN=$(kubectl -n kube-system describe secret default| awk <span class="string">'$1=="token:"&#123;print $2&#125;'</span>)</div><div class="line">kubectl config <span class="built_in">set</span>-credentials kubernetes-admin --token=<span class="string">"<span class="variable">$&#123;TOKEN&#125;</span>"</span></div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -948,7 +926,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">77</span>
+              <span class="site-state-item-count">78</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1016,7 +994,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

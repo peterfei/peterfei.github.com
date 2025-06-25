@@ -231,6 +231,105 @@
             
               
                 
+                <a class="post-title-link" href="/2023/02/09/Elastic-使用极限网关进行数据双向切换/" itemprop="url">
+                  Elastic 使用极限网关进行数据双向切换
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2023-02-09T14:06:40+08:00" content="2023-02-09">
+              2023-02-09
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2023/02/09/Elastic-使用极限网关进行数据双向切换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2023/02/09/Elastic-使用极限网关进行数据双向切换/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>极限网关</strong> (<em>INFINI Gateway</em>) 是一个面向 Elasticsearch 的高性能应用网关，它包含丰富的特性，使用起来也非常简单。极限网关工作的方式和普通的反向代理一样，我们一般是将网关部署在 Elasticsearch 集群前面， 将以往直接发送给 Elasticsearch 的请求都发送给网关，再由网关转发给请求到后端的 Elasticsearch 集群。因为网关位于在用户端和后端 Elasticsearch 之间，所以网关在中间可以做非常多的事情， 比如可以实现索引级别的限速限流、常见查询的缓存加速、查询请求的审计、查询结果的动态修改等等</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https:<span class="comment">//release.infinilabs.com/gateway/stable/gateway-1.8.6-769-linux-amd64.tar.gz</span></div><div class="line">tar vxzf gateway-<span class="number">1.8</span>.6-<span class="number">769</span>-linux-amd64.tar.gz</div><div class="line">mv gateway-linux-amd64 bin/gateway</div></pre></td></tr></table></figure>
+<h2 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h2><p>极限网关下载解压之后，我们可以执行这个命令来验证安装包是否有效，如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">✗ ./<span class="selector-tag">bin</span>/<span class="selector-tag">gateway</span> <span class="selector-tag">-v</span></div><div class="line"><span class="selector-tag">gateway</span> <span class="selector-tag">1</span><span class="selector-class">.0</span><span class="selector-class">.0_SNAPSHOT</span> <span class="selector-tag">2021-01-03</span> <span class="selector-tag">22</span><span class="selector-pseudo">:45</span><span class="selector-pseudo">:28</span> <span class="selector-tag">6a54bb2</span></div></pre></td></tr></table></figure>
+<p>如果能够正常看到上面的版本信息，说明网关程序本身一切正常。</p>
+<h2 id="启动网关"><a href="#启动网关" class="headerlink" title="启动网关"></a>启动网关</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div></pre></td><td class="code"><pre><div class="line">[root@k8s-master gateway]# cat  /opt/gateway/gateway.yml</div><div class="line"># 数据路径</div><div class="line">path.data: data</div><div class="line"># 日志路径</div><div class="line">path.logs: log</div><div class="line"></div><div class="line"># 定义 Elasticsearch 集群地址</div><div class="line">elasticsearch:</div><div class="line"># cluster01 集群</div><div class="line">- name: cluster01</div><div class="line">  enabled: true</div><div class="line">  endpoint: http://192.168.10.15:9200</div><div class="line">  basic_auth:</div><div class="line">    username: elastic</div><div class="line">    password: IQsMLRniP5BcYfoNzTBT</div><div class="line">  discovery:</div><div class="line">    enabled: true</div><div class="line">    refresh:</div><div class="line">      enabled: true</div><div class="line">      interval: 1s</div><div class="line"># cluster02 集群</div><div class="line">- name: cluster02</div><div class="line">  enabled: true</div><div class="line">  endpoint: http://192.168.10.15:30993</div><div class="line">  basic_auth:</div><div class="line">    username: elastic</div><div class="line">    password: IQsMLRniP5BcYfoNzTBT</div><div class="line">  discovery:</div><div class="line">    enabled: true</div><div class="line">    refresh:</div><div class="line">      enabled: true</div><div class="line">      interval: 1s</div><div class="line"></div><div class="line"># 定义网关入口</div><div class="line">entry:</div><div class="line">  - name: my_es_entry</div><div class="line">    enabled: true</div><div class="line">    router: my_router</div><div class="line">    network:</div><div class="line">      binding: 0.0.0.0:8000</div><div class="line"></div><div class="line"># 定义工作流</div><div class="line">flow:</div><div class="line">  - name: auth-flow</div><div class="line">    filter:</div><div class="line">      #- basic_auth:</div><div class="line">      #    valid_users:</div><div class="line">      #      elastic: ******</div><div class="line">      - set_basic_auth:</div><div class="line">          username: elastic</div><div class="line">          password: IQsMLRniP5BcYfoNzTBT</div><div class="line">  - name: set-auth-for-backup-flow</div><div class="line">    filter:</div><div class="line">      - set_basic_auth: #覆盖备集群的身份信息用于备集群正常处理请求</div><div class="line">          username: elastic</div><div class="line">          password: IQsMLRniP5BcYfoNzTBT </div><div class="line"> # 写请求优先发给主集群, 当主集群不可用时发给备集群</div><div class="line"> # 当主集群数据写入成功时，记录到队列中，异步消费写入备集群</div><div class="line">  - name: write-flow</div><div class="line">    filter:</div><div class="line">      - flow:</div><div class="line">          flows:</div><div class="line">            - auth-flow</div><div class="line">      - if:</div><div class="line">      # 当主集群可用时</div><div class="line">          cluster_available: [&quot;cluster01&quot;]</div><div class="line">        then:</div><div class="line">          # 先将数据写入主集群</div><div class="line">          - elasticsearch:</div><div class="line">              elasticsearch: &quot;cluster01&quot;</div><div class="line">            # 写入消息队列,等待 pipeline 异步消费到备集群</div><div class="line">          - queue:</div><div class="line">              queue_name: &quot;cluster02-queue&quot;</div><div class="line">        else:</div><div class="line">          - elasticsearch:</div><div class="line">              elasticsearch: &quot;cluster02&quot;</div><div class="line">          - queue:</div><div class="line">              queue_name: &quot;cluster01-queue&quot;</div><div class="line">  # 读请求优先发给主集群, 当主集群不可用时发给备集群</div><div class="line">  - name: read-flow</div><div class="line">    filter:</div><div class="line">      - flow:</div><div class="line">          flows:</div><div class="line">            - set-auth-for-backup-flow</div><div class="line">      - if:</div><div class="line">          cluster_available: [&quot;cluster01&quot;]</div><div class="line">        then:</div><div class="line">          - elasticsearch:</div><div class="line">              elasticsearch: &quot;cluster01&quot;</div><div class="line">        else:</div><div class="line">          - elasticsearch:</div><div class="line">              elasticsearch: &quot;cluster02&quot;</div><div class="line"></div><div class="line"># 路由规则</div><div class="line">router:</div><div class="line">  - name: my_router</div><div class="line">    # 默认路由</div><div class="line">    default_flow: write-flow</div><div class="line">    # 读请求路由</div><div class="line">    rules:</div><div class="line">      - method:</div><div class="line">          - &quot;GET&quot;</div><div class="line">          - &quot;HEAD&quot;</div><div class="line">        pattern:</div><div class="line">          - &quot;/&#123;any:*&#125;&quot;</div><div class="line">        flow:</div><div class="line">          - read-flow</div><div class="line">      - method:</div><div class="line">          - &quot;POST&quot;</div><div class="line">          - &quot;GET&quot;</div><div class="line">        pattern:</div><div class="line">          - &quot;/_refresh&quot;</div><div class="line">          - &quot;/_count&quot;</div><div class="line">          - &quot;/_search&quot;</div><div class="line">          - &quot;/_msearch&quot;</div><div class="line">          - &quot;/_mget&quot;</div><div class="line">          - &quot;/&#123;any_index&#125;/_count&quot;</div><div class="line">          - &quot;/&#123;any_index&#125;/_search&quot;</div><div class="line">          - &quot;/&#123;any_index&#125;/_msearch&quot;</div><div class="line">          - &quot;/&#123;any_index&#125;/_mget&quot;</div><div class="line">        flow:</div><div class="line">          - read-flow</div><div class="line"></div><div class="line"># 定义管道, 异步将数据写入备集群</div><div class="line">pipeline:</div><div class="line">  - name: cluster01-consumer</div><div class="line">    auto_start: true</div><div class="line">    keep_running: true</div><div class="line">    processor:</div><div class="line">      - queue_consumer:</div><div class="line">          input_queue: &quot;cluster01-queue&quot; </div><div class="line">          elasticsearch: &quot;cluster01&quot;</div><div class="line">          when:</div><div class="line">            cluster_available: [&quot;cluster01&quot;] # 当集群可用时，才消费队列中的数据</div><div class="line">  - name: cluster02-consumer</div><div class="line">    auto_start: true</div><div class="line">    keep_running: true</div><div class="line">    processor:</div><div class="line">      - queue_consumer:</div><div class="line">          input_queue: &quot;cluster02-queue&quot;</div><div class="line">          elasticsearch: &quot;cluster02&quot;</div><div class="line">          when:</div><div class="line">            cluster_available: [&quot;cluster02&quot;]</div><div class="line"></div><div class="line">elastic:</div><div class="line">  enabled: true</div><div class="line">  remote_configs: false</div><div class="line">  health_check:</div><div class="line">    enabled: true</div><div class="line">    interval: 1s</div><div class="line">  availability_check:</div><div class="line">    enabled: true</div><div class="line">    interval: 1s</div><div class="line">  metadata_refresh:</div><div class="line">    enabled: true</div><div class="line">    interval: 1s</div><div class="line">  cluster_settings_check:</div><div class="line">    enabled: false</div><div class="line">    interval: 1s</div></pre></td></tr></table></figure>
+<h2 id="启动网关-1"><a href="#启动网关-1" class="headerlink" title="启动网关"></a>启动网关</h2><p><code>[root@k8s-master gateway]#  ./bin/gateway</code></p>
+<h2 id="测试准备"><a href="#测试准备" class="headerlink" title="测试准备"></a>测试准备</h2><h3 id="建立本地docker-es-集群，配置如下"><a href="#建立本地docker-es-集群，配置如下" class="headerlink" title="建立本地docker es 集群，配置如下"></a>建立本地docker es 集群，配置如下</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">[root@k8s-master gateway]<span class="comment"># cat docker-compose.yml </span></div><div class="line"><span class="attr">version:</span> <span class="string">'3.8'</span></div><div class="line"><span class="attr">services:</span></div><div class="line">  <span class="comment"># 集群 cluster01</span></div><div class="line">  <span class="comment"># Elasticsearch</span></div><div class="line"><span class="attr">  es01:</span></div><div class="line"><span class="attr">    image:</span> docker.io/library/elasticsearch:<span class="number">7.9</span><span class="number">.3</span></div><div class="line"><span class="attr">    container_name:</span> es01</div><div class="line"><span class="attr">    environment:</span></div><div class="line">      <span class="comment"># 节点名</span></div><div class="line"><span class="bullet">      -</span> node.name=es01</div><div class="line">      <span class="comment"># 集群名</span></div><div class="line"><span class="bullet">      -</span> cluster.name=cluster01</div><div class="line">      <span class="comment"># 指定单节点启动</span></div><div class="line"><span class="bullet">      -</span> discovery.type=single-node</div><div class="line">      <span class="comment"># 开启内存锁定</span></div><div class="line"><span class="bullet">      -</span> bootstrap.memory_lock=<span class="literal">true</span></div><div class="line">      <span class="comment"># 设置内存大小</span></div><div class="line"><span class="bullet">      -</span> <span class="string">"ES_JAVA_OPTS=-Xms2g -Xmx2g"</span></div><div class="line">      <span class="comment"># 启用安全</span></div><div class="line"><span class="bullet">      -</span> xpack.security.enabled=<span class="literal">true</span></div><div class="line">      <span class="comment"># 设置 elastic 用户密码</span></div><div class="line"><span class="bullet">      -</span> ELASTIC_PASSWORD=IQsMLRniP5BcYfoNzTBT</div><div class="line"><span class="attr">    ulimits:</span></div><div class="line"><span class="attr">      memlock:</span></div><div class="line"><span class="attr">        soft:</span> <span class="bullet">-1</span></div><div class="line"><span class="attr">        hard:</span> <span class="bullet">-1</span></div><div class="line">    <span class="comment"># 映射到主机名的端口 宿主机端口:容器端口</span></div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="number">9200</span>:<span class="number">9200</span></div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="attr">      - data01:</span>/usr/share/elasticsearch/data</div><div class="line"><span class="attr">    networks:</span></div><div class="line"><span class="bullet">      -</span> elastic</div><div class="line">  <span class="comment"># Kibana</span></div><div class="line"><span class="attr">  kib01:</span></div><div class="line"><span class="attr">    image:</span> kibana:<span class="number">7.9</span><span class="number">.3</span></div><div class="line"><span class="attr">    container_name:</span> kib01</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">      -</span> <span class="number">5601</span>:<span class="number">5601</span></div><div class="line"><span class="attr">    environment:</span></div><div class="line">      <span class="comment"># Elasticsearch 连接信息</span></div><div class="line"><span class="attr">      ELASTICSEARCH_URL:</span> http://es01:<span class="number">9200</span></div><div class="line"><span class="attr">      ELASTICSEARCH_HOSTS:</span> <span class="string">'["http://es01:9200"]'</span></div><div class="line"><span class="attr">      ELASTICSEARCH_USERNAME:</span> elastic</div><div class="line"><span class="attr">      ELASTICSEARCH_PASSWORD:</span> IQsMLRniP5BcYfoNzTBT</div><div class="line"><span class="attr">    networks:</span></div><div class="line"><span class="bullet">      -</span> elastic</div><div class="line"></div><div class="line"><span class="comment"># 存储卷</span></div><div class="line"><span class="attr">volumes:</span></div><div class="line"><span class="attr">  data01:</span></div><div class="line"><span class="attr">    driver:</span> local</div><div class="line"><span class="attr">  data02:</span></div><div class="line"><span class="attr">    driver:</span> local</div><div class="line"><span class="attr">  data03:</span></div><div class="line"><span class="attr">    driver:</span> local</div><div class="line"></div><div class="line"><span class="comment"># 网络</span></div><div class="line"><span class="attr">networks:</span></div><div class="line"><span class="attr">  elastic:</span></div><div class="line"><span class="attr">    driver:</span> bridge</div></pre></td></tr></table></figure>
+<h3 id="k8s-集群-已提前搭建"><a href="#k8s-集群-已提前搭建" class="headerlink" title="k8s 集群(已提前搭建)"></a>k8s 集群(已提前搭建)</h3><p>kubectl exec -it $(kubectl get pods -n esbeta| grep elasticsearch-client | sed -n 1p | awk ‘{print $1}’) -n esbeta – bin/elasticsearch-setup-passwords interactive </p>
+
+          
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2022/09/17/大数据-实时计算Flink之FlinkSQL/" itemprop="url">
                   大数据-实时计算Flink之FlinkSQL
                 </a>
@@ -965,117 +1064,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2022/08/26/ES-ReIndex迁移数据/" itemprop="url">
-                  ES ReIndex迁移数据
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2022-08-26T10:56:55+08:00" content="2022-08-26">
-              2022-08-26
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2022/08/26/ES-ReIndex迁移数据/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2022/08/26/ES-ReIndex迁移数据/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、给目标集群新增白名单"><a href="#一、给目标集群新增白名单" class="headerlink" title="一、给目标集群新增白名单"></a><strong>一、</strong>给目标集群新增白名单</h1><h4 id="1、elasticsearch-yml中添加reindex-remote-whitelist-“xx-xx-xx-xx-9200”-，不加http，重启ES服务；"><a href="#1、elasticsearch-yml中添加reindex-remote-whitelist-“xx-xx-xx-xx-9200”-，不加http，重启ES服务；" class="headerlink" title="1、elasticsearch.yml中添加reindex.remote.whitelist: [“xx.xx.xx.xx:9200”]，不加http，重启ES服务；"></a>1、<a href="https://so.csdn.net/so/search?q=elasticsearch&amp;spm=1001.2101.3001.7020" target="_blank" rel="external">elasticsearch</a>.yml中添加reindex.remote.whitelist: [“xx.xx.xx.xx:9200”]，不加http，重启ES服务；</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">http.host: 0.0.0.0</div><div class="line">http.cors.enabled: true</div><div class="line">http.cors.allow-origin: &quot;*&quot;</div><div class="line">http.cors.allow-headers: Authorization</div><div class="line">xpack.security.enabled: true</div><div class="line">xpack.security.transport.ssl.enabled: true</div><div class="line">reindex.remote.whitelist: [&quot;124.70.107.101:30997&quot;,&quot;47.94.255.84:30997&quot;]</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker ps|grep elasticsearch</div><div class="line"></div><div class="line">docker exec -it elasticsearch /bin/bash</div><div class="line"></div><div class="line">vi config/elasticsearch.yml</div><div class="line"></div><div class="line">docker restart elasticsearch</div></pre></td></tr></table></figure>
-<h1 id="二、使用PostMan修改目标主机ES参数"><a href="#二、使用PostMan修改目标主机ES参数" class="headerlink" title="二、使用PostMan修改目标主机ES参数"></a><strong>二、使用PostMan修改目标主机ES参数</strong></h1><h4 id="1、PUT-settings-pretty"><a href="#1、PUT-settings-pretty" class="headerlink" title="1、PUT _settings?pretty"></a>1、PUT _settings?pretty</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;index.refresh_interval&quot;: -1,</div><div class="line">  &quot;index.number_of_replicas&quot;: 0</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="三、使用reindex同步数据"><a href="#三、使用reindex同步数据" class="headerlink" title="三、使用reindex同步数据"></a><strong>三、使用reindex同步数据</strong></h1><h4 id="1、同步数据，POST-reindex-wait-for-completion-false"><a href="#1、同步数据，POST-reindex-wait-for-completion-false" class="headerlink" title="1、同步数据，POST _reindex?wait_for_completion=false"></a>1、同步数据，POST _reindex?wait_for_completion=false</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"># 1、过滤数据</div><div class="line">&#123;</div><div class="line">    &quot;source&quot;: &#123;</div><div class="line">        &quot;remote&quot;: &#123;</div><div class="line">            &quot;host&quot;: &quot;http://47.94.255.84:30997&quot;,</div><div class="line">            &quot;username&quot;: &quot;elastic&quot;,</div><div class="line">            &quot;password&quot;: &quot;IQsMLRniP5BcYfoNzTBT&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;size&quot;: 10000,</div><div class="line">        &quot;index&quot;: &quot;aiot_towercrane_realtime_master&quot;,</div><div class="line">        &quot;query&quot;: &#123;</div><div class="line">            &quot;bool&quot;: &#123;</div><div class="line">                &quot;filter&quot;: [</div><div class="line">                    &#123;</div><div class="line">                        &quot;range&quot;: &#123;</div><div class="line">                            &quot;createTime&quot;: &#123;</div><div class="line">                                &quot;gte&quot;: 1652262590167,</div><div class="line">                                &quot;lte&quot;: 1652262590346</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;,</div><div class="line">                    &#123;</div><div class="line">                        &quot;term&quot;: &#123;</div><div class="line">                            &quot;tenantId&quot;: &quot;1441953685304872961&quot;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;dest&quot;: &#123;</div><div class="line">        &quot;index&quot;: &quot;aiot_towercrane_realtime_master&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"># 2 查询数据</div><div class="line">&#123;</div><div class="line">  &quot;source&quot;: &#123;</div><div class="line">    &quot;remote&quot;: &#123;</div><div class="line">      &quot;host&quot;: &quot;http://47.94.255.84:30997&quot;,</div><div class="line">      &quot;username&quot;: &quot;elastic&quot;,</div><div class="line">      &quot;password&quot;: &quot;IQsMLRniP5BcYfoNzTBT&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;index&quot;: &quot;aiot_deeppit_mesure_day_record_master&quot;,</div><div class="line">    &quot;query&quot;: &#123;</div><div class="line">      &quot;match&quot;: &#123;</div><div class="line">        &quot;projectId&quot;: &quot;1447476989099610114&quot;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  &quot;dest&quot;: &#123;</div><div class="line">    &quot;index&quot;: &quot;aiot_deeppit_mesure_day_record_xiongan&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p> <strong>注：</strong></p>
-<ul>
-<li><strong>同步之前，需要删除目标主机中已存在索引，否则同步不成功。</strong></li>
-<li><strong>同步ES数据时，如果需要认证，目标主机添加Basic auth认证，源主机添加username和password;</strong></li>
-</ul>
-</blockquote>
-<h4 id="2、批量修改数据-POST-aiot-towercrane-param-xiongan-update-by-query"><a href="#2、批量修改数据-POST-aiot-towercrane-param-xiongan-update-by-query" class="headerlink" title="2、批量修改数据 POST aiot_towercrane_param_xiongan/_update_by_query"></a>2、批量修改数据 POST aiot_towercrane_param_xiongan/_update_by_query</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">http://144.7.110.56:9200/aiot_towercrane_param_xiongan/_update_by_query</div><div class="line">&#123;</div><div class="line">  &quot;query&quot;: &#123; </div><div class="line">    &quot;match_all&quot;: &#123;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  &quot;script&quot;: &#123;</div><div class="line">    &quot;source&quot;: &quot;ctx._source.tenantId = 1504718344228839425L &quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li>注意：Long类型更新需要添加L</li>
-</ul>
-</blockquote>
-<h1 id="四、查看迁移状况"><a href="#四、查看迁移状况" class="headerlink" title="四、查看迁移状况"></a>四、查看迁移状况</h1><h4 id="1、查看所有task"><a href="#1、查看所有task" class="headerlink" title="1、查看所有task"></a>1、查看所有task</h4><p>GET _tasks?detailed=true&amp;actions=*reindex<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://144.7.110.56:9200/_tasks?detailed=true&amp;actions=*reindex</div></pre></td></tr></table></figure></p>
-<p>GET _tasks/xxx?pretty<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://144.7.110.56:9200/_tasks/6kPnJej0SZKt4Y5THf6TuQ:697134?pretty</div></pre></td></tr></table></figure></p>
-<h1 id="五、恢复新es设置"><a href="#五、恢复新es设置" class="headerlink" title="五、恢复新es设置"></a>五、恢复新es设置</h1><h4 id="1、PUT-settings-pretty-1"><a href="#1、PUT-settings-pretty-1" class="headerlink" title="1、PUT _settings?pretty"></a>1、PUT _settings?pretty</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;index.refresh_interval&quot;: &quot;10m&quot;,</div><div class="line">  &quot;index.number_of_replicas&quot;: 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">bool查询总结</div><div class="line"></div><div class="line">must：与关系，相当于关系型数据库中的 and。</div><div class="line"></div><div class="line">should：或关系，相当于关系型数据库中的 or。</div><div class="line"></div><div class="line">must_not：非关系，相当于关系型数据库中的 not。</div><div class="line"></div><div class="line">filter：过滤条件。</div><div class="line"></div><div class="line">range：条件筛选范围。</div><div class="line"></div><div class="line">gt：大于，相当于关系型数据库中的 &gt;。</div><div class="line"></div><div class="line">gte：大于等于，相当于关系型数据库中的 &gt;=。</div><div class="line"></div><div class="line">lt：小于，相当于关系型数据库中的 &lt;。</div><div class="line"></div><div class="line">lte：小于等于，相当于关系型数据库中的 &lt;=。</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1122,7 +1110,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">77</span>
+              <span class="site-state-item-count">78</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1190,7 +1178,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
